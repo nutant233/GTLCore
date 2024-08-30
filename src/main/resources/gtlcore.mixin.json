@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.gtlcore.gtlcore.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ae2.client.BuiltInModelHooksAccessor",
+    "ae2.client.ModelBakeryMixin"
+  ],
+  "mixins": [
+    "ae2.MixinCowMap",
+    "ae2.MixinGenericSlotCapacities",
+    "ae2.MixinGenericStackInv",
+    "gtm.OverclockingLogicMixin",
+    "gtm.TagPrefixItemMixin",
+    "gtm.machine.SimpleGeneratorMachineMinxin",
+    "gtm.machine.SimpleTieredMachineMixin",
+    "gtm.machine.WorkableTieredMachineMixin",
+    "gtm.recipe.CraftingComponentMixin",
+    "gtm.recipe.GCyMRecipesMixin",
+    "gtm.recipe.OreRecipeHandlerMixin",
+    "gtm.registry.GTMachinesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1,
+    "maxShiftBy": 5
+  }
+}
