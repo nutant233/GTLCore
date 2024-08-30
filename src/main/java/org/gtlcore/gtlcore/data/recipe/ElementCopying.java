@@ -1,15 +1,19 @@
 package org.gtlcore.gtlcore.data.recipe;
 
 import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.api.data.chemical.Element;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.common.data.GTElements;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.ELEMENT_COPYING_RECIPES;
+import static org.gtlcore.gtlcore.utils.Registries.getMaterial;
 
 public class ElementCopying {
 
@@ -131,7 +135,7 @@ public class ElementCopying {
             GTMaterials.Thulium,
             GTMaterials.Tin,
             GTMaterials.Titanium,
-            GTMaterials.get("titanium_50"),
+            getMaterial("titanium_50"),
             GTMaterials.Tungsten,
             GTMaterials.Uranium238,
             GTMaterials.Uranium235,
@@ -143,7 +147,8 @@ public class ElementCopying {
 
     public static void init(Consumer<FinishedRecipe> provider) {
         for (Material e : fes) {
-            long atomic = e.getElement().protons() + e.getElement().neutrons();
+            Element element = Objects.requireNonNullElse(e.getElement(), GTElements.Nt);
+            long atomic = element.protons() + element.neutrons();
             ELEMENT_COPYING_RECIPES.recipeBuilder(e.getName())
                     .notConsumableFluid(e.getFluid(1000))
                     .inputFluids(GTMaterials.UUMatter.getFluid(atomic))
@@ -154,7 +159,8 @@ public class ElementCopying {
         }
 
         for (Material e : ies) {
-            long atomic = e.getElement().protons() + e.getElement().neutrons();
+            Element element = Objects.requireNonNullElse(e.getElement(), GTElements.Nt);
+            long atomic = element.protons() + element.neutrons();
             ELEMENT_COPYING_RECIPES.recipeBuilder(e.getName())
                     .notConsumable(TagPrefix.dust, e)
                     .inputFluids(GTMaterials.UUMatter.getFluid(atomic))

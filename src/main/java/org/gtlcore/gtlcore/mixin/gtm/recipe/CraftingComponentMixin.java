@@ -12,6 +12,6 @@ public abstract class CraftingComponentMixin {
 
     @Inject(method = "initializeComponents()V", at = @At(value = "TAIL"))
     private static void initializeAddition(CallbackInfo ci) {
-        CraftingComponentAddition.init();
+       // CraftingComponentAddition.init();
     }
 }

@@ -8,9 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
-import org.gtlcore.gtlcore.data.recipe.ElementCopying;
-import org.gtlcore.gtlcore.data.recipe.FuelRecipes;
-import org.gtlcore.gtlcore.data.recipe.GCyMRecipes;
+import org.gtlcore.gtlcore.data.recipe.*;
 
 import java.util.function.Consumer;
 
@@ -48,12 +46,16 @@ public class GTLGTAddon implements IGTAddon {
     public void addRecipes(Consumer<FinishedRecipe> provider) {
         GCyMRecipes.init(provider);
         FuelRecipes.init(provider);
-       // ElementCopying.init(provider);
+        MachineRecipe.init(provider);
+        Misc.init(provider);
+        ElementCopying.init(provider);
     }
 
     @Override
     public void removeRecipes(Consumer<ResourceLocation> consumer) {
         DISASSEMBLY_RECORD.clear();
+        consumer.accept(new ResourceLocation("gtceu:assembly_line/dynamo_hatch_uhv"));
+        consumer.accept(new ResourceLocation("gtceu:assembly_line/energy_hatch_uhv"));
     }
 
     @Override

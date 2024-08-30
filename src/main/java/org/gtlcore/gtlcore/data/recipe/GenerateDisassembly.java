@@ -38,13 +38,15 @@ public class GenerateDisassembly {
     }
 
     public static void generateDisassembly(GTRecipeBuilder r, Consumer<FinishedRecipe> p) {
-        ItemStack outputs = ItemRecipeCapability.CAP
-                .of(r.output.get(ItemRecipeCapability.CAP).get(0).getContent()).getItems()[0];
-        String id = outputs.kjs$getId();
+        ItemStack[] outputs = ItemRecipeCapability.CAP
+                .of(r.output.get(ItemRecipeCapability.CAP).get(0).getContent()).getItems();
+        if (outputs.length == 0) return;
+        ItemStack  output = outputs[0];
+        String id = output.kjs$getId();
         boolean cal = r.recipeType == GTRecipeTypes.get("circuit_assembly_line");
         if (isExcludeItems(id, outputItem)) return;
         GTRecipeBuilder builder = DISASSEMBLY.recipeBuilder(new ResourceLocation(id))
-                .inputItems(outputs)
+                .inputItems(output)
                 .duration(1)
                 .EUt(4 * EURecipeCapability.CAP
                         .of(r.tickInput.get(EURecipeCapability.CAP).get(0).getContent()));
@@ -56,8 +58,10 @@ public class GenerateDisassembly {
             List<Content> fluidList = r.input.getOrDefault(FluidRecipeCapability.CAP, null);
             if (itemList != null) {
                 itemList.forEach(content -> {
-                    ItemStack item = ItemRecipeCapability.CAP
-                            .of(content.getContent()).getItems()[0];
+                    ItemStack[] items = ItemRecipeCapability.CAP
+                            .of(content.getContent()).getItems();
+                    if (items.length == 0) return;
+                    ItemStack item = items[0];
                     if (content.chance == ChanceLogic.getMaxChancedValue() && !item.isEmpty() && !item.hasTag()) {
                         if (cal || !isExcludeItems(item.kjs$getId(), inputItem)) {
                             builder.outputItems(item);

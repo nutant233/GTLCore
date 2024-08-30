@@ -19,6 +19,8 @@
     "gtm.recipe.CraftingComponentMixin",
     "gtm.recipe.GCyMRecipesMixin",
     "gtm.recipe.OreRecipeHandlerMixin",
+    "gtm.recipe.change.NaquadahRecipesMixin",
+    "gtm.recipe.change.PlatGroupMetalsRecipesMixin",
     "gtm.registry.GTMachinesMixin"
   ],
   "injectors": {
