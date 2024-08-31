@@ -3,7 +3,8 @@ package org.gtlcore.gtlcore.mixin.gtm;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import it.unimi.dsi.fastutil.longs.LongIntPair;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
 import javax.annotation.Nonnull;
 

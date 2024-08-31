@@ -14,11 +14,11 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.cableGtSingle;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.plate;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.Europium;
+import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
-import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.HULL;
 import static com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader.registerMachineRecipe;
 import static org.gtlcore.gtlcore.common.data.GTLMachines.DEHYDRATOR;
 import static org.gtlcore.gtlcore.common.data.GTLMachines.ROTOR_HOLDER;

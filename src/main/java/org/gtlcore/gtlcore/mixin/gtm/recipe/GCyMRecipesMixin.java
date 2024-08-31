@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GCyMBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GTItems.*;
+import static com.gregtechceu.gtceu.common.data.GTItems.ELECTRIC_MOTOR_IV;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 
 @Mixin(GCyMRecipes.class)

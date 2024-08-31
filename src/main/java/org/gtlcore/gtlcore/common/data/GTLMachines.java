@@ -4,28 +4,49 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.RotationState;
+import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
+import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
+import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
+import com.gregtechceu.gtceu.api.pattern.Predicates;
+import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.RotorHolderMachineRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.common.data.GTCompassSections;
+import com.gregtechceu.gtceu.common.data.GTMachines;
+import com.gregtechceu.gtceu.common.data.GTMaterials;
+import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.RotorHolderPartMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
+import org.gtlcore.gtlcore.common.machine.HeatExchangerMachine;
 import org.gtlcore.gtlcore.common.machine.LightningRodMachine;
-import org.gtlcore.gtlcore.common.machine.part.AutoConfigurationMaintenanceHatchPartMachine;
-import org.gtlcore.gtlcore.common.machine.part.CleaningConfigurationMaintenanceHatchPartMachine;
-import org.gtlcore.gtlcore.common.machine.part.GTLCleaningMaintenanceHatchPartMachine;
-import org.gtlcore.gtlcore.common.machine.part.GTLSteamHatchPartMachine;
+import org.gtlcore.gtlcore.common.machine.NeutronActivatorMachine;
+import org.gtlcore.gtlcore.common.machine.PrimitiveOreMachine;
+import org.gtlcore.gtlcore.common.machine.part.*;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
+import static com.gregtechceu.gtceu.api.machine.multiblock.PartAbility.*;
+import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
+import static com.gregtechceu.gtceu.api.pattern.util.RelativeDirection.*;
+import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.*;
-import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
+import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
+import static org.gtlcore.gtlcore.api.pattern.GTLPredicates.countBlock;
+import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
 public class GTLMachines {
 
@@ -235,4 +256,170 @@ public class GTLMachines {
                             FormattingUtil.formatNumbers((long) (48828 * Math.pow(4, tier)))))
                     .register(),
             EV, IV, LuV);
+
+    public final static MultiblockMachineDefinition ELECTRIC_IMPLOSION_COMPRESSOR = REGISTRATE
+            .multiblock("electric_implosion_compressor", WorkableElectricMultiblockMachine::new)
+            .langValue("Electric Implosion Compressor")
+            .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
+            .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
+            .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.electric_implosion_compressor")))
+            .rotationState(RotationState.ALL)
+            .recipeType(ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES)
+            .recipeModifiers(GTRecipeModifiers.SUBTICK_PARALLEL, GTRecipeModifiers.PARALLEL_HATCH,
+                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("XXXXX", "F###F", "F###F", "F###F", "F###F", "F###F", "F###F", "XXXXX")
+                    .aisle("XXXXX", "#PGP#", "#PGP#", "#PGP#", "#PGP#", "#PGP#", "#PGP#", "XXXXX")
+                    .aisle("XXXXX", "#GAG#", "#GAG#", "#GAG#", "#GAG#", "#GAG#", "#GAG#", "XXMXX")
+                    .aisle("XXXXX", "#PGP#", "#PGP#", "#PGP#", "#PGP#", "#PGP#", "#PGP#", "XXXXX")
+                    .aisle("XXSXX", "F###F", "F###F", "F###F", "F###F", "F###F", "F###F", "XXXXX")
+                    .where('S', controller(blocks(definition.get())))
+                    .where('X',
+                            blocks(CASING_TUNGSTENSTEEL_ROBUST.get()).setMinGlobalLimited(40)
+                                    .or(autoAbilities(definition.getRecipeTypes()))
+                                    .or(Predicates.autoAbilities(true, false, true)))
+                    .where('P', blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
+                    .where('G', blocks(FUSION_GLASS.get()))
+                    .where('F', blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.TungstenSteel)))
+                    .where('A', air())
+                    .where('#', any())
+                    .where('M', blocks(MUFFLER_HATCH[LuV].get()))
+                    .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
+                    GTCEu.id("block/multiblock/implosion_compressor"))
+            .compassSections(GTCompassSections.TIER[IV])
+            .compassNodeSelf()
+            .register();
+
+    public static final MachineDefinition[] NEUTRON_ACCELERATOR = registerTieredMachines("neutron_accelerator",
+            NeutronAcceleratorPartMachine::new,
+            (tier, builder) -> builder
+                    .langValue(VNF[tier] + "Neutron Accelerator")
+                    .rotationState(RotationState.ALL)
+                    .abilities(GTLPartAbility.NEUTRON_ACCELERATOR)
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.max_voltage_in", V[tier], VNF[tier]),
+                            Component.translatable("gtceu.machine.neutron_accelerator.tooltip.0", V[tier] * 8 / 10),
+                            Component.translatable("gtceu.machine.neutron_accelerator.tooltip.1"),
+                            Component.translatable("gtceu.universal.tooltip.energy_storage_capacity", 2 * V[tier]))
+                    .overlayTieredHullRenderer("neutron_accelerator")
+                    .compassNode("neutron_accelerator")
+                    .register(),
+            GTMachines.ALL_TIERS);
+
+    public final static MachineDefinition NEUTRON_SENSOR = REGISTRATE
+            .machine("neutron_sensor", NeutronSensorPartMachine::new)
+            .langValue("Neutron Sensor")
+            .tier(GTValues.IV)
+            .rotationState(RotationState.ALL)
+            .tooltips(Component.translatable("gtceu.machine.neutron_sensor.tooltip.0"))
+            .overlayTieredHullRenderer("neutron_sensor")
+            .register();
+
+    public static final MultiblockMachineDefinition NEUTRON_ACTIVATOR = REGISTRATE
+            .multiblock("neutron_activator", NeutronActivatorMachine::new)
+            .rotationState(RotationState.NON_Y_AXIS)
+            .tooltips(Component.translatable("gtceu.machine.neutron_activator.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.neutron_activator.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.neutron_activator.tooltip.2"))
+            .tooltips(Component.translatable("gtceu.machine.neutron_activator.tooltip.3"))
+            .tooltips(Component.translatable("gtceu.machine.neutron_activator.tooltip.4"))
+            .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.neutron_activator")))
+            .recipeTypes(NEUTRON_ACTIVATOR_RECIPES)
+            .recipeModifiers(NeutronActivatorMachine::recipeModifier)
+            .appearanceBlock(CASING_STAINLESS_CLEAN)
+            .pattern(definition -> FactoryBlockPattern.start(RIGHT, BACK, UP)
+                    .aisle("AAGAA", "ADDDA", "ADDDA", "ADDDA", "AAAAA")
+                    .aisle("B   B", " EEE ", " EFE ", " EEE ", "B   B").setRepeatable(4, 200)
+                    .aisle("CCCCC", "CDDDC", "CDDDC", "CDDDC", "CCCCC")
+                    .where('G', controller(blocks(definition.getBlock())))
+                    .where('A', blocks(CASING_STAINLESS_CLEAN.get())
+                            .or(blocks(NEUTRON_SENSOR.get()).setMaxGlobalLimited(1))
+                            .or(abilities(EXPORT_FLUIDS).setMaxGlobalLimited(1))
+                            .or(abilities(EXPORT_ITEMS).setMaxGlobalLimited(2))
+                            .or(abilities(GTLPartAbility.NEUTRON_ACCELERATOR).setMaxGlobalLimited(2))
+                            .or(abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
+                            .or(abilities(MAINTENANCE).setExactLimit(1)))
+                    .where('B', frames(GTMaterials.Tungsten))
+                    .where('C', blocks(CASING_STAINLESS_CLEAN.get())
+                            .or(abilities(IMPORT_FLUIDS).setMaxGlobalLimited(1))
+                            .or(abilities(IMPORT_ITEMS).setMaxGlobalLimited(2)))
+                    .where('D', blocks(ForgeRegistries.BLOCKS
+                            .getValue(new ResourceLocation("kubejs:process_machine_casing"))))
+                    .where('E', blocks(CASING_LAMINATED_GLASS.get()))
+                    .where('F', countBlock("SpeedPipe",
+                            ForgeRegistries.BLOCKS.getValue(new ResourceLocation("kubejs:speeding_pipe"))))
+                    .where(' ', any())
+                    .build())
+            .workableCasingRenderer(
+                    GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"),
+                    GTCEu.id("block/multiblock/fusion_reactor"))
+            .register();
+
+    public final static MultiblockMachineDefinition HEAT_EXCHANGER = REGISTRATE
+            .multiblock("heat_exchanger", HeatExchangerMachine::new)
+            .langValue("Heat Exchanger")
+            .tooltips(Component.translatable("gtceu.machine.heat_exchanger.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.heat_exchanger.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.heat_exchanger")))
+            .rotationState(RotationState.ALL)
+            .recipeType(HEAT_EXCHANGER_RECIPES)
+            .recipeModifiers(HeatExchangerMachine::recipeModifier)
+            .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle(" AAA ", " AAA ", " AAA ", " AAA ", " AAA ", " AAA ")
+                    .aisle("AAAAA", "BCCCB", "BCCCB", "BCCCB", "BCCCB", "AAAAA")
+                    .aisle("AAAAA", "BDDDB", "BDCDB", "BDCDB", "BDDDB", "AAAAA")
+                    .aisle("AAAAA", "BCCCB", "BCCCB", "BCCCB", "BCCCB", "AAAAA")
+                    .aisle("AAAAA", "BDDDB", "BDCDB", "BDCDB", "BDDDB", "AAAAA")
+                    .aisle("AAAAA", "BCCCB", "BCCCB", "BCCCB", "BCCCB", "AAAAA")
+                    .aisle("AAAAA", "BDDDB", "BDCDB", "BDCDB", "BDDDB", "AAAAA")
+                    .aisle("AAAAA", "BCCCB", "BCCCB", "BCCCB", "BCCCB", "AAAAA")
+                    .aisle(" ASA ", " AAA ", " AAA ", " AAA ", " AAA ", " AAA ")
+                    .where('S', controller(blocks(definition.get())))
+                    .where('A',
+                            blocks(CASING_TUNGSTENSTEEL_ROBUST.get()).setMinGlobalLimited(98)
+                                    .or(autoAbilities(definition.getRecipeTypes()))
+                                    .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
+                    .where('C', blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
+                    .where('B', blocks(CASING_LAMINATED_GLASS.get()))
+                    .where('D', blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.HSSG)))
+                    .where(' ', any())
+                    .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
+                    GTCEu.id("block/multiblock/implosion_compressor"))
+            .compassSections(GTCompassSections.TIER[IV])
+            .compassNodeSelf()
+            .register();
+
+    public final static MultiblockMachineDefinition PRIMITIVE_VOID_ORE = ConfigHolder.INSTANCE.enablePrimitiveVoidOre ?
+            REGISTRATE.multiblock("primitive_void_ore", PrimitiveOreMachine::new)
+                    .langValue("Primitive Void Ore")
+                    .tooltips(Component.literal("运行时根据维度每tick随机产出一组任意粗矿"))
+                    .tooltips(Component.literal("支持主世界,下界,末地"))
+                    .rotationState(RotationState.ALL)
+                    .recipeType(PRIMITIVE_VOID_ORE_RECIPES)
+                    .appearanceBlock(() -> Blocks.DIRT)
+                    .pattern(definition -> FactoryBlockPattern.start()
+                            .aisle("XXX", "XXX", "XXX")
+                            .aisle("XXX", "XAX", "XXX")
+                            .aisle("XXX", "XSX", "XXX")
+                            .where('S', controller(blocks(definition.get())))
+                            .where('X',
+                                    blocks(Blocks.DIRT)
+                                            .or(Predicates.abilities(EXPORT_ITEMS))
+                                            .or(Predicates.abilities(IMPORT_FLUIDS)))
+                            .where('A', air())
+                            .build())
+                    .workableCasingRenderer(new ResourceLocation("minecraft:block/dirt"),
+                            GTCEu.id("block/multiblock/gcym/large_extractor"))
+                    .compassSections(GTCompassSections.TIER[LV])
+                    .compassNodeSelf()
+                    .register() :
+            null;
 }

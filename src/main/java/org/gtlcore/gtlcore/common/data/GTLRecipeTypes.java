@@ -6,7 +6,6 @@ import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sound.ExistingSoundEntry;
-import com.gregtechceu.gtceu.common.data.GCyMRecipeTypes;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.data.GTSoundEntries;
@@ -14,6 +13,7 @@ import com.lowdragmc.lowdraglib.gui.texture.ProgressTexture;
 import com.lowdragmc.lowdraglib.utils.LocalizationUtils;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
 
 import static com.gregtechceu.gtceu.api.GTValues.EV;
@@ -23,6 +23,14 @@ import static com.lowdragmc.lowdraglib.gui.texture.ProgressTexture.FillDirection
 
 
 public class GTLRecipeTypes {
+
+    public static final GTRecipeType PRIMITIVE_VOID_ORE_RECIPES = ConfigHolder.INSTANCE.enablePrimitiveVoidOre ?
+            register("primitive_void_ore", MULTIBLOCK)
+                    .setMaxIOSize(0, 0, 1, 0)
+                    .setMaxTooltips(1)
+                    .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, LEFT_TO_RIGHT)
+                    .setSound(GTSoundEntries.MINER) :
+            null;
 
     public final static GTRecipeType SEMI_FLUID_GENERATOR_FUELS = register("semi_fluid_generator", GENERATOR)
             .setMaxIOSize(0, 0, 1, 0).setEUIO(IO.OUT)

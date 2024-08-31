@@ -8,7 +8,6 @@ import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEv
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -16,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
@@ -37,6 +37,7 @@ public class CommonProxy {
 
     public static void init() {
         GTLCreativeModeTabs.init();
+        ConfigHolder.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

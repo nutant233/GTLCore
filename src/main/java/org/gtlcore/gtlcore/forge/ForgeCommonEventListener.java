@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.MissingMappingsEvent;
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import java.util.Objects;
 
@@ -83,7 +84,7 @@ public class ForgeCommonEventListener {
 
     @SubscribeEvent
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END &&
+        if (ConfigHolder.INSTANCE.disableDrift && event.phase == TickEvent.Phase.END &&
                 event.side == LogicalSide.CLIENT && event.player.xxa == 0 && event.player.zza == 0) {
             event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(0.5, 1, 0.5));
         }

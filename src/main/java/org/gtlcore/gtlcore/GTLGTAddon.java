@@ -56,6 +56,8 @@ public class GTLGTAddon implements IGTAddon {
         DISASSEMBLY_RECORD.clear();
         consumer.accept(new ResourceLocation("gtceu:assembly_line/dynamo_hatch_uhv"));
         consumer.accept(new ResourceLocation("gtceu:assembly_line/energy_hatch_uhv"));
+        consumer.accept(new ResourceLocation("gtceu:research_station/1_x_gtceu_uv_energy_input_hatch"));
+        consumer.accept(new ResourceLocation("gtceu:research_station/1_x_gtceu_uv_energy_output_hatch"));
     }
 
     @Override

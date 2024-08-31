@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
-import static com.gregtechceu.gtceu.api.GTValues.MAX;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
 import static org.gtlcore.gtlcore.utils.Registries.getItem;
 import static org.gtlcore.gtlcore.utils.Registries.getMaterial;

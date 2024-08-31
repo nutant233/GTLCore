@@ -80,6 +80,9 @@ repositories {
         name 'IzzelAliz Maven'
         url 'https://maven.izzel.io/releases/'
     }
+    maven { // Ad Astra
+        url "https://maven.teamresourceful.com/repository/maven-public/"
+    }
 }
 
 dependencies {
@@ -95,8 +98,8 @@ dependencies {
     modCompileOnly("mezz.jei:jei-$project.minecraft_version-forge-api:$project.jei_version") { transitive = false }
     modCompileOnly("mezz.jei:jei-$project.minecraft_version-common-api:$project.jei_version") { transitive = false }
 
-    //modImplementation("com.gregtechceu.gtceu:gtceu-$project.minecraft_version:$project.gtceu_version") { transitive = false }
-    modImplementation("dev:gtceu:1.20.1:1.4.0") { transitive false }
+    modImplementation("com.gregtechceu.gtceu:gtceu-$project.minecraft_version:$project.gtceu_version") { transitive = false }
+   // modImplementation("dev:gtceu:1.20.1:1.4.0") { transitive false }
     modImplementation("com.lowdragmc.ldlib:ldlib-forge-$project.minecraft_version:$project.ldlib_version") { transitive = false }
     modImplementation("com.tterrag.registrate:Registrate:$project.registrate_version")
     modImplementation("dev.latvian.mods:kubejs-forge:$project.kubejs_version")
@@ -115,7 +118,14 @@ dependencies {
 
     modImplementation("dev.architectury:architectury-forge:${project.architectury_version}")
 
-    modRuntimeOnly("dev.toma.configuration:configuration-forge-$project.minecraft_version:$project.configuration_version")
+    modImplementation("dev.toma.configuration:configuration-forge-$project.minecraft_version:$project.configuration_version")
+
+   // forgeRuntimeLibrary("com.teamresourceful:yabn:1.0.3")
+   // forgeRuntimeLibrary("com.teamresourceful:bytecodecs:1.0.2")
+   // modImplementation("com.teamresourceful.resourcefullib:resourcefullib-forge-${project.minecraft_version}:${project.resourcefullib_version}")
+   // modImplementation("com.teamresourceful.resourcefulconfig:resourcefulconfig-forge-${project.minecraft_version}:${project.resourcefulconfig_version}")
+   // modImplementation("earth.terrarium.botarium:botarium-forge-${project.minecraft_version}:${project.botarium_version}")
+   // modImplementation("earth.terrarium.adastra:ad_astra-forge-${project.minecraft_version}:${ad_astra_version}") {transitive false}
 
     modRuntimeOnly("mezz.jei:jei-$project.minecraft_version-forge:$project.jei_version") { transitive = false }
 

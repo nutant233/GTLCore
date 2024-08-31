@@ -7,14 +7,18 @@ import com.gregtechceu.gtceu.api.pattern.MultiblockState;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gregtechceu.gtceu.api.pattern.error.PatternStringError;
-import com.gregtechceu.gtceu.api.pattern.predicates.*;
+import com.gregtechceu.gtceu.api.pattern.predicates.PredicateBlocks;
+import com.gregtechceu.gtceu.api.pattern.predicates.SimplePredicate;
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Block;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
 import org.gtlcore.gtlcore.api.pattern.util.SimpleValueContainer;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
