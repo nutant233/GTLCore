@@ -16,7 +16,9 @@ public abstract class HPCAComputationPartMachineMixin extends HPCAComponentPartM
         super(holder);
     }
 
-    @Shadow @Final private boolean advanced;
+    @Shadow(remap = false)
+    @Final
+    private boolean advanced;
 
     /**
      * @author

@@ -17,9 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FluidPipeType.class)
 public abstract class FluidPipeTypeMixin implements IMaterialPipeType<FluidPipeProperties> {
 
-    @Shadow @Final public float thickness;
+    @Shadow(remap = false)
+    @Final
+    public float thickness;
 
-    @Shadow @Final public String name;
+    @Shadow(remap = false)
+    @Final
+    public String name;
 
     @Inject(method = "createPipeModel", at = @At("HEAD"), remap = false, cancellable = true)
     public void createPipeModel(Material material, CallbackInfoReturnable<PipeModel> cir) {

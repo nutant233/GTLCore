@@ -57,7 +57,7 @@ public class GTLBlocks {
         STORAGE_16M(16, "16m_storage"),
         STORAGE_64M(64, "64m_storage"),
         STORAGE_256M(256, "256m_storage"),
-        STORAGE_256G(262144, "256g_storage");
+        STORAGE_MAX(Integer.MAX_VALUE, "max_storage");
 
         private final int storageMb;
 
@@ -86,7 +86,7 @@ public class GTLBlocks {
                 case STORAGE_16M -> CRAFTING_STORAGE_16M;
                 case STORAGE_64M -> CRAFTING_STORAGE_64M;
                 case STORAGE_256M -> CRAFTING_STORAGE_256M;
-                case STORAGE_256G -> CRAFTING_STORAGE_256G;
+                case STORAGE_MAX -> CRAFTING_STORAGE_MAX;
             };
         }
 
@@ -98,7 +98,7 @@ public class GTLBlocks {
 
     private static BlockEntry<CraftingUnitBlock> registerCraftingUnitBlock(int tier, CraftingUnitType Type) {
         return REGISTRATE
-                .block(tier == -1 ? "256g_storage" : tier + "m_storage",
+                .block(tier == -1 ? "max_storage" : tier + "m_storage",
                         p -> new CraftingUnitBlock(Type))
                 .blockstate((ctx, provider) -> {
                     String formed = "block/crafting/" + ctx.getName() + "_formed";
@@ -222,8 +222,8 @@ public class GTLBlocks {
             GTLBlocks.CraftingUnitType.STORAGE_64M);
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_256M = registerCraftingUnitBlock(256,
             GTLBlocks.CraftingUnitType.STORAGE_256M);
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_256G = registerCraftingUnitBlock(-1,
-            GTLBlocks.CraftingUnitType.STORAGE_256G);
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_MAX = registerCraftingUnitBlock(-1,
+            GTLBlocks.CraftingUnitType.STORAGE_MAX);
 
     public static BlockEntityEntry<CraftingBlockEntity> CRAFTING_STORAGE = REGISTRATE
             .blockEntity("crafting_storage", CraftingBlockEntity::new)
@@ -233,7 +233,7 @@ public class GTLBlocks {
                     CRAFTING_STORAGE_16M,
                     CRAFTING_STORAGE_64M,
                     CRAFTING_STORAGE_256M,
-                    CRAFTING_STORAGE_256G)
+                    CRAFTING_STORAGE_MAX)
             .onRegister(type -> {
                 for (GTLBlocks.CraftingUnitType craftingUnitType : GTLBlocks.CraftingUnitType.values()) {
                     AEBaseBlockEntity.registerBlockEntityItem(type, craftingUnitType.getItemFromType());

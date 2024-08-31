@@ -38,7 +38,7 @@ public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider
     protected static final Material STORAGE_16M_LIGHT = texture("16m_storage_light");
     protected static final Material STORAGE_64M_LIGHT = texture("64m_storage_light");
     protected static final Material STORAGE_256M_LIGHT = texture("256m_storage_light");
-    protected static final Material STORAGE_256G_LIGHT = texture("256g_storage_light");
+    protected static final Material STORAGE_MAX_LIGHT = texture("max_storage_light");
 
     public CraftingUnitModelProvider(GTLBlocks.CraftingUnitType type) {
         super(type);
@@ -51,7 +51,7 @@ public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider
             case STORAGE_16M -> textureGetter.apply(STORAGE_16M_LIGHT);
             case STORAGE_64M -> textureGetter.apply(STORAGE_64M_LIGHT);
             case STORAGE_256M -> textureGetter.apply(STORAGE_256M_LIGHT);
-            case STORAGE_256G -> textureGetter.apply(STORAGE_256G_LIGHT);
+            case STORAGE_MAX -> textureGetter.apply(STORAGE_MAX_LIGHT);
         };
     }
 
@@ -103,6 +103,6 @@ public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider
         ItemBlockRenderTypes.setRenderLayer(GTLBlocks.CRAFTING_STORAGE_16M.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(GTLBlocks.CRAFTING_STORAGE_64M.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(GTLBlocks.CRAFTING_STORAGE_256M.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(GTLBlocks.CRAFTING_STORAGE_256G.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(GTLBlocks.CRAFTING_STORAGE_MAX.get(), RenderType.cutout());
     }
 }

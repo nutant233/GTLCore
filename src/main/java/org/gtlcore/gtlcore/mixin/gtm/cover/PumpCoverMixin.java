@@ -21,7 +21,9 @@ public abstract class PumpCoverMixin extends CoverBehavior implements IUICover, 
 
 
     @Mutable
-    @Shadow @Final public long maxMilliBucketsPerTick;
+    @Shadow(remap = false)
+    @Final
+    public long maxMilliBucketsPerTick;
 
     public PumpCoverMixin(CoverDefinition definition, ICoverable coverHolder, Direction attachedSide) {
         super(definition, coverHolder, attachedSide);

@@ -17,7 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ParallelHatchPartMachineMixin extends TieredPartMachine implements IFancyUIMachine, IParallelHatch {
 
     @Mutable
-    @Shadow @Final private int maxParallel;
+    @Shadow(remap = false)
+    @Final
+    private int maxParallel;
 
     public ParallelHatchPartMachineMixin(IMachineBlockEntity holder, int tier) {
         super(holder, tier);

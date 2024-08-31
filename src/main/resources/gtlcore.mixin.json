@@ -8,9 +8,11 @@
     "ae2.client.ModelBakeryMixin"
   ],
   "mixins": [
+    "ae2.CPUSelectionListMixin",
     "ae2.MixinCowMap",
     "ae2.MixinGenericSlotCapacities",
     "ae2.MixinGenericStackInv",
+    "ae2.TooltipsMixin",
     "gtm.FluidPipeTypeMixin",
     "gtm.OverclockingLogicMixin",
     "gtm.RockBreakerConditionMixin",
