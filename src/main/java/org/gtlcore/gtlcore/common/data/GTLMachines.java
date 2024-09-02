@@ -332,8 +332,8 @@ public class GTLMachines {
                     Component.translatable("gtceu.electric_implosion_compressor")))
             .rotationState(RotationState.ALL)
             .recipeType(ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES)
-            .recipeModifiers(GTRecipeModifiers.SUBTICK_PARALLEL, GTRecipeModifiers.PARALLEL_HATCH,
-                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH,
+                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXXXX", "F###F", "F###F", "F###F", "F###F", "F###F", "F###F", "XXXXX")
@@ -395,7 +395,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.neutron_activator")))
             .recipeTypes(NEUTRON_ACTIVATOR_RECIPES)
-            .recipeModifiers(NeutronActivatorMachine::recipeModifier)
+            .recipeModifiers(((machine, recipe, params, result) -> NeutronActivatorMachine.recipeModifier(machine, recipe)))
             .appearanceBlock(CASING_STAINLESS_CLEAN)
             .pattern(definition -> FactoryBlockPattern.start(RIGHT, BACK, UP)
                     .aisle("AAGAA", "ADDDA", "ADDDA", "ADDDA", "AAAAA")
@@ -434,7 +434,7 @@ public class GTLMachines {
                     Component.translatable("gtceu.heat_exchanger")))
             .rotationState(RotationState.ALL)
             .recipeType(HEAT_EXCHANGER_RECIPES)
-            .recipeModifiers(HeatExchangerMachine::recipeModifier)
+            .recipeModifiers((machine, recipe, params, result) -> HeatExchangerMachine.recipeModifier(machine, recipe))
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle(" AAA ", " AAA ", " AAA ", " AAA ", " AAA ", " AAA ")
@@ -543,7 +543,7 @@ public class GTLMachines {
                             "提供§f120L/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
                     Component.literal(
                             "再额外提供§f80L/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
-            .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
+            .recipeModifier((machine, recipe, params, result) -> ChemicalEnergyDevourerMachine.recipeModifier(machine, recipe), true)
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("BBBBBBB", "BBBBBBB", "BBPBPBB", "BBBBBBB", "BBPBPBB", "BBBBBBB", "BBBBBBB")
@@ -571,7 +571,7 @@ public class GTLMachines {
                     .where("I", abilities(PartAbility.MUFFLER))
                     .build())
             .recoveryItems(
-                    () -> new ItemLike[] { GTItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash).get() })
+                    () -> new ItemLike[]{GTItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash).get()})
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
                     GTCEu.id("block/multiblock/generator/extreme_combustion_engine"), false)
             .compassSections(GTCompassSections.TIER[IV])

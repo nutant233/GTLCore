@@ -39,16 +39,16 @@ public class StorageMachine extends WorkableElectricMultiblockMachine implements
         return new NotifiableItemStackHandler(
                 this, 1, IO.NONE, IO.BOTH, slots -> new ItemStackTransfer(1) {
 
-                    @Override
-                    public int getSlotLimit(int slot) {
-                        return value;
-                    }
-                });
+            @Override
+            public int getSlotLimit(int slot) {
+                return value;
+            }
+        });
     }
 
     @Override
-    public void onDrops(List<ItemStack> drops, Player entity) {
-        clearInventory(drops, machineStorage.storage);
+    public void onDrops(List<ItemStack> drops) {
+        clearInventory(machineStorage.storage);
     }
 
     @Override

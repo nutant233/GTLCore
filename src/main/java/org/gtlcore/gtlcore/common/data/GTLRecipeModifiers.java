@@ -11,6 +11,8 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
+import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
+import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.api.recipe.modifier.RecipeModifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +21,7 @@ import java.util.Optional;
 
 public class GTLRecipeModifiers {
 
-    public static final RecipeModifier GCYM_REDUCTION = (machine, recipe) -> GTLRecipeModifiers
+    public static final RecipeModifier GCYM_REDUCTION = (machine, recipe, params, result) -> GTLRecipeModifiers
             .reduction(machine, recipe, 0.8, 0.6);
 
     public static GTRecipe chemicalPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe) {
@@ -30,7 +32,7 @@ public class GTLRecipeModifiers {
             double reduction = 1 - coilMachine.getCoilTier() * 0.05;
             GTRecipe recipe1 = reduction(machine, recipe, reduction, reduction);
             return RecipeHelper.applyOverclock(OverclockingLogic.PERFECT_OVERCLOCK,
-                    recipe1, coilMachine.getOverclockVoltage());
+                    recipe1, coilMachine.getOverclockVoltage(), new OCParams(), new OCResult());
         }
         return null;
     }
