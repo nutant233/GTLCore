@@ -15,6 +15,7 @@ import com.gregtechceu.gtceu.client.renderer.block.CTMModelRenderer;
 import com.gregtechceu.gtceu.client.renderer.block.TextureOverrideRenderer;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.lowdragmc.lowdraglib.Platform;
+import com.lowdragmc.lowdraglib.client.renderer.block.RendererBlock;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
@@ -43,7 +44,8 @@ import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 public class GTLBlocks {
 
-    public static void init() {}
+    public static void init() {
+    }
 
     static {
         REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
@@ -124,9 +126,7 @@ public class GTLBlocks {
     @SuppressWarnings("all")
     public static BlockEntry<ActiveBlock> createActiveCasing(String name, String baseModelPath) {
         String finalName = "%s".formatted(name);
-        return REGISTRATE.block(finalName, p -> new ActiveBlock(p,
-                        Platform.isClient() ? new CTMModelRenderer(GTCEu.id(baseModelPath)) : null,
-                        Platform.isClient() ? new CTMModelRenderer(GTCEu.id("%s_active".formatted(baseModelPath))) : null))
+        return REGISTRATE.block(finalName, ActiveBlock::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .addLayer(() -> RenderType::cutoutMipped)
                 .blockstate(NonNullBiConsumer.noop())
@@ -140,10 +140,7 @@ public class GTLBlocks {
     @SuppressWarnings("all")
     public static BlockEntry<Block> createTierCasings(String name, ResourceLocation texture,
                                                       Map<Integer, Supplier<Block>> map, int tier) {
-        BlockEntry<Block> Block = REGISTRATE.block(name, p -> (Block) new RendererBlock(p,
-                        Platform.isClient() ? new TextureOverrideRenderer(new ResourceLocation("block/cube_all"),
-                                Map.of("all", texture)) : null) {
-
+        BlockEntry<Block> Block = REGISTRATE.block(name, p -> (Block) new Block(p) {
                     @Override
                     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
                                                 @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
@@ -167,10 +164,7 @@ public class GTLBlocks {
     @SuppressWarnings("all")
     public static BlockEntry<Block> createActiveTierCasing(String name, String baseModelPath,
                                                            Map<Integer, Supplier<Block>> map, int tier) {
-        BlockEntry<Block> Block = REGISTRATE.block("%s".formatted(name), p -> (Block) new ActiveBlock(p,
-                        Platform.isClient() ? new CTMModelRenderer(GTCEu.id(baseModelPath)) : null,
-                        Platform.isClient() ? new CTMModelRenderer(GTCEu.id("%s_active".formatted(baseModelPath))) : null) {
-
+        BlockEntry<Block> Block = REGISTRATE.block("%s".formatted(name), p -> (Block) new ActiveBlock(p) {
                     @Override
                     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
                                                 @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
@@ -192,9 +186,7 @@ public class GTLBlocks {
 
     @SuppressWarnings("all")
     private static BlockEntry<Block> createCleanroomFilter() {
-        var filterBlock = REGISTRATE.block(((IFilterType) GTLCleanroomFilterType.FILTER_CASING_LAW).getSerializedName(), p -> (Block) new RendererBlock(p,
-                        Platform.isClient() ? new TextureOverrideRenderer(new ResourceLocation("block/cube_all"),
-                                Map.of("all", GTCEu.id("block/casings/cleanroom/" + GTLCleanroomFilterType.FILTER_CASING_LAW))) : null))
+        var filterBlock = REGISTRATE.block(((IFilterType) GTLCleanroomFilterType.FILTER_CASING_LAW).getSerializedName(), p -> (Block) new Block(p))
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(properties -> properties.strength(2.0f, 8.0f).sound(SoundType.METAL)
                         .isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false))

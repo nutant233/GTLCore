@@ -8,6 +8,8 @@ import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
+import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
+import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.core.BlockPos;
@@ -39,7 +41,7 @@ public class GTLAssemblyLineMachine extends WorkableElectricMultiblockMachine {
                 return null;
             }
             return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK,
-                    recipe1, lineMachine.getOverclockVoltage());
+                    recipe1, lineMachine.getOverclockVoltage(), new OCParams(), new OCResult());
         }
         return null;
     }
