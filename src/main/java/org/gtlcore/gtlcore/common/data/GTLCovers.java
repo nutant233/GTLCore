@@ -17,9 +17,9 @@ public class GTLCovers {
             (def, coverable, side) -> new PumpCover(def, coverable, side, GTValues.MAX),
             PumpCoverRenderer.INSTANCE);
 
-    public static final CoverDefinition FLUID_REGULATORS_MAX = GTCovers.register(
-            "fluid_regulators.max",
-            (def, coverable, side) -> new PumpCover(def, coverable, side, GTValues.MAX),
+    public static final CoverDefinition FLUID_REGULATORS_ULV = GTCovers.register(
+            "fluid_regulators.ulv",
+            (def, coverable, side) -> new PumpCover(def, coverable, side, GTValues.ULV),
             FluidRegulatorCoverRenderer.INSTANCE);
 
     public static final CoverDefinition CONVEYOR_MODULE_MAX = GTCovers.register(
@@ -30,6 +30,11 @@ public class GTLCovers {
     public static final CoverDefinition ROBOT_ARM_MAX = GTCovers.register(
             "robot_arm.max",
             (def, coverable, side) -> new RobotArmCover(def, coverable, side, GTValues.MAX),
+            RobotArmCoverRenderer.INSTANCE);
+
+    public static final CoverDefinition ROBOT_ARM_ULV = GTCovers.register(
+            "robot_arm.ulv",
+            (def, coverable, side) -> new RobotArmCover(def, coverable, side, GTValues.ULV),
             RobotArmCoverRenderer.INSTANCE);
 
     public static void init() {}

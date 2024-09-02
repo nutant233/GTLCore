@@ -61,6 +61,7 @@ public class GTLMaterials {
     public static Material TungstenTrioxide;
 
     public static void init() {
+        Europium.getProperty(PropertyKey.BLAST).setBlastTemperature(9600);
         UUMatter.setProperty(PropertyKey.INGOT, new IngotProperty());
         UUMatter.addFlags(NO_UNIFICATION, GENERATE_PLATE, GENERATE_DENSE, GENERATE_ROD, GENERATE_BOLT_SCREW, GENERATE_FRAME,
                 GENERATE_GEAR, GENERATE_LONG_ROD, FORCE_GENERATE_BLOCK, GENERATE_FOIL, GENERATE_RING, GENERATE_SPRING,

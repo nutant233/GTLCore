@@ -27,7 +27,6 @@
     "gtm.machine.SimpleGeneratorMachineMinxin",
     "gtm.machine.SimpleTieredMachineMixin",
     "gtm.machine.WorkableTieredMachineMixin",
-    "gtm.recipe.CraftingComponentMixin",
     "gtm.recipe.GCyMRecipesMixin",
     "gtm.recipe.GTRecipeBuilderMixin",
     "gtm.recipe.OreRecipeHandlerMixin",

@@ -37,7 +37,7 @@ public abstract class GTRecipeBuilderMixin {
 
     @Unique
     private int gTLCore$getDuration() {
-        if (gTLCore$eut < 0 ||
+        if (ConfigHolder.INSTANCE.durationMultiplier == 1 || gTLCore$eut < 0 ||
                 recipeType == GTRecipeTypes.get("primitive_void_ore") ||
                 recipeType == GTRecipeTypes.get("large_boiler") ||
                 recipeType == GTRecipeTypes.get("steam_boiler") ||
@@ -51,11 +51,11 @@ public abstract class GTRecipeBuilderMixin {
                 recipeType == GTRecipeTypes.get("annihilate_generator")) {
             return Math.abs(duration);
         }
-        return 1;
+        return (int) Math.min(Integer.MAX_VALUE, Math.max(1, Math.abs(duration * ConfigHolder.INSTANCE.durationMultiplier)));
     }
 
     @Inject(method = "toJson", at = @At("TAIL"), remap = false)
     public void toJson(JsonObject json, CallbackInfo ci) {
-        json.addProperty("duration", ConfigHolder.INSTANCE.babyMode ? gTLCore$getDuration() : duration);
+        json.addProperty("duration",gTLCore$getDuration());
     }
 }

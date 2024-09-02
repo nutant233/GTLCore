@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ParallelHatchPartMachine.class)
 public abstract class ParallelHatchPartMachineMixin extends TieredPartMachine implements IFancyUIMachine, IParallelHatch {
@@ -21,6 +22,9 @@ public abstract class ParallelHatchPartMachineMixin extends TieredPartMachine im
     @Final
     private int maxParallel;
 
+    @Shadow(remap = false)
+    private int currentParallel;
+
     public ParallelHatchPartMachineMixin(IMachineBlockEntity holder, int tier) {
         super(holder, tier);
     }
@@ -28,5 +32,15 @@ public abstract class ParallelHatchPartMachineMixin extends TieredPartMachine im
     @Inject(method = "<init>", at = @At("RETURN"), remap = false)
     public void ParallelHatchPartMachine(IMachineBlockEntity holder, int tier, CallbackInfo ci) {
         this.maxParallel = (int) Math.pow(4, tier - 2);
+    }
+
+    @Inject(method = "getCurrentParallel", at = @At("HEAD"), remap = false, cancellable = true)
+    private void getCurrentParallelInj(CallbackInfoReturnable<Integer> cir) {
+        if (currentParallel == 0) cir.setReturnValue(maxParallel);
+    }
+
+    @Inject(method = "setCurrentParallel", at = @At("HEAD"), remap = false)
+    private void setCurrentParallelInj(int parallelAmount, CallbackInfo ci) {
+        if (currentParallel == 0) currentParallel = maxParallel;
     }
 }

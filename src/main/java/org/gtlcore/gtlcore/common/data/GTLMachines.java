@@ -17,10 +17,10 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.RotorHolderMachineRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
-import com.gregtechceu.gtceu.common.data.GTCompassSections;
-import com.gregtechceu.gtceu.common.data.GTMachines;
-import com.gregtechceu.gtceu.common.data.GTMaterials;
-import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
+import com.gregtechceu.gtceu.common.data.*;
+import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
+import com.gregtechceu.gtceu.common.machine.multiblock.electric.FluidDrillMachine;
+import com.gregtechceu.gtceu.common.machine.multiblock.part.EnergyHatchPartMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.RotorHolderPartMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
@@ -28,6 +28,7 @@ import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
@@ -35,6 +36,7 @@ import org.gtlcore.gtlcore.common.machine.HeatExchangerMachine;
 import org.gtlcore.gtlcore.common.machine.LightningRodMachine;
 import org.gtlcore.gtlcore.common.machine.NeutronActivatorMachine;
 import org.gtlcore.gtlcore.common.machine.PrimitiveOreMachine;
+import org.gtlcore.gtlcore.common.machine.generator.ChemicalEnergyDevourerMachine;
 import org.gtlcore.gtlcore.common.machine.part.*;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
@@ -44,17 +46,32 @@ import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
 import static com.gregtechceu.gtceu.api.pattern.util.RelativeDirection.*;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.*;
+import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.DUMMY_RECIPES;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 import static org.gtlcore.gtlcore.api.pattern.GTLPredicates.countBlock;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
 public class GTLMachines {
 
-    public static void init() {}
+    public static void init() {
+        MachineDefinition hpca_computation_component = GTResearchMachines.HPCA_COMPUTATION_COMPONENT;
+        hpca_computation_component.setTooltipBuilder(hpca_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 8))));
+        MachineDefinition hpca_advanced_computation_component = GTResearchMachines.HPCA_ADVANCED_COMPUTATION_COMPONENT;
+        hpca_advanced_computation_component.setTooltipBuilder(hpca_advanced_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 32))));
+        MachineDefinition electric_blast_furnace = GTMachines.ELECTRIC_BLAST_FURNACE;
+        electric_blast_furnace.setTooltipBuilder(electric_blast_furnace.getTooltipBuilder().andThen((itemStack, components) -> {
+            components.add(1, Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"));
+            components.set(3, Component.translatable("gtceu.machine.perfect_oc"));
+        }));
+    }
 
     static {
         REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
     }
+
+    public static final MachineDefinition[] SEMI_FLUID_GENERATOR = registerSimpleGenerator("semi_fluid",
+            SEMI_FLUID_GENERATOR_FUELS, genericGeneratorTankSizeFunction, 0.1f, GTValues.LV, GTValues.MV,
+            GTValues.HV);
 
     public static final MachineDefinition LARGE_STEAM_HATCH = REGISTRATE
             .machine("large_steam_input_hatch", holder -> new GTLSteamHatchPartMachine(holder, IO.IN, 8192, false))
@@ -212,6 +229,54 @@ public class GTLMachines {
                     .compassNode("rotor_holder")
                     .register(),
             UHV, UEV);
+
+    public static final MachineDefinition[] ENERGY_INPUT_HATCH_4A = registerTieredMachines("energy_input_hatch_4a",
+            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.IN, 4),
+            (tier, builder) -> builder
+                    .langValue(VNF[tier] + " 4A Energy Hatch")
+                    .rotationState(RotationState.ALL)
+                    .abilities(PartAbility.INPUT_ENERGY)
+                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.input_hi_amp.tooltip"))
+                    .overlayTieredHullRenderer("energy_hatch.input_4a")
+                    .compassNode("energy_hatch")
+                    .register(),
+            GTValues.tiersBetween(LV, HV));
+
+    public static final MachineDefinition[] ENERGY_OUTPUT_HATCH_4A = registerTieredMachines("energy_output_hatch_4a",
+            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.OUT, 4),
+            (tier, builder) -> builder
+                    .langValue(VNF[tier] + " 4A Dynamo Hatch")
+                    .rotationState(RotationState.ALL)
+                    .abilities(PartAbility.OUTPUT_ENERGY)
+                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.output_hi_amp.tooltip"))
+                    .overlayTieredHullRenderer("energy_hatch.output_4a")
+                    .compassNode("energy_hatch")
+                    .register(),
+            GTValues.tiersBetween(LV, HV));
+
+    public static final MachineDefinition[] ENERGY_INPUT_HATCH_16A = registerTieredMachines("energy_input_hatch_16a",
+            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.IN, 16),
+            (tier, builder) -> builder
+                    .langValue(VNF[tier] + " 16A Energy Hatch")
+                    .rotationState(RotationState.ALL)
+                    .abilities(PartAbility.INPUT_ENERGY)
+                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.input_hi_amp.tooltip"))
+                    .overlayTieredHullRenderer("energy_hatch.input_16a")
+                    .compassNode("energy_hatch")
+                    .register(),
+            GTValues.tiersBetween(LV, HV));
+
+    public static final MachineDefinition[] ENERGY_OUTPUT_HATCH_16A = registerTieredMachines("energy_output_hatch_16a",
+            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.OUT, 16),
+            (tier, builder) -> builder
+                    .langValue(VNF[tier] + " 16A Dynamo Hatch")
+                    .rotationState(RotationState.ALL)
+                    .abilities(PartAbility.OUTPUT_ENERGY)
+                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.output_hi_amp.tooltip"))
+                    .overlayTieredHullRenderer("energy_hatch.output_16a")
+                    .compassNode("energy_hatch")
+                    .register(),
+            GTValues.tiersBetween(LV, HV));
 
     public static final MachineDefinition[] LASER_INPUT_HATCH_16384 = registerLaserHatch(IO.IN, 16384,
             PartAbility.INPUT_LASER);
@@ -422,4 +487,94 @@ public class GTLMachines {
                     .compassNodeSelf()
                     .register() :
             null;
+
+    public static final MultiblockMachineDefinition[] FLUID_DRILLING_RIG = registerTieredMultis(
+            "fluid_drilling_rig", FluidDrillMachine::new, (tier, builder) -> builder
+                    .rotationState(RotationState.ALL)
+                    .langValue("%s Fluid Drilling Rig %s".formatted(VLVH[tier], VLVT[tier]))
+                    .recipeType(DUMMY_RECIPES)
+                    .tooltips(
+                            Component.translatable("gtceu.machine.fluid_drilling_rig.description"),
+                            Component.translatable("gtceu.machine.fluid_drilling_rig.depletion",
+                                    FormattingUtil.formatNumbers(100.0 / FluidDrillMachine.getDepletionChance(tier))),
+                            Component.translatable("gtceu.universal.tooltip.energy_tier_range", GTValues.VNF[tier],
+                                    GTValues.VNF[tier + 1]),
+                            Component.translatable("gtceu.machine.fluid_drilling_rig.production",
+                                    FluidDrillMachine.getRigMultiplier(tier),
+                                    FormattingUtil.formatNumbers(FluidDrillMachine.getRigMultiplier(tier) * 1.5)))
+                    .appearanceBlock(() -> FluidDrillMachine.getCasingState(tier))
+                    .pattern((definition) -> FactoryBlockPattern.start()
+                            .aisle("XXX", "#F#", "#F#", "#F#", "###", "###", "###")
+                            .aisle("XXX", "FCF", "FCF", "FCF", "#F#", "#F#", "#F#")
+                            .aisle("XSX", "#F#", "#F#", "#F#", "###", "###", "###")
+                            .where('S', controller(blocks(definition.get())))
+                            .where('X', blocks(FluidDrillMachine.getCasingState(tier)).setMinGlobalLimited(3)
+                                    .or(abilities(PartAbility.INPUT_ENERGY).setMinGlobalLimited(1)
+                                            .setMaxGlobalLimited(2))
+                                    .or(abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1)))
+                            .where('C', blocks(FluidDrillMachine.getCasingState(tier)))
+                            .where('F', blocks(FluidDrillMachine.getFrameState(tier)))
+                            .where('#', any())
+                            .build())
+                    .workableCasingRenderer(FluidDrillMachine.getBaseTexture(tier),
+                            GTCEu.id("block/multiblock/fluid_drilling_rig"))
+                    .compassSections(GTCompassSections.TIER[MV])
+                    .compassNode("fluid_drilling_rig")
+                    .register(),
+            ZPM);
+
+    public static final MultiblockMachineDefinition LARGE_SEMI_FLUID_GENERATOR = registerLargeCombustionEngine(
+            "large_semi_fluid_generator", EV,
+            CASING_TITANIUM_STABLE, CASING_STEEL_GEARBOX, CASING_ENGINE_INTAKE,
+            GTCEu.id("block/casings/solid/machine_casing_stable_titanium"),
+            GTCEu.id("block/multiblock/generator/large_combustion_engine"));
+
+    public final static MultiblockMachineDefinition CHEMICAL_ENERGY_DEVOURER = REGISTRATE
+            .multiblock("chemical_energy_devourer", holder -> new ChemicalEnergyDevourerMachine(holder, IV))
+            .rotationState(RotationState.ALL)
+            .recipeTypes(GTRecipeTypes.COMBUSTION_GENERATOR_FUELS, SEMI_FLUID_GENERATOR_FUELS,
+                    GTRecipeTypes.GAS_TURBINE_FUELS)
+            .generator(true)
+            .tooltips(Component.translatable(
+                            "gtceu.universal.tooltip.base_production_eut", 2 * GTValues.V[GTValues.ZPM]),
+                    Component.translatable(
+                            "gtceu.universal.tooltip.uses_per_hour_lubricant", 2000),
+                    Component.literal(
+                            "提供§f120L/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
+                    Component.literal(
+                            "再额外提供§f80L/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
+            .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
+            .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("BBBBBBB", "BBBBBBB", "BBPBPBB", "BBBBBBB", "BBPBPBB", "BBBBBBB", "BBBBBBB")
+                    .aisle("BBBBBBB", "BDDDDDB", "BEHHHEB", "BGHEHGB", "BEHHHEB", "BDDDDDB", "BBBBBBB")
+                    .aisle("BBBBBBB", "BDDDDDB", "BEHHHEB", "CGHEHGC", "BEHHHEB", "BDDDDDB", "BBBBBBB")
+                    .aisle("BBBBBBB", "FDDDDDF", "BEHHHEB", "CGHEHGC", "BEHHHEB", "FDDDDDF", "BBIBIBB")
+                    .aisle("BBBBBBB", "FDDDDDF", "BEHHHEB", "CGHEHGC", "BEHHHEB", "FDDDDDF", "BBIBIBB")
+                    .aisle("BBBBBBB", "FDDDDDF", "BEHHHEB", "CGHEHGC", "BEHHHEB", "FDDDDDF", "BBIBIBB")
+                    .aisle("BBBBBBB", "FDDDDDF", "BEHHHEB", "CGHEHGC", "BEHHHEB", "FDDDDDF", "BBIBIBB")
+                    .aisle("BBBBBBB", "BDDDDDB", "BEHHHEB", "CGHEHGC", "BEHHHEB", "BDDDDDB", "BBIBIBB")
+                    .aisle("BBBBBBB", "BDDDDDB", "BEHHHEB", "BGHEHGB", "BEHHHEB", "BDDDDDB", "BBBBBBB")
+                    .aisle("AAAAAAA", "AAAAAAA", "AABBBAA", "AABSBAA", "AABBBAA", "AAAAAAA", "AAAAAAA")
+                    .where("S", controller(blocks(definition.get())))
+                    .where("A", blocks(GTBlocks.CASING_EXTREME_ENGINE_INTAKE.get()))
+                    .where("B", blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get()))
+                    .where("F", blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
+                            .or(abilities(PartAbility.MAINTENANCE).setExactLimit(1))
+                            .or(abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(4)))
+                    .where("C", blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                    .where("G", blocks(GCyMBlocks.ELECTROLYTIC_CELL.get()))
+                    .where("D", blocks(GTBlocks.FIREBOX_TITANIUM.get()))
+                    .where("E", blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                    .where("H", blocks(GTBlocks.CASING_TITANIUM_GEARBOX.get()))
+                    .where("P", abilities(PartAbility.OUTPUT_ENERGY))
+                    .where("I", abilities(PartAbility.MUFFLER))
+                    .build())
+            .recoveryItems(
+                    () -> new ItemLike[] { GTItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash).get() })
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
+                    GTCEu.id("block/multiblock/generator/extreme_combustion_engine"), false)
+            .compassSections(GTCompassSections.TIER[IV])
+            .compassNode("large_combustion")
+            .register();
 }

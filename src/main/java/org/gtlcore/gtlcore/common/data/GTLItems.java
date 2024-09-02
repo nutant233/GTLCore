@@ -173,7 +173,7 @@ public class GTLItems {
     public static ItemEntry<ComponentItem> PRIMITIVE_ROBOT_ARM = REGISTRATE
             .item("primitive_robot_arm", ComponentItem::create)
             .lang("primitive robot Arm")
-            .onRegister(attach(new CoverPlaceBehavior(GTLCovers.ROBOT_ARM_MAX)))
+            .onRegister(attach(new CoverPlaceBehavior(GTLCovers.ROBOT_ARM_ULV)))
             .onRegister(attach(new TooltipBehavior(lines -> {
                 lines.add(Component.translatable("item.gtceu.robot.arm.tooltip"));
                 lines.add(Component.translatable("gtceu.universal.tooltip.item_transfer_rate_stacks", 33554431));
@@ -184,7 +184,7 @@ public class GTLItems {
     public static ItemEntry<ComponentItem> PRIMITIVE_FLUID_REGULATOR = REGISTRATE
             .item("primitive_fluid_regulator", ComponentItem::create)
             .lang("Primitive Fluid Regulator")
-            .onRegister(attach(new CoverPlaceBehavior(GTLCovers.FLUID_REGULATORS_MAX)))
+            .onRegister(attach(new CoverPlaceBehavior(GTLCovers.FLUID_REGULATORS_ULV)))
             .onRegister(attach(new TooltipBehavior(lines -> {
                 lines.add(Component.translatable("item.gtceu.fluid.regulator.tooltip"));
                 lines.add(Component.translatable("gtceu.universal.tooltip.fluid_transfer_rate", Integer.MAX_VALUE));

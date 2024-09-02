@@ -25,5 +25,6 @@ public class ConfigHolder {
     @Configurable
     public boolean enablePrimitiveVoidOre = false;
     @Configurable
-    public boolean babyMode = false;
+    @Configurable.Range(min = 0)
+    public double durationMultiplier = 1;
 }
