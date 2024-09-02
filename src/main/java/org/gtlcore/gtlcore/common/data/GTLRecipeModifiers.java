@@ -24,15 +24,23 @@ public class GTLRecipeModifiers {
     public static final RecipeModifier GCYM_REDUCTION = (machine, recipe, params, result) -> GTLRecipeModifiers
             .reduction(machine, recipe, 0.8, 0.6);
 
-    public static GTRecipe chemicalPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe) {
+    public static GTRecipe chemicalPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
+                                                  @NotNull OCResult result) {
         if (machine instanceof CoilWorkableElectricMultiblockMachine coilMachine) {
-            if (RecipeHelper.getRecipeEUtTier(recipe) / recipe.parallels > coilMachine.getTier()) {
+            if (RecipeHelper.getRecipeEUtTier(recipe) > coilMachine.getTier()) {
                 return null;
             }
-            double reduction = 1 - coilMachine.getCoilTier() * 0.05;
-            GTRecipe recipe1 = reduction(machine, recipe, reduction, reduction);
-            return RecipeHelper.applyOverclock(OverclockingLogic.PERFECT_OVERCLOCK,
-                    recipe1, coilMachine.getOverclockVoltage(), new OCParams(), new OCResult());
+            var re = RecipeHelper.applyOverclock(
+                    new OverclockingLogic((p, r, maxVoltage) -> {
+                        OverclockingLogic.NON_PERFECT_OVERCLOCK.getLogic()
+                                .runOverclockingLogic(params, result, maxVoltage);
+                    }), recipe, coilMachine.getOverclockVoltage(), params, result);
+
+            if (coilMachine.getCoilTier() > 0) {
+                result.setEut(Math.max(1, (long) (result.getEut() * (1.0 - coilMachine.getCoilTier() * 0.05))));
+                result.setDuration((int) Math.max(1, (result.getEut() * (1.0 - coilMachine.getCoilTier() * 0.05))));
+            }
+            return re;
         }
         return null;
     }
@@ -40,7 +48,7 @@ public class GTLRecipeModifiers {
     public static GTRecipe reduction(MetaMachine machine, @NotNull GTRecipe recipe,
                                      double reductionEUt, double reductionDuration) {
         if (machine instanceof IOverclockMachine overclockMachine) {
-            if (RecipeHelper.getRecipeEUtTier(recipe) / recipe.parallels > overclockMachine.getMaxOverclockTier()) {
+            if (RecipeHelper.getRecipeEUtTier(recipe) > overclockMachine.getMaxOverclockTier()) {
                 return null;
             }
             GTRecipe recipe1 = recipe.copy();

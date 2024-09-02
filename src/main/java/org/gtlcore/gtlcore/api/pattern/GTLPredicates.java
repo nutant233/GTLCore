@@ -16,17 +16,12 @@ import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
 import org.gtlcore.gtlcore.api.pattern.util.SimpleValueContainer;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class GTLPredicates {
-
-    public static Map<Integer, Supplier<Block>> createTierCasingsMap() {
-        return new HashMap<>();
-    }
 
     public static TraceabilityPredicate tierCasings(Map<Integer, Supplier<Block>> map, String tierType) {
         return new TraceabilityPredicate(blockWorldState -> {

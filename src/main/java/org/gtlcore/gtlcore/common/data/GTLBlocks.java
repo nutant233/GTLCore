@@ -5,17 +5,13 @@ import appeng.block.crafting.CraftingUnitBlock;
 import appeng.block.crafting.ICraftingUnitType;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
-import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
+import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.block.ActiveBlock;
 import com.gregtechceu.gtceu.api.block.IFilterType;
 import com.gregtechceu.gtceu.api.item.RendererBlockItem;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
-import com.gregtechceu.gtceu.client.renderer.block.CTMModelRenderer;
-import com.gregtechceu.gtceu.client.renderer.block.TextureOverrideRenderer;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
-import com.lowdragmc.lowdraglib.Platform;
-import com.lowdragmc.lowdraglib.client.renderer.block.RendererBlock;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
@@ -36,6 +32,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -44,7 +41,32 @@ import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 public class GTLBlocks {
 
+    public static Map<Integer, Supplier<Block>> scmap = new HashMap<>();
+    public static Map<Integer, Supplier<Block>> sepmmap = new HashMap<>();
+    public static Map<Integer, Supplier<Block>> calmap = new HashMap<>();
+
     public static void init() {
+        GTLBlocks.createActiveCasing("hyper_core", "block/variant/hyper_core");
+        GTLBlocks.createActiveCasing("super_computation_component", "block/variant/super_computation_component");
+        GTLBlocks.createActiveCasing("super_cooler_component", "block/variant/super_cooler_component");
+        GTLBlocks.createActiveCasing("spacetimecontinuumripper", "block/variant/spacetimecontinuumripper");
+        GTLBlocks.createActiveCasing("spacetimebendingcore", "block/variant/spacetimebendingcore");
+        GTLBlocks.createActiveCasing("qft_coil", "block/variant/qft_coil");
+        GTLBlocks.createActiveCasing("fission_fuel_assembly", "block/variant/fission_fuel_assembly");
+        GTLBlocks.createActiveCasing("cooler", "block/variant/cooler");
+
+        GTLBlocks.createTierCasings("stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
+        GTLBlocks.createTierCasings("advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 2);
+        GTLBlocks.createTierCasings("ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 3);
+
+        GTLBlocks.createActiveTierCasing("power_module", "block/variant/power_module", sepmmap, 1);
+        GTLBlocks.createActiveTierCasing("power_module_2", "block/variant/power_module", sepmmap, 2);
+        GTLBlocks.createActiveTierCasing("power_module_3", "block/variant/power_module", sepmmap, 3);
+        GTLBlocks.createActiveTierCasing("power_module_4", "block/variant/power_module", sepmmap, 4);
+        GTLBlocks.createActiveTierCasing("power_module_5", "block/variant/power_module", sepmmap, 5);
+        for (int i = 1; i < 15; i++) {
+            GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(), new ResourceLocation("kubejs:block/component_assembly_line_casing_" + i), calmap, i);
+        }
     }
 
     static {
@@ -58,7 +80,7 @@ public class GTLBlocks {
         STORAGE_16M(16, "16m_storage"),
         STORAGE_64M(64, "64m_storage"),
         STORAGE_256M(256, "256m_storage"),
-        STORAGE_MAX(Integer.MAX_VALUE, "max_storage");
+        STORAGE_MAX(-1, "max_storage");
 
         private final int storageMb;
 
@@ -72,7 +94,7 @@ public class GTLBlocks {
 
         @Override
         public long getStorageBytes() {
-            return 1024L * 1024 * storageMb;
+            return storageMb == -1 ? Long.MAX_VALUE : 1024L * 1024 * storageMb;
         }
 
         @Override

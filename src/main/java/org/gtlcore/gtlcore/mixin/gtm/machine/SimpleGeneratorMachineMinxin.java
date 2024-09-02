@@ -8,6 +8,8 @@ import com.gregtechceu.gtceu.api.machine.feature.IEnvironmentalHazardEmitter;
 import com.gregtechceu.gtceu.api.machine.feature.IFancyUIMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
+import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
+import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import it.unimi.dsi.fastutil.ints.Int2LongFunction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -28,7 +30,7 @@ public abstract class SimpleGeneratorMachineMinxin extends WorkableTieredMachine
     }
 
     @Inject(method = "recipeModifier", at = @At(value = "RETURN"), remap = false, cancellable = true)
-    private static void recipeModifier(MetaMachine machine, GTRecipe recipe, CallbackInfoReturnable<GTRecipe> cir) {
+    private static void recipeModifier(MetaMachine machine, GTRecipe recipe, OCParams params, OCResult result, CallbackInfoReturnable<GTRecipe> cir) {
         GTRecipe recipe1 = cir.getReturnValue();
         if (recipe1 == null) return;
         recipe1 = recipe.copy(ContentModifier.multiplier(gTLCore$getAmperage(machine)), false);

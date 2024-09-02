@@ -3,7 +3,9 @@ package org.gtlcore.gtlcore.common.data;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.*;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.FluidProperty;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.WireProperties;
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
@@ -62,13 +64,6 @@ public class GTLMaterials {
 
     public static void init() {
         Europium.getProperty(PropertyKey.BLAST).setBlastTemperature(9600);
-        UUMatter.setProperty(PropertyKey.INGOT, new IngotProperty());
-        UUMatter.addFlags(NO_UNIFICATION, GENERATE_PLATE, GENERATE_DENSE, GENERATE_ROD, GENERATE_BOLT_SCREW, GENERATE_FRAME,
-                GENERATE_GEAR, GENERATE_LONG_ROD, FORCE_GENERATE_BLOCK, GENERATE_FOIL, GENERATE_RING, GENERATE_SPRING,
-                GENERATE_SPRING_SMALL, GENERATE_SMALL_GEAR, GENERATE_FINE_WIRE, GENERATE_ROTOR, GENERATE_ROUND, GENERATE_LENS);
-        UUMatter.setProperty(PropertyKey.TOOL, new ToolProperty());
-        UUMatter.setProperty(PropertyKey.WIRE, new WireProperties());
-        UUMatter.setProperty(PropertyKey.FLUID_PIPE, new FluidPipeProperties(1166, 100, true, false, false, false));
         Neutronium.addFlags(GENERATE_ROTOR, GENERATE_SPRING, GENERATE_GEAR, GENERATE_SMALL_GEAR, GENERATE_SPRING_SMALL);
         Neutronium.setProperty(PropertyKey.WIRE, new WireProperties((int) GTValues.V[GTValues.UIV], 2, 64));
         Mendelevium.setProperty(PropertyKey.WIRE, new WireProperties((int) GTValues.V[GTValues.UHV], 4, 16));
