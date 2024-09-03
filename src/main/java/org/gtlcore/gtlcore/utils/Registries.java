@@ -15,7 +15,15 @@ import java.util.Objects;
 public class Registries {
 
     public static Item getItem(String s) {
-        return Objects.requireNonNullElse(ForgeRegistries.ITEMS.getValue(new ResourceLocation(s)), Items.BARRIER);
+        Item i = ForgeRegistries.ITEMS.getValue(new ResourceLocation(s));
+        if (i == Items.AIR) {
+            return Items.BARRIER;
+        }
+        return i;
+    }
+
+    public static ItemStack getItemStack(String s) {
+        return getItemStack(s, 1);
     }
 
     public static ItemStack getItemStack(String s, int a) {
@@ -23,7 +31,11 @@ public class Registries {
     }
 
     public static Block getBlock(String s) {
-        return Objects.requireNonNullElse(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s)), Blocks.BARRIER);
+        Block b = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(s));
+        if (b == Blocks.AIR) {
+            return Blocks.BARRIER;
+        }
+        return b;
     }
 
     public static Material getMaterial(String s) {

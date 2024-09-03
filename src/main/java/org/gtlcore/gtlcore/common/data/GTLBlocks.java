@@ -47,6 +47,7 @@ public class GTLBlocks {
     public static Map<Integer, Supplier<Block>> calmap = new HashMap<>();
 
     public static void init() {
+        GTLBlocks.createActiveCasing("power_core", "block/variant/hyper_core");
         GTLBlocks.createActiveCasing("hyper_core", "block/variant/hyper_core");
         GTLBlocks.createActiveCasing("super_computation_component", "block/variant/super_computation_component");
         GTLBlocks.createActiveCasing("super_cooler_component", "block/variant/super_cooler_component");

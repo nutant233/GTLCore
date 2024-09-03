@@ -255,68 +255,6 @@ public class GTLMachines {
             .compassNodeSelf()
             .register();
 
-    public static final MachineDefinition[] ROTOR_HOLDER = registerTieredMachines("rotor_holder",
-            RotorHolderPartMachine::new,
-            (tier, builder) -> builder
-                    .langValue("%s Rotor Holder".formatted(VNF[tier]))
-                    .rotationState(RotationState.ALL)
-                    .abilities(PartAbility.ROTOR_HOLDER)
-                    .renderer(() -> new RotorHolderMachineRenderer(tier))
-                    .tooltips(LangHandler.getFromMultiLang("gtceu.machine.rotor_holder.tooltip", 0),
-                            LangHandler.getFromMultiLang("gtceu.machine.rotor_holder.tooltip", 1),
-                            Component.translatable("gtceu.universal.disabled"))
-                    .compassNode("rotor_holder")
-                    .register(),
-            UHV, UEV);
-
-    public static final MachineDefinition[] ENERGY_INPUT_HATCH_4A = registerTieredMachines("energy_input_hatch_4a",
-            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.IN, 4),
-            (tier, builder) -> builder
-                    .langValue(VNF[tier] + " 4A Energy Hatch")
-                    .rotationState(RotationState.ALL)
-                    .abilities(PartAbility.INPUT_ENERGY)
-                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.input_hi_amp.tooltip"))
-                    .overlayTieredHullRenderer("energy_hatch.input_4a")
-                    .compassNode("energy_hatch")
-                    .register(),
-            GTValues.tiersBetween(LV, HV));
-
-    public static final MachineDefinition[] ENERGY_OUTPUT_HATCH_4A = registerTieredMachines("energy_output_hatch_4a",
-            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.OUT, 4),
-            (tier, builder) -> builder
-                    .langValue(VNF[tier] + " 4A Dynamo Hatch")
-                    .rotationState(RotationState.ALL)
-                    .abilities(PartAbility.OUTPUT_ENERGY)
-                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.output_hi_amp.tooltip"))
-                    .overlayTieredHullRenderer("energy_hatch.output_4a")
-                    .compassNode("energy_hatch")
-                    .register(),
-            GTValues.tiersBetween(LV, HV));
-
-    public static final MachineDefinition[] ENERGY_INPUT_HATCH_16A = registerTieredMachines("energy_input_hatch_16a",
-            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.IN, 16),
-            (tier, builder) -> builder
-                    .langValue(VNF[tier] + " 16A Energy Hatch")
-                    .rotationState(RotationState.ALL)
-                    .abilities(PartAbility.INPUT_ENERGY)
-                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.input_hi_amp.tooltip"))
-                    .overlayTieredHullRenderer("energy_hatch.input_16a")
-                    .compassNode("energy_hatch")
-                    .register(),
-            GTValues.tiersBetween(LV, HV));
-
-    public static final MachineDefinition[] ENERGY_OUTPUT_HATCH_16A = registerTieredMachines("energy_output_hatch_16a",
-            (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.OUT, 16),
-            (tier, builder) -> builder
-                    .langValue(VNF[tier] + " 16A Dynamo Hatch")
-                    .rotationState(RotationState.ALL)
-                    .abilities(PartAbility.OUTPUT_ENERGY)
-                    .tooltips(Component.translatable("gtceu.machine.energy_hatch.output_hi_amp.tooltip"))
-                    .overlayTieredHullRenderer("energy_hatch.output_16a")
-                    .compassNode("energy_hatch")
-                    .register(),
-            GTValues.tiersBetween(LV, HV));
-
     public static final MachineDefinition[] LASER_INPUT_HATCH_16384 = registerLaserHatch(IO.IN, 16384,
             PartAbility.INPUT_LASER);
     public static final MachineDefinition[] LASER_OUTPUT_HATCH_16384 = registerLaserHatch(IO.OUT, 16384,

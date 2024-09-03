@@ -6,6 +6,7 @@ import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.kubejs.util.ClassFilter;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.utils.Registries;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
 public class GTLKubejsPlugin extends KubeJSPlugin {
@@ -27,5 +28,6 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("GTLRecipeModifiers", GTLRecipeModifiers.class);
         event.add("GTLCleanroomType", GTLCleanroomType.class);
         event.add("TextUtil", TextUtil.class);
+        event.add("Registries", Registries.class);
     }
 }
