@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine.part;
+package org.gtlcore.gtlcore.common.machine.multiblock.part;
 
 import com.google.common.collect.ImmutableSet;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -8,7 +8,6 @@ import com.gregtechceu.gtceu.api.machine.feature.ICleanroomProvider;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.DummyCleanroom;
-import com.gregtechceu.gtceu.common.machine.multiblock.part.AutoMaintenanceHatchPartMachine;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
@@ -19,7 +18,7 @@ import java.util.Set;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class GTLCleaningMaintenanceHatchPartMachine extends AutoMaintenanceHatchPartMachine {
+public class CleaningConfigurationMaintenanceHatchPartMachine extends AutoConfigurationMaintenanceHatchPartMachine {
 
     protected static final Set<CleanroomType> CLEANROOM = new ObjectOpenHashSet<>();
     protected static final Set<CleanroomType> STERILE_CLEANROOM = new ObjectOpenHashSet<>();
@@ -40,22 +39,22 @@ public class GTLCleaningMaintenanceHatchPartMachine extends AutoMaintenanceHatch
 
     ICleanroomProvider cleanroomTypes;
 
-    public GTLCleaningMaintenanceHatchPartMachine(IMachineBlockEntity metaTileEntityId,
-                                                  ICleanroomProvider cleanroomTypes) {
+    public CleaningConfigurationMaintenanceHatchPartMachine(IMachineBlockEntity metaTileEntityId,
+                                                            ICleanroomProvider cleanroomTypes) {
         super(metaTileEntityId);
         this.cleanroomTypes = cleanroomTypes;
     }
 
-    public static GTLCleaningMaintenanceHatchPartMachine Cleaning(IMachineBlockEntity metaTileEntityId) {
-        return new GTLCleaningMaintenanceHatchPartMachine(metaTileEntityId, DUMMY_CLEANROOM);
+    public static CleaningConfigurationMaintenanceHatchPartMachine Cleaning(IMachineBlockEntity metaTileEntityId) {
+        return new CleaningConfigurationMaintenanceHatchPartMachine(metaTileEntityId, DUMMY_CLEANROOM);
     }
 
-    public static GTLCleaningMaintenanceHatchPartMachine SterileCleaning(IMachineBlockEntity metaTileEntityId) {
-        return new GTLCleaningMaintenanceHatchPartMachine(metaTileEntityId, STERILE_DUMMY_CLEANROOM);
+    public static CleaningConfigurationMaintenanceHatchPartMachine SterileCleaning(IMachineBlockEntity metaTileEntityId) {
+        return new CleaningConfigurationMaintenanceHatchPartMachine(metaTileEntityId, STERILE_DUMMY_CLEANROOM);
     }
 
-    public static GTLCleaningMaintenanceHatchPartMachine LawCleaning(IMachineBlockEntity metaTileEntityId) {
-        return new GTLCleaningMaintenanceHatchPartMachine(metaTileEntityId, LAW_DUMMY_CLEANROOM);
+    public static CleaningConfigurationMaintenanceHatchPartMachine LawCleaning(IMachineBlockEntity metaTileEntityId) {
+        return new CleaningConfigurationMaintenanceHatchPartMachine(metaTileEntityId, LAW_DUMMY_CLEANROOM);
     }
 
     @Override
@@ -76,9 +75,9 @@ public class GTLCleaningMaintenanceHatchPartMachine extends AutoMaintenanceHatch
 
     @Override
     public int getTier() {
-        if (this.cleanroomTypes == STERILE_DUMMY_CLEANROOM) return GTValues.ZPM;
-        if (this.cleanroomTypes == LAW_DUMMY_CLEANROOM) return GTValues.UEV;
-        return GTValues.HV;
+        if (this.cleanroomTypes == STERILE_DUMMY_CLEANROOM) return GTValues.UHV;
+        if (this.cleanroomTypes == LAW_DUMMY_CLEANROOM) return GTValues.UXV;
+        return GTValues.IV;
     }
 
     /**

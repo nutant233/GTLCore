@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine;
+package org.gtlcore.gtlcore.common.machine.generator;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;

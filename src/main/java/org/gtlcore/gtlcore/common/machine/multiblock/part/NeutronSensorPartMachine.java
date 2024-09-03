@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine.part;
+package org.gtlcore.gtlcore.common.machine.multiblock.part;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;

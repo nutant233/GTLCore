@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine;
+package org.gtlcore.gtlcore.common.machine.multiblock.steam;
 
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;

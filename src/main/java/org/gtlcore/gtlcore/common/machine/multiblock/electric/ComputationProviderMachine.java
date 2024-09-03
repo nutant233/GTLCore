@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine;
+package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import com.gregtechceu.gtceu.api.capability.IControllable;
 import com.gregtechceu.gtceu.api.capability.IOpticalComputationProvider;
@@ -169,7 +169,7 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
                     if (isFormed()) {
                         Component cwutInfo = Component.literal(
                                 lastAllocatedCWUt + " / " +
-                                        (getMaxCWUt() == Integer.MAX_VALUE ? TextUtil.full_color("无尽") : getMaxCWUt()))
+                                        (inf ? TextUtil.full_color("无尽") : getMaxCWUt()))
                                 .append(Component.literal(" CWU/t"))
                                 .withStyle(ChatFormatting.AQUA);
                         tl.add(Component.translatable(

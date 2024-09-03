@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine.generator;
+package org.gtlcore.gtlcore.common.machine.multiblock.generator;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability;

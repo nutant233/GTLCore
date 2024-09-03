@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine;
+package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;

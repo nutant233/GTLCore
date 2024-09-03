@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine;
+package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
 import com.gregtechceu.gtceu.api.capability.IEnergyContainer;
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;
@@ -38,8 +38,8 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
-import org.gtlcore.gtlcore.common.machine.part.NeutronAcceleratorPartMachine;
-import org.gtlcore.gtlcore.common.machine.part.NeutronSensorPartMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronSensorPartMachine;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

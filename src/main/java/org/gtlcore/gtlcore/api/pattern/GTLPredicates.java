@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.api.pattern;
 
+import com.gregtechceu.gtceu.api.block.ActiveBlock;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.ITieredMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
@@ -24,6 +25,27 @@ import java.util.function.Supplier;
 public class GTLPredicates {
 
     public static TraceabilityPredicate tierCasings(Map<Integer, Supplier<Block>> map, String tierType) {
+        return new TraceabilityPredicate(blockWorldState -> {
+            var blockState = blockWorldState.getBlockState();
+            for (var entry : map.entrySet()) {
+                if (blockState.is(entry.getValue().get())) {
+                    var stats = entry.getKey();
+                    Object currentCoil = blockWorldState.getMatchContext().getOrPut(tierType, stats);
+                    if (!currentCoil.equals(stats)) {
+                        blockWorldState.setError(new PatternStringError("gtceu.multiblock.pattern.error.tier"));
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }, () -> map.values().stream()
+                .map(blockSupplier -> BlockInfo.fromBlockState(blockSupplier.get().defaultBlockState()))
+                .toArray(BlockInfo[]::new))
+                .addTooltips(Component.translatable("gtceu.multiblock.pattern.error.tier"));
+    }
+
+    public static TraceabilityPredicate tierActiveCasings(Map<Integer, Supplier<ActiveBlock>> map, String tierType) {
         return new TraceabilityPredicate(blockWorldState -> {
             var blockState = blockWorldState.getBlockState();
             for (var entry : map.entrySet()) {

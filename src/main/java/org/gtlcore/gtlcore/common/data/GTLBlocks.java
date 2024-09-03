@@ -5,16 +5,16 @@ import appeng.block.crafting.CraftingUnitBlock;
 import appeng.block.crafting.ICraftingUnitType;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
+import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.block.ActiveBlock;
 import com.gregtechceu.gtceu.api.block.IFilterType;
-import com.gregtechceu.gtceu.api.item.RendererBlockItem;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
+import com.gregtechceu.gtceu.common.data.GTModels;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import lombok.Getter;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
@@ -37,12 +37,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.gregtechceu.gtceu.common.data.GTBlocks.createCasingBlock;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 public class GTLBlocks {
 
     public static Map<Integer, Supplier<Block>> scmap = new HashMap<>();
-    public static Map<Integer, Supplier<Block>> sepmmap = new HashMap<>();
+    public static Map<Integer, Supplier<ActiveBlock>> sepmmap = new HashMap<>();
     public static Map<Integer, Supplier<Block>> calmap = new HashMap<>();
 
     public static void init() {
@@ -147,14 +148,13 @@ public class GTLBlocks {
 
     @SuppressWarnings("all")
     public static BlockEntry<ActiveBlock> createActiveCasing(String name, String baseModelPath) {
-        String finalName = "%s".formatted(name);
-        return REGISTRATE.block(finalName, ActiveBlock::new)
+        return REGISTRATE.block(name, ActiveBlock::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(NonNullBiConsumer.noop())
+                .blockstate(GTModels.createActiveModel(GTCEu.id(baseModelPath)))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
-                .item(RendererBlockItem::new)
-                .model(NonNullBiConsumer.noop())
+                .item(BlockItem::new)
+                .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTCEu.id(baseModelPath)))
                 .build()
                 .register();
     }
@@ -172,10 +172,9 @@ public class GTLBlocks {
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(NonNullBiConsumer.noop())
+                .blockstate(GTModels.cubeAllModel(name, texture))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
-                .item(RendererBlockItem::new)
-                .model(NonNullBiConsumer.noop())
+                .item(BlockItem::new)
                 .build()
                 .register();
         REGISTRATE.setCreativeTab(Block, GTLCreativeModeTabs.GTL_CORE);
@@ -184,9 +183,9 @@ public class GTLBlocks {
     }
 
     @SuppressWarnings("all")
-    public static BlockEntry<Block> createActiveTierCasing(String name, String baseModelPath,
-                                                           Map<Integer, Supplier<Block>> map, int tier) {
-        BlockEntry<Block> Block = REGISTRATE.block("%s".formatted(name), p -> (Block) new ActiveBlock(p) {
+    public static BlockEntry<ActiveBlock> createActiveTierCasing(String name, String baseModelPath,
+                                                           Map<Integer, Supplier<ActiveBlock>> map, int tier) {
+        BlockEntry<ActiveBlock> Block = REGISTRATE.block("%s".formatted(name), p -> (ActiveBlock) new ActiveBlock(p) {
                     @Override
                     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
                                                 @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
@@ -195,10 +194,10 @@ public class GTLBlocks {
                 })
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(NonNullBiConsumer.noop())
+                .blockstate(GTModels.createActiveModel(GTCEu.id(baseModelPath)))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
-                .item(RendererBlockItem::new)
-                .model(NonNullBiConsumer.noop())
+                .item(BlockItem::new)
+                .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTCEu.id(baseModelPath)))
                 .build()
                 .register();
         REGISTRATE.setCreativeTab(Block, GTLCreativeModeTabs.GTL_CORE);
@@ -207,23 +206,25 @@ public class GTLBlocks {
     }
 
     @SuppressWarnings("all")
-    private static BlockEntry<Block> createCleanroomFilter() {
-        var filterBlock = REGISTRATE.block(((IFilterType) GTLCleanroomFilterType.FILTER_CASING_LAW).getSerializedName(), p -> (Block) new Block(p))
+    private static BlockEntry<Block> createCleanroomFilter(IFilterType filterType) {
+        var filterBlock = REGISTRATE.block(filterType.getSerializedName(), Block::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(properties -> properties.strength(2.0f, 8.0f).sound(SoundType.METAL)
                         .isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(NonNullBiConsumer.noop())
+                .blockstate(GTModels.createCleanroomFilterModel(filterType.getSerializedName(), filterType))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), CustomTags.TOOL_TIERS[1])
-                .item(RendererBlockItem::new)
-                .model(NonNullBiConsumer.noop())
+                .item(BlockItem::new)
                 .build()
                 .register();
-        GTCEuAPI.CLEANROOM_FILTERS.put(GTLCleanroomFilterType.FILTER_CASING_LAW, filterBlock);
+        GTCEuAPI.CLEANROOM_FILTERS.put(filterType, filterBlock);
         return filterBlock;
     }
 
-    public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter();
+    public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter(GTLCleanroomFilterType.FILTER_CASING_LAW);
+
+    public static final BlockEntry<Block> CASING_SUPERCRITICAL_TURBINE = createCasingBlock(
+            "supercritical_turbine_casing", new ResourceLocation("kubejs:block/supercritical_turbine_casing"));
 
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
             GTLBlocks.CraftingUnitType.STORAGE_1M);

@@ -19,6 +19,8 @@ import com.gregtechceu.gtceu.integration.kjs.GTRegistryInfo;
 import it.unimi.dsi.fastutil.ints.Int2LongFunction;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fml.ModLoader;
+import org.gtlcore.gtlcore.common.data.GTLMachines;
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 import org.gtlcore.gtlcore.common.data.machines.GCyMMachines;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
