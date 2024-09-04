@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import static com.gregtechceu.gtceu.api.recipe.OverclockingLogic.*;
 
 @Mixin(OverclockingLogic.class)
-public abstract class OverclockingLogicMixin {
+public class OverclockingLogicMixin {
 
     /**
      * @author

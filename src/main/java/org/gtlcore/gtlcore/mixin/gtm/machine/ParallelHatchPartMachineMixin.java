@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ParallelHatchPartMachine.class)
-public abstract class ParallelHatchPartMachineMixin extends TieredPartMachine implements IFancyUIMachine, IParallelHatch {
+public class ParallelHatchPartMachineMixin extends TieredPartMachine {
 
     @Mutable
     @Shadow(remap = false)

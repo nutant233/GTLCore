@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.mixin.gtm.machine;
 
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.feature.IMachineLife;
 import com.gregtechceu.gtceu.api.machine.feature.IMachineModifyDrops;
 import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredIOPartMachine;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FluidHatchPartMachine.class)
-public abstract class FluidHatchPartMachineMixin extends TieredIOPartMachine implements IMachineModifyDrops {
+public class FluidHatchPartMachineMixin extends TieredIOPartMachine {
 
     public FluidHatchPartMachineMixin(IMachineBlockEntity holder, int tier, IO io) {
         super(holder, tier, io);

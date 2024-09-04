@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SimpleTieredMachine.class)
-public abstract class SimpleTieredMachineMixin extends WorkableTieredMachine implements IAutoOutputBoth, IFancyUIMachine {
+public class SimpleTieredMachineMixin extends WorkableTieredMachine {
 
     public SimpleTieredMachineMixin(IMachineBlockEntity holder, int tier, Int2LongFunction tankScalingFunction, Object... args) {
         super(holder, tier, tankScalingFunction, args);

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemBusPartMachine.class)
-public abstract class ItemBusPartMachineMixin extends TieredIOPartMachine implements IDistinctPart, IMachineModifyDrops {
+public abstract class ItemBusPartMachineMixin extends TieredIOPartMachine {
 
     public ItemBusPartMachineMixin(IMachineBlockEntity holder, int tier, IO io) {
         super(holder, tier, io);

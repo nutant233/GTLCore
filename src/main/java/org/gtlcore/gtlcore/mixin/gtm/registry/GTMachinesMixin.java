@@ -46,7 +46,7 @@ import static com.gregtechceu.gtceu.utils.FormattingUtil.toEnglishName;
 
 
 @Mixin(GTMachines.class)
-public abstract class GTMachinesMixin {
+public class GTMachinesMixin {
     @Inject(method = "init", at = @At(value = "HEAD"), remap = false, cancellable = true)
     private static void init(CallbackInfo ci) {
         GCyMMachines.init();

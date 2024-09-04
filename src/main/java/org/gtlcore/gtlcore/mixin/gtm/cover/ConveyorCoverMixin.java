@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ConveyorCover.class)
-public abstract class ConveyorCoverMixin extends CoverBehavior implements IUICover, IControllable {
+public class ConveyorCoverMixin extends CoverBehavior {
 
     @Shadow(remap = false)
     @Final

@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SimpleGeneratorMachine.class)
-public abstract class SimpleGeneratorMachineMinxin extends WorkableTieredMachine implements IFancyUIMachine, IEnvironmentalHazardEmitter {
+public class SimpleGeneratorMachineMinxin extends WorkableTieredMachine {
 
     public SimpleGeneratorMachineMinxin(IMachineBlockEntity holder, int tier, Int2LongFunction tankScalingFunction, Object... args) {
         super(holder, tier, tankScalingFunction, args);

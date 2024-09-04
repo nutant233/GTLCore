@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GTRecipeBuilder.class)
 @Accessors(chain = true, fluent = true)
-public abstract class GTRecipeBuilderMixin {
+public class GTRecipeBuilderMixin {
 
     @Shadow(remap = false)
     public GTRecipeType recipeType;
@@ -25,7 +25,9 @@ public abstract class GTRecipeBuilderMixin {
     public int duration;
 
     @Shadow(remap = false)
-    public abstract GTRecipeBuilder duration(int duration);
+    public GTRecipeBuilder duration(int duration) {
+        return null;
+    }
 
     @Unique
     private long gTLCore$eut = 0;

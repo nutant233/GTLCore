@@ -20,7 +20,7 @@ import static com.gregtechceu.gtceu.common.data.GTDimensionMarkers.END_MARKER;
 import static com.gregtechceu.gtceu.common.data.GTDimensionMarkers.NETHER_MARKER;
 
 @Mixin(GTDimensionMarkers.class)
-public abstract class GTDimensionMarkersMixin {
+public class GTDimensionMarkersMixin {
 
     @Shadow(remap = false)
     public static DimensionMarker createAndRegister(ResourceLocation dim, int tier, ResourceLocation itemKey, @Nullable String overrideName) {

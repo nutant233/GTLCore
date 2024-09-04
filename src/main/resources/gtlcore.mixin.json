@@ -24,6 +24,7 @@
     "gtm.TagPrefixItemMixin",
     "gtm.cover.ConveyorCoverMixin",
     "gtm.cover.InfiniteWaterCoverMixin",
+    "gtm.cover.PumpCoverMixin",
     "gtm.machine.DualHatchPartMachineMixin",
     "gtm.machine.FluidHatchPartMachineMixin",
     "gtm.machine.HPCAComputationPartMachineMixin",

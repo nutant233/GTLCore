@@ -19,8 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WorkableTieredMachine.class)
-public abstract class WorkableTieredMachineMixin extends TieredEnergyMachine implements IRecipeLogicMachine,
-                                            IMachineModifyDrops, IMufflableMachine, IOverclockMachine {
+public abstract class WorkableTieredMachineMixin extends TieredEnergyMachine implements IRecipeLogicMachine {
 
     public WorkableTieredMachineMixin(IMachineBlockEntity holder, int tier, Object... args) {
         super(holder, tier, args);
