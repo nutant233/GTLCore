@@ -8,10 +8,15 @@
     "ae2.client.ModelBakeryMixin"
   ],
   "mixins": [
+    "adastra.ModUtilsMixin",
+    "adastra.RocketMixin",
+    "adastra.VehicleItemMixin",
+    "ae2.BasicCellInventoryMixin",
     "ae2.CPUSelectionListMixin",
     "ae2.MixinCowMap",
     "ae2.MixinGenericSlotCapacities",
     "ae2.MixinGenericStackInv",
+    "ae2.PortableCellItemMixin",
     "ae2.TooltipsMixin",
     "gtm.FluidPipeTypeMixin",
     "gtm.OverclockingLogicMixin",
@@ -27,6 +32,7 @@
     "gtm.machine.SimpleGeneratorMachineMinxin",
     "gtm.machine.SimpleTieredMachineMixin",
     "gtm.machine.WorkableTieredMachineMixin",
+    "gtm.recipe.CraftingComponentMixin",
     "gtm.recipe.GCyMRecipesMixin",
     "gtm.recipe.GTRecipeBuilderMixin",
     "gtm.recipe.MaterialRecipeHandlerMixin",

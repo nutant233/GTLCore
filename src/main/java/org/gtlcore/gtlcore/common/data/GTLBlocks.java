@@ -185,7 +185,7 @@ public class GTLBlocks {
 
     @SuppressWarnings("all")
     public static BlockEntry<ActiveBlock> createActiveTierCasing(String name, String baseModelPath,
-                                                           Map<Integer, Supplier<ActiveBlock>> map, int tier) {
+                                                                 Map<Integer, Supplier<ActiveBlock>> map, int tier) {
         BlockEntry<ActiveBlock> Block = REGISTRATE.block("%s".formatted(name), p -> (ActiveBlock) new ActiveBlock(p) {
                     @Override
                     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,

@@ -1,17 +1,29 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.GTCapabilityHelper;
+import com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
+import com.gregtechceu.gtceu.api.recipe.GTRecipe;
+import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
+import com.gregtechceu.gtceu.api.recipe.content.Content;
+import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
+import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.lowdragmc.lowdraglib.gui.util.ClickData;
 import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
+import earth.terrarium.adastra.common.menus.base.PlanetsMenuProvider;
+import earth.terrarium.botarium.common.menu.MenuHooks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +42,7 @@ public class SpaceElevator extends TierCasingMachine {
                 pos.offset(0, -2, 3),
                 pos.offset(0, -2, -3) };
         for (BlockPos blockPos : coordinates) {
-            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), "gtceu:power_core")) {
+            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), "gtlcore:power_core")) {
                 return blockPos;
             }
         }
@@ -100,15 +112,16 @@ public class SpaceElevator extends TierCasingMachine {
     public void handleDisplayClick(String componentData, ClickData clickData) {
         if (componentData.equals("set_out") && getRecipeLogic().isWorking()) {
             final BlockPos pos = getPos();
-            List<Player> entities = getLevel().getEntitiesOfClass(Player.class, new AABB(pos.getX() - 2,
+            List<ServerPlayer> entities = Objects.requireNonNull(getLevel()).getEntitiesOfClass(ServerPlayer.class, new AABB(pos.getX() - 2,
                     pos.getY() - 2,
                     pos.getZ() - 2,
                     pos.getX() + 2,
                     pos.getY() + 2,
                     pos.getZ() + 2));
-            for (Player pr : entities) {
+            for (ServerPlayer pr : entities) {
                 if (pr != null) {
-                    pr.kjs$sendData("gt.se.st");
+                    pr.addTag("spaceelevatorst");
+                    MenuHooks.openMenu(pr, new PlanetsMenuProvider());
                 }
             }
         }

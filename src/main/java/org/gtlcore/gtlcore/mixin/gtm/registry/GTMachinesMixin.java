@@ -24,6 +24,7 @@ import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.*;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.integration.kjs.GTRegistryInfo;
+import com.gregtechceu.gtceu.utils.FormattingUtil;
 import it.unimi.dsi.fastutil.ints.Int2LongFunction;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fml.ModLoader;
@@ -142,7 +143,7 @@ public abstract class GTMachinesMixin {
                                 .overlayTieredHullRenderer("energy_hatch.output_4a")
                                 .compassNode("energy_hatch")
                                 .register(),
-                        GTValues.tiersBetween(EV, GTCEuAPI.isHighTier() ? MAX : UHV)));
+                        GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
             case "energy_input_hatch_16a" :
                 cir.setReturnValue(gTLCore$registerTieredMachines("energy_input_hatch_16a",
@@ -168,7 +169,7 @@ public abstract class GTMachinesMixin {
                                 .overlayTieredHullRenderer("energy_hatch.output_16a")
                                 .compassNode("energy_hatch")
                                 .register(),
-                        GTValues.tiersBetween(EV, GTCEuAPI.isHighTier() ? MAX : UHV)));
+                        GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
             case "dual_input_hatch" :
                 cir.setReturnValue(gTLCore$registerTieredMachines(
@@ -259,5 +260,22 @@ public abstract class GTMachinesMixin {
                         .compassNode(name)
                         .register(),
                 tiers));
+    }
+
+    @Inject(method = "registerLaserHatch", at = @At(value = "HEAD"), remap = false, cancellable = true)
+    private static void registerLaserHatch(IO io, int amperage, PartAbility ability, CallbackInfoReturnable<MachineDefinition[]> cir) {
+        String name = io == IO.IN ? "target" : "source";
+        cir.setReturnValue(gTLCore$registerTieredMachines(amperage + "a_laser_" + name + "_hatch",
+                (holder, tier) -> new LaserHatchPartMachine(holder, io, tier, amperage), (tier, builder) -> builder
+                        .langValue(VNF[tier] + " " + FormattingUtil.formatNumbers(amperage) + "A Laser " +
+                                FormattingUtil.toEnglishName(name) + " Hatch")
+                        .rotationState(RotationState.ALL)
+                        .tooltips(Component.translatable("gtceu.machine.laser_hatch." + name + ".tooltip"),
+                                Component.translatable("gtceu.machine.laser_hatch.both.tooltip"),
+                                Component.translatable("gtceu.universal.disabled"))
+                        .abilities(ability)
+                        .overlayTieredHullRenderer("laser_hatch." + name)
+                        .register(),
+                GTValues.tiersBetween(IV, GTCEuAPI.isHighTier() ? MAX : UHV)));
     }
 }

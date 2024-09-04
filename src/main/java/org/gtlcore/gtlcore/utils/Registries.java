@@ -11,8 +11,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.gtlcore.gtlcore.GTLCore;
 
-import java.util.Objects;
-
 public class Registries {
 
     public static Item getItem(String s) {
@@ -42,6 +40,11 @@ public class Registries {
     }
 
     public static Material getMaterial(String s) {
-        return Objects.requireNonNullElse(GTMaterials.get(s), GTMaterials.UUMatter);
+        Material m = GTMaterials.get(s);
+        if (m == null) {
+            GTLCore.LOGGER.atError().log("未找到ID为{}的材料", s);
+            return GTMaterials.UUMatter;
+        }
+        return m;
     }
 }

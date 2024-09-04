@@ -131,12 +131,19 @@ public class GTLRecipeTypes {
             .setSound(GTSoundEntries.ARC)
             .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.stellar_containment_tier", getSCTier(data.getInt("SCTier"))));
 
-    public static final GTRecipeType COMPONENT_ASSEMBLY_LINE_RECIPES = register("component_assembly_line", "multiblock")
+    public static final GTRecipeType COMPONENT_ASSEMBLY_LINE_RECIPES = register("component_assembly_line", MULTIBLOCK)
             .setMaxIOSize(9, 1, 9, 0)
             .setEUIO(IO.IN)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
             .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.ca_tier", GTValues.VN[data.getInt("CATier")]))
             .setSound(GTSoundEntries.ASSEMBLER);
+
+    public static final GTRecipeType SLAUGHTERHOUSE_RECIPES = register("slaughterhouse", MULTIBLOCK)
+            .setEUIO(IO.IN)
+            .setSlotOverlay(false, false, GuiTextures.SOLIDIFIER_OVERLAY)
+            .setMaxIOSize(1, 0, 0, 0)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.MACERATOR);
 
     public static void init() {
         GTRecipeTypes.ASSEMBLER_RECIPES.onRecipeBuild(GenerateDisassembly::generateDisassembly);

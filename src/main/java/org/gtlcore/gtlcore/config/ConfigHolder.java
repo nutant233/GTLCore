@@ -21,9 +21,12 @@ public class ConfigHolder {
     }
 
     @Configurable
-    public boolean disableDrift = true;
+    public boolean disableDrift = false;
     @Configurable
     public boolean enablePrimitiveVoidOre = false;
+    @Configurable
+    @Configurable.Range(min = 1)
+    public int oreMultiplier = 4;
     @Configurable
     @Configurable.Range(min = 0)
     public double durationMultiplier = 1;
