@@ -45,10 +45,9 @@ public class HeatExchangerMachine extends WorkableMultiblockMachine {
     @Override
     public boolean onWorking() {
         boolean value = super.onWorking();
-        if (getRecipeLogic().getProgress() == 199 &&
-                getRecipeLogic().getMachine() instanceof HeatExchangerMachine hMachine) {
+        if (getRecipeLogic().getProgress() == 199) {
             if (getRecipeLogic().getLastRecipe() != null) {
-                MachineIO.outputFluid(hMachine, GTLMaterials.SupercriticalSteam
+                MachineIO.outputFluid(this, GTLMaterials.SupercriticalSteam
                         .getFluid(getRecipeLogic().getLastRecipe().data.getLong("count")));
             }
         }

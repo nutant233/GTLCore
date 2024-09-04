@@ -59,7 +59,7 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
         return MANAGED_FIELD_HOLDER;
     }
 
-    private void getItem(ServerLevel level, BlockPos Pos, Slaughterhouse machine) {
+    private void getItem(ServerLevel level, BlockPos Pos) {
         final DamageSource Source = new DamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)
                 .getHolderOrThrow(DamageTypes.GENERIC_KILL),
                 new FakePlayer(level, new GameProfile(uuid, "slaughterhouse")));
@@ -75,7 +75,7 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
                 if (en.kjs$isLiving()) {
                     en.hurt(Source, 10000);
                 } else if (en instanceof ItemEntity itemEntity) {
-                    MachineIO.outputItem(machine, itemEntity.getItem());
+                    MachineIO.outputItem(this, itemEntity.getItem());
                     itemEntity.kill();
                 }
             }
@@ -84,47 +84,43 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
     }
 
     @Override
-    public boolean onWorking() {
+    public void afterWorking() {
         boolean value = super.onWorking();
-        if (getRecipeLogic().getProgress() == 19) {
-            final BlockPos pos = getPos();
-            final Level level = getLevel();
-            BlockPos[][] coordinates = new BlockPos[][] {
-                    new BlockPos[] { pos.offset(1, 0, 0), pos.offset(3, 1, 0) },
-                    new BlockPos[] { pos.offset(-1, 0, 0), pos.offset(-3, 1, 0) },
-                    new BlockPos[] { pos.offset(0, 0, 1), pos.offset(0, 1, 3) },
-                    new BlockPos[] { pos.offset(0, 0, -1), pos.offset(0, 1, -3) } };
-            for (BlockPos[] blockPos : coordinates) {
-                if (level instanceof ServerLevel serverLevel &&
-                        Objects.equals(serverLevel.kjs$getBlock(blockPos[0]).getId(), "gtceu:steel_gearbox")) {
-                    BlockPos mobPos = blockPos[1];
-                    if (getRecipeLogic().getMachine() instanceof Slaughterhouse wmachine) {
-                        final String[] mobList = MachineIO.notConsumableCircuit(wmachine, 1) ? this.mobList1 : this.mobList2;
-                        if (!this.isSpawn) {
-                            getItem(serverLevel, mobPos, wmachine);
-                            for (int am = 0; am <= (getTier() - 2) * 8; am++) {
-                                int index = (int) (Math.random() * mobList.length);
-                                EntityType.byString("minecraft:" + mobList[index]).get()
-                                        .spawn(serverLevel, mobPos, MobSpawnType.MOB_SUMMONED)
-                                        .setYRot(serverLevel.getRandom().nextFloat() * 360F);
-                            }
-                        } else {
-                            final LootParams lootparams = new LootParams.Builder(serverLevel)
-                                    .create(LootContextParamSets.EMPTY);
-                            getItem(serverLevel, mobPos, wmachine);
-                            for (int am = 0; am <= (getTier() - 2) * 8; am++) {
-                                int index = (int) (Math.random() * mobList.length);
-                                ObjectArrayList<ItemStack> loottable = serverLevel.getServer().getLootData()
-                                        .getLootTable(new ResourceLocation("minecraft:entities/" + mobList[index]))
-                                        .getRandomItems(lootparams);
-                                loottable.forEach(i -> MachineIO.outputItem(wmachine, i));
-                            }
-                        }
+        final BlockPos pos = getPos();
+        final Level level = getLevel();
+        BlockPos[][] coordinates = new BlockPos[][] {
+                new BlockPos[] { pos.offset(1, 0, 0), pos.offset(3, 1, 0) },
+                new BlockPos[] { pos.offset(-1, 0, 0), pos.offset(-3, 1, 0) },
+                new BlockPos[] { pos.offset(0, 0, 1), pos.offset(0, 1, 3) },
+                new BlockPos[] { pos.offset(0, 0, -1), pos.offset(0, 1, -3) } };
+        for (BlockPos[] blockPos : coordinates) {
+            if (level instanceof ServerLevel serverLevel &&
+                    Objects.equals(serverLevel.kjs$getBlock(blockPos[0]).getId(), "gtceu:steel_gearbox")) {
+                BlockPos mobPos = blockPos[1];
+                final String[] mobList = MachineIO.notConsumableCircuit(this, 1) ? this.mobList1 : this.mobList2;
+                if (!this.isSpawn) {
+                    getItem(serverLevel, mobPos);
+                    for (int am = 0; am <= (getTier() - 2) * 8; am++) {
+                        int index = (int) (Math.random() * mobList.length);
+                        EntityType.byString("minecraft:" + mobList[index]).get()
+                                .spawn(serverLevel, mobPos, MobSpawnType.MOB_SUMMONED)
+                                .setYRot(serverLevel.getRandom().nextFloat() * 360F);
+                    }
+                } else {
+                    final LootParams lootparams = new LootParams.Builder(serverLevel)
+                            .create(LootContextParamSets.EMPTY);
+                    getItem(serverLevel, mobPos);
+                    for (int am = 0; am <= (getTier() - 2) * 8; am++) {
+                        int index = (int) (Math.random() * mobList.length);
+                        ObjectArrayList<ItemStack> loottable = serverLevel.getServer().getLootData()
+                                .getLootTable(new ResourceLocation("minecraft:entities/" + mobList[index]))
+                                .getRandomItems(lootparams);
+                        loottable.forEach(i -> MachineIO.outputItem(this, i));
                     }
                 }
+
             }
         }
-        return value;
     }
 
     @Override

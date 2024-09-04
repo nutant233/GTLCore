@@ -100,18 +100,18 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         return null;
     }
 
-    private boolean inputWater(FissionReactorMachine machine, double amount) {
-        boolean value = MachineIO.inputFluid(machine, GTMaterials.DistilledWater.getFluid((long) (amount * 800)));
+    private boolean inputWater(double amount) {
+        boolean value = MachineIO.inputFluid(this, GTMaterials.DistilledWater.getFluid((long) (amount * 800)));
         double steamMultiplier = heat > 373 ? 160 : 160 / Math.pow(1.4, 373 - heat);
-        if (value) MachineIO.outputFluid(machine, GTMaterials.Steam.getFluid((long) (amount * 800 * steamMultiplier)));
+        if (value) MachineIO.outputFluid(this, GTMaterials.Steam.getFluid((long) (amount * 800 * steamMultiplier)));
         return value;
     }
 
-    private boolean inputSodiumPotassium(FissionReactorMachine machine, double amount) {
-        boolean value = MachineIO.inputFluid(machine, GTMaterials.SodiumPotassium.getFluid((long) (amount * 20)));
+    private boolean inputSodiumPotassium(double amount) {
+        boolean value = MachineIO.inputFluid(this, GTMaterials.SodiumPotassium.getFluid((long) (amount * 20)));
         if (heat > 825) {
-            if (value) MachineIO.outputFluid(machine, GTMaterials.get("supercritical_sodium_potassium").getFluid((long) (amount * 20)));
-        } else if (value) MachineIO.outputFluid(machine, GTMaterials.get("hot_sodium_potassium").getFluid((long) (amount * 20)));
+            if (value) MachineIO.outputFluid(this, GTMaterials.get("supercritical_sodium_potassium").getFluid((long) (amount * 20)));
+        } else if (value) MachineIO.outputFluid(this, GTMaterials.get("hot_sodium_potassium").getFluid((long) (amount * 20)));
         return value;
     }
 
@@ -126,35 +126,34 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         boolean value = super.onWorking();
         if (getOffsetTimer() % 20 == 0) {
             GTRecipe recipe = getRecipeLogic().getLastRecipe();
-            FissionReactorMachine machine = (FissionReactorMachine) getRecipeLogic().getMachine();
             int h = recipe.data.getInt("FRheat");
             int f = recipe.data.getInt("parallel");
             double required = (double) (h * f * heat) / 1500;
             double surplus = cooler - required;
             if (surplus >= 0) {
-                if (inputWater(machine, required)) {
+                if (inputWater(required)) {
                     while (surplus >= required && getProgress() < getMaxProgress()) {
-                        if (inputWater(machine, required)) {
+                        if (inputWater(required)) {
                             surplus = surplus - required;
                             getRecipeLogic().setProgress(getProgress() + 20);
                         } else {
                             break;
                         }
                     }
-                    if (heat > 298 && surplus >= required && inputWater(machine, required)) {
+                    if (heat > 298 && surplus >= required && inputWater(required)) {
                         heat--;
                     }
                     return value;
-                } else if (inputSodiumPotassium(machine, required)) {
+                } else if (inputSodiumPotassium(required)) {
                     while (surplus >= required && getProgress() < getMaxProgress()) {
-                        if (inputSodiumPotassium(machine, required)) {
+                        if (inputSodiumPotassium(required)) {
                             surplus = surplus - required;
                             getRecipeLogic().setProgress(getProgress() + 20);
                         } else {
                             break;
                         }
                     }
-                    if (heat > 298 && surplus >= required && inputSodiumPotassium(machine, required)) {
+                    if (heat > 298 && surplus >= required && inputSodiumPotassium(required)) {
                         heat--;
                     }
                     return value;

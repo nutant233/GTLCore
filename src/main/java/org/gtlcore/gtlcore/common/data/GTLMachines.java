@@ -16,14 +16,10 @@ import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
-import com.gregtechceu.gtceu.client.renderer.machine.RotorHolderMachineRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.FluidDrillMachine;
-import com.gregtechceu.gtceu.common.machine.multiblock.part.EnergyHatchPartMachine;
-import com.gregtechceu.gtceu.common.machine.multiblock.part.RotorHolderPartMachine;
-import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
@@ -673,8 +669,8 @@ public class GTLMachines {
             .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1))
             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1)))
             .where("B", Predicates.blocks(CASING_LAMINATED_GLASS.get()).or(Predicates.blocks(getBlock("kubejs:fission_reactor_casing"))))
-            .where("C", Predicates.air().or(GTLPredicates.countBlock("FuelAssembly", getBlock("gtceu:fission_fuel_assembly")))
-            .or(GTLPredicates.countBlock("Cooler", getBlock("gtceu:cooler"))))
+            .where("C", Predicates.air().or(GTLPredicates.countBlock("FuelAssembly", getBlock("gtlcore:fission_fuel_assembly")))
+            .or(GTLPredicates.countBlock("Cooler", getBlock("gtlcore:cooler"))))
             .build())
             .workableCasingRenderer(new ResourceLocation("kubejs:block/fission_reactor_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
@@ -776,7 +772,7 @@ public class GTLMachines {
             .where("C", GTLPredicates.tierActiveCasings(GTLBlocks.sepmmap, "SEPMTier"))
             .where("A", Predicates.blocks(getBlock("kubejs:high_strength_concrete")))
             .where("D", Predicates.blocks(getBlock("kubejs:space_elevator_mechanical_casing")))
-            .where("M", Predicates.blocks(getBlock("gtceu:power_core")))
+            .where("M", Predicates.blocks(getBlock("gtlcore:power_core")))
             .where("G", Predicates.blocks(getBlock("kubejs:module_base")))
             .where("V", Predicates.any().or(Predicates.blocks(getBlock("kubejs:module_connector")).setPreviewCount(1)))
             .where("-", Predicates.air())

@@ -56,9 +56,8 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
 
     private int allocatedCWUt(int cwut, boolean simulate) {
         if (totalCWU < getMaxCWUt()) {
-            ComputationProviderMachine machine = (ComputationProviderMachine) getRecipeLogic().getMachine();
-            if (inf && inputEU(machine, Integer.MAX_VALUE)) return Integer.MAX_VALUE;
-            if (inputEU(machine, getOverclockVoltage()))
+            if (inf && inputEU(this, Integer.MAX_VALUE)) return Integer.MAX_VALUE;
+            if (inputEU(this, getOverclockVoltage()))
                 totalCWU += (long) Math.pow(2, getTier());;
                 maxCWUt = 0;
         }
@@ -76,17 +75,16 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
         seen.add(this);
         if (inf) return Integer.MAX_VALUE;
         if (maxCWUt == 0) {
-            ComputationProviderMachine machine = (ComputationProviderMachine) getRecipeLogic().getMachine();
-            if (getTier() < 12 && MachineIO.notConsumableItem(machine, getItemStack("kubejs:optical_mainframe", 8))) {
+            if (getTier() < 12 && MachineIO.notConsumableItem(this, getItemStack("kubejs:optical_mainframe", 8))) {
                 return 1024;
             }
-            if (getTier() < 13 && MachineIO.notConsumableItem(machine, getItemStack("kubejs:exotic_mainframe", 8))) {
+            if (getTier() < 13 && MachineIO.notConsumableItem(this, getItemStack("kubejs:exotic_mainframe", 8))) {
                 return 2048;
             }
-            if (getTier() < 14 && MachineIO.notConsumableItem(machine, getItemStack("kubejs:cosmic_mainframe", 8))) {
+            if (getTier() < 14 && MachineIO.notConsumableItem(this, getItemStack("kubejs:cosmic_mainframe", 8))) {
                 return 4096;
             }
-            if (MachineIO.notConsumableItem(machine, getItemStack("kubejs:supracausal_mainframe", 8))) {
+            if (MachineIO.notConsumableItem(this, getItemStack("kubejs:supracausal_mainframe", 8))) {
                 return 8192;
             }
             return 0;

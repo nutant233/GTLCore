@@ -184,17 +184,15 @@ public class PrimitiveOreMachine extends WorkableMultiblockMachine {
     @Override
     public boolean onWorking() {
         boolean value = super.onWorking();
-        if (getRecipeLogic().getMachine() instanceof PrimitiveOreMachine oreMachine) {
-            if (Objects.requireNonNull(getLevel()).dimension() == Level.OVERWORLD) {
-                MachineIO.outputItem(oreMachine, ChemicalHelper.get(TagPrefix.rawOre,
-                        getRandomMaterial(OVERWORLD_ORE), 64));
-            } else if (getLevel().dimension() == Level.NETHER) {
-                MachineIO.outputItem(oreMachine, ChemicalHelper.get(TagPrefix.rawOre,
-                        getRandomMaterial(NETHER_ORE), 64));
-            } else if (getLevel().dimension() == Level.END) {
-                MachineIO.outputItem(oreMachine, ChemicalHelper.get(TagPrefix.rawOre,
-                        getRandomMaterial(END_ORE), 64));
-            }
+        if (Objects.requireNonNull(getLevel()).dimension() == Level.OVERWORLD) {
+            MachineIO.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
+                    getRandomMaterial(OVERWORLD_ORE), 64));
+        } else if (getLevel().dimension() == Level.NETHER) {
+            MachineIO.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
+                    getRandomMaterial(NETHER_ORE), 64));
+        } else if (getLevel().dimension() == Level.END) {
+            MachineIO.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
+                    getRandomMaterial(END_ORE), 64));
         }
         return value;
     }

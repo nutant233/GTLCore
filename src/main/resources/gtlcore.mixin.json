@@ -29,10 +29,13 @@
     "gtm.machine.WorkableTieredMachineMixin",
     "gtm.recipe.GCyMRecipesMixin",
     "gtm.recipe.GTRecipeBuilderMixin",
+    "gtm.recipe.MaterialRecipeHandlerMixin",
     "gtm.recipe.OreRecipeHandlerMixin",
     "gtm.recipe.change.NaquadahRecipesMixin",
     "gtm.recipe.change.PlatGroupMetalsRecipesMixin",
-    "gtm.registry.GTMachinesMixin"
+    "gtm.registry.GTDimensionMarkersMixin",
+    "gtm.registry.GTMachinesMixin",
+    "gtm.registry.GTRecipeTypeMixin"
   ],
   "injectors": {
     "defaultRequire": 1,

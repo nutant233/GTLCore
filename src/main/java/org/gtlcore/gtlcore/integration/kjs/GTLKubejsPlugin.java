@@ -4,8 +4,11 @@ import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
 import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.kubejs.util.ClassFilter;
+import org.gtlcore.gtlcore.api.data.chemical.material.info.CustomRendererMaterialIconSet;
+import org.gtlcore.gtlcore.api.item.tool.GTLToolType;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.Registries;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
@@ -27,6 +30,9 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("GTLRecipeTypes", GTLRecipeTypes.class);
         event.add("GTLRecipeModifiers", GTLRecipeModifiers.class);
         event.add("GTLCleanroomType", GTLCleanroomType.class);
+        event.add("GTLToolType", GTLToolType.class);
+        event.add("CustomRendererMaterialIconSet", CustomRendererMaterialIconSet.class);
+        event.add("MachineIO", MachineIO.class);
         event.add("TextUtil", TextUtil.class);
         event.add("Registries", Registries.class);
     }

@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
+import org.gtlcore.gtlcore.common.data.GTLBedrockFluids;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.data.recipe.*;
@@ -62,5 +63,6 @@ public class GTLGTAddon implements IGTAddon {
 
     @Override
     public void registerFluidVeins() {
+        GTLBedrockFluids.init();
     }
 }
