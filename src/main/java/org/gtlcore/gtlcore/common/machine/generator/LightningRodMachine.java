@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -29,7 +30,7 @@ public class LightningRodMachine extends TieredEnergyMachine {
 
     protected void checkEnergy() {
         if (getOffsetTimer() % 10 == 0) {
-            BlockState state = getLevel().getBlockState(getPos().offset(0, 1, 0));
+            BlockState state = Objects.requireNonNull(getLevel()).getBlockState(getPos().offset(0, 1, 0));
             if (state.getBlock() == Blocks.LIGHTNING_ROD &&
                     state.getValue(BlockStateProperties.FACING) == Direction.UP &&
                     state.getValue(LightningRodBlock.POWERED)) {
@@ -37,6 +38,9 @@ public class LightningRodMachine extends TieredEnergyMachine {
                     doExplosion(getTier());
                 } else {
                     energyContainer.addEnergy(getCharge() / 4);
+                }
+                if (Math.random() > 0.9) {
+                    getLevel().setBlockAndUpdate(getPos().offset(0, 1, 0), Blocks.AIR.defaultBlockState());
                 }
             }
         }

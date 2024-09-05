@@ -54,10 +54,10 @@ public class GCyMMachines {
                     .rotationState(RotationState.ALL)
                     .abilities(PartAbility.PARALLEL_HATCH)
                     .workableTieredHullRenderer(GTCEu.id("block/machines/parallel_hatch_mk" + (tier - 4)))
-                    .tooltips(Component.translatable("gtceu.machine.parallel_hatch_mk" + tier + ".tooltip"))
+                    .tooltips(Component.translatable("gtceu.machine.parallel_hatch_mk" + (tier + 2) + ".tooltip"))
                     .compassNode("parallel_hatch")
                     .register(),
-            IV, LuV, ZPM, UV, UHV, UEV, UIV, UXV, OpV, MAX);
+            IV, LuV, ZPM, UV, UHV, UEV, UIV, UXV, OpV);
 
     public final static MultiblockMachineDefinition LARGE_MACERATION_TOWER = REGISTRATE
             .multiblock("large_maceration_tower", WorkableElectricMultiblockMachine::new)

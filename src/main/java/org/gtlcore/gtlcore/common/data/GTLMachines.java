@@ -12,17 +12,21 @@ import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
+import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
+import com.gregtechceu.gtceu.client.renderer.machine.FusionReactorRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.FluidDrillMachine;
+import com.gregtechceu.gtceu.common.machine.multiblock.electric.FusionReactorMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -31,6 +35,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
+import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.ChemicalEnergyDevourerMachine;
@@ -41,6 +46,9 @@ import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.PrimitiveOreMachin
 import org.gtlcore.gtlcore.common.machine.multiblock.part.*;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
@@ -51,6 +59,7 @@ import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.DUMMY_RECIPES;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
+import static com.gregtechceu.gtceu.utils.FormattingUtil.toRomanNumeral;
 import static org.gtlcore.gtlcore.api.pattern.GTLPredicates.countBlock;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 import static org.gtlcore.gtlcore.utils.Registries.getBlock;
@@ -884,6 +893,179 @@ public class GTLMachines {
                     .where("E", Predicates.blocks(FIREBOX_STEEL.get()))
                     .where(" ", Predicates.air())
                     .build())
-            .workableCasingRenderer( GTCEu.id("block/casings/solid/machine_casing_solid_steel"),  GTCEu.id("block/multiblock/gcym/large_cutter"))
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/gcym/large_cutter"))
             .register();
+
+    public static final MultiblockMachineDefinition[] FUSION_REACTOR = registerTieredMultis("fusion_reactor",
+            FusionReactorMachine::new, (tier, builder) -> builder
+                    .rotationState(RotationState.ALL)
+                    .langValue("Fusion Reactor Computer MK %s".formatted(toRomanNumeral(tier - 5)))
+                    .recipeType(GTRecipeTypes.FUSION_RECIPES)
+                    .recipeModifiers(GTRecipeModifiers.DEFAULT_ENVIRONMENT_REQUIREMENT,
+                            FusionReactorMachine::recipeModifier)
+                    .tooltips(
+                            Component.translatable("gtceu.machine.fusion_reactor.capacity",
+                                    FusionReactorMachine.calculateEnergyStorageFactor(tier, 16) / 1000000L),
+                            Component.translatable("gtceu.machine.fusion_reactor.overclocking"),
+                            Component.translatable("gtceu.multiblock.%s_fusion_reactor.description"
+                                    .formatted(VN[tier].toLowerCase(Locale.ROOT))))
+                    .appearanceBlock(() -> GTLFusionCasingBlock.getCasingState(tier))
+                    .pattern((definition) -> {
+                        var casing = blocks(GTLFusionCasingBlock.getCasingState(tier));
+                        return FactoryBlockPattern.start()
+                                .aisle("###############", "######OGO######", "###############")
+                                .aisle("######ICI######", "####GGAAAGG####", "######ICI######")
+                                .aisle("####CC###CC####", "###EAAOGOAAE###", "####CC###CC####")
+                                .aisle("###C#######C###", "##EKEG###GEKE##", "###C#######C###")
+                                .aisle("##C#########C##", "#GAE#######EAG#", "##C#########C##")
+                                .aisle("##C#########C##", "#GAG#######GAG#", "##C#########C##")
+                                .aisle("#I###########I#", "OAO#########OAO", "#I###########I#")
+                                .aisle("#C###########C#", "GAG#########GAG", "#C###########C#")
+                                .aisle("#I###########I#", "OAO#########OAO", "#I###########I#")
+                                .aisle("##C#########C##", "#GAG#######GAG#", "##C#########C##")
+                                .aisle("##C#########C##", "#GAE#######EAG#", "##C#########C##")
+                                .aisle("###C#######C###", "##EKEG###GEKE##", "###C#######C###")
+                                .aisle("####CC###CC####", "###EAAOGOAAE###", "####CC###CC####")
+                                .aisle("######ICI######", "####GGAAAGG####", "######ICI######")
+                                .aisle("###############", "######OSO######", "###############")
+                                .where('S', controller(blocks(definition.get())))
+                                .where('G', blocks(FUSION_GLASS.get()).or(casing))
+                                .where('E', casing.or(
+                                        blocks(PartAbility.INPUT_ENERGY.getBlockRange(tier, UEV).toArray(Block[]::new))
+                                                .setMinGlobalLimited(1).setPreviewCount(16)))
+                                .where('C', casing)
+                                .where('K', blocks(GTLFusionCasingBlock.getCoilState(tier)))
+                                .where('O', casing.or(abilities(PartAbility.EXPORT_FLUIDS)))
+                                .where('A', air())
+                                .where('I', casing.or(abilities(PartAbility.IMPORT_FLUIDS).setMinGlobalLimited(2)))
+                                .where('#', any())
+                                .build();
+                    })
+                    .shapeInfos((controller) -> {
+                        List<MultiblockShapeInfo> shapeInfos = new ArrayList<>();
+
+                        MultiblockShapeInfo.ShapeInfoBuilder baseBuilder = MultiblockShapeInfo.builder()
+                                .aisle("###############", "######NMN######", "###############")
+                                .aisle("######DCD######", "####GG###GG####", "######UCU######")
+                                .aisle("####CC###CC####", "###w##SGS##e###", "####CC###CC####")
+                                .aisle("###C#######C###", "##nKsG###GsKn##", "###C#######C###")
+                                .aisle("##C#########C##", "#G#e#######w#G#", "##C#########C##")
+                                .aisle("##C#########C##", "#G#G#######G#G#", "##C#########C##")
+                                .aisle("#D###########D#", "W#E#########W#E", "#U###########U#")
+                                .aisle("#C###########C#", "G#G#########G#G", "#C###########C#")
+                                .aisle("#D###########D#", "W#E#########W#E", "#U###########U#")
+                                .aisle("##C#########C##", "#G#G#######G#G#", "##C#########C##")
+                                .aisle("##C#########C##", "#G#e#######w#G#", "##C#########C##")
+                                .aisle("###C#######C###", "##sKnG###GnKs##", "###C#######C###")
+                                .aisle("####CC###CC####", "###w##NGN##e###", "####CC###CC####")
+                                .aisle("######DCD######", "####GG###GG####", "######UCU######")
+                                .aisle("###############", "######SGS######", "###############")
+                                .where('M', controller, Direction.NORTH)
+                                .where('C', GTLFusionCasingBlock.getCasingState(tier))
+                                .where('G', FUSION_GLASS.get())
+                                .where('K', GTLFusionCasingBlock.getCoilState(tier))
+                                .where('W', GTMachines.FLUID_EXPORT_HATCH[tier], Direction.WEST)
+                                .where('E', GTMachines.FLUID_EXPORT_HATCH[tier], Direction.EAST)
+                                .where('S', GTMachines.FLUID_EXPORT_HATCH[tier], Direction.SOUTH)
+                                .where('N', GTMachines.FLUID_EXPORT_HATCH[tier], Direction.NORTH)
+                                .where('w', GTMachines.ENERGY_INPUT_HATCH[tier], Direction.WEST)
+                                .where('e', GTMachines.ENERGY_INPUT_HATCH[tier], Direction.EAST)
+                                .where('s', GTMachines.ENERGY_INPUT_HATCH[tier], Direction.SOUTH)
+                                .where('n', GTMachines.ENERGY_INPUT_HATCH[tier], Direction.NORTH)
+                                .where('U', GTMachines.FLUID_IMPORT_HATCH[tier], Direction.UP)
+                                .where('D', GTMachines.FLUID_IMPORT_HATCH[tier], Direction.DOWN)
+                                .where('#', Blocks.AIR.defaultBlockState());
+
+                        shapeInfos.add(baseBuilder.shallowCopy()
+                                .where('G', GTLFusionCasingBlock.getCasingState(tier))
+                                .build());
+                        shapeInfos.add(baseBuilder.build());
+                        return shapeInfos;
+                    })
+                    .renderer(() -> new FusionReactorRenderer(GTLFusionCasingBlock.getCasingType(tier).getTexture(),
+                            GTCEu.id("block/multiblock/fusion_reactor")))
+                    .hasTESR(true)
+                    .compassSections(GTCompassSections.TIER[LuV])
+                    .compassNodeSelf()
+                    .register(),
+            UHV, UEV);
+
+    public static final MultiblockMachineDefinition[] COMPRESSED_FUSION_REACTOR = registerTieredMultis("compressed_fusion_reactor",
+            FusionReactorMachine::new, (tier, builder) -> builder
+                    .rotationState(RotationState.ALL)
+                    .langValue("Fusion Reactor Computer MK %s".formatted(toRomanNumeral(tier - 5)))
+                    .recipeType(GTRecipeTypes.FUSION_RECIPES)
+                    .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, FusionReactorMachine::recipeModifier)
+                    .tooltips(
+                            Component.translatable("gtceu.machine.fusion_reactor.capacity",
+                                    FusionReactorMachine.calculateEnergyStorageFactor(tier, 16) / 1000000L),
+                            Component.translatable("gtceu.machine.fusion_reactor.overclocking"),
+                            Component.translatable("gtceu.multiblock.%s_fusion_reactor.description"
+                                    .formatted(VN[tier].toLowerCase(Locale.ROOT))))
+                    .appearanceBlock(() -> GTLFusionCasingBlock.getCasingState(tier))
+                    .pattern((definition) -> {
+                        var casing = blocks(GTLFusionCasingBlock.getCasingState(tier));
+                        return FactoryBlockPattern.start()
+                                .aisle("                                               ", "                                               ", "                    FCCCCCF                    ", "                    FCIBICF                    ", "                    FCCCCCF                    ", "                                               ", "                                               ")
+                                .aisle("                                               ", "                    FCBBBCF                    ", "                   CC#####CC                   ", "                   CC#####CC                   ", "                   CC#####CC                   ", "                    FCBBBCF                    ", "                                               ")
+                                .aisle("                    FCBBBCF                    ", "                   CC#####CC                   ", "                CCCCC#####CCCCC                ", "                CCCHHHHHHHHHCCC                ", "                CCCCC#####CCCCC                ", "                   CC#####CC                   ", "                    FCBBBCF                    ")
+                                .aisle("                    FCIBICF                    ", "                CCCCC#####CCCCC                ", "              CCCCCHHHHHHHHHCCCCC              ", "              CCHHHHHHHHHHHHHHHCC              ", "              CCCCCHHHHHHHHHCCCCC              ", "                CCCCC#####CCCCC                ", "                    FCIBICF                    ")
+                                .aisle("                    FCBBBCF                    ", "              CCCCCCC#####CCCCCCC              ", "            CCCCHHHCC#####CCHHHCCCC            ", "            CCHHHHHHHHHHHHHHHHHHHCC            ", "            CCCCHHHCC#####CCHHHCCCC            ", "              CCCCCCC#####CCCCCCC              ", "                    FCBBBCF                    ")
+                                .aisle("                                               ", "            CCCCCCC FCBBBCF CCCCCCC            ", "           CCCHHCCCCC#####CCCCCHHCCC           ", "           CHHHHHHHCC#####CCHHHHHHHC           ", "           CCCHHCCCCC#####CCCCCHHCCC           ", "            CCCCCCC FCBBBCF CCCCCCC            ", "                                               ")
+                                .aisle("                                               ", "           CCCCC               CCCCC           ", "          ECHHCCCCC FCCCCCF CCCCCHHCE          ", "          CHHHHHCCC FCIBICF CCCHHHHHC          ", "          ECHHCCCCC FCCCCCF CCCCCHHCE          ", "           CCCCC               CCCCC           ", "                                               ")
+                                .aisle("                                               ", "          CCCC                   CCCC          ", "         CCHCCCC               CCCCHCC         ", "         CHHHHCC               CCHHHHC         ", "         CCHCCCC               CCCCHCC         ", "          CCCC                   CCCC          ", "                                               ")
+                                .aisle("                                               ", "         CCC                       CCC         ", "        CCHCCC                   CCCHCC        ", "        CHHHCC                   CCHHHC        ", "        CCHCCC                   CCCHCC        ", "         CCC                       CCC         ", "                                               ")
+                                .aisle("                                               ", "        CCC                         CCC        ", "       CCHCE                       ECHCC       ", "       CHHHC                       CHHHC       ", "       CCHCE                       ECHCC       ", "        CCC                         CCC        ", "                                               ")
+                                .aisle("                                               ", "       CCC                           CCC       ", "      ECHCC                         CCHCE      ", "      CHHHC                         CHHHC      ", "      ECHCC                         CCHCE      ", "       CCC                           CCC       ", "                                               ")
+                                .aisle("                                               ", "      CCC                             CCC      ", "     CCHCE                           ECHCC     ", "     CHHHC                           CHHHC     ", "     CCHCE                           ECHCC     ", "      CCC                             CCC      ", "                                               ")
+                                .aisle("                                               ", "     CCC                               CCC     ", "    CCHCC                             CCHCC    ", "    CHHHC                             CHHHC    ", "    CCHCC                             CCHCC    ", "     CCC                               CCC     ", "                                               ")
+                                .aisle("                                               ", "     CCC                               CCC     ", "    CCHCC                             CCHCC    ", "    CHHHC                             CHHHC    ", "    CCHCC                             CCHCC    ", "     CCC                               CCC     ", "                                               ")
+                                .aisle("                                               ", "    CCC                                 CCC    ", "   CCHCC                               CCHCC   ", "   CHHHC                               CHHHC   ", "   CCHCC                               CCHCC   ", "    CCC                                 CCC    ", "                                               ")
+                                .aisle("                                               ", "    CCC                                 CCC    ", "   CCHCC                               CCHCC   ", "   CHHHC                               CHHHC   ", "   CCHCC                               CCHCC   ", "    CCC                                 CCC    ", "                                               ")
+                                .aisle("                                               ", "   CCC                                   CCC   ", "  CCHCC                                 CCHCC  ", "  CHHHC                                 CHHHC  ", "  CCHCC                                 CCHCC  ", "   CCC                                   CCC   ", "                                               ")
+                                .aisle("                                               ", "   CCC                                   CCC   ", "  CCHCC                                 CCHCC  ", "  CHHHC                                 CHHHC  ", "  CCHCC                                 CCHCC  ", "   CCC                                   CCC   ", "                                               ")
+                                .aisle("                                               ", "   CCC                                   CCC   ", "  CCHCC                                 CCHCC  ", "  CHHHC                                 CHHHC  ", "  CCHCC                                 CCHCC  ", "   CCC                                   CCC   ", "                                               ")
+                                .aisle("                                               ", "  CCC                                     CCC  ", " CCHCC                                   CCHCC ", " CHHHC                                   CHHHC ", " CCHCC                                   CCHCC ", "  CCC                                     CCC  ", "                                               ")
+                                .aisle("  FFF                                     FFF  ", " FCCCF                                   FCCCF ", "FCCHCCF                                 FCCHCCF", "FCHHHCF                                 FCHHHCF", "FCCHCCF                                 FCCHCCF", " FCCCF                                   FCCCF ", "  FFF                                     FFF  ")
+                                .aisle("  CCC                                     CCC  ", " C###C                                   C###C ", "C##H##C                                 C##H##C", "C#HHH#C                                 C#HHH#C", "C##H##C                                 C##H##C", " C###C                                   C###C ", "  CCC                                     CCC  ")
+                                .aisle("  CIC                                     CIC  ", " B###B                                   B###B ", "C##H##C                                 C##H##C", "I#HHH#I                                 I#HHH#I", "C##H##C                                 C##H##C", " B###B                                   B###B ", "  CIC                                     CIC  ")
+                                .aisle("  CBC                                     CBC  ", " B###B                                   B###B ", "C##H##C                                 C##H##C", "B#HHH#B                                 B#HHH#B", "C##H##C                                 C##H##C", " B###B                                   B###B ", "  CBC                                     CBC  ")
+                                .aisle("  CIC                                     CIC  ", " B###B                                   B###B ", "C##H##C                                 C##H##C", "I#HHH#I                                 I#HHH#I", "C##H##C                                 C##H##C", " B###B                                   B###B ", "  CIC                                     CIC  ")
+                                .aisle("  CCC                                     CCC  ", " C###C                                   C###C ", "C##H##C                                 C##H##C", "C#HHH#C                                 C#HHH#C", "C##H##C                                 C##H##C", " C###C                                   C###C ", "  CCC                                     CCC  ")
+                                .aisle("  FFF                                     FFF  ", " FCCCF                                   FCCCF ", "FCCHCCF                                 FCCHCCF", "FCHHHCF                                 FCHHHCF", "FCCHCCF                                 FCCHCCF", " FCCCF                                   FCCCF ", "  FFF                                     FFF  ")
+                                .aisle("                                               ", "  CCC                                     CCC  ", " CCHCC                                   CCHCC ", " CHHHC                                   CHHHC ", " CCHCC                                   CCHCC ", "  CCC                                     CCC  ", "                                               ")
+                                .aisle("                                               ", "   CCC                                   CCC   ", "  CCHCC                                 CCHCC  ", "  CHHHC                                 CHHHC  ", "  CCHCC                                 CCHCC  ", "   CCC                                   CCC   ", "                                               ")
+                                .aisle("                                               ", "   CCC                                   CCC   ", "  CCHCC                                 CCHCC  ", "  CHHHC                                 CHHHC  ", "  CCHCC                                 CCHCC  ", "   CCC                                   CCC   ", "                                               ")
+                                .aisle("                                               ", "   CCC                                   CCC   ", "  CCHCC                                 CCHCC  ", "  CHHHC                                 CHHHC  ", "  CCHCC                                 CCHCC  ", "   CCC                                   CCC   ", "                                               ")
+                                .aisle("                                               ", "    CCC                                 CCC    ", "   CCHCC                               CCHCC   ", "   CHHHC                               CHHHC   ", "   CCHCC                               CCHCC   ", "    CCC                                 CCC    ", "                                               ")
+                                .aisle("                                               ", "    CCC                                 CCC    ", "   CCHCC                               CCHCC   ", "   CHHHC                               CHHHC   ", "   CCHCC                               CCHCC   ", "    CCC                                 CCC    ", "                                               ")
+                                .aisle("                                               ", "     CCC                               CCC     ", "    CCHCC                             CCHCC    ", "    CHHHC                             CHHHC    ", "    CCHCC                             CCHCC    ", "     CCC                               CCC     ", "                                               ")
+                                .aisle("                                               ", "     CCC                               CCC     ", "    CCHCC                             CCHCC    ", "    CHHHC                             CHHHC    ", "    CCHCC                             CCHCC    ", "     CCC                               CCC     ", "                                               ")
+                                .aisle("                                               ", "      CCC                             CCC      ", "     CCHCE                           ECHCC     ", "     CHHHC                           CHHHC     ", "     CCHCE                           ECHCC     ", "      CCC                             CCC      ", "                                               ")
+                                .aisle("                                               ", "       CCC                           CCC       ", "      ECHCC                         CCHCE      ", "      CHHHC                         CHHHC      ", "      ECHCC                         CCHCE      ", "       CCC                           CCC       ", "                                               ")
+                                .aisle("                                               ", "        CCC                         CCC        ", "       CCHCE                       ECHCC       ", "       CHHHC                       CHHHC       ", "       CCHCE                       ECHCC       ", "        CCC                         CCC        ", "                                               ")
+                                .aisle("                                               ", "         CCC                       CCC         ", "        CCHCCC                   CCCHCC        ", "        CHHHCC                   CCHHHC        ", "        CCHCCC                   CCCHCC        ", "         CCC                       CCC         ", "                                               ")
+                                .aisle("                                               ", "          CCCC                   CCCC          ", "         CCHCCCC               CCCCHCC         ", "         CHHHHCC               CCHHHHC         ", "         CCHCCCC               CCCCHCC         ", "          CCCC                   CCCC          ", "                                               ")
+                                .aisle("                                               ", "           CCCCC               CCCCC           ", "          ECHHCCCCC FCCCCCF CCCCCHHCE          ", "          CHHHHHCCC FCIBICF CCCHHHHHC          ", "          ECHHCCCCC FCCCCCF CCCCCHHCE          ", "           CCCCC               CCCCC           ", "                                               ")
+                                .aisle("                                               ", "            CCCCCCC FCBBBCF CCCCCCC            ", "           CCCHHCCCCC#####CCCCCHHCCC           ", "           CHHHHHHHCC#####CCHHHHHHHC           ", "           CCCHHCCCCC#####CCCCCHHCCC           ", "            CCCCCCC FCBBBCF CCCCCCC            ", "                                               ")
+                                .aisle("                    FCBBBCF                    ", "              CCCCCCC#####CCCCCCC              ", "            CCCCHHHCC#####CCHHHCCCC            ", "            CCHHHHHHHHHHHHHHHHHHHCC            ", "            CCCCHHHCC#####CCHHHCCCC            ", "              CCCCCCC#####CCCCCCC              ", "                    FCBBBCF                    ")
+                                .aisle("                    FCIBICF                    ", "                CCCCC#####CCCCC                ", "              CCCCCHHHHHHHHHCCCCC              ", "              CCHHHHHHHHHHHHHHHCC              ", "              CCCCCHHHHHHHHHCCCCC              ", "                CCCCC#####CCCCC                ", "                    FCIBICF                    ")
+                                .aisle("                    FCBBBCF                    ", "                   CC#####CC                   ", "                CCCCC#####CCCCC                ", "                CCCHHHHHHHHHCCC                ", "                CCCCC#####CCCCC                ", "                   CC#####CC                   ", "                    FCBBBCF                    ")
+                                .aisle("                                               ", "                    FCBBBCF                    ", "                   CC#####CC                   ", "                   CC#####CC                   ", "                   CC#####CC                   ", "                    FCBBBCF                    ", "                                               ")
+                                .aisle("                                               ", "                                               ", "                    FCCCCCF                    ", "                    FCISICF                    ", "                    FCCCCCF                    ", "                                               ", "                                               ")
+                                .where('S', controller(blocks(definition.get())))
+                                .where('B', blocks(FUSION_GLASS.get()))
+                                .where('C', casing.or(abilities(PARALLEL_HATCH)))
+                                .where('I', casing.or(abilities(PartAbility.IMPORT_FLUIDS).setMinGlobalLimited(2).setPreviewCount(16))
+                                        .or(abilities(PartAbility.EXPORT_FLUIDS).setMinGlobalLimited(2).setPreviewCount(16)))
+                                .where('F', blocks(GTLFusionCasingBlock.getFrameState(tier)))
+                                .where('H', blocks(GTLFusionCasingBlock.getCompressedCoilState(tier)))
+                                .where('E', casing.or(abilities(PartAbility.INPUT_ENERGY)).or(abilities(PartAbility.INPUT_LASER)))
+                                .where('#', air())
+                                .where(' ', any())
+                                .build();
+                    })
+                    .workableCasingRenderer(GTLFusionCasingBlock.getCasingType(tier).getTexture(), GTCEu.id("block/multiblock/fusion_reactor"))
+                    .register(),
+            LuV, ZPM, UV, UHV, UEV);
 }

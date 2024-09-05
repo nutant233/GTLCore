@@ -5,12 +5,13 @@ import appeng.block.crafting.CraftingUnitBlock;
 import appeng.block.crafting.ICraftingUnitType;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
-import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.block.ActiveBlock;
 import com.gregtechceu.gtceu.api.block.IFilterType;
+import com.gregtechceu.gtceu.api.block.IFusionCasingType;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
+import com.gregtechceu.gtceu.common.block.FusionCasingBlock;
 import com.gregtechceu.gtceu.common.data.GTModels;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -29,6 +30,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.gregtechceu.gtceu.common.data.GTBlocks.ALL_FUSION_CASINGS;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.createCasingBlock;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
@@ -152,10 +156,10 @@ public class GTLBlocks {
         return REGISTRATE.block(name, ActiveBlock::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(GTModels.createActiveModel(GTCEu.id(baseModelPath)))
+                .blockstate(GTModels.createActiveModel(GTLCore.id(baseModelPath)))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
                 .item(BlockItem::new)
-                .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTCEu.id(baseModelPath)))
+                .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTLCore.id(baseModelPath)))
                 .build()
                 .register();
     }
@@ -195,10 +199,10 @@ public class GTLBlocks {
                 })
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(GTModels.createActiveModel(GTCEu.id(baseModelPath)))
+                .blockstate(GTModels.createActiveModel(GTLCore.id(baseModelPath)))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
                 .item(BlockItem::new)
-                .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTCEu.id(baseModelPath)))
+                .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTLCore.id(baseModelPath)))
                 .build()
                 .register();
         REGISTRATE.setCreativeTab(Block, GTLCreativeModeTabs.GTL_CORE);
@@ -221,6 +225,35 @@ public class GTLBlocks {
         GTCEuAPI.CLEANROOM_FILTERS.put(filterType, filterBlock);
         return filterBlock;
     }
+
+    @SuppressWarnings("all")
+    private static BlockEntry<FusionCasingBlock> createFusionCasing(IFusionCasingType casingType) {
+        BlockEntry<FusionCasingBlock> casingBlock = REGISTRATE
+                .block(casingType.getSerializedName(), p -> (FusionCasingBlock) new GTLFusionCasingBlock(p, casingType))
+                .initialProperties(() -> Blocks.IRON_BLOCK)
+                .properties(properties -> properties.strength(5.0f, 10.0f).sound(SoundType.METAL))
+                .addLayer(() -> RenderType::cutoutMipped)
+                .blockstate(GTModels.createFusionCasingModel(casingType.getSerializedName(), casingType))
+                .tag(GTToolType.WRENCH.harvestTags.get(0), CustomTags.TOOL_TIERS[casingType.getHarvestLevel()])
+                .item(BlockItem::new)
+                .build()
+                .register();
+        ALL_FUSION_CASINGS.put(casingType, casingBlock);
+        return casingBlock;
+    }
+
+    public static final BlockEntry<FusionCasingBlock> FUSION_CASING_MK4 = createFusionCasing(
+            GTLFusionCasingBlock.CasingType.FUSION_CASING_MK4);
+    public static final BlockEntry<FusionCasingBlock> FUSION_CASING_MK5 = createFusionCasing(
+            GTLFusionCasingBlock.CasingType.FUSION_CASING_MK5);
+
+    public static final BlockEntry<ActiveBlock> ADVANCED_FUSION_COIL = createActiveCasing("advanced_fusion_coil", "block/variant/advanced_fusion_coil");
+    public static final BlockEntry<ActiveBlock> FUSION_COIL_MK2 = createActiveCasing("fusion_coil_mk2", "block/variant/fusion_coil_mk2");
+    public static final BlockEntry<ActiveBlock> IMPROVED_SUPERCONDUCTOR_COIL = createActiveCasing("improved_superconductor_coil", "block/variant/improved_superconductor_coil");
+    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL = createActiveCasing("compressed_fusion_coil", "block/variant/compressed_fusion_coil");
+    public static final BlockEntry<ActiveBlock> ADVANCED_COMPRESSED_FUSION_COIL = createActiveCasing("advanced_compressed_fusion_coil", "block/variant/advanced_compressed_fusion_coil");
+    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL_MK2_PROTOTYPE = createActiveCasing("compressed_fusion_coil_mk2_prototype", "block/variant/compressed_fusion_coil_mk2_prototype");
+    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL_MK2 = createActiveCasing("compressed_fusion_coil_mk2", "block/variant/compressed_fusion_coil_mk2");
 
     public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter(GTLCleanroomFilterType.FILTER_CASING_LAW);
 

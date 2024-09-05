@@ -1,5 +1,5 @@
 {
     "ldlib": {
-        "connection": "gtceu:block/casings/cleanroom/law_filter_casing_ctm"
+        "connection": "gtlcore:block/casings/cleanroom/law_filter_casing_ctm"
     }
 }

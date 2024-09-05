@@ -1,5 +1,5 @@
 {
     "ldlib": {
-        "connection": "kubejs:block/stellar_containment_casing_ctm"
+        "connection": "gtlcore:block/stellar_containment_casing_ctm"
     }
 }

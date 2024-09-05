@@ -9,6 +9,7 @@ import com.gregtechceu.gtceu.api.data.chemical.material.properties.WirePropertie
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+import com.gregtechceu.gtceu.common.data.GTMaterials;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet.*;
@@ -63,6 +64,9 @@ public class GTLMaterials {
     public static Material TungstenTrioxide;
 
     public static void init() {
+        Duranium.addFlags(GENERATE_FRAME);
+        Naquadria.addFlags(GENERATE_FRAME);
+        Trinium.addFlags(GENERATE_FRAME);
         Europium.getProperty(PropertyKey.BLAST).setBlastTemperature(9600);
         Neutronium.addFlags(GENERATE_ROTOR, GENERATE_SPRING, GENERATE_GEAR, GENERATE_SMALL_GEAR, GENERATE_SPRING_SMALL);
         Neutronium.setProperty(PropertyKey.WIRE, new WireProperties((int) GTValues.V[GTValues.UIV], 2, 64));
