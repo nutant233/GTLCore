@@ -9,7 +9,6 @@ import com.gregtechceu.gtceu.api.data.chemical.material.properties.WirePropertie
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
-import com.gregtechceu.gtceu.common.data.GTMaterials;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet.*;
@@ -118,7 +117,7 @@ public class GTLMaterials {
         RhodiumSalt = new Material.Builder(GTCEu.id("rhodium_salt"))
                 .dust()
                 .color(0x61200A).iconSet(SAND)
-                .buildAndRegister().setFormula("NaRhCl?");;
+                .buildAndRegister().setFormula("NaRhCl?");
         RhodiumSaltSolution = new Material.Builder(GTCEu.id("rhodium_salt_solution"))
                 .fluid()
                 .color(0x61200A).iconSet(SAND)

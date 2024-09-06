@@ -41,7 +41,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static com.gregtechceu.gtceu.common.data.GTBlocks.ALL_FUSION_CASINGS;
-import static com.gregtechceu.gtceu.common.data.GTBlocks.createCasingBlock;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 public class GTLBlocks {
@@ -227,6 +226,19 @@ public class GTLBlocks {
     }
 
     @SuppressWarnings("all")
+    public static BlockEntry<Block> createCasingBlock(String name, ResourceLocation texture) {
+        return REGISTRATE.block(name, Block::new)
+                .initialProperties(() -> Blocks.IRON_BLOCK)
+                .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
+                .addLayer(() -> RenderType::cutoutMipped)
+                .blockstate(GTModels.cubeAllModel(name, texture))
+                .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
+                .item(BlockItem::new)
+                .build()
+                .register();
+    }
+
+    @SuppressWarnings("all")
     private static BlockEntry<FusionCasingBlock> createFusionCasing(IFusionCasingType casingType) {
         BlockEntry<FusionCasingBlock> casingBlock = REGISTRATE
                 .block(casingType.getSerializedName(), p -> (FusionCasingBlock) new GTLFusionCasingBlock(p, casingType))
@@ -258,7 +270,7 @@ public class GTLBlocks {
     public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter(GTLCleanroomFilterType.FILTER_CASING_LAW);
 
     public static final BlockEntry<Block> CASING_SUPERCRITICAL_TURBINE = createCasingBlock(
-            "supercritical_turbine_casing", new ResourceLocation("kubejs:block/supercritical_turbine_casing"));
+            "supercritical_turbine_casing", GTLCore.id("block/supercritical_turbine_casing"));
 
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
             GTLBlocks.CraftingUnitType.STORAGE_1M);

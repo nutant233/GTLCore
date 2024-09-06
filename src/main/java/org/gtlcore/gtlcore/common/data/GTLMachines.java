@@ -33,6 +33,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
@@ -618,7 +619,7 @@ public class GTLMachines {
     public final static MultiblockMachineDefinition SUPERCRITICAL_STEAM_TURBINE = GTMachines.registerLargeTurbine("supercritical_steam_turbine", GTValues.LuV,
             GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS,
             GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
-            new ResourceLocation("kubejs:block/supercritical_turbine_casing"),
+            GTLCore.id("block/supercritical_turbine_casing"),
             GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
 
     public final static MultiblockMachineDefinition STEAM_MEGA_TURBINE = registerMegaTurbine("steam_mega_turbine", GTValues.EV, 32, GTRecipeTypes.STEAM_TURBINE_FUELS, GTBlocks.CASING_STEEL_TURBINE, GTBlocks.CASING_STEEL_GEARBOX,
@@ -626,11 +627,11 @@ public class GTLMachines {
     public final static MultiblockMachineDefinition GAS_MEGA_TURBINE = registerMegaTurbine("gas_mega_turbine", GTValues.IV, 32, GTRecipeTypes.GAS_TURBINE_FUELS, GTBlocks.CASING_STAINLESS_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_stainless_steel"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
     public final static MultiblockMachineDefinition ROCKET_MEGA_TURBINE = registerMegaTurbine("rocket_mega_turbine", GTValues.IV, 64, GTLRecipeTypes.ROCKET_ENGINE_FUELS, GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
-            GTCEu.id("gblock/casings/mechanic/machine_casing_turbine_titanium"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
+            GTCEu.id("block/casings/mechanic/machine_casing_turbine_titanium"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
     public final static MultiblockMachineDefinition PLASMA_MEGA_TURBINE = registerMegaTurbine("plasma_mega_turbine", GTValues.LuV, 64, GTRecipeTypes.PLASMA_GENERATOR_FUELS, GTBlocks.CASING_TUNGSTENSTEEL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_tungstensteel"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
     public final static MultiblockMachineDefinition SUPERCRITICAL_MEGA_STEAM_TURBINE = registerMegaTurbine("supercritical_mega_steam_turbine", GTValues.ZPM, 128, GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS, GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
-            new ResourceLocation("kubejs:block/supercritical_turbine_casing"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
+            GTLCore.id("block/supercritical_turbine_casing"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
 
     public final static MultiblockMachineDefinition FISSION_REACTOR = REGISTRATE.multiblock("fission_reactor", FissionReactorMachine::new)
             .rotationState(RotationState.ALL)
@@ -999,9 +1000,8 @@ public class GTLMachines {
                     .tooltips(
                             Component.translatable("gtceu.machine.fusion_reactor.capacity",
                                     FusionReactorMachine.calculateEnergyStorageFactor(tier, 16) / 1000000L),
-                            Component.translatable("gtceu.machine.fusion_reactor.overclocking"),
-                            Component.translatable("gtceu.multiblock.%s_fusion_reactor.description"
-                                    .formatted(VN[tier].toLowerCase(Locale.ROOT))))
+                            Component.translatable("gtceu.machine.fusion_reactor.overclocking"))
+                    .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
                     .appearanceBlock(() -> GTLFusionCasingBlock.getCasingState(tier))
                     .pattern((definition) -> {
                         var casing = blocks(GTLFusionCasingBlock.getCasingState(tier));
@@ -1052,15 +1052,16 @@ public class GTLMachines {
                                 .aisle("                    FCIBICF                    ", "                CCCCC#####CCCCC                ", "              CCCCCHHHHHHHHHCCCCC              ", "              CCHHHHHHHHHHHHHHHCC              ", "              CCCCCHHHHHHHHHCCCCC              ", "                CCCCC#####CCCCC                ", "                    FCIBICF                    ")
                                 .aisle("                    FCBBBCF                    ", "                   CC#####CC                   ", "                CCCCC#####CCCCC                ", "                CCCHHHHHHHHHCCC                ", "                CCCCC#####CCCCC                ", "                   CC#####CC                   ", "                    FCBBBCF                    ")
                                 .aisle("                                               ", "                    FCBBBCF                    ", "                   CC#####CC                   ", "                   CC#####CC                   ", "                   CC#####CC                   ", "                    FCBBBCF                    ", "                                               ")
-                                .aisle("                                               ", "                                               ", "                    FCCCCCF                    ", "                    FCISICF                    ", "                    FCCCCCF                    ", "                                               ", "                                               ")
+                                .aisle("                                               ", "                                               ", "                    FCPPPCF                    ", "                    FCISICF                    ", "                    FCPPPCF                    ", "                                               ", "                                               ")
                                 .where('S', controller(blocks(definition.get())))
                                 .where('B', blocks(FUSION_GLASS.get()))
-                                .where('C', casing.or(abilities(PARALLEL_HATCH)))
-                                .where('I', casing.or(abilities(PartAbility.IMPORT_FLUIDS).setMinGlobalLimited(2).setPreviewCount(16))
-                                        .or(abilities(PartAbility.EXPORT_FLUIDS).setMinGlobalLimited(2).setPreviewCount(16)))
+                                .where('C', casing)
+                                .where('P', casing.or(abilities(PARALLEL_HATCH)))
+                                .where('I', casing.or(abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(16))
+                                        .or(abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(16)))
                                 .where('F', blocks(GTLFusionCasingBlock.getFrameState(tier)))
                                 .where('H', blocks(GTLFusionCasingBlock.getCompressedCoilState(tier)))
-                                .where('E', casing.or(abilities(PartAbility.INPUT_ENERGY)).or(abilities(PartAbility.INPUT_LASER)))
+                                .where('E', casing.or(abilities(PartAbility.INPUT_ENERGY).setMinGlobalLimited(1).setPreviewCount(16)).or(abilities(PartAbility.INPUT_LASER)))
                                 .where('#', air())
                                 .where(' ', any())
                                 .build();

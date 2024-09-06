@@ -46,6 +46,7 @@
     "block.gtlcore.stellar_containment_casing": "基础恒星热力容器",
     "block.gtlcore.super_computation_component": "超级计算机组件",
     "block.gtlcore.super_cooler_component": "超级冷却组件",
+    "block.gtlcore.supercritical_turbine_casing": "超临界涡轮机械方块",
     "block.gtlcore.ultimate_stellar_containment_casing": "终极恒星热力容器",
     "config.gtlcore.option.disableDrift": "禁用飞行惯性",
     "config.gtlcore.option.durationMultiplier": "配方时间乘数",

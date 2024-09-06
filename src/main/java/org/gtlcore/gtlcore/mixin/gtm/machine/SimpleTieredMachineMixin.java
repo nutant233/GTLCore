@@ -3,8 +3,6 @@ package org.gtlcore.gtlcore.mixin.gtm.machine;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.SimpleTieredMachine;
 import com.gregtechceu.gtceu.api.machine.WorkableTieredMachine;
-import com.gregtechceu.gtceu.api.machine.feature.IAutoOutputBoth;
-import com.gregtechceu.gtceu.api.machine.feature.IFancyUIMachine;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import it.unimi.dsi.fastutil.ints.Int2LongFunction;
 import org.gtlcore.gtlcore.api.machine.trait.NotifiableCircuitItemStackHandler;

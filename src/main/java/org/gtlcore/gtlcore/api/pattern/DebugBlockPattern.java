@@ -18,7 +18,7 @@ public class DebugBlockPattern {
     public String[][] pattern;
     public int[][] aisleRepetitions;
     public Map<Character, Set<String>> symbolMap;
-    public Map<BlockState, Character> legend = new HashMap<>();;
+    public Map<BlockState, Character> legend = new HashMap<>();
 
     public DebugBlockPattern() {
         symbolMap = new HashMap<>();

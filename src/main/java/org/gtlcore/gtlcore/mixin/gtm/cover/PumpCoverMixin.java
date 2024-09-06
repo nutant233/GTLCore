@@ -1,11 +1,9 @@
 package org.gtlcore.gtlcore.mixin.gtm.cover;
 
 import com.gregtechceu.gtceu.api.GTValues;
-import com.gregtechceu.gtceu.api.capability.IControllable;
 import com.gregtechceu.gtceu.api.capability.ICoverable;
 import com.gregtechceu.gtceu.api.cover.CoverBehavior;
 import com.gregtechceu.gtceu.api.cover.CoverDefinition;
-import com.gregtechceu.gtceu.api.cover.IUICover;
 import com.gregtechceu.gtceu.common.cover.PumpCover;
 import net.minecraft.core.Direction;
 import org.spongepowered.asm.mixin.Final;

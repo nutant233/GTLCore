@@ -2,8 +2,6 @@ package org.gtlcore.gtlcore.mixin.gtm;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.FluidPipeProperties;
-import com.gregtechceu.gtceu.api.pipenet.IMaterialPipeType;
 import com.gregtechceu.gtceu.client.model.PipeModel;
 import com.gregtechceu.gtceu.common.data.GTElements;
 import com.gregtechceu.gtceu.common.pipelike.fluidpipe.FluidPipeType;

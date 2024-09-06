@@ -58,8 +58,8 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
         if (totalCWU < getMaxCWUt()) {
             if (inf && inputEU(this, Integer.MAX_VALUE)) return Integer.MAX_VALUE;
             if (inputEU(this, getOverclockVoltage()))
-                totalCWU += (long) Math.pow(2, getTier());;
-                maxCWUt = 0;
+                totalCWU += (long) Math.pow(2, getTier());
+            maxCWUt = 0;
         }
         int maxCWUt = getMaxCWUt();
         int availableCWUt = maxCWUt - this.allocatedCWUt;
