@@ -3,14 +3,12 @@ package org.gtlcore.gtlcore.mixin.gtm.registry;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
-import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.gregtechceu.gtceu.utils.GTUtil;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeType;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +21,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Mixin(GTRecipeType.class)
-public class GTRecipeTypeMixin implements RecipeType<GTRecipe> {
+public class GTRecipeTypeMixin {
 
     @Shadow(remap = false)
     private GTRecipeBuilder recipeBuilder;

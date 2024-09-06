@@ -21,7 +21,6 @@ import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRendere
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
-import com.gregtechceu.gtceu.common.machine.multiblock.electric.FluidDrillMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.FusionReactorMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
@@ -449,34 +448,33 @@ public class GTLMachines {
             null;
 
     public static final MultiblockMachineDefinition[] FLUID_DRILLING_RIG = registerTieredMultis(
-            "fluid_drilling_rig", FluidDrillMachine::new, (tier, builder) -> builder
+            "fluid_drilling_rig", INFFluidDrillMachine::new, (tier, builder) -> builder
                     .rotationState(RotationState.ALL)
                     .langValue("%s Fluid Drilling Rig %s".formatted(VLVH[tier], VLVT[tier]))
                     .recipeType(DUMMY_RECIPES)
                     .tooltips(
                             Component.translatable("gtceu.machine.fluid_drilling_rig.description"),
-                            Component.translatable("gtceu.machine.fluid_drilling_rig.depletion",
-                                    FormattingUtil.formatNumbers(100.0 / FluidDrillMachine.getDepletionChance(tier))),
+                            Component.translatable("gtceu.machine.fluid_drilling_rig.depletion", 0),
                             Component.translatable("gtceu.universal.tooltip.energy_tier_range", GTValues.VNF[tier],
                                     GTValues.VNF[tier + 1]),
                             Component.translatable("gtceu.machine.fluid_drilling_rig.production",
-                                    FluidDrillMachine.getRigMultiplier(tier),
-                                    FormattingUtil.formatNumbers(FluidDrillMachine.getRigMultiplier(tier) * 1.5)))
-                    .appearanceBlock(() -> FluidDrillMachine.getCasingState(tier))
+                                    INFFluidDrillMachine.getRigMultiplier(tier),
+                                    FormattingUtil.formatNumbers(INFFluidDrillMachine.getRigMultiplier(tier) * 1.5)))
+                    .appearanceBlock(() -> INFFluidDrillMachine.getCasingState(tier))
                     .pattern((definition) -> FactoryBlockPattern.start()
                             .aisle("XXX", "#F#", "#F#", "#F#", "###", "###", "###")
                             .aisle("XXX", "FCF", "FCF", "FCF", "#F#", "#F#", "#F#")
                             .aisle("XSX", "#F#", "#F#", "#F#", "###", "###", "###")
                             .where('S', controller(blocks(definition.get())))
-                            .where('X', blocks(FluidDrillMachine.getCasingState(tier)).setMinGlobalLimited(3)
+                            .where('X', blocks(INFFluidDrillMachine.getCasingState(tier)).setMinGlobalLimited(3)
                                     .or(abilities(PartAbility.INPUT_ENERGY).setMinGlobalLimited(1)
                                             .setMaxGlobalLimited(2))
                                     .or(abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1)))
-                            .where('C', blocks(FluidDrillMachine.getCasingState(tier)))
-                            .where('F', blocks(FluidDrillMachine.getFrameState(tier)))
+                            .where('C', blocks(INFFluidDrillMachine.getCasingState(tier)))
+                            .where('F', blocks(GTBlocks.MATERIAL_BLOCKS.get(TagPrefix.frameGt, GTMaterials.Ruridit).get()))
                             .where('#', any())
                             .build())
-                    .workableCasingRenderer(FluidDrillMachine.getBaseTexture(tier),
+                    .workableCasingRenderer(new ResourceLocation("kubejs:block/iridium_casing"),
                             GTCEu.id("block/multiblock/fluid_drilling_rig"))
                     .compassSections(GTCompassSections.TIER[MV])
                     .compassNode("fluid_drilling_rig")
@@ -1001,6 +999,7 @@ public class GTLMachines {
                             Component.translatable("gtceu.machine.fusion_reactor.capacity",
                                     FusionReactorMachine.calculateEnergyStorageFactor(tier, 16) / 1000000L),
                             Component.translatable("gtceu.machine.fusion_reactor.overclocking"))
+                    .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
                     .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
                     .appearanceBlock(() -> GTLFusionCasingBlock.getCasingState(tier))
                     .pattern((definition) -> {
@@ -1061,7 +1060,7 @@ public class GTLMachines {
                                         .or(abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(16)))
                                 .where('F', blocks(GTLFusionCasingBlock.getFrameState(tier)))
                                 .where('H', blocks(GTLFusionCasingBlock.getCompressedCoilState(tier)))
-                                .where('E', casing.or(abilities(PartAbility.INPUT_ENERGY).setMinGlobalLimited(1).setPreviewCount(16)).or(abilities(PartAbility.INPUT_LASER)))
+                                .where('E', casing.or(abilities(PartAbility.INPUT_ENERGY)).or(abilities(PartAbility.INPUT_LASER).setPreviewCount(16)))
                                 .where('#', air())
                                 .where(' ', any())
                                 .build();

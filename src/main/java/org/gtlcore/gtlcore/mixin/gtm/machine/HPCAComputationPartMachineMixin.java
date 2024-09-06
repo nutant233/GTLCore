@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.mixin.gtm.machine;
 
-import com.gregtechceu.gtceu.api.capability.IHPCAComputationProvider;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.hpca.HPCAComponentPartMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.hpca.HPCAComputationPartMachine;
@@ -10,7 +9,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(HPCAComputationPartMachine.class)
-public abstract class HPCAComputationPartMachineMixin extends HPCAComponentPartMachine implements IHPCAComputationProvider {
+public abstract class HPCAComputationPartMachineMixin extends HPCAComponentPartMachine {
 
     public HPCAComputationPartMachineMixin(IMachineBlockEntity holder) {
         super(holder);

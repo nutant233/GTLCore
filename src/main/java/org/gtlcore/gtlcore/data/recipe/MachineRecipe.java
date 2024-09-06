@@ -5,19 +5,21 @@ import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
+import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 import net.minecraft.data.recipes.FinishedRecipe;
 import org.apache.commons.lang3.ArrayUtils;
+import org.gtlcore.gtlcore.common.data.GTLMachines;
 
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.cableGtSingle;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.plate;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.ROTOR_HOLDER;
-import static com.gregtechceu.gtceu.common.data.GTMaterials.Europium;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
 import static com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader.registerMachineRecipe;
@@ -136,5 +138,16 @@ public class MachineRecipe {
                 'W', POWER_COMPONENT, 'C', CABLE_QUAD, 'T', CABLE_TIER_UP_QUAD, 'H', HULL);
         registerMachineRecipe(provider, DEHYDRATOR, "WCW", "AMA", "PRP", 'M', HULL, 'P', PLATE, 'C',
                 CIRCUIT, 'W', WIRE_QUAD, 'R', ROBOT_ARM, 'A', CABLE_QUAD);
+
+        ASSEMBLER_RECIPES.recipeBuilder("zpm_fluid_drilling_rig")
+                .inputItems(GTMachines.HULL[UV])
+                .inputItems(frameGt, Ruridit, 4)
+                .inputItems(CustomTags.UV_CIRCUITS, 4)
+                .inputItems(GTItems.ELECTRIC_MOTOR_UV, 4)
+                .inputItems(GTItems.ELECTRIC_PUMP_UV, 4)
+                .inputItems(gear, Neutronium, 4)
+                .circuitMeta(2)
+                .outputItems(GTLMachines.FLUID_DRILLING_RIG[ZPM])
+                .duration(400).EUt(VA[UV]).save(provider);
     }
 }
