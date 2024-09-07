@@ -156,6 +156,8 @@ processResources {
             "minecraft_version": minecraft_version,
             "gtceu_version": gtceu_version,
             "ad_astra_version": ad_astra_version,
+            "kubejs_version": kubejs_version,
+            "jei_version": jei_version,
     ]
     inputs.properties(properties)
 

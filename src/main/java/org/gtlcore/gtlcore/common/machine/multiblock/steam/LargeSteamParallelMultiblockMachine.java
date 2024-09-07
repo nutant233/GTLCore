@@ -22,7 +22,6 @@ import com.lowdragmc.lowdraglib.gui.util.ClickData;
 import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.DraggableScrollableWidgetGroup;
 import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
-import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.ChatFormatting;
@@ -32,6 +31,7 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.GTLSteamHatchPartMachine;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -56,7 +56,7 @@ public class LargeSteamParallelMultiblockMachine extends WorkableMultiblockMachi
     private int amountOC;
 
     // if in millibuckets, this is 0.5, Meaning 2mb of steam -> 1 EU
-    private static final double CONVERSION_RATE = FluidHelper.getBucket() * 2 / 1000.0D;
+    private static final double CONVERSION_RATE = 0.5D;
 
     public LargeSteamParallelMultiblockMachine(IMachineBlockEntity holder, int maxParallels, Object... args) {
         super(holder, args);
@@ -76,12 +76,14 @@ public class LargeSteamParallelMultiblockMachine extends WorkableMultiblockMachi
         var itr = handlers.iterator();
         while (itr.hasNext()) {
             var handler = itr.next();
-            if (handler instanceof NotifiableFluidTank tank &&
-                    tank.getMachine() instanceof SteamHatchPartMachine steamHatchPart) {
-                this.isOC = steamHatchPart.getDefinition() == LARGE_STEAM_HATCH;
-                itr.remove();
-                if (!capabilitiesProxy.contains(IO.IN, EURecipeCapability.CAP)) {
-                    capabilitiesProxy.put(IO.IN, EURecipeCapability.CAP, new ArrayList<>());
+            if (handler instanceof NotifiableFluidTank tank) {
+                MetaMachine machine = tank.getMachine();
+                if (machine instanceof GTLSteamHatchPartMachine || machine instanceof SteamHatchPartMachine) {
+                    this.isOC = machine.getDefinition() == LARGE_STEAM_HATCH;
+                    itr.remove();
+                    if (!capabilitiesProxy.contains(IO.IN, EURecipeCapability.CAP)) {
+                        capabilitiesProxy.put(IO.IN, EURecipeCapability.CAP, new ArrayList<>());
+                    }
                 }
                 Objects.requireNonNull(capabilitiesProxy.get(IO.IN, EURecipeCapability.CAP))
                         .add(new SteamEnergyRecipeHandler(tank,
