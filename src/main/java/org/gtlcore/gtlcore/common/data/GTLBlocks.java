@@ -50,16 +50,6 @@ public class GTLBlocks {
     public static Map<Integer, Supplier<Block>> calmap = new HashMap<>();
 
     public static void init() {
-        GTLBlocks.createActiveCasing("power_core", "block/variant/hyper_core");
-        GTLBlocks.createActiveCasing("hyper_core", "block/variant/hyper_core");
-        GTLBlocks.createActiveCasing("super_computation_component", "block/variant/super_computation_component");
-        GTLBlocks.createActiveCasing("super_cooler_component", "block/variant/super_cooler_component");
-        GTLBlocks.createActiveCasing("spacetimecontinuumripper", "block/variant/spacetimecontinuumripper");
-        GTLBlocks.createActiveCasing("spacetimebendingcore", "block/variant/spacetimebendingcore");
-        GTLBlocks.createActiveCasing("qft_coil", "block/variant/qft_coil");
-        GTLBlocks.createActiveCasing("fission_fuel_assembly", "block/variant/fission_fuel_assembly");
-        GTLBlocks.createActiveCasing("cooler", "block/variant/cooler");
-
         GTLBlocks.createTierCasings("stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
         GTLBlocks.createTierCasings("advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 2);
         GTLBlocks.createTierCasings("ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 3);
@@ -271,6 +261,16 @@ public class GTLBlocks {
 
     public static final BlockEntry<Block> CASING_SUPERCRITICAL_TURBINE = createCasingBlock(
             "supercritical_turbine_casing", GTLCore.id("block/supercritical_turbine_casing"));
+
+    public static final BlockEntry<ActiveBlock> POWER_CORE = createActiveCasing("power_core", "block/variant/hyper_core");
+    public static final BlockEntry<ActiveBlock> HYPER_CORE = createActiveCasing("hyper_core", "block/variant/hyper_core");
+    public static final BlockEntry<ActiveBlock> SUPER_COMPUTATION_COMPONENT = createActiveCasing("super_computation_component", "block/variant/super_computation_component");
+    public static final BlockEntry<ActiveBlock> SUPER_COOLER_COMPONENT = createActiveCasing("super_cooler_component", "block/variant/super_cooler_component");
+    public static final BlockEntry<ActiveBlock> SPACETIMECONTINUUMRIPPER = createActiveCasing("spacetimecontinuumripper", "block/variant/spacetimecontinuumripper");
+    public static final BlockEntry<ActiveBlock> SPACETIMEBENDINGCORE = createActiveCasing("spacetimebendingcore", "block/variant/spacetimebendingcore");
+    public static final BlockEntry<ActiveBlock> QFT_COIL = createActiveCasing("qft_coil", "block/variant/qft_coil");
+    public static final BlockEntry<ActiveBlock> FISSION_FUEL_ASSEMBLY = createActiveCasing("fission_fuel_assembly", "block/variant/fission_fuel_assembly");
+    public static final BlockEntry<ActiveBlock> COOLER = createActiveCasing("cooler", "block/variant/cooler");
 
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
             GTLBlocks.CraftingUnitType.STORAGE_1M);

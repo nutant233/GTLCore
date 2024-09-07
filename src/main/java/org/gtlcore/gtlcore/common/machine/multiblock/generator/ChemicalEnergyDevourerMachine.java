@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.generator;
 
 import com.gregtechceu.gtceu.api.GTValues;
-import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
@@ -12,8 +11,8 @@ import com.gregtechceu.gtceu.api.machine.feature.ITieredMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
-import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
-import com.gregtechceu.gtceu.api.recipe.content.Content;
+import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
+import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
@@ -32,11 +31,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-/**
- * @author KilaBash
- * @date 2023/7/9
- * @implNote LargeCombustionEngineMachine
- */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
@@ -49,14 +43,12 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
             2 * FluidHelper.getBucket() / 1000);
 
     @Getter
-    private final int tier;
-    // runtime
+    private final int tier = 5;
     private boolean isOxygenBoosted = false;
     private boolean isDinitrogenTetroxideBoosted = false;
 
-    public ChemicalEnergyDevourerMachine(IMachineBlockEntity holder, int tier) {
+    public ChemicalEnergyDevourerMachine(IMachineBlockEntity holder) {
         super(holder);
-        this.tier = tier;
     }
 
     private boolean isIntakesObstructed() {
@@ -65,7 +57,6 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
         var centerPos = this.getPos().relative(facing);
         for (int x = -3; x < 4; x++) {
             for (int y = -3; y < 4; y++) {
-                // Skip the controller block itself
                 if (x == 0 && y == 0)
                     continue;
                 var blockPos = centerPos.offset(permuteXZ ? x : 0, y, permuteXZ ? 0 : x);
@@ -108,27 +99,24 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
     }
 
     @Nullable
-    public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe) {
+    public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
+                                          @NotNull OCResult result) {
         if (machine instanceof ChemicalEnergyDevourerMachine engineMachine) {
             var EUt = RecipeHelper.getOutputEUt(recipe);
-            // has lubricant
             if (EUt > 0 && engineMachine.getLubricantRecipe().matchRecipe(engineMachine).isSuccess() &&
                     !engineMachine.isIntakesObstructed()) {
                 var maxParallel = (int) (engineMachine.getOverclockVoltage() / EUt);
                 var parallelResult = GTRecipeModifiers.fastParallel(engineMachine, recipe, maxParallel, false);
                 if (engineMachine.isOxygenBoosted && engineMachine.isDinitrogenTetroxideBoosted) {
-                    recipe = parallelResult.getFirst() == recipe ? recipe.copy() : parallelResult.getFirst();
                     long eut = EUt * parallelResult.getSecond() * 4;
-                    recipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut,
-                            ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
+                    result.init(-eut, recipe.duration, parallelResult.getSecond());
                 } else if (engineMachine.isOxygenBoosted) {
-                    recipe = parallelResult.getFirst() == recipe ? recipe.copy() : parallelResult.getFirst();
                     long eut = EUt * parallelResult.getSecond() * 2;
-                    recipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut,
-                            ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
+                    result.init(-eut, recipe.duration, parallelResult.getSecond());
                 } else {
-                    recipe = parallelResult.getFirst();
+                    result.init(-RecipeHelper.getOutputEUt(recipe), recipe.duration, parallelResult.getSecond());
                 }
+
                 return recipe;
             }
         }
@@ -138,16 +126,13 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
     @Override
     public boolean onWorking() {
         boolean value = super.onWorking();
-        // check lubricant
         val totalContinuousRunningTime = recipeLogic.getTotalContinuousRunningTime();
         if ((totalContinuousRunningTime == 1 || totalContinuousRunningTime % 72 == 0)) {
-            // insufficient lubricant
             if (!getLubricantRecipe().handleRecipeIO(IO.IN, this, this.recipeLogic.getChanceCaches())) {
                 recipeLogic.interruptRecipe();
                 return false;
             }
         }
-        // check boost fluid
         if ((totalContinuousRunningTime == 1 || totalContinuousRunningTime % 20 == 0) && isBoostAllowed()) {
             var boosterRecipe = getBoostRecipe();
             var boosterRecipea = getBoostRecipea();

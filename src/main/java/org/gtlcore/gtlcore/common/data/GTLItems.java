@@ -56,9 +56,9 @@ public class GTLItems {
                         StorageComponent,
                         CELL_HOUSING,
                         3 + 0.5 * Math.log(tier) / Math.log(4),
-                        1024 * tier,
+                        1024 * tier * 1024,
                         1,
-                        isItem ? 512 : 128,
+                        isItem ? 63 : 18,
                         isItem ? AEKeyType.items() : AEKeyType.fluids()))
                 .register();
     }
@@ -219,7 +219,7 @@ public class GTLItems {
 
     public static final ItemEntry<PortableCellItem> SUPER_PORTABLE_ITEM_CELL = REGISTRATE
             .item("super_portable_item_storage_cell", p -> new PortableCellItem(AEKeyType.items(),
-                    1024,
+                    512,
                     MEStorageMenu.PORTABLE_ITEM_CELL_TYPE,
                     new StorageTier(100, "super", Integer.MAX_VALUE, 100, WETWARE_MAINFRAME_UHV),
                     p.stacksTo(1), 0xDDDDDD))
@@ -227,7 +227,7 @@ public class GTLItems {
 
     public static final ItemEntry<PortableCellItem> SUPER_PORTABLE_FLUID_CELL = REGISTRATE
             .item("super_portable_fluid_storage_cell", p -> new PortableCellItem(AEKeyType.fluids(),
-                    1024,
+                    512,
                     MEStorageMenu.PORTABLE_ITEM_CELL_TYPE,
                     new StorageTier(100, "super", Integer.MAX_VALUE, 100, WETWARE_MAINFRAME_UHV),
                     p.stacksTo(1), 0xFF6D36))

@@ -3,15 +3,14 @@ package org.gtlcore.gtlcore.common.machine.trait;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
-import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
-import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.MultipleRecipesMachine;
 import org.jetbrains.annotations.Nullable;
@@ -52,12 +51,20 @@ public class MultipleRecipesLogic extends RecipeLogic {
         for (int i = 0; i < 64; i++) {
             GTRecipe match = machine.getRecipeType().getLookup().findRecipe(machine);
             if (match == null) break;
+            int multipliers = 0;
+            for (RecipeCapability<?> cap : match.inputs.keySet()) {
+                if (cap.doMatchInRecipe()) {
+                    multipliers += cap.getMaxParallelRatio(machine, match, Integer.MAX_VALUE);
+                }
+            }
+            if (multipliers != 0) {
+                match =  match.copy(ContentModifier.multiplier(multipliers), false);
+            }
             GTRecipe input = GTRecipeBuilder.ofRaw().buildRawRecipe();
-            Pair<GTRecipe, Integer> pair = GTRecipeModifiers.fastParallel(getMachine(), match, Integer.MAX_VALUE, false);
-            input.inputs.putAll(pair.getFirst().inputs);
+            input.inputs.putAll(match.inputs);
             input.handleRecipeIO(IO.IN, machine, getChanceCaches());
-            eu += pair.getFirst().duration * RecipeHelper.getInputEUt(pair.getFirst());
-            recipe.outputs.get(ItemRecipeCapability.CAP).addAll(pair.getFirst().outputs.get(ItemRecipeCapability.CAP));
+            eu += match.duration * RecipeHelper.getInputEUt(match);
+            recipe.outputs.get(ItemRecipeCapability.CAP).addAll(match.outputs.get(ItemRecipeCapability.CAP));
         }
         if (recipe.outputs.get(ItemRecipeCapability.CAP).equals(new ArrayList<>())) return null;
         long maxeut = getMachine().getOverclockVoltage();

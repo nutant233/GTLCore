@@ -21,9 +21,4 @@ public class PortableCellItemMixin {
     public void getBytes(ItemStack cellItem, CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(this.tier.bytes());
     }
-
-    @Inject(method = "getBytes", at = @At("HEAD"), remap = false, cancellable = true)
-    public void getBytesPerType(ItemStack cellItem, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(1);
-    }
 }

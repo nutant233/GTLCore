@@ -57,12 +57,12 @@ import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
 import static com.gregtechceu.gtceu.api.pattern.util.RelativeDirection.*;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.DUMMY_RECIPES;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 import static com.gregtechceu.gtceu.utils.FormattingUtil.toRomanNumeral;
 import static org.gtlcore.gtlcore.api.pattern.GTLPredicates.countBlock;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 import static org.gtlcore.gtlcore.utils.Registries.getBlock;
+import static org.gtlcore.gtlcore.utils.Registries.getFluid;
 
 public class GTLMachines {
 
@@ -451,7 +451,7 @@ public class GTLMachines {
             "fluid_drilling_rig", INFFluidDrillMachine::new, (tier, builder) -> builder
                     .rotationState(RotationState.ALL)
                     .langValue("%s Fluid Drilling Rig %s".formatted(VLVH[tier], VLVT[tier]))
-                    .recipeType(DUMMY_RECIPES)
+                    .recipeType(GTRecipeTypes.DUMMY_RECIPES)
                     .tooltips(
                             Component.translatable("gtceu.machine.fluid_drilling_rig.description"),
                             Component.translatable("gtceu.machine.fluid_drilling_rig.depletion", 0),
@@ -488,7 +488,7 @@ public class GTLMachines {
             GTCEu.id("block/multiblock/generator/large_combustion_engine"));
 
     public final static MultiblockMachineDefinition CHEMICAL_ENERGY_DEVOURER = REGISTRATE
-            .multiblock("chemical_energy_devourer", holder -> new ChemicalEnergyDevourerMachine(holder, IV))
+            .multiblock("chemical_energy_devourer", ChemicalEnergyDevourerMachine::new)
             .rotationState(RotationState.ALL)
             .recipeTypes(GTRecipeTypes.COMBUSTION_GENERATOR_FUELS, SEMI_FLUID_GENERATOR_FUELS,
                     GTRecipeTypes.GAS_TURBINE_FUELS)
@@ -501,7 +501,7 @@ public class GTLMachines {
                             "提供§f120L/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
                     Component.literal(
                             "再额外提供§f80L/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
-            .recipeModifier((machine, recipe, params, result) -> ChemicalEnergyDevourerMachine.recipeModifier(machine, recipe), true)
+            .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("BBBBBBB", "BBBBBBB", "BBPBPBB", "BBBBBBB", "BBPBPBB", "BBBBBBB", "BBBBBBB")
@@ -608,7 +608,7 @@ public class GTLMachines {
                 .register();
     }
 
-    public final static MultiblockMachineDefinition ROCKET_LARGE_TURBINE = GTMachines.registerLargeTurbine("rocket_large_turbine", GTValues.EV,
+    public final static MultiblockMachineDefinition ROCKET_LARGE_TURBINE = GTMachines.registerLargeTurbine("rocket_large_turbine", GTValues.IV,
             GTLRecipeTypes.ROCKET_ENGINE_FUELS,
             GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_TITANIUM_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_titanium"),
@@ -622,11 +622,11 @@ public class GTLMachines {
 
     public final static MultiblockMachineDefinition STEAM_MEGA_TURBINE = registerMegaTurbine("steam_mega_turbine", GTValues.EV, 32, GTRecipeTypes.STEAM_TURBINE_FUELS, GTBlocks.CASING_STEEL_TURBINE, GTBlocks.CASING_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_steel"), GTCEu.id("block/multiblock/generator/large_steam_turbine"));
-    public final static MultiblockMachineDefinition GAS_MEGA_TURBINE = registerMegaTurbine("gas_mega_turbine", GTValues.IV, 32, GTRecipeTypes.GAS_TURBINE_FUELS, GTBlocks.CASING_STAINLESS_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
+    public final static MultiblockMachineDefinition GAS_MEGA_TURBINE = registerMegaTurbine("gas_mega_turbine", GTValues.IV, 48, GTRecipeTypes.GAS_TURBINE_FUELS, GTBlocks.CASING_STAINLESS_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_stainless_steel"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
-    public final static MultiblockMachineDefinition ROCKET_MEGA_TURBINE = registerMegaTurbine("rocket_mega_turbine", GTValues.IV, 64, GTLRecipeTypes.ROCKET_ENGINE_FUELS, GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
+    public final static MultiblockMachineDefinition ROCKET_MEGA_TURBINE = registerMegaTurbine("rocket_mega_turbine", GTValues.LuV, 64, GTLRecipeTypes.ROCKET_ENGINE_FUELS, GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_titanium"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
-    public final static MultiblockMachineDefinition PLASMA_MEGA_TURBINE = registerMegaTurbine("plasma_mega_turbine", GTValues.LuV, 64, GTRecipeTypes.PLASMA_GENERATOR_FUELS, GTBlocks.CASING_TUNGSTENSTEEL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
+    public final static MultiblockMachineDefinition PLASMA_MEGA_TURBINE = registerMegaTurbine("plasma_mega_turbine", GTValues.LuV, 72, GTRecipeTypes.PLASMA_GENERATOR_FUELS, GTBlocks.CASING_TUNGSTENSTEEL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_tungstensteel"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
     public final static MultiblockMachineDefinition SUPERCRITICAL_MEGA_STEAM_TURBINE = registerMegaTurbine("supercritical_mega_steam_turbine", GTValues.ZPM, 128, GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS, GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTLCore.id("block/supercritical_turbine_casing"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
@@ -772,7 +772,7 @@ public class GTLMachines {
                                     .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                             .where("E", Predicates.blocks(getBlock("kubejs:space_elevator_support")))
-                            .where("H", Predicates.blocks(getBlock("gtceu:neutronium_frame")))
+                            .where("H", Predicates.blocks(GTBlocks.MATERIAL_BLOCKS.get(TagPrefix.frameGt, GTMaterials.Neutronium).get()))
                             .where("F", Predicates.blocks(getBlock("kubejs:space_elevator_internal_support")))
                             .where("C", GTLPredicates.tierActiveCasings(GTLBlocks.sepmmap, "SEPMTier"))
                             .where("A", Predicates.blocks(getBlock("kubejs:high_strength_concrete")))
@@ -850,7 +850,7 @@ public class GTLMachines {
                             .where("J", Predicates.blocks(getBlock("kubejs:advanced_assembly_line_unit")))
                             .where("K", GTLPredicates.tierCasings(GTLBlocks.calmap, "CATier"))
                             .where("L", Predicates.blocks(GTBlocks.CASING_POLYTETRAFLUOROETHYLENE_PIPE.get()))
-                            .where("M", Predicates.blocks(getBlock("gtceu:tungsten_steel_frame")))
+                            .where("M", Predicates.blocks(GTBlocks.MATERIAL_BLOCKS.get(TagPrefix.frameGt, GTMaterials.TungstenSteel).get()))
                             .where("N", Predicates.blocks(getBlock("kubejs:iridium_casing"))
                                     .or(Predicates.abilities(PartAbility.EXPORT_ITEMS)))
                             .where(" ", Predicates.any())
@@ -1068,4 +1068,138 @@ public class GTLMachines {
                     .workableCasingRenderer(GTLFusionCasingBlock.getCasingType(tier).getTexture(), GTCEu.id("block/multiblock/fusion_reactor"))
                     .register(),
             LuV, ZPM, UV, UHV, UEV);
+
+    public final static MultiblockMachineDefinition ADVANCED_INTEGRATED_ORE_PROCESSOR = REGISTRATE.multiblock("advanced_integrated_ore_processor", MultipleRecipesMachine::new)
+            .rotationState(RotationState.ALL)
+            .recipeType(INTEGRATED_ORE_PROCESSOR)
+            .tooltips(Component.translatable("gtceu.machine.integrated_ore_processor.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.advanced_integrated_ore_processor.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.integrated_ore_processor")))
+            .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
+            .pattern((definition) ->
+                    FactoryBlockPattern.start()
+                            .aisle("    AAAAAAAAAA ", "    AAAGGGGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "   AAAAGHHGAAAA", "     AAGHHGAA  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("   AAAAAAAAAAAA", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "    A        A ", "   AAA      AAA", "     A      A  ", "      AGGGGA   ")
+                            .aisle("IIIAAAAAAAAAAAA", "IIIBADEE  EEDAB", "IIIBADEE  EEDAB", "IIIBADEE  EEDAB", "IIIBADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("IIIAAAAAAAAAAAA", "IDIBADEE  EEDAB", "IDIBADEE  EEDAB", "IDIBADEE  EEDAB", "IIIBADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   BADEE  EEDAB", "   AAAFF  FFAAA", "     AFF  FFA  ", "      AGCCGA   ")
+                            .aisle("III AAAAAAAAAA ", "III AAAGGGGAAA ", "I~I AAAGHHGAAA ", "III AAAGHHGAAA ", "III AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "    AAAGHHGAAA ", "   AAAAGHHGAAAA", "     AAGHHGAA  ", "      AGGGGA   ")
+                            .where("~", Predicates.controller(Predicates.blocks(definition.get())))
+                            .where("A", Predicates.blocks(CASING_TUNGSTENSTEEL_ROBUST.get()))
+                            .where("B", Predicates.blocks(GTBlocks.MATERIAL_BLOCKS.get(TagPrefix.frameGt, GTMaterials.HSSS).get()))
+                            .where("C", Predicates.blocks(getBlock("kubejs:restraint_device")))
+                            .where("D", Predicates.blocks(CASING_TUNGSTENSTEEL_PIPE.get()))
+                            .where("E", Predicates.blocks(CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                            .where("F", Predicates.blocks(CASING_GRATE.get()))
+                            .where("G", Predicates.blocks(CASING_HSSE_STURDY.get()))
+                            .where("H", Predicates.blocks(getBlock("kubejs:hsss_reinforced_borosilicate_glass")))
+                            .where("I", Predicates.blocks(CASING_HSSE_STURDY.get())
+                                    .or(Predicates.abilities(PartAbility.INPUT_LASER))
+                                    .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
+                                    .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
+                                    .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
+                            .where(" ", Predicates.any())
+                            .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
+            .register();
+
+    public final static MultiblockMachineDefinition SUPER_COMPUTATION = REGISTRATE.multiblock("super_computation", (holder) -> new ComputationProviderMachine(holder, false))
+            .rotationState(RotationState.NONE)
+            .allowExtendedFacing(false)
+            .allowFlip(false)
+            .recipeType(GTRecipeTypes.DUMMY_RECIPES)
+            .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.2"))
+            .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.3"))
+            .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.4"))
+            .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.5"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.super_computation")))
+            .appearanceBlock(GTBlocks.COMPUTER_CASING)
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .pattern((definition) ->
+                    FactoryBlockPattern.start()
+                            .aisle("    aaaaaaa    ", "    abbbbba    ", "    abbbbba    ", "    abbbbba    ", "    aaaaaaa    ", "    abbbbba    ", "    abbbbba    ", "    abbbbba    ", "    aaaaaaa    ")
+                            .aisle("   aaaaaaaaa   ", "   adedededa   ", "   adedededa   ", "   adedededa   ", "   afffffffa   ", "   adedededa   ", "   adedededa   ", "   adedededa   ", "   aaaaaaaaa   ")
+                            .aisle("  aaaaaaaaaaa  ", "  addedededda  ", "  addedededda  ", "  addedededda  ", "  afffffffffa  ", "  addedededda  ", "  addedededda  ", "  addedededda  ", "  aaaaaaaaaaa  ")
+                            .aisle(" aaaaaaaaaaaaa ", " adddedededdda ", " adddedededdda ", " adddedededdda ", " afffffffffffa ", " adddedededdda ", " adddedededdda ", " adddedededdda ", " aaaaaaaaaaaaa ")
+                            .aisle("aaaaaaaaaaaaaaa", "addd       ddda", "addd       ddda", "addd       ddda", "afff       fffa", "addd       ddda", "addd       ddda", "adddcccccccddda", "aaaagggagggaaaa")
+                            .aisle("aaaaaaaaaaaaaaa", "beee       eeeb", "beee       eeeb", "beee       eeeb", "afff       fffa", "beee       eeeb", "beee       eeeb", "beeeccccccceeeb", "aaaagggagggaaaa")
+                            .aisle("aaaaaaaaaaaaaaa", "bddd       dddb", "bddd       dddb", "bddd       dddb", "afff       fffa", "bddd       dddb", "bddd       dddb", "bdddcccccccdddb", "aaaagggagggaaaa")
+                            .aisle("aaaaaaaaaaaaaaa", "beee       eeeb", "beee       eeeb", "beee       eeeb", "afff       fffa", "beee       eeeb", "beee       eeeb", "beeeccccccceeeb", "aaaaaaa~aaaaaaa")
+                            .aisle("aaaaaaaaaaaaaaa", "bddd       dddb", "bddd       dddb", "bddd       dddb", "afff       fffa", "bddd       dddb", "bddd       dddb", "bdddcccccccdddb", "aaaagggagggaaaa")
+                            .aisle("aaaaaaaaaaaaaaa", "beee       eeeb", "beee       eeeb", "beee       eeeb", "afff       fffa", "beee       eeeb", "beee       eeeb", "beeeccccccceeeb", "aaaagggagggaaaa")
+                            .aisle("aaaaaaaaaaaaaaa", "addd       ddda", "addd       ddda", "addd       ddda", "afff       fffa", "addd       ddda", "addd       ddda", "adddcccccccddda", "aaaagggagggaaaa")
+                            .aisle(" aaaaaaaaaaaaa ", " adddedededdda ", " adddedededdda ", " adddedededdda ", " afffffffffffa ", " adddedededdda ", " adddedededdda ", " adddedededdda ", " aaaaaaaaaaaaa ")
+                            .aisle("  aaaaaaaaaaa  ", "  addedededda  ", "  addedededda  ", "  addedededda  ", "  afffffffffa  ", "  addedededda  ", "  addedededda  ", "  addedededda  ", "  aaaaaaaaaaa  ")
+                            .aisle("   aaaaaaaaa   ", "   adedededa   ", "   adedededa   ", "   adedededa   ", "   afffffffa   ", "   adedededa   ", "   adedededa   ", "   adedededa   ", "   aaaaaaaaa   ")
+                            .aisle("    aaaaaaa    ", "    abbbbba    ", "    abbbbba    ", "    abbbbba    ", "    aaaaaaa    ", "    abbbbba    ", "    abbbbba    ", "    abbbbba    ", "    aaaaaaa    ")
+                            .where("~", Predicates.controller(Predicates.blocks(definition.get())))
+                            .where("a", Predicates.blocks(COMPUTER_CASING.get())
+                                    .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_TRANSMISSION).setExactLimit(1))
+                                    .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
+                                    .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
+                                    .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
+                            .where("b", Predicates.blocks(COMPUTER_HEAT_VENT.get()))
+                            .where("c", Predicates.fluids(getFluid("kubejs:gelid_cryotheum")))
+                            .where("d", Predicates.blocks(GTLBlocks.SUPER_COOLER_COMPONENT.get()))
+                            .where("e", Predicates.blocks(GTLBlocks.SUPER_COMPUTATION_COMPONENT.get()))
+                            .where("f", Predicates.blocks(ADVANCED_COMPUTER_CASING.get()))
+                            .where("g", Predicates.blocks(CASING_LAMINATED_GLASS.get()))
+                            .where(" ", Predicates.any())
+                            .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/hpca/computer_casing/back"), GTCEu.id("block/super_computation"))
+            .register();
+
+    public final static MultiblockMachineDefinition CREATE_COMPUTATION = REGISTRATE.multiblock("create_computation", (holder) -> new ComputationProviderMachine(holder, true))
+            .rotationState(RotationState.ALL)
+            .recipeType(GTRecipeTypes.DUMMY_RECIPES)
+            .tooltips(Component.translatable("gtceu.machine.create_computation.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.super_computation")))
+            .appearanceBlock(GTBlocks.ADVANCED_COMPUTER_CASING)
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .pattern((definition) -> FactoryBlockPattern.start()
+                    .aisle("aa", "bb", "bb", "bb", "aa")
+                    .aisle("aa", "cc", "cc", "cc", "aa")
+                    .aisle("aa", "cc", "cc", "cc", "aa")
+                    .aisle("aa", "cc", "cc", "cc", "aa")
+                    .aisle("~a", "bb", "bb", "bb", "aa")
+                    .where("~", Predicates.controller(Predicates.blocks(definition.get())))
+                    .where("b", Predicates.blocks(ADVANCED_COMPUTER_CASING.get())
+                            .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_TRANSMISSION).setExactLimit(1))
+                            .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1)))
+                    .where("a", Predicates.blocks(ADVANCED_COMPUTER_CASING.get()))
+                    .where("c", Predicates.blocks(getBlock("kubejs:create_hpca_component")))
+                    .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/hpca/advanced_computer_casing/back"),GTCEu.id("block/multiblock/hpca"))
+            .register();
 }

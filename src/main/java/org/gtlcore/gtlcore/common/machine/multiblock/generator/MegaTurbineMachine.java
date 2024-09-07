@@ -11,8 +11,6 @@ import com.gregtechceu.gtceu.api.machine.feature.multiblock.IRotorHolderMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
-import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
-import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
@@ -29,26 +27,20 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-/**
- * @author KilaBash
- * @date 2023/7/9
- * @implNote LargeCombustionEngineMachine
- */
+
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
-
-    public static final int MIN_DURABILITY_TO_WARN = 10;
 
     private final int BASE_EU_OUTPUT;
     @Getter
     private final int tier;
     private int excessVoltage;
 
-    public MegaTurbineMachine(IMachineBlockEntity holder, int tier, int am) {
+    public MegaTurbineMachine(IMachineBlockEntity holder, int tier, int value) {
         super(holder);
         this.tier = tier;
-        this.BASE_EU_OUTPUT = (int) GTValues.V[tier] * am;
+        this.BASE_EU_OUTPUT = (int) GTValues.V[tier] * value;
     }
 
     @Nullable
@@ -110,11 +102,10 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
         // this is necessary to prevent over-consumption of fuel
         turbineMachine.excessVoltage += (int) (maxParallel * EUt * holderEfficiency - turbineMaxVoltage);
         var parallelResult = GTRecipeModifiers.fastParallel(turbineMachine, recipe, Math.max(1, maxParallel), false);
-        recipe = parallelResult.getFirst() == recipe ? recipe.copy() : parallelResult.getFirst();
 
         long eut = turbineMachine.boostProduction((long) (EUt * holderEfficiency * parallelResult.getSecond()));
-        recipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut,
-                ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
+
+        result.init(-eut, recipe.duration, parallelResult.getSecond());
 
         return recipe;
     }
@@ -156,7 +147,7 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
                 }
 
                 int rotorDurability = rotorHolder.getRotorDurabilityPercent();
-                if (rotorDurability > MIN_DURABILITY_TO_WARN) {
+                if (rotorDurability > 10) {
                     textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_durability", rotorDurability));
                 } else {
                     textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_durability", rotorDurability)

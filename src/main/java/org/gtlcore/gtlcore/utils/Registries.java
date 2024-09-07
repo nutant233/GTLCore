@@ -8,6 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.gtlcore.gtlcore.GTLCore;
 
@@ -37,6 +39,15 @@ public class Registries {
             return Blocks.BARRIER;
         }
         return b;
+    }
+
+    public static Fluid getFluid(String s) {
+        Fluid f = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(s));
+        if (f == Fluids.EMPTY) {
+            GTLCore.LOGGER.atError().log("未找到ID为{}的流体", s);
+            return Fluids.WATER;
+        }
+        return f;
     }
 
     public static Material getMaterial(String s) {
