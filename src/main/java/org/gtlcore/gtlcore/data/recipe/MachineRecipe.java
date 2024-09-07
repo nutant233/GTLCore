@@ -149,5 +149,9 @@ public class MachineRecipe {
                 .circuitMeta(2)
                 .outputItems(GTLMachines.FLUID_DRILLING_RIG[ZPM])
                 .duration(400).EUt(VA[UV]).save(provider);
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "generator_array", GTLMachines.GENERATOR_ARRAY.asStack(),
+                "ABA", "BCB", "ABA", 'A', new UnificationEntry(plate, Steel),
+                'B', CustomTags.LV_CIRCUITS, 'C', GTItems.EMITTER_LV.asStack());
     }
 }

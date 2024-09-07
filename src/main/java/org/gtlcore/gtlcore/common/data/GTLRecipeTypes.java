@@ -55,6 +55,13 @@ public class GTLRecipeTypes {
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.JET_ENGINE);
 
+    public final static GTRecipeType NAQUADAH_REACTOR = register("naquadah_reactor", GENERATOR)
+            .setEUIO(IO.OUT)
+            .setSlotOverlay(false, false, GuiTextures.SOLIDIFIER_OVERLAY)
+            .setMaxIOSize(0, 0, 1, 0)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.COMBUSTION);
+
     public final static GTRecipeType ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES = register("electric_implosion_compressor",
             MULTIBLOCK)
             .setMaxIOSize(2, 1, 0, 0).setEUIO(IO.IN)

@@ -40,6 +40,7 @@ import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.ChemicalEnergyDevourerMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.MegaTurbineMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.HeatExchangerMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.NeutronActivatorMachine;
@@ -59,6 +60,7 @@ import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
 import static com.gregtechceu.gtceu.api.pattern.util.RelativeDirection.*;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.*;
+import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.DUMMY_RECIPES;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 import static com.gregtechceu.gtceu.utils.FormattingUtil.toRomanNumeral;
 import static org.gtlcore.gtlcore.api.pattern.GTLPredicates.countBlock;
@@ -1157,7 +1159,7 @@ public class GTLMachines {
                             .where("F", Predicates.blocks(CASING_GRATE.get()))
                             .where("G", Predicates.blocks(CASING_HSSE_STURDY.get()))
                             .where("H", Predicates.blocks(getBlock("kubejs:hsss_reinforced_borosilicate_glass")))
-                            .where("I", Predicates.blocks(CASING_HSSE_STURDY.get())
+                            .where("I", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
                                     .or(Predicates.abilities(PartAbility.INPUT_LASER))
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                                     .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
@@ -1288,5 +1290,35 @@ public class GTLMachines {
                             .where(" ", Predicates.any())
                             .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/multiblock/steam_oven"))
+            .register();
+
+    public static final MultiblockMachineDefinition GENERATOR_ARRAY = REGISTRATE.multiblock("generator_array", GeneratorArrayMachine::new)
+            .rotationState(RotationState.ALL)
+            .appearanceBlock(CASING_STEEL_SOLID)
+            .recipeType(DUMMY_RECIPES)
+            .generator(true)
+            .tooltips(Component.translatable("gtceu.machine.generator_array.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.generator_array.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_6.tooltip",
+                    Component.translatable("gtceu.steam_turbine"),
+                    Component.translatable("gtceu.combustion_generator"),
+                    Component.translatable("gtceu.gas_turbine"),
+                    Component.translatable("gtceu.semi_fluid_generator"),
+                    Component.translatable("gtceu.rocket_engine"),
+                    Component.translatable("gtceu.naquadah_reactor")))
+            .recipeModifier(GeneratorArrayMachine::recipeModifier, true)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("XXX", "CCC", "XXX")
+                    .aisle("XXX", "C#C", "XXX")
+                    .aisle("XSX", "CCC", "XXX")
+                    .where('S', Predicates.controller(blocks(definition.getBlock())))
+                    .where('X', blocks(CASING_STEEL_SOLID.get())
+                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
+                            .or(Predicates.abilities(OUTPUT_ENERGY).setMaxGlobalLimited(1))
+                            .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1)))
+                    .where('C', blocks(CASING_TEMPERED_GLASS.get()))
+                    .where('#', Predicates.air())
+                    .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/processing_array"))
             .register();
 }

@@ -1,9 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.trait;
 
-import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.IO;
-import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
@@ -51,12 +48,17 @@ public class MultipleRecipesLogic extends RecipeLogic {
         for (int i = 0; i < 64; i++) {
             GTRecipe match = machine.getRecipeType().getLookup().findRecipe(machine);
             if (match == null) break;
-            int multipliers = 0;
+            int imultipliers = 0;
+            int fmultipliers = 0;
             for (RecipeCapability<?> cap : match.inputs.keySet()) {
-                if (cap.doMatchInRecipe()) {
-                    multipliers += cap.getMaxParallelRatio(machine, match, Integer.MAX_VALUE);
+                if (cap instanceof ItemRecipeCapability itemRecipeCapability) {
+                    imultipliers += itemRecipeCapability.getMaxParallelRatio(machine, match, Integer.MAX_VALUE);
+                }
+                if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
+                    fmultipliers += fluidRecipeCapability.getMaxParallelRatio(machine, match, Integer.MAX_VALUE);
                 }
             }
+            int multipliers = Math.min(imultipliers, fmultipliers);
             if (multipliers != 0) {
                 match =  match.copy(ContentModifier.multiplier(multipliers), false);
             }

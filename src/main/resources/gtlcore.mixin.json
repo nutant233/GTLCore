@@ -30,7 +30,6 @@
     "gtm.machine.HPCAComputationPartMachineMixin",
     "gtm.machine.ItemBusPartMachineMixin",
     "gtm.machine.ParallelHatchPartMachineMixin",
-    "gtm.machine.SimpleGeneratorMachineMinxin",
     "gtm.machine.SimpleTieredMachineMixin",
     "gtm.machine.WorkableTieredMachineMixin",
     "gtm.recipe.CraftingComponentMixin",
