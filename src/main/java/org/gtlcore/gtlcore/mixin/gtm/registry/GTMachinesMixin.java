@@ -36,7 +36,6 @@ import java.util.function.BiFunction;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 
-
 @Mixin(GTMachines.class)
 public class GTMachinesMixin {
     @Inject(method = "init", at = @At(value = "HEAD"), remap = false, cancellable = true)

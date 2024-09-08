@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "gtlcore:block/hyper_core_active"
+    "bot_all": "gtlcore:block/hyper_core",
+    "top_all": "gtlcore:block/fusion_coil_bloom"
   }
 }

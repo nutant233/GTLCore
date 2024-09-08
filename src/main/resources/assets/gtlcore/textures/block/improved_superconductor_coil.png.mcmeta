@@ -1,5 +1,5 @@
 {
     "ldlib": {
-        "connection": "gtlcore:block/improved_superconductor_coil"
+        "connection": "gtlcore:block/improved_superconductor_coil_ctm"
     }
 }

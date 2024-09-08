@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.mixin.gtm.recipe;
+package org.gtlcore.gtlcore.mixin.gtm.registry;
 
 import com.google.gson.JsonObject;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
