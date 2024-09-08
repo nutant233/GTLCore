@@ -8,8 +8,10 @@ import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import lombok.Getter;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.MultipleRecipesMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricMultipleRecipesMachine;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -18,13 +20,13 @@ import java.util.List;
 @Getter
 public class MultipleRecipesLogic extends RecipeLogic {
 
-    public MultipleRecipesLogic(MultipleRecipesMachine machine) {
+    public MultipleRecipesLogic(WorkableElectricMultipleRecipesMachine machine) {
         super(machine);
     }
 
     @Override
-    public MultipleRecipesMachine getMachine() {
-        return (MultipleRecipesMachine) super.getMachine();
+    public WorkableElectricMultipleRecipesMachine getMachine() {
+        return (WorkableElectricMultipleRecipesMachine) super.getMachine();
     }
 
     @Override
@@ -32,8 +34,7 @@ public class MultipleRecipesLogic extends RecipeLogic {
         lastRecipe = null;
         var match = getRecipe();
         if (match != null) {
-            var copied = match.copy(new ContentModifier(match.duration, 0));
-            if (match.matchRecipe(this.machine).isSuccess() && copied.matchTickRecipe(this.machine).isSuccess()) {
+            if (match.matchRecipe(this.machine).isSuccess()) {
                 setupRecipe(match);
             }
         }
@@ -41,40 +42,46 @@ public class MultipleRecipesLogic extends RecipeLogic {
 
     @Nullable
     private GTRecipe getRecipe() {
-        GTRecipe recipe = GTRecipeBuilder.ofRaw().buildRawRecipe();
-        recipe.outputs.put(ItemRecipeCapability.CAP, new ArrayList<>());
         if (!machine.hasProxies()) return null;
-        long eu = 0;
-        for (int i = 0; i < 64; i++) {
+        GTRecipe recipe = buildEmptyRecipe();
+        recipe.outputs.put(ItemRecipeCapability.CAP, new ArrayList<>());
+        long totalEu = 0;
+        int parallel = getMachine().getMaxParallel();
+        for (int i = 0; i < 64 && parallel > 0; i++) {
             GTRecipe match = machine.getRecipeType().getLookup().findRecipe(machine);
             if (match == null) break;
-            int imultipliers = 0;
-            int fmultipliers = 0;
-            for (RecipeCapability<?> cap : match.inputs.keySet()) {
-                if (cap instanceof ItemRecipeCapability itemRecipeCapability) {
-                    imultipliers += itemRecipeCapability.getMaxParallelRatio(machine, match, Integer.MAX_VALUE);
-                }
-                if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
-                    fmultipliers += fluidRecipeCapability.getMaxParallelRatio(machine, match, Integer.MAX_VALUE);
-                }
+            int maxMultipliers = calculateMaxMultipliers(match, parallel);
+            parallel -= maxMultipliers;
+            if (maxMultipliers != 0) {
+                match =  match.copy(ContentModifier.multiplier(maxMultipliers), false);
             }
-            int multipliers = Math.min(imultipliers, fmultipliers);
-            if (multipliers != 0) {
-                match =  match.copy(ContentModifier.multiplier(multipliers), false);
-            }
-            GTRecipe input = GTRecipeBuilder.ofRaw().buildRawRecipe();
+            GTRecipe input = buildEmptyRecipe();
             input.inputs.putAll(match.inputs);
             input.handleRecipeIO(IO.IN, machine, getChanceCaches());
-            eu += match.duration * RecipeHelper.getInputEUt(match);
+            totalEu += match.duration * RecipeHelper.getInputEUt(match);
             recipe.outputs.get(ItemRecipeCapability.CAP).addAll(match.outputs.get(ItemRecipeCapability.CAP));
         }
         if (recipe.outputs.get(ItemRecipeCapability.CAP).equals(new ArrayList<>())) return null;
-        long maxeut = getMachine().getOverclockVoltage();
-        double d = (double) eu / maxeut;
-        long eut = d > 20 ? maxeut : (long) (maxeut * d / 20);
+        long maxEUt = getMachine().getOverclockVoltage();
+        double d = (double) totalEu / maxEUt;
+        long eut = d > 20 ? maxEUt : (long) (maxEUt * d / 20);
         recipe.tickInputs.put(EURecipeCapability.CAP, List.of(new Content(eut, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
         recipe.duration = (int) Math.max(d, 20);
         return recipe;
+    }
+
+    private GTRecipe buildEmptyRecipe() {
+        return GTRecipeBuilder.ofRaw().buildRawRecipe();
+    }
+
+    private int calculateMaxMultipliers(GTRecipe match, int max) {
+        IntSet multipliers = new IntOpenHashSet();
+        for (RecipeCapability<?> cap : match.inputs.keySet()) {
+            if (cap.doMatchInRecipe()) {
+                multipliers.add(cap.getMaxParallelRatio(machine, match, max));
+            }
+        }
+        return multipliers.intStream().min().orElse(0);
     }
 
     @Override
@@ -86,8 +93,7 @@ public class MultipleRecipesLogic extends RecipeLogic {
         }
         var match = getRecipe();
         if (match != null) {
-            var copied = match.copy(new ContentModifier(match.duration, 0));
-            if (match.matchRecipe(this.machine).isSuccess() && copied.matchTickRecipe(this.machine).isSuccess()) {
+            if (match.matchRecipe(this.machine).isSuccess()) {
                 setupRecipe(match);
                 return;
             }

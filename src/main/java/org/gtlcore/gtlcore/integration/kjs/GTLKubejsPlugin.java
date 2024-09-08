@@ -8,6 +8,8 @@ import org.gtlcore.gtlcore.api.data.chemical.material.info.CustomRendererMateria
 import org.gtlcore.gtlcore.api.item.tool.GTLToolType;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.CoilWorkableElectricMultipleRecipesMultiblockMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricParallelHatchMultipleRecipesMachine;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.Registries;
 import org.gtlcore.gtlcore.utils.TextUtil;
@@ -35,5 +37,7 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("MachineIO", MachineIO.class);
         event.add("TextUtil", TextUtil.class);
         event.add("Registries", Registries.class);
+        event.add("CoilWorkableElectricMultipleRecipesMultiblockMachine", CoilWorkableElectricMultipleRecipesMultiblockMachine.class);
+        event.add("WorkableElectricParallelHatchMultipleRecipesMachine", WorkableElectricParallelHatchMultipleRecipesMachine.class);
     }
 }

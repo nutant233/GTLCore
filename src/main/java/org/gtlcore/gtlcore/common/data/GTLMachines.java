@@ -726,7 +726,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.stellar_forge")))
-            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK))
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(GCyMBlocks.CASING_ATOMIC)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("               ", "      bbb      ", "      b b      ", "      b b      ", "      b b      ", "      b b      ", "      b b      ", "      bbb      ", "               ")
@@ -832,7 +832,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.component_assembly_line")))
-            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(() -> getBlock("kubejs:iridium_casing"))
             .pattern((definition) ->
                     FactoryBlockPattern.start()
@@ -1108,11 +1108,13 @@ public class GTLMachines {
                     .register(),
             LuV, ZPM, UV, UHV, UEV);
 
-    public final static MultiblockMachineDefinition ADVANCED_INTEGRATED_ORE_PROCESSOR = REGISTRATE.multiblock("advanced_integrated_ore_processor", MultipleRecipesMachine::new)
+    public final static MultiblockMachineDefinition ADVANCED_INTEGRATED_ORE_PROCESSOR = REGISTRATE.multiblock("advanced_integrated_ore_processor", WorkableElectricMultipleRecipesMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(INTEGRATED_ORE_PROCESSOR)
             .tooltips(Component.translatable("gtceu.machine.integrated_ore_processor.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.advanced_integrated_ore_processor.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
+            .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.integrated_ore_processor")))
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
@@ -1183,7 +1185,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.super_computation")))
             .appearanceBlock(GTBlocks.COMPUTER_CASING)
-            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .pattern((definition) ->
                     FactoryBlockPattern.start()
                             .aisle("    aaaaaaa    ", "    abbbbba    ", "    abbbbba    ", "    abbbbba    ", "    aaaaaaa    ", "    abbbbba    ", "    abbbbba    ", "    abbbbba    ", "    aaaaaaa    ")
@@ -1225,7 +1227,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.super_computation")))
             .appearanceBlock(GTBlocks.ADVANCED_COMPUTER_CASING)
-            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("aa", "bb", "bb", "bb", "aa")
                     .aisle("aa", "cc", "cc", "cc", "aa")

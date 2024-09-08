@@ -56,7 +56,7 @@ public class GTLItems {
                         StorageComponent,
                         CELL_HOUSING,
                         3 + 0.5 * Math.log(tier) / Math.log(4),
-                        1024 * tier * 1024,
+                        1024 * tier,
                         1,
                         isItem ? 63 : 18,
                         isItem ? AEKeyType.items() : AEKeyType.fluids()))

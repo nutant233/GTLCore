@@ -84,10 +84,10 @@ public class LargeSteamParallelMultiblockMachine extends WorkableMultiblockMachi
                     if (!capabilitiesProxy.contains(IO.IN, EURecipeCapability.CAP)) {
                         capabilitiesProxy.put(IO.IN, EURecipeCapability.CAP, new ArrayList<>());
                     }
+                    Objects.requireNonNull(capabilitiesProxy.get(IO.IN, EURecipeCapability.CAP))
+                            .add(new SteamEnergyRecipeHandler(tank,
+                                    CONVERSION_RATE * (this.isOC ? Math.pow(3, this.amountOC) : 1)));
                 }
-                Objects.requireNonNull(capabilitiesProxy.get(IO.IN, EURecipeCapability.CAP))
-                        .add(new SteamEnergyRecipeHandler(tank,
-                                CONVERSION_RATE * (this.isOC ? Math.pow(3, this.amountOC) : 1)));
                 return;
             }
         }
