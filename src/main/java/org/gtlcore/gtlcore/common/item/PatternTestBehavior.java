@@ -42,7 +42,7 @@ public class PatternTestBehavior implements IItemUIFactory {
     public ModularUI createUI(HeldItemUIFactory.HeldItemHolder heldItemHolder, Player player) {
         var containerPatternAnalysis=new WidgetGroup(8,8,160,50)
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(4,4,"AE样板冲突分析"))
+                .addWidget(new LabelWidget(6,6,"AE样板冲突分析"))
                 .addWidget(new ButtonWidget(
                         8,8+9+4,64,18,
                         new GuiTextureGroup(
@@ -54,7 +54,7 @@ public class PatternTestBehavior implements IItemUIFactory {
 
         var containerPatternGeneratoe=new WidgetGroup(8,58,160,50)
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(4,4,"AE样板生成器 没开始做"));
+                .addWidget(new LabelWidget(6,6,"AE样板生成器 没开始做"));
 
 
         return new ModularUI(176,8+50+8+50+8,heldItemHolder,player)
