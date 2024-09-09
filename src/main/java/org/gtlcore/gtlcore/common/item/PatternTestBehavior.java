@@ -44,7 +44,7 @@ public class PatternTestBehavior implements IItemUIFactory {
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
                 .addWidget(new LabelWidget(6,6,"AE样板冲突分析"))
                 .addWidget(new ButtonWidget(
-                        8,8+9+4,64,18,
+                        8,8+9+4,64,20,
                         new GuiTextureGroup(
                                 GuiTextures.BUTTON,
                                 new TextTexture("开始分析")),
