@@ -111,8 +111,8 @@ dependencies {
     implementation(include("io.github.llamalad7:mixinextras-forge:$project.mixinextras_version"))
 
     // lombok
-    compileOnly 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     modImplementation 'appeng:appliedenergistics2-forge-15.2.1'
 
