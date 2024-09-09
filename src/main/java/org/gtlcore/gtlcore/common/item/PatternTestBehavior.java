@@ -89,6 +89,7 @@ public class PatternTestBehavior implements IItemUIFactory {
         // 序列化返回结果
         ae2PatternConflicts.forEach(Ae2PatternConflict::exportToPrint);
         System.out.printf("可能冲突配方数量%s / 所有此电路配方数%s%n", ae2PatternConflicts.toArray().length,recipes.toArray().length);
+
     }
 
     @Override
