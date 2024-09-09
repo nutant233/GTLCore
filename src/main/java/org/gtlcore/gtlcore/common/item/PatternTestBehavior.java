@@ -53,14 +53,14 @@ public class PatternTestBehavior implements IItemUIFactory {
 
 
 
-        var containerPatternGeneratoe=new WidgetGroup(8,58,160,50)
+        var containerPatternGeneratoer=new WidgetGroup(8,58,160,50)
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
                 .addWidget(new LabelWidget(6,6,"AE样板生成器 没开始做"));
 
 
         return new ModularUI(176,8+50+8+50+8,heldItemHolder,player)
                 .widget(containerPatternAnalysis)
-                .widget(containerPatternGeneratoe)
+                .widget(containerPatternGeneratoer)
                 .background(GuiTextures.BACKGROUND)
                 ;
     }
