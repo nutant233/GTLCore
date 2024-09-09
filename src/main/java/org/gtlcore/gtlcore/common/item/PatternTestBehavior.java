@@ -9,10 +9,7 @@ import com.lowdragmc.lowdraglib.gui.factory.HeldItemUIFactory;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.gui.texture.GuiTextureGroup;
 import com.lowdragmc.lowdraglib.gui.texture.TextTexture;
-import com.lowdragmc.lowdraglib.gui.widget.ButtonWidget;
-import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
-import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
-import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import com.lowdragmc.lowdraglib.gui.widget.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,9 +47,10 @@ public class PatternTestBehavior implements IItemUIFactory {
                         8,8+9+4,64,18,
                         new GuiTextureGroup(
                                 GuiTextures.BUTTON,
-                                new TextTexture("开始分析组装机")),
+                                new TextTexture("开始分析")),
                                 clickData -> useAnalysisRecipesBaby(heldItemHolder))
                 );
+
 
         var containerPatternGeneratoe=new WidgetGroup(8,58,160,50)
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
@@ -68,11 +66,12 @@ public class PatternTestBehavior implements IItemUIFactory {
 
     public void useAnalysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
         if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
-            int[] array = new int[20];
-            for (int i = 1; i < array.length+1; i++) {
-                analysisRecipesBaby(GTRecipeTypes.MIXER_RECIPES,i);
 
-            }
+
+//            int[] array = new int[20];
+//            for (int i = 1; i < array.length+1; i++) {
+                analysisRecipesBaby(GTRecipeTypes.MIXER_RECIPES,1);
+//            }
         }
     }
 
