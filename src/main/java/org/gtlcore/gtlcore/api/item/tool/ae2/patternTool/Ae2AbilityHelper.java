@@ -4,8 +4,9 @@ import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
-import net.minecraft.world.item.ItemStack;
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -70,16 +71,12 @@ public class Ae2AbilityHelper {
 
 
     public static String getItemTranslatedName(ItemStack itemStack) {
-        return itemStack.getItem().getName(itemStack).getString();
+        Item item = itemStack.getItem();
+        return item.getName(itemStack).getString() + "(" + item.kjs$getId() + " " + itemStack.getCount() + ") ";
     }
-    public static String getItemId(ItemStack itemStack) {
-        return itemStack.kjs$getId();
-    }
+
     public static String getFluidTranslatedName(FluidStack fluidStack) {
-        return fluidStack.getDisplayName().getString();
-    }
-    public static String getFluidId(FluidStack fluidStack) {
-        return Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid())).toString();
+        return fluidStack.getDisplayName().getString() + "(" + Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid())) + " " + fluidStack.getAmount() + ") ";
     }
 
     private static @NotNull Function<Content, FluidStack> getContentFluidStackFunction() {

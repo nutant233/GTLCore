@@ -26,11 +26,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.pattern.DebugBlockPattern;
 
 import java.util.Arrays;
-
-import static com.mojang.text2speech.Narrator.LOGGER;
 
 public class StructureWriteBehavior implements IItemUIFactory {
 
@@ -136,7 +135,7 @@ public class StructureWriteBehavior implements IItemUIFactory {
                 builder.append(".where(\"").append(c).append("\", Predicates.blocks(\"")
                         .append(b.getBlock().kjs$getId()).append("\")\n");
             });
-            LOGGER.info(builder.toString());
+            GTLCore.LOGGER.info(builder.toString());
         }
     }
 

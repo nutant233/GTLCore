@@ -5,11 +5,16 @@ import com.gregtechceu.gtceu.api.item.component.IItemUIFactory;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
+import com.gregtechceu.gtceu.integration.ae2.gui.widget.AETextInputButtonWidget;
 import com.lowdragmc.lowdraglib.gui.factory.HeldItemUIFactory;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.gui.texture.GuiTextureGroup;
 import com.lowdragmc.lowdraglib.gui.texture.TextTexture;
-import com.lowdragmc.lowdraglib.gui.widget.*;
+import com.lowdragmc.lowdraglib.gui.widget.ButtonWidget;
+import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
+import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
+import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import lombok.Setter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +29,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.server.ServerLifecycleHooks;
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2PatternConflict;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2PatternManager;
 
@@ -31,52 +37,55 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Setter
 public class PatternTestBehavior implements IItemUIFactory {
     public static final PatternTestBehavior INSTANCE = new PatternTestBehavior();
 
-    protected PatternTestBehavior() {
-        /**/
-    }
+    private String type = "";
+
+    private int circuit = 0;
 
     @Override
     public ModularUI createUI(HeldItemUIFactory.HeldItemHolder heldItemHolder, Player player) {
         var containerPatternAnalysis=new WidgetGroup(8,8,160,50)
-                .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(6,6,"AE样板冲突分析"))
-                .addWidget(new ButtonWidget(
-                        8,8+9+4,64,20,
-                        new GuiTextureGroup(
-                                GuiTextures.BUTTON,
-                                new TextTexture("开始分析")),
-                                clickData -> useAnalysisRecipesBaby(heldItemHolder))
-                );
+                .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
+                .addWidget(new LabelWidget(6, 6, "AE样板冲突分析"))
+                .addWidget(new AETextInputButtonWidget(82, 6, 72, 12)
+                        .setText(type)
+                        .setOnConfirm(this::setType)
+                        .setButtonTooltips(Component.literal("设置配方类型")))
+                .addWidget(new AETextInputButtonWidget(82, 20, 72, 12)
+                        .setText(String.valueOf(circuit))
+                        .setOnConfirm(s -> setCircuit(Integer.parseInt(s)))
+                        .setButtonTooltips(Component.literal("设置编程电路")))
+                .addWidget(new ButtonWidget(6, 20, 64, 20,
+                        new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("开始分析")),
+                        clickData -> useAnalysisRecipesBaby(heldItemHolder))
+                        .setHoverTooltips(Component.literal("当前配方类型：")
+                                .append(Component.translatable("gtceu." + type)).append(" 电路：" + circuit)));
 
+        var containerPatternGeneratoer = new WidgetGroup(8, 58, 160, 50)
+                .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
+                .addWidget(new LabelWidget(6, 6, "AE样板生成器 没开始做"));
 
-
-        var containerPatternGeneratoer=new WidgetGroup(8,58,160,50)
-                .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(6,6,"AE样板生成器 没开始做"));
-
-
-        return new ModularUI(176,8+50+8+50+8,heldItemHolder,player)
+        return new ModularUI(176, 124, heldItemHolder, player)
                 .widget(containerPatternAnalysis)
                 .widget(containerPatternGeneratoer)
-                .background(GuiTextures.BACKGROUND)
-                ;
+                .background(GuiTextures.BACKGROUND);
     }
 
-    public void useAnalysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
-        if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
+    public void useAnalysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder) {
+        if (playerInventoryHolder.getPlayer() instanceof ServerPlayer) {
 
 
 //            int[] array = new int[20];
 //            for (int i = 1; i < array.length+1; i++) {
-                analysisRecipesBaby(GTRecipeTypes.MIXER_RECIPES,1);
+                analysisRecipesBaby(GTRecipeTypes.get("gtceu:" + type), circuit);
 //            }
         }
     }
 
-    public void analysisRecipesBaby(GTRecipeType recipeType, int CIRCUIT){
+    public void analysisRecipesBaby(GTRecipeType recipeType, int CIRCUIT) {
         // 筛选出化学反应釜的配方
         MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
         RecipeManager recipeManager = currentServer.getRecipeManager();
@@ -87,19 +96,18 @@ public class PatternTestBehavior implements IItemUIFactory {
             }
         }
         // 构造输入，调用类，对电路为0的配方分析
-        Ae2PatternManager ae2PatternManager =new Ae2PatternManager(recipes.stream().toList());
+        Ae2PatternManager ae2PatternManager = new Ae2PatternManager(recipes.stream().toList());
         List<Ae2PatternConflict> ae2PatternConflicts = ae2PatternManager.useFindConflictForAll(CIRCUIT);
 
         // 序列化返回结果
         ae2PatternConflicts.forEach(Ae2PatternConflict::exportToPrint);
-        System.out.printf("可能冲突配方数量%s / 所有此电路配方数%s%n", ae2PatternConflicts.toArray().length,recipes.toArray().length);
-
+        GTLCore.LOGGER.info("可能冲突配方数量{} / 所有此电路配方数{}", ae2PatternConflicts.toArray().length, recipes.toArray().length);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Item item, Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
-        if(player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
             HeldItemUIFactory.INSTANCE.openUI(serverPlayer, usedHand);
         }
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
@@ -107,8 +115,7 @@ public class PatternTestBehavior implements IItemUIFactory {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        ItemStack stack = context.getItemInHand();
-        if(context.getPlayer() instanceof ServerPlayer serverPlayer) {
+        if (context.getPlayer() instanceof ServerPlayer serverPlayer) {
             serverPlayer.displayClientMessage(Component.literal("右键空气打开GUI"),true);
         }
         return InteractionResult.SUCCESS;

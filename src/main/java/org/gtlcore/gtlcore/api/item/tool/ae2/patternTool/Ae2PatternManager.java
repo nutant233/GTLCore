@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.api.item.tool.ae2.patternTool;
 
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
+import org.gtlcore.gtlcore.GTLCore;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -61,6 +62,6 @@ public class Ae2PatternManager {
     }
 
     public void printAllObject(){
-        this.ae2Patterns.forEach(ae2Pattern -> System.out.println(ae2Pattern.toString()));
+        this.ae2Patterns.forEach(ae2Pattern -> GTLCore.LOGGER.info(ae2Pattern.toString()));
     }
 }

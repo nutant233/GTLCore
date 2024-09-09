@@ -7,7 +7,6 @@ import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.item.IntCircuitBehaviour;
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
-import lombok.Data;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -129,7 +128,7 @@ public class Ae2Pattern {
                 outputItemIdsMap,
                 outputFluidIdsMap
         ));
-    };
+    }
 
 
 }

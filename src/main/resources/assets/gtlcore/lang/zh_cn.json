@@ -52,6 +52,7 @@
     "config.gtlcore.option.durationMultiplier": "配方时间乘数",
     "config.gtlcore.option.enablePrimitiveVoidOre": "启用原始虚空矿机",
     "config.gtlcore.option.oreMultiplier": "矿石产量乘数",
+    "gtlcore.condition.space": "需要在太空中",
     "item.gtlcore.cell_component_16m": "16M 存储组件",
     "item.gtlcore.cell_component_1m": "1M 存储组件",
     "item.gtlcore.cell_component_256m": "256M 存储组件",
