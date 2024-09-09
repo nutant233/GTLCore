@@ -9,10 +9,7 @@ import com.lowdragmc.lowdraglib.gui.factory.HeldItemUIFactory;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.gui.texture.GuiTextureGroup;
 import com.lowdragmc.lowdraglib.gui.texture.TextTexture;
-import com.lowdragmc.lowdraglib.gui.widget.ButtonWidget;
-import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
-import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
-import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import com.lowdragmc.lowdraglib.gui.widget.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,30 +42,37 @@ public class PatternTestBehavior implements IItemUIFactory {
     public ModularUI createUI(HeldItemUIFactory.HeldItemHolder heldItemHolder, Player player) {
         var containerPatternAnalysis=new WidgetGroup(8,8,160,50)
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(8,8,"AE样板冲突分析"))
+                .addWidget(new LabelWidget(6,6,"AE样板冲突分析"))
                 .addWidget(new ButtonWidget(
-                        8,8+9+4,64,24,
+                        8,8+9+4,64,20,
                         new GuiTextureGroup(
                                 GuiTextures.BUTTON,
-                                new TextTexture("开始分析组装机")),
+                                new TextTexture("开始分析")),
                                 clickData -> useAnalysisRecipesBaby(heldItemHolder))
                 );
 
-        var containerPatternGeneratoe=new WidgetGroup(8,58,160,50)
+
+
+        var containerPatternGeneratoer=new WidgetGroup(8,58,160,50)
                 .addWidget(new ImageWidget(4,4,152,42,GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(7,7,"AE样板生成器 没开始做"));
+                .addWidget(new LabelWidget(6,6,"AE样板生成器 没开始做"));
 
 
         return new ModularUI(176,8+50+8+50+8,heldItemHolder,player)
                 .widget(containerPatternAnalysis)
-                .widget(containerPatternGeneratoe)
+                .widget(containerPatternGeneratoer)
                 .background(GuiTextures.BACKGROUND)
                 ;
     }
 
     public void useAnalysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
         if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
-            analysisRecipesBaby(GTRecipeTypes.ASSEMBLER_RECIPES,0);
+
+
+//            int[] array = new int[20];
+//            for (int i = 1; i < array.length+1; i++) {
+                analysisRecipesBaby(GTRecipeTypes.MIXER_RECIPES,1);
+//            }
         }
     }
 

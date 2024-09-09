@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class Ae2AbilityHelper {
@@ -71,10 +72,15 @@ public class Ae2AbilityHelper {
     public static String getItemTranslatedName(ItemStack itemStack) {
         return itemStack.getItem().getName(itemStack).getString();
     }
+    public static String getItemId(ItemStack itemStack) {
+        return itemStack.kjs$getId();
+    }
     public static String getFluidTranslatedName(FluidStack fluidStack) {
         return fluidStack.getDisplayName().getString();
     }
-
+    public static String getFluidId(FluidStack fluidStack) {
+        return Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid())).toString();
+    }
 
     private static @NotNull Function<Content, FluidStack> getContentFluidStackFunction() {
         return content -> {
