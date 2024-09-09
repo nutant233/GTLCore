@@ -51,7 +51,7 @@ public class PatternTestBehavior implements IItemUIFactory {
                         new GuiTextureGroup(
                                 GuiTextures.BUTTON,
                                 new TextTexture("开始分析组装机")),
-                                clickData -> analysisRecipesBaby(heldItemHolder))
+                                clickData -> useAnalysisRecipesBaby(heldItemHolder))
                 );
 
         var containerPatternGeneratoe=new WidgetGroup(8,58,160,50)
@@ -66,7 +66,7 @@ public class PatternTestBehavior implements IItemUIFactory {
                 ;
     }
 
-    public void analysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
+    public void useAnalysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
         if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
             analysisRecipesBaby(GTRecipeTypes.ASSEMBLER_RECIPES,0);
         }
