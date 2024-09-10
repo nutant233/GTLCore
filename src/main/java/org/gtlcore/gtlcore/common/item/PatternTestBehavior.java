@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.item;
 
+import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.item.component.IItemUIFactory;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -89,8 +90,10 @@ public class PatternTestBehavior implements IItemUIFactory {
             RecipeManager recipeManager = currentServer.getRecipeManager();
             for(Recipe<?> recipe : recipeManager.getRecipes()){
                 if(recipe instanceof GTRecipe gtRecipe && recipe.getType().equals(recipeType)){
-                    ItemStack patternStack = Ae2GtmProcessingPattern.of(1, gtRecipe, serverPlayer).patternStack;
-                    serverPlayer.kjs$give(patternStack);
+                    Ae2GtmProcessingPattern ae2GtmProcessingPattern = Ae2GtmProcessingPattern.of(1, gtRecipe, serverPlayer);
+                    ae2GtmProcessingPattern.setScale(10);
+                    ItemStack patternItemStack = ae2GtmProcessingPattern.getPatternItemStack();
+                    serverPlayer.kjs$give(patternItemStack);
                 }
             }
         }

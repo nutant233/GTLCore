@@ -79,11 +79,6 @@ public class ConflictAnalysisObj {
             }
         });
     }
-
-    private void initializeProgrammedCircuit(List<ItemStack> inputItemStacks) {
-
-    }
-
     public String toString(){
         return ("""
                 // ---------- start ---------- //
