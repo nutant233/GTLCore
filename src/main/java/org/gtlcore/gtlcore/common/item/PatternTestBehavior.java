@@ -33,6 +33,7 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2GtmProcessingPattern;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisResult;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisManager;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.GTRecipeManager;
 
 import java.util.HashSet;
 import java.util.List;
@@ -69,8 +70,14 @@ public class PatternTestBehavior implements IItemUIFactory {
                 .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
                 .addWidget(new LabelWidget(6, 6, "AE样板生成器"))
                 .addWidget(new ButtonWidget(6, 20, 64, 20,
-                        new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("开始获取")),
-                        clickData -> useAe2PatternGenerator(heldItemHolder)));
+                        new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("获取样板")),
+                        clickData -> useAe2PatternGenerator(heldItemHolder))
+                        .setHoverTooltips(Component.literal("当前配方类型：")
+                        .append(Component.translatable("gtceu." + type))
+                                .append(" 电路：" + circuit)
+                                .append("默认过滤电路板，模具，模头")
+                        )
+                );
 
         return new ModularUI(176, 124, heldItemHolder, player)
                 .widget(containerPatternAnalysis)
@@ -80,18 +87,24 @@ public class PatternTestBehavior implements IItemUIFactory {
 
     public void useAe2PatternGenerator(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
         if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
+            boolean allowUsing=false;
+            if(!allowUsing){
+                return;
+            }
             /*
                 获取样板 入口
              */
-            GTRecipeType recipeType = GTRecipeTypes.WIREMILL_RECIPES;
-
-            MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
-            RecipeManager recipeManager = currentServer.getRecipeManager();
-            for(Recipe<?> recipe : recipeManager.getRecipes()){
-                if(recipe instanceof GTRecipe gtRecipe && recipe.getType().equals(recipeType)){
-                    ItemStack patternStack = Ae2GtmProcessingPattern.of(1, gtRecipe, serverPlayer).patternStack;
-                    serverPlayer.kjs$give(patternStack);
-                }
+            GTRecipeType recipeType = GTRecipeTypes.get("gtceu:" + type);
+            GTRecipeManager gtRecipeManager = new GTRecipeManager();
+            gtRecipeManager.filterRecipesByType(recipeType);
+            gtRecipeManager.filterRecipesByCircuit(circuit);
+            List<GTRecipe> recipes = gtRecipeManager.getRecipes();
+            for(GTRecipe recipe : recipes){
+                Ae2GtmProcessingPattern ae2GtmProcessingPattern = Ae2GtmProcessingPattern.of(1, recipe, serverPlayer);
+                ae2GtmProcessingPattern.setScale(10);
+                ae2GtmProcessingPattern.setDefaultFilter();
+                ItemStack patternItemStack = ae2GtmProcessingPattern.getPatternItemStack();
+                serverPlayer.kjs$give(patternItemStack);
             }
         }
     }
@@ -101,7 +114,6 @@ public class PatternTestBehavior implements IItemUIFactory {
                 分析配方冲突 入口
              */
             analysisRecipesBaby(GTRecipeTypes.get("gtceu:" + type), circuit);
-
         }
     }
 
