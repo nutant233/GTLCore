@@ -30,8 +30,9 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2PatternConflict;
-import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2PatternManager;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2GtmProcessingPattern;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisResult;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisManager;
 
 import java.util.HashSet;
 import java.util.List;
@@ -64,29 +65,48 @@ public class PatternTestBehavior implements IItemUIFactory {
                         .setHoverTooltips(Component.literal("当前配方类型：")
                                 .append(Component.translatable("gtceu." + type)).append(" 电路：" + circuit)));
 
-        var containerPatternGeneratoer = new WidgetGroup(8, 58, 160, 50)
+        var containerPatternGenerator = new WidgetGroup(8, 58, 160, 50)
                 .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(6, 6, "AE样板生成器 没开始做"));
+                .addWidget(new LabelWidget(6, 6, "AE样板生成器"))
+                .addWidget(new ButtonWidget(6, 20, 64, 20,
+                        new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("开始获取")),
+                        clickData -> useAe2PatternGenerator(heldItemHolder)));
 
         return new ModularUI(176, 124, heldItemHolder, player)
                 .widget(containerPatternAnalysis)
-                .widget(containerPatternGeneratoer)
+                .widget(containerPatternGenerator)
                 .background(GuiTextures.BACKGROUND);
     }
 
+    public void useAe2PatternGenerator(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
+        if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
+            /*
+                获取样板 入口
+             */
+            GTRecipeType recipeType = GTRecipeTypes.WIREMILL_RECIPES;
+
+            MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
+            RecipeManager recipeManager = currentServer.getRecipeManager();
+            for(Recipe<?> recipe : recipeManager.getRecipes()){
+                if(recipe instanceof GTRecipe gtRecipe && recipe.getType().equals(recipeType)){
+                    ItemStack patternStack = Ae2GtmProcessingPattern.of(1, gtRecipe, serverPlayer).patternStack;
+                    serverPlayer.kjs$give(patternStack);
+                }
+            }
+        }
+    }
     public void useAnalysisRecipesBaby(HeldItemUIFactory.HeldItemHolder playerInventoryHolder) {
         if (playerInventoryHolder.getPlayer() instanceof ServerPlayer) {
+            /*
+                分析配方冲突 入口
+             */
+            analysisRecipesBaby(GTRecipeTypes.get("gtceu:" + type), circuit);
 
-
-//            int[] array = new int[20];
-//            for (int i = 1; i < array.length+1; i++) {
-                analysisRecipesBaby(GTRecipeTypes.get("gtceu:" + type), circuit);
-//            }
         }
     }
 
     public void analysisRecipesBaby(GTRecipeType recipeType, int CIRCUIT) {
-        // 筛选出化学反应釜的配方
+        // 筛选出指定机器的配方
         MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
         RecipeManager recipeManager = currentServer.getRecipeManager();
         Set<GTRecipe> recipes=new HashSet<>();
@@ -95,13 +115,13 @@ public class PatternTestBehavior implements IItemUIFactory {
                 recipes.add((GTRecipe) recipe);
             }
         }
-        // 构造输入，调用类，对电路为0的配方分析
-        Ae2PatternManager ae2PatternManager = new Ae2PatternManager(recipes.stream().toList());
-        List<Ae2PatternConflict> ae2PatternConflicts = ae2PatternManager.useFindConflictForAll(CIRCUIT);
+        // 构造输入，调用类，对符合指定电路的配方分析
+        ConflictAnalysisManager conflictAnalysisManager = new ConflictAnalysisManager(recipes.stream().toList());
+        List<ConflictAnalysisResult> conflictAnalysisResults = conflictAnalysisManager.useFindConflictForAll(CIRCUIT);
 
-        // 序列化返回结果
-        ae2PatternConflicts.forEach(Ae2PatternConflict::exportToPrint);
-        GTLCore.LOGGER.info("可能冲突配方数量{} / 所有此电路配方数{}", ae2PatternConflicts.toArray().length, recipes.toArray().length);
+        // 对获得的冲突样板集 遍历输出
+        conflictAnalysisResults.forEach(ConflictAnalysisResult::exportToPrint);
+        GTLCore.LOGGER.info("可能被错误合成配方数量{} / 所有此电路配方数{}", conflictAnalysisResults.toArray().length, recipes.toArray().length);
     }
 
     @Override
