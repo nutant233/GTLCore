@@ -3,6 +3,8 @@ package org.gtlcore.gtlcore.common.data;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
+import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.FluidProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.WireProperties;
@@ -10,6 +12,8 @@ import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.FluidState;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet.*;
@@ -62,6 +66,7 @@ public class GTLMaterials {
     public static Material SupercriticalSteam;
     public static Material WaterAgarMix;
     public static Material TungstenTrioxide;
+    public static Material SpaceTime;
 
     public static void init() {
         Duranium.addFlags(GENERATE_FRAME);
@@ -316,6 +321,16 @@ public class GTLMaterials {
                 .components(Tungsten, 1, Oxygen, 3)
                 .color(0x86FF75).iconSet(ROUGH)
                 .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+
+        SpaceTime = new Material.Builder(GTCEu.id("spacetime"))
+                .ingot()
+                .liquid(new FluidBuilder().temperature(1).customStill())
+                .fluidPipeProperties(2147483647, ConfigHolder.INSTANCE.spacetimePip, true, true, true, true)
+                .element(GTLElements.SPACETIME)
+                .iconSet(new MaterialIconSet("spacetime"))
+                .flags(GTLMaterialFlags.GENERATE_NANOSWARM, MaterialFlags.NO_UNIFICATION)
+                .cableProperties(GTValues.V[GTValues.MAX], 524288, 0, true)
                 .buildAndRegister();
     }
 }

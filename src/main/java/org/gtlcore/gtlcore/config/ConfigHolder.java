@@ -28,6 +28,12 @@ public class ConfigHolder {
     @Configurable.Range(min = 1)
     public int oreMultiplier = 4;
     @Configurable
+    @Configurable.Range(min = 1)
+    public int cellType = 4;
+    @Configurable
+    @Configurable.Range(min = 1)
+    public int spacetimePip = Integer.MAX_VALUE;
+    @Configurable
     @Configurable.Range(min = 0)
     public double durationMultiplier = 1;
 }

@@ -33,7 +33,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     @Persisted
     private int damaged = 0;
     @Persisted
-    private int fuel = 0, cooler = 0;
+    private int fuel = 0, cooler = 0, parallel = 0;
 
     protected ConditionalSubscriptionHandler HeatSubs;
 
@@ -70,6 +70,11 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         cooler = 0;
     }
 
+    @Override
+    public void afterWorking() {
+        parallel = 0;
+    }
+
     protected void HeatUpdate() {
         if (getOffsetTimer() % 20 == 0) {
             if (heat > 1500) {
@@ -94,7 +99,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
             Pair<GTRecipe, Integer> result = GTRecipeModifiers.accurateParallel(machine, recipe,
                     fissionReactorMachine.fuel, false);
             GTRecipe recipe1 = result.getFirst();
-            recipe1.data.putInt("parallel", result.getSecond());
+            fissionReactorMachine.parallel = result.getSecond();
             return recipe1;
         }
         return null;
@@ -127,8 +132,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         if (getOffsetTimer() % 20 == 0) {
             GTRecipe recipe = getRecipeLogic().getLastRecipe();
             int h = recipe.data.getInt("FRheat");
-            int f = recipe.data.getInt("parallel");
-            double required = (double) (h * f * heat) / 1500;
+            double required = (double) (h * parallel * heat) / 1500;
             double surplus = cooler - required;
             if (surplus >= 0) {
                 if (inputWater(required)) {

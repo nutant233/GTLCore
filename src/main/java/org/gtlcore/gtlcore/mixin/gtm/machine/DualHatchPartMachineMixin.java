@@ -15,8 +15,8 @@ public class DualHatchPartMachineMixin extends ItemBusPartMachine {
     }
 
     /**
-     * @author
-     * @reason
+     * @author mod_author
+     * @reason 原版太小了
      */
     @Overwrite(remap = false)
     public static long getTankCapacity(long initialCapacity, int tier) {
@@ -24,11 +24,29 @@ public class DualHatchPartMachineMixin extends ItemBusPartMachine {
     }
 
     /**
-     * @author
-     * @reason
+     * @author mod_author
+     * @reason 如上
      */
     @Overwrite(remap = false)
     public int getInventorySize() {
         return super.getInventorySize();
+    }
+
+    /**
+     * @author mod_author
+     * @reason 不需要
+     */
+    @Overwrite(remap = false)
+    public boolean isDistinct() {
+        return super.isDistinct();
+    }
+
+    /**
+     * @author mod_author
+     * @reason 不需要
+     */
+    @Overwrite(remap = false)
+    public void setDistinct(boolean isDistinct) {
+        super.setDistinct(isDistinct);
     }
 }

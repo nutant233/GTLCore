@@ -4,6 +4,7 @@ import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.data.tag.TagUtil;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMachines;
@@ -24,6 +25,7 @@ import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
 import static com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader.registerMachineRecipe;
 import static org.gtlcore.gtlcore.common.data.GTLMachines.DEHYDRATOR;
+import static org.gtlcore.gtlcore.data.recipe.CraftingComponentAddition.BUFFER;
 import static org.gtlcore.gtlcore.utils.Registries.getMaterial;
 
 public class MachineRecipe {
@@ -153,5 +155,34 @@ public class MachineRecipe {
         VanillaRecipeHelper.addShapedRecipe(provider, true, "generator_array", GTLMachines.GENERATOR_ARRAY.asStack(),
                 "ABA", "BCB", "ABA", 'A', new UnificationEntry(plate, Steel),
                 'B', CustomTags.LV_CIRCUITS, 'C', GTItems.EMITTER_LV.asStack());
+
+        registerMachineRecipe(provider, GTMachines.FLUID_IMPORT_HATCH, " G", " M", 'M', HULL, 'G', GLASS);
+        registerMachineRecipe(provider, GTMachines.FLUID_EXPORT_HATCH, " M", " G", 'M', HULL, 'G', GLASS);
+
+        registerMachineRecipe(provider, GTMachines.ITEM_IMPORT_BUS, " C", " M", 'M', HULL, 'C', TagUtil.createItemTag("chests/wooden"));
+        registerMachineRecipe(provider, GTMachines.ITEM_EXPORT_BUS, " M", " C", 'M', HULL, 'C', TagUtil.createItemTag("chests/wooden"));
+
+        registerMachineRecipe(provider, GTMachines.DUAL_IMPORT_HATCH, "PG", "CM", 'P', PIPE_NONUPLE, 'M', HULL, 'G', GLASS, 'C', BUFFER);
+        registerMachineRecipe(provider, GTMachines.DUAL_EXPORT_HATCH, "MG", "CP", 'P', PIPE_NONUPLE, 'M', HULL, 'G', GLASS, 'C', BUFFER);
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_chest_uev",
+                GTMachines.QUANTUM_CHEST[UEV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.UEV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("quantanium")), 'F',
+                GTItems.FIELD_GENERATOR_UV.asStack(), 'H', GTMachines.HULL[10].asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_chest_uiv",
+                GTMachines.QUANTUM_CHEST[UIV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.UIV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("adamantium")), 'F',
+                GTItems.FIELD_GENERATOR_UHV.asStack(), 'H', GTMachines.HULL[11].asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_chest_uxv",
+                GTMachines.QUANTUM_CHEST[UXV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.UXV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("vibranium")), 'F',
+                GTItems.FIELD_GENERATOR_UEV.asStack(), 'H', GTMachines.HULL[12].asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_chest_opv",
+                GTMachines.QUANTUM_CHEST[OpV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.OpV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("draconium")), 'F',
+                GTItems.FIELD_GENERATOR_UIV.asStack(), 'H', GTMachines.HULL[13].asStack());
     }
 }

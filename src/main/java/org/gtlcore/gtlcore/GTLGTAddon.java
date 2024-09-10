@@ -2,19 +2,18 @@ package org.gtlcore.gtlcore;
 
 import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
+import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.lowdragmc.lowdraglib.Platform;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
-import org.gtlcore.gtlcore.common.data.GTLBedrockFluids;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
-import org.gtlcore.gtlcore.common.data.GTLItems;
+import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.common.recipe.condition.OrbitCondition;
 import org.gtlcore.gtlcore.data.recipe.*;
 
 import java.util.function.Consumer;
-
-import static org.gtlcore.gtlcore.common.data.GTLRecipes.DISASSEMBLY_RECORD;
 
 @GTAddon
 public class GTLGTAddon implements IGTAddon {
@@ -41,7 +40,28 @@ public class GTLGTAddon implements IGTAddon {
     }
 
     @Override
+    public void registerSounds() {
+        GTLSoundEntries.init();
+    }
+
+    @Override
+    public void registerCovers() {
+        GTLCovers.init();
+    }
+
+    @Override
+    public void registerElements() {
+        GTLElements.init();
+    }
+
+    @Override
     public void registerTagPrefixes() {
+        GTLTagPrefix.init();
+    }
+
+    @Override
+    public void registerRecipeConditions() {
+        GTRegistries.RECIPE_CONDITIONS.register(OrbitCondition.INSTANCE.getType(), OrbitCondition.class);
     }
 
     @Override
@@ -55,11 +75,7 @@ public class GTLGTAddon implements IGTAddon {
 
     @Override
     public void removeRecipes(Consumer<ResourceLocation> consumer) {
-        DISASSEMBLY_RECORD.clear();
-        consumer.accept(new ResourceLocation("gtceu:assembly_line/dynamo_hatch_uhv"));
-        consumer.accept(new ResourceLocation("gtceu:assembly_line/energy_hatch_uhv"));
-        consumer.accept(new ResourceLocation("gtceu:research_station/1_x_gtceu_uv_energy_input_hatch"));
-        consumer.accept(new ResourceLocation("gtceu:research_station/1_x_gtceu_uv_energy_output_hatch"));
+        RemoveRecipe.init(consumer);
     }
 
     @Override

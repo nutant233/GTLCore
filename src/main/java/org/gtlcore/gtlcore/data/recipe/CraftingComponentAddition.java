@@ -3,6 +3,7 @@ package org.gtlcore.gtlcore.data.recipe;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
+import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
 import org.gtlcore.gtlcore.common.data.GTLItems;
@@ -16,6 +17,8 @@ import static org.gtlcore.gtlcore.utils.Registries.getItem;
 import static org.gtlcore.gtlcore.utils.Registries.getMaterial;
 
 public final class CraftingComponentAddition {
+
+    public static Component BUFFER;
 
     public static void init() {
         CraftingComponent.PUMP.appendIngredients(Stream.of(new Object[][] {
@@ -361,6 +364,25 @@ public final class CraftingComponentAddition {
                 { 12, new UnificationEntry(TagPrefix.spring, getMaterial("taranium")) },
                 { 13, new UnificationEntry(TagPrefix.spring, getMaterial("crystalmatrix")) },
                 { 14, new UnificationEntry(TagPrefix.spring, getMaterial("cosmicneutronium")) },
+
+        }).collect(Collectors.toMap(data -> (Integer) data[0], data -> data[1])));
+
+        BUFFER = new Component(Stream.of(new Object[][] {
+
+                { 1, GTMachines.BUFFER[1].asStack() },
+                { 2, GTMachines.BUFFER[2].asStack() },
+                { 3, GTMachines.BUFFER[3].asStack() },
+                { 4, GTMachines.BUFFER[4].asStack() },
+                { 5, GTMachines.BUFFER[5].asStack() },
+                { 6, GTMachines.BUFFER[6].asStack() },
+                { 7, GTMachines.BUFFER[7].asStack() },
+                { 8, GTMachines.BUFFER[8].asStack() },
+                { 9, GTMachines.BUFFER[9].asStack() },
+                { 10, GTMachines.BUFFER[10].asStack() },
+                { 11, GTMachines.BUFFER[11].asStack() },
+                { 12, GTMachines.BUFFER[12].asStack() },
+                { 13, GTMachines.BUFFER[13].asStack() },
+                { 14, GTMachines.BUFFER[14].asStack() },
 
         }).collect(Collectors.toMap(data -> (Integer) data[0], data -> data[1])));
     }

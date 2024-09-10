@@ -17,6 +17,7 @@ import com.gregtechceu.gtceu.common.data.machines.GTAEMachines;
 import com.gregtechceu.gtceu.common.data.machines.GTCreateMachines;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.*;
+import com.gregtechceu.gtceu.common.machine.storage.BufferMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.integration.kjs.GTRegistryInfo;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
@@ -207,6 +208,26 @@ public class GTMachinesMixin {
                                                         DualHatchPartMachine.INITIAL_TANK_CAPACITY, tier)),
                                         Component.translatable("gtceu.universal.enabled"))
                                 .compassNode("dual_hatch")
+                                .register(),
+                        GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
+                break;
+            case "buffer" :
+                cir.setReturnValue(gTLCore$registerTieredMachines("buffer",
+                        BufferMachine::new,
+                        (tier, builder1) -> builder1
+                                .langValue("%s Buffer %s".formatted(VLVH[tier], VLVT[tier]))
+                                .rotationState(RotationState.NONE)
+                                .tieredHullRenderer(GTCEu.id("block/machine/buffer"))
+                                .tooltips(
+                                        Component.translatable("gtceu.machine.buffer.tooltip"),
+                                        Component.translatable(
+                                                "gtceu.universal.tooltip.item_storage_capacity",
+                                                BufferMachine.getInventorySize(tier)),
+                                        Component.translatable(
+                                                "gtceu.universal.tooltip.fluid_storage_capacity_mult",
+                                                BufferMachine.getTankSize(tier), FluidHatchPartMachine.getTankCapacity(
+                                                        DualHatchPartMachine.INITIAL_TANK_CAPACITY, tier)))
+                                .compassNode("buffer")
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;

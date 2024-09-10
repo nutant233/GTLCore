@@ -105,7 +105,7 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
 
         long eut = turbineMachine.boostProduction((long) (EUt * holderEfficiency * parallelResult.getSecond()));
 
-        result.init(-eut, recipe.duration, parallelResult.getSecond());
+        result.init(-eut, recipe.duration, parallelResult.getSecond(), params.getOcAmount());
 
         return recipe;
     }

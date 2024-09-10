@@ -31,8 +31,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2GtmProcessingPattern;
-import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisResult;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisManager;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisResult;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.GTRecipeManager;
 
 import java.util.HashSet;

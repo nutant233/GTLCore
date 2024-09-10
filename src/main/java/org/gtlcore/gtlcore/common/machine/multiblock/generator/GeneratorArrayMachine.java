@@ -65,6 +65,9 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
     @Persisted
     private boolean isw;
 
+    @Persisted
+    private long eut = 0;
+
     public GeneratorArrayMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, 1, args);
         this.machineStorage = createMachineStorage(args);
@@ -190,12 +193,14 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
     public boolean onWorking() {
         boolean value = super.onWorking();
         if (this.isw) {
-            GTRecipe r = getRecipeLogic().getLastRecipe();
-            if (r != null) {
-                WirelessEnergyManager.addEUToGlobalEnergyMap(userid, r.data.getLong("eut"), this);
-            }
+            WirelessEnergyManager.addEUToGlobalEnergyMap(userid, eut, this);
         }
         return value;
+    }
+
+    @Override
+    public void afterWorking() {
+        eut = 0;
     }
 
     @Nullable
@@ -214,7 +219,7 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
                 }
                 GTRecipe paraRecipe =  recipe.copy(ContentModifier.multiplier(multipliers), false);
                 if (generatorArrayMachine.isw) {
-                    paraRecipe.data.putLong("eut", RecipeHelper.getOutputEUt(paraRecipe));
+                    generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
                     paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);
                 }
                 return paraRecipe;
@@ -240,7 +245,7 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
         if (isActive() && this.isw) {
             GTRecipe r = getRecipeLogic().getLastRecipe();
             if (r != null) {
-                textList.add(Component.translatable("gtceu.recipe.eu_inverted", FormattingUtil.formatNumbers(r.data.getLong("eut"))));
+                textList.add(Component.translatable("gtceu.recipe.eu_inverted", FormattingUtil.formatNumbers(eut)));
             }
         }
     }

@@ -9,7 +9,7 @@ import com.lowdragmc.lowdraglib.client.renderer.IItemRendererProvider;
 import com.lowdragmc.lowdraglib.client.renderer.IRenderer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.api.data.chemical.material.info.CustomRendererMaterialIconSet;
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,7 +29,7 @@ public class TagPrefixItemMixin extends Item implements IItemRendererProvider {
     @Inject(method = "<init>(Lnet/minecraft/world/item/Item$Properties;Lcom/gregtechceu/gtceu/api/data/tag/TagPrefix;Lcom/gregtechceu/gtceu/api/data/chemical/material/Material;)V", at = @At(value = "RETURN"))
     private void TagPrefixItem(Properties properties, TagPrefix tagPrefix, Material material, CallbackInfo ci) {
         if (Platform.isClient()) {
-            if (material.getMaterialIconSet() instanceof CustomRendererMaterialIconSet iconSet) {
+            if (material.getMaterialIconSet() instanceof GTLMaterialIconSet iconSet) {
                 this.gtlcore$customRenderer = iconSet.getCustomRenderer();
             }
         }

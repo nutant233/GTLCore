@@ -16,7 +16,6 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
-import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
 import lombok.Getter;
 import lombok.val;
@@ -35,12 +34,9 @@ import java.util.List;
 @MethodsReturnNonnullByDefault
 public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
 
-    private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID,
-            120 * FluidHelper.getBucket() / 1000);
-    private static final FluidStack DINITROGEN_TETROXIDE_STACK = GTMaterials.DinitrogenTetroxide.getFluid(
-            80 * FluidHelper.getBucket() / 1000);
-    private static final FluidStack LUBRICANT_STACK = GTMaterials.Lubricant.getFluid(
-            2 * FluidHelper.getBucket() / 1000);
+    private static final FluidStack DINITROGEN_TETROXIDE_STACK = GTMaterials.Oxygen.getFluid(80);
+    private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID, 120);
+    private static final FluidStack LUBRICANT_STACK = GTMaterials.Lubricant.getFluid(2);
 
     @Getter
     private final int tier = 5;
@@ -109,14 +105,14 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
                 var parallelResult = GTRecipeModifiers.fastParallel(engineMachine, recipe, maxParallel, false);
                 if (engineMachine.isOxygenBoosted && engineMachine.isDinitrogenTetroxideBoosted) {
                     long eut = EUt * parallelResult.getSecond() * 4;
-                    result.init(-eut, recipe.duration, parallelResult.getSecond());
+                    result.init(-eut, recipe.duration, 1, params.getOcAmount());
                 } else if (engineMachine.isOxygenBoosted) {
                     long eut = EUt * parallelResult.getSecond() * 2;
-                    result.init(-eut, recipe.duration, parallelResult.getSecond());
+                    result.init(-eut, recipe.duration, 1, params.getOcAmount());
                 } else {
-                    result.init(-RecipeHelper.getOutputEUt(recipe), recipe.duration, parallelResult.getSecond());
+                    long eut = EUt * parallelResult.getSecond();
+                    result.init(-eut, recipe.duration, 1, params.getOcAmount());
                 }
-
                 return recipe;
             }
         }

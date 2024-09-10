@@ -107,8 +107,8 @@ public class OreRecipeHandlerMixin {
                     .inputItems(tag)
                     .outputItems(GTUtil.copyAmount(amountOfCrushedOre * 2 * oreTypeMultiplier, crushedStack))
                     .chancedOutput(byproductStack, 1400, 850)
-                    .EUt(2)
-                    .duration(400);
+                    .EUt(30)
+                    .duration(26);
 
             for (MaterialStack secondaryMaterial : orePrefix.secondaryMaterials()) {
                 if (secondaryMaterial.material().hasProperty(PropertyKey.DUST)) {
@@ -412,8 +412,8 @@ public class OreRecipeHandlerMixin {
                     .recipeBuilder("macerate_" + orePrefix.name + "_" + material.getName() + "_ore_to_crushed_ore")
                     .inputItems(orePrefix, material)
                     .outputItems(GTUtil.copyAmount(crushedStack.getCount() * 2, crushedStack))
-                    .EUt(2)
-                    .duration(400);
+                    .EUt(30)
+                    .duration(26);
 
             Material byproductMaterial = GTUtil.selectItemInList(0, material, property.getOreByProducts(),
                     Material.class);

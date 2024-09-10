@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.api.item.tool.ae2.patternTool;
 
 import appeng.api.crafting.PatternDetailsHelper;
-import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.GenericStack;
 import appeng.crafting.pattern.AEProcessingPattern;
 import com.gregtechceu.gtceu.common.data.GTItems;
@@ -10,10 +9,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.item.PatternTestBehavior;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Ae2BaseProcessingPattern {

@@ -2,14 +2,11 @@ package org.gtlcore.gtlcore.common;
 
 import appeng.core.AELog;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
-import com.gregtechceu.gtceu.api.cover.CoverDefinition;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
-import com.gregtechceu.gtceu.api.recipe.RecipeCondition;
-import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -17,7 +14,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.common.recipe.condition.OrbitCondition;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
@@ -33,10 +29,8 @@ public class CommonProxy {
         eventBus.addListener(this::addMaterialRegistries);
         eventBus.addListener(this::addMaterials);
         eventBus.addListener(this::modifyMaterials);
-        eventBus.addGenericListener(Class.class, this::registerRecipeConditions);
         eventBus.addGenericListener(GTRecipeType.class, this::registerRecipeTypes);
         eventBus.addGenericListener(MachineDefinition.class, this::registerMachines);
-        eventBus.addGenericListener(CoverDefinition.class,this::registerCovers);
     }
 
     public static void init() {
@@ -78,16 +72,8 @@ public class CommonProxy {
         GTLRecipeTypes.init();
     }
 
-    public void registerRecipeConditions(GTCEuAPI.RegisterEvent<String, Class<? extends RecipeCondition>> event) {
-        GTRegistries.RECIPE_CONDITIONS.register(OrbitCondition.INSTANCE.getType(), OrbitCondition.class);
-    }
-
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
         GTLMachines.init();
         GTLMachines.LARGE_SEMI_FLUID_GENERATOR.setRecipeTypes(new GTRecipeType[]{GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS});
-    }
-
-    private void registerCovers(GTCEuAPI.RegisterEvent<ResourceLocation, CoverDefinition> event) {
-        GTLCovers.init();
     }
 }

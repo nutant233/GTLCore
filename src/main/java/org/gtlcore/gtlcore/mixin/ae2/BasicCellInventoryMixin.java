@@ -4,6 +4,7 @@ import appeng.api.storage.cells.IBasicCellItem;
 import appeng.api.storage.cells.ISaveProvider;
 import appeng.me.cells.BasicCellInventory;
 import net.minecraft.world.item.ItemStack;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +29,7 @@ public class BasicCellInventoryMixin  {
 
     @Inject(method = "<init>", at = @At("RETURN"), remap = false)
     private void BasicCellInventory(IBasicCellItem cellType, ItemStack o, ISaveProvider container, CallbackInfo ci) {
-        this.maxItemTypes = this.cellType.getTotalTypes(this.i) * 2;
+        this.maxItemTypes = this.cellType.getTotalTypes(this.i) * ConfigHolder.INSTANCE.cellType;
     }
 
     @Inject(method = "getBytesPerType", at = @At("HEAD"), remap = false, cancellable = true)
