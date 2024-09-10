@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.*;
 
 
-public class Ae2Pattern {
+public class ConflictAnalysisObj {
     public GTRecipe recipe;
 
     public List<ItemStack> inputItemStacks = new ArrayList<>();
@@ -32,15 +32,10 @@ public class Ae2Pattern {
     public Map<String,Long> outputFluidIdsMap = new HashMap<>();
 
     public Number CIRCUIT;
-
-    public List<String> ignoreItems = new ArrayList<>(List.of(
-            "programmed_circuit" // 方便处理，后续所有白名单匹配都使用ID
-    ));
-    public List<String> ignoreFluids = new ArrayList<>(List.of());
     private boolean hasINTEGRATED_CIRCUIT=false;
 
 
-    public Ae2Pattern(GTRecipe recipe) {
+    public ConflictAnalysisObj(GTRecipe recipe) {
         this.recipe = recipe;
         this.populateItemStacks(recipe.getInputContents(ItemRecipeCapability.CAP),inputItemStacks,inputItemIds,inputItemIdsMap);
         this.populateFluidStacks(recipe.getInputContents(FluidRecipeCapability.CAP),inputFluidStacks,inputFluidIds,inputFluidIdsMap);

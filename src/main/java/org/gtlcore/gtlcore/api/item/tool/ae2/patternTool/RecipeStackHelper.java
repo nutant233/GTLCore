@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-public class Ae2AbilityHelper {
+public class RecipeStackHelper {
    final GTRecipe recipe;
 
-    protected Ae2AbilityHelper(GTRecipe recipe) {
+    protected RecipeStackHelper(GTRecipe recipe) {
         this.recipe = recipe;
     }
 
