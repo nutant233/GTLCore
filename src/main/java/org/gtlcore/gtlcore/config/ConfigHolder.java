@@ -36,4 +36,8 @@ public class ConfigHolder {
     @Configurable
     @Configurable.Range(min = 0)
     public double durationMultiplier = 1;
+    @Configurable
+    @Configurable.Comment({"更大的数值会让界面显示有问题，推荐在样板管理终端管理"})
+    @Configurable.Range(min = 36, max = 144)
+    public int exPatternProvider = 36;
 }

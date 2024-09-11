@@ -18,6 +18,8 @@
     "ae2.MixinGenericStackInv",
     "ae2.PortableCellItemMixin",
     "ae2.TooltipsMixin",
+    "extendedae.ContainerPatternModifierMixin",
+    "extendedae.TileExPatternProviderMixin",
     "gtm.FluidPipeTypeMixin",
     "gtm.OverclockingLogicMixin",
     "gtm.RockBreakerConditionMixin",

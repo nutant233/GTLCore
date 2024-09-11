@@ -38,6 +38,7 @@ import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
+import org.gtlcore.gtlcore.common.machine.generator.MagicEnergyMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.ChemicalEnergyDevourerMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
@@ -149,6 +150,23 @@ public class GTLMachines {
                             FormattingUtil.formatNumbers((long) (48828 * Math.pow(4, tier)))))
                     .register(),
             EV, IV, LuV);
+
+    public static final MachineDefinition[] PRIMITIVE_MAGIC_ENERGY = registerTieredMachines(
+            "primitive_magic_energy",
+            MagicEnergyMachine::new,
+            (tier, builder) -> builder
+                    .langValue("%s Primitive Magic Energy %s".formatted(VLVH[tier], VLVT[tier]))
+                    .rotationState(RotationState.NON_Y_AXIS)
+                    .renderer(() -> new SimpleGeneratorMachineRenderer(tier,
+                            GTCEu.id("block/generators/primitive_magic_energy")))
+                    .tooltips(Component.translatable("gtceu.machine.primitive_magic_energy.tooltip.0"))
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.ampere_out", 16))
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.voltage_out",
+                            FormattingUtil.formatNumbers(GTValues.V[tier]), GTValues.VNF[tier]))
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.energy_storage_capacity",
+                            FormattingUtil.formatNumbers(GTValues.V[tier] * 512L)))
+                    .register(),
+            ULV, LV);
 
     //////////////////////////////////////
     // ********** Part **********//

@@ -201,6 +201,13 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
     @Override
     public void afterWorking() {
         eut = 0;
+        super.afterWorking();
+    }
+
+    @Override
+    public void onWaiting() {
+        getRecipeLogic().resetRecipeLogic();
+        super.onWaiting();
     }
 
     @Nullable

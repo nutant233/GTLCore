@@ -45,7 +45,7 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
     private boolean isSpawn;
     @Persisted
     private final UUID uuid;
-    private final String[] mobList1 = new  String[] {"chicken", "rabbit", "sheep", "cow", "horse", "pig", "donkey", "skeleton_horse", "villager", "iron_golem", "wolf", "goat", "parrot", "camel", "cat", "fox", "llama", "panda", "polar_bear"};
+    private final String[] mobList1 = new  String[] {"chicken", "rabbit", "sheep", "cow", "horse", "pig", "donkey", "skeleton_horse", "iron_golem", "wolf", "goat", "parrot", "camel", "cat", "fox", "llama", "panda", "polar_bear"};
     private final String[] mobList2 = new  String[] {"ghast", "zombie", "pillager", "zombie_villager", "skeleton", "drowned", "witch", "spider", "creeper", "husk", "wither_skeleton", "blaze", "zombified_piglin", "slime", "vindicator", "enderman"};
 
     public Slaughterhouse(IMachineBlockEntity holder) {

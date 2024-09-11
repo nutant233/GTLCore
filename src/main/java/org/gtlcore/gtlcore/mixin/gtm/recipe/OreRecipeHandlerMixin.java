@@ -381,7 +381,7 @@ public class OreRecipeHandlerMixin {
     @Unique
     private static void gtlcore$processRawOre(TagPrefix orePrefix, Material material, OreProperty property, Consumer<FinishedRecipe> provider) {
         ItemStack crushedStack = ChemicalHelper.get(crushed, material,
-                material.getProperty(PropertyKey.ORE).getOreMultiplier());
+                material.getProperty(PropertyKey.ORE).getOreMultiplier() * org.gtlcore.gtlcore.config.ConfigHolder.INSTANCE.oreMultiplier / 2);
         ItemStack ingotStack;
         Material smeltingMaterial = property.getDirectSmeltResult() == null ? material :
                 property.getDirectSmeltResult();

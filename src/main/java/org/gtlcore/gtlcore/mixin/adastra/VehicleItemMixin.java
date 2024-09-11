@@ -10,6 +10,6 @@ public class VehicleItemMixin {
 
     @ModifyConstant(method = "getFluidContainer(Lnet/minecraft/world/item/ItemStack;)Learth/terrarium/botarium/common/fluid/impl/WrappedItemFluidContainer;", remap = false, constant = @Constant(longValue = 3000L))
     private long modifyContainer(long constant) {
-        return 64000L;
+        return 16000L;
     }
 }

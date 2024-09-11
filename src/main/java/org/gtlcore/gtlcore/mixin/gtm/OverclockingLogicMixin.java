@@ -48,6 +48,6 @@ public class OverclockingLogicMixin {
         }
 
         result.init((long) (eut / Math.pow(STD_VOLTAGE_FACTOR, parallelIterAmount)), (int) duration, (int) parallel,
-                (long) eut);
+                (long) eut, ocLevel);
     }
 }
