@@ -26,7 +26,8 @@ public class Ae2BaseProcessingPatternHelper {
             modifyStacks(output, mulOutput, scale, div);
             return PatternDetailsHelper.encodeProcessingPattern(mulInput, mulOutput);
         }
-        throw new Error("内部错误：无法整除 或 乘数过大");
+        GTLCore.LOGGER.info("内部错误：无法整除 或 乘数过大");
+        return null;
     }
 
     // 从样板物品解码样板
@@ -82,7 +83,7 @@ public class Ae2BaseProcessingPatternHelper {
         } else {
             for (var stack : stacks) {
                 if (stack != null) {
-                    long upper = 99999999L * stack.what().getAmountPerUnit();
+                    long upper = 999999L * stack.what().getAmountPerUnit();
                     if (stack.amount() * scale > upper) {
                         return false;
                     }

@@ -8,10 +8,12 @@ import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.gtlcore.gtlcore.GTLCore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Ae2BaseProcessingPattern {
     public ItemStack patternStack; // 样板itemStack
@@ -47,18 +49,26 @@ public class Ae2BaseProcessingPattern {
     public void setScale(int newScale) {
         try{
             int oldScale = this.scale;
+            ItemStack oldPatternStack = this.patternStack;
+            ItemStack divedPatternStack;
+            ItemStack newPatternStack;
             // 先除到一份
-            patternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
+            divedPatternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
                     oldScale,
                     true,
-                    Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(patternStack,serverPlayer));
-            // 乘到新的份数
-            patternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
-                    newScale,
-                    false,
-                    Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(patternStack,serverPlayer));
-            // 更新份数
-            this.scale = newScale;
+                    Objects.requireNonNull(Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(oldPatternStack, serverPlayer)));
+            if (divedPatternStack != null && !divedPatternStack.isEmpty()) {
+                // 乘到新的份数
+                newPatternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
+                        newScale,
+                        false,
+                        Objects.requireNonNull(Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(divedPatternStack, serverPlayer)));
+                if (newPatternStack != null && !newPatternStack.isEmpty()) {
+                    // 更新份数
+                    this.patternStack = newPatternStack;
+                    this.scale = newScale;
+                }
+            }
         }catch(Exception e){
             GTLCore.LOGGER.error(e.getMessage());
         }
