@@ -65,3 +65,10 @@ mandatory = false
 versionRange = "[${jei_version},)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "extendedae"
+mandatory = false
+versionRange = "[1.1,)"
+ordering = "AFTER"
+side = "BOTH"

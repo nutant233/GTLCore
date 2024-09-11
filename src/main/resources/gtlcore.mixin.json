@@ -4,6 +4,7 @@
   "package": "org.gtlcore.gtlcore.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "gtm.TagPrefixItemRendererMixin",
     "ae2.client.BuiltInModelHooksAccessor",
     "ae2.client.ModelBakeryMixin"
   ],
@@ -19,6 +20,7 @@
     "ae2.PortableCellItemMixin",
     "ae2.TooltipsMixin",
     "extendedae.ContainerPatternModifierMixin",
+    "extendedae.PartExPatternProviderMixin",
     "extendedae.TileExPatternProviderMixin",
     "gtm.FluidPipeTypeMixin",
     "gtm.OverclockingLogicMixin",
