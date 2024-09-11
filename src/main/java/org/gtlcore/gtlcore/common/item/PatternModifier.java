@@ -10,13 +10,9 @@ import com.gregtechceu.gtceu.api.item.component.IItemUIFactory;
 import com.gregtechceu.gtceu.integration.ae2.gui.widget.AETextInputButtonWidget;
 import com.lowdragmc.lowdraglib.gui.factory.HeldItemUIFactory;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
-import com.lowdragmc.lowdraglib.gui.texture.GuiTextureGroup;
-import com.lowdragmc.lowdraglib.gui.texture.TextTexture;
-import com.lowdragmc.lowdraglib.gui.widget.ButtonWidget;
 import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
 import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
-import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -38,19 +34,39 @@ import java.util.HashMap;
 @Setter
 public class PatternModifier implements IItemUIFactory {
     public static final PatternModifier INSTANCE = new PatternModifier();
-    private int Ae2PatternGeneratorScale;
+    private int Ae2PatternGeneratorScale = 1;
+    private long Ae2PatternGeneratorMaxStack = 1000000L;
+    private int Ae2PatternGeneratorDivScale = 1;
+
     @Override
     public ModularUI createUI(HeldItemUIFactory.HeldItemHolder heldItemHolder, Player player) {
         return new ModularUI(176,124,heldItemHolder,player).widget(
                 new WidgetGroup(8,8,176,124)
-                        .addWidget(new ImageWidget(4,4,152,100, GuiTextures.DISPLAY))
+                        .addWidget(new ImageWidget(8,8,152,100, GuiTextures.DISPLAY))
                         .addWidget(new LabelWidget(6, 6, "AE样板倍乘器"))
                         .addWidget(new LabelWidget(6, 16, "设置倍数后，shift右键样板供应器方块使用"))
+                        .addWidget(new LabelWidget(6, 24, "先做乘法，后做除法"))
                         .addWidget(new AETextInputButtonWidget(82, 34, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorScale))
                                 .setOnConfirm(this::setAe2PatternGeneratorScale)
-                                .setButtonTooltips(Component.literal("设置模板倍数")))
-        );
+                                .setButtonTooltips(Component.literal("设置模板乘数")))
+                        .addWidget(new AETextInputButtonWidget(82, 48, 72, 12)
+                                .setText(String.valueOf(Ae2PatternGeneratorMaxStack))
+                                .setOnConfirm(this::setAe2PatternGeneratorMaxStack)
+                                .setButtonTooltips(Component.literal("设置乘法后最大物品或流体数量 个或B")))
+                        .addWidget(new AETextInputButtonWidget(82, 62, 72, 12)
+                                .setText(String.valueOf(Ae2PatternGeneratorDivScale))
+                                .setOnConfirm(this::setAe2PatternGeneratorDivScale)
+                                .setButtonTooltips(Component.literal("设置模板除数")))
+        ).background(GuiTextures.BACKGROUND);
+    }
+
+    private void setAe2PatternGeneratorMaxStack(String s) {
+        Ae2PatternGeneratorMaxStack= Integer.parseInt(s);
+    }
+
+    private void setAe2PatternGeneratorDivScale(String s) {
+        Ae2PatternGeneratorDivScale = Math.min(Integer.MAX_VALUE, Integer.parseInt(s));
     }
 
     private void setAe2PatternGeneratorScale(String s) {
@@ -109,8 +125,9 @@ public class PatternModifier implements IItemUIFactory {
                 while (i<soltNumber){
                     ItemStack itemStack = internalInventory.getStackInSlot(i);
                     if (!itemStack.isEmpty()) {
-                        Ae2BaseProcessingPattern ae2BaseProcessingPattern = new Ae2BaseProcessingPattern(1, itemStack, serverPlayer);
-                        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorScale);
+                        Ae2BaseProcessingPattern ae2BaseProcessingPattern = new Ae2BaseProcessingPattern(itemStack, serverPlayer);
+                        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorScale,false,Ae2PatternGeneratorMaxStack);
+                        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorDivScale,true);
                         ItemStack patternItemStack = ae2BaseProcessingPattern.getPatternItemStack();
                         newItemStackHashMap.put(i, patternItemStack);
                     }
@@ -122,6 +139,7 @@ public class PatternModifier implements IItemUIFactory {
                         internalInventory.insertItem(integer, itemStack, false);
                     }
                 });
+                serverPlayer.displayClientMessage(Component.literal("已更新内部的样板"),true);
             }
             if(!context.getPlayer().isShiftKeyDown()){
                 serverPlayer.displayClientMessage(Component.literal("右键空气打开GUI"),true);

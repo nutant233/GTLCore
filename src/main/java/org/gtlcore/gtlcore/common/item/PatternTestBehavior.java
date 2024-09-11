@@ -124,8 +124,8 @@ public class PatternTestBehavior implements IItemUIFactory {
             gtRecipeManager.filterRecipesByCircuit(Ae2PatternGeneratorCircuit);
             List<GTRecipe> recipes = gtRecipeManager.getRecipes();
             for(GTRecipe recipe : recipes){
-                Ae2GtmProcessingPattern ae2GtmProcessingPattern = Ae2GtmProcessingPattern.of(1, recipe, serverPlayer);
-                ae2GtmProcessingPattern.setScale(Ae2PatternGeneratorScale);
+                Ae2GtmProcessingPattern ae2GtmProcessingPattern = Ae2GtmProcessingPattern.of(recipe, serverPlayer);
+                ae2GtmProcessingPattern.setScale(Ae2PatternGeneratorScale,false);
                 ae2GtmProcessingPattern.setDefaultFilter();
                 ItemStack patternItemStack = ae2GtmProcessingPattern.getPatternItemStack();
                 serverPlayer.kjs$give(patternItemStack);
