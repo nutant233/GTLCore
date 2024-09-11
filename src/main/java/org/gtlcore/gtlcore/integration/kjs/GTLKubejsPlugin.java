@@ -11,7 +11,7 @@ import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.CoilWorkableElectricMultipleRecipesMultiblockMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricParallelHatchMultipleRecipesMachine;
-import org.gtlcore.gtlcore.common.recipe.condition.OrbitCondition;
+import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.Registries;
 import org.gtlcore.gtlcore.utils.TextUtil;
@@ -43,6 +43,6 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("Registries", Registries.class);
         event.add("CoilWorkableElectricMultipleRecipesMultiblockMachine", CoilWorkableElectricMultipleRecipesMultiblockMachine.class);
         event.add("WorkableElectricParallelHatchMultipleRecipesMachine", WorkableElectricParallelHatchMultipleRecipesMachine.class);
-        event.add("OrbitCondition", OrbitCondition.class);
+        event.add("GravityCondition", GravityCondition.class);
     }
 }

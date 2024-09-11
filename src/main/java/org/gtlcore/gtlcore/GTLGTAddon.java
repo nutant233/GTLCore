@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
 import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.common.recipe.condition.OrbitCondition;
+import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
 import org.gtlcore.gtlcore.data.recipe.*;
 
 import java.util.function.Consumer;
@@ -61,7 +61,7 @@ public class GTLGTAddon implements IGTAddon {
 
     @Override
     public void registerRecipeConditions() {
-        GTRegistries.RECIPE_CONDITIONS.register(OrbitCondition.INSTANCE.getType(), OrbitCondition.class);
+        GTRegistries.RECIPE_CONDITIONS.register(GravityCondition.INSTANCE.getType(), GravityCondition.class);
     }
 
     @Override

@@ -314,6 +314,15 @@ public class GTLMachines {
             .compassNodeSelf()
             .register();
 
+    public static final MachineDefinition GRAVITY_HATCH = REGISTRATE
+            .machine("gravity_hatch", GravityPartMachine::new)
+            .rotationState(RotationState.ALL)
+            .abilities(PartAbility.MAINTENANCE)
+            .tooltips(Component.translatable("gtceu.universal.disabled"))
+            .renderer(() -> new MaintenanceHatchPartRenderer(8, GTCEu.id("block/machine/part/maintenance.full_auto")))
+            .compassNodeSelf()
+            .register();
+
     public static final MachineDefinition[] LASER_INPUT_HATCH_16384 = registerLaserHatch(IO.IN, 16384,
             PartAbility.INPUT_LASER);
     public static final MachineDefinition[] LASER_OUTPUT_HATCH_16384 = registerLaserHatch(IO.OUT, 16384,
