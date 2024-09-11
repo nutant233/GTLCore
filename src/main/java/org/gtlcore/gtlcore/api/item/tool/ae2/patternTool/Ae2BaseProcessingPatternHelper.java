@@ -8,13 +8,14 @@ import appeng.crafting.pattern.EncodedPatternItem;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.gtlcore.gtlcore.GTLCore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Ae2BaseProcessingPatternHelper {
-    // 乘或除 解码后样板
+    // 乘或除 输入解码后样板，输出编码后样板
     public static ItemStack multiplyScale(int scale, boolean div, AEProcessingPattern patternDetail){
         var input = patternDetail.getSparseInputs();
         var output = patternDetail.getOutputs();
@@ -34,11 +35,12 @@ public class Ae2BaseProcessingPatternHelper {
             if(patternItem_1.decode(patternStack,serverPlayer.level(),false)instanceof AEProcessingPattern processStack ){
                 return processStack;
             }else {
-                throw new Error("Ae2BaseProcessingPattern requires a EncodedPatternItem 意外之内的输入：非处理样板");
+                GTLCore.LOGGER.info("Ae2BaseProcessingPattern requires a EncodedPatternItem 意外之内的输入：非处理样板");
             }
         }else {
-            throw new Error("Ae2BaseProcessingPattern requires a EncodedPatternItem 意外之内的输入：非AE样板");
+            GTLCore.LOGGER.info("Ae2BaseProcessingPattern requires a EncodedPatternItem 意外之内的输入：非AE样板");
         }
+        return null;
     }
 
     // 转换到list方便操作
@@ -46,7 +48,7 @@ public class Ae2BaseProcessingPatternHelper {
         return new ArrayList<>(Arrays.asList(genericStackArray));
     }
 
-    // 转换回数字，构造AE2 API参数
+    // 转换回[]，构造AE2 API参数
     public static GenericStack[] transGenericStackListToArray(List<GenericStack> genericStackList) {
         GenericStack[] genericStackArrayList = new GenericStack[genericStackList.size()];
         return genericStackList.toArray(genericStackArrayList);

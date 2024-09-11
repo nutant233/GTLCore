@@ -75,6 +75,9 @@ public class Ae2BaseProcessingPattern {
         this.patternStack = patternStack;
         this.serverPlayer = serverPlayer;
 
+        // 不获取返回值，仅检测是否可解码
+        Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(patternStack,serverPlayer);
+
         try {
             for (ItemEntry<Item> shapeMold : GTItems.SHAPE_MOLDS) {
                 if(shapeMold!=null) {
