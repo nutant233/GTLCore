@@ -172,68 +172,6 @@ public class PatternTestBehavior implements IItemUIFactory {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getPlayer() instanceof ServerPlayer serverPlayer) {
-            /*
-                shift右键乘法逻辑
-             */
-            if (context.getPlayer().isShiftKeyDown()){
-                BlockPos clickedPos = context.getClickedPos();
-                Level level = context.getLevel();
-                BlockEntity blockEntitylock = level.getBlockEntity(clickedPos);
-                if (
-                        !level.getBlockState(clickedPos).getBlock().equals(AEBlocks.PATTERN_PROVIDER.block()) &&
-                        !level.getBlockState(clickedPos).getBlock().equals(EPPItemAndBlock.EX_PATTERN_PROVIDER)
-                ) {
-                    serverPlayer.displayClientMessage(Component.literal("只能对着样板供应器使用"),true);
-                    return InteractionResult.FAIL;
-                }
-                int soltNumber=0;
-
-                if(level.getBlockState(clickedPos).getBlock().equals(AEBlocks.PATTERN_PROVIDER.block())){
-                    soltNumber=9;
-                }
-                if(level.getBlockState(clickedPos).getBlock().equals(EPPItemAndBlock.EX_PATTERN_PROVIDER)){
-                    soltNumber=36;
-                }
-                InternalInventory internalInventory;
-                if (blockEntitylock != null) {
-                    internalInventory = ((PatternProviderBlockEntity) blockEntitylock).getLogic().getPatternInv();
-                } else {
-                    internalInventory = null;
-                }
-                if (internalInventory == null) {
-                    serverPlayer.displayClientMessage(Component.literal("未能成功获得样板供应器物品栏"),true);
-                    return InteractionResult.FAIL;
-                }
-
-                int i=0;
-                HashMap<Integer, ItemStack> newItemStackHashMap=new HashMap<>();
-                while (i<soltNumber){
-                    ItemStack itemStack = internalInventory.getStackInSlot(i);
-                    if (!itemStack.isEmpty()) {
-                        Ae2BaseProcessingPattern ae2BaseProcessingPattern = new Ae2BaseProcessingPattern(1, itemStack, serverPlayer);
-                        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorScale);
-                        ItemStack patternItemStack = ae2BaseProcessingPattern.getPatternItemStack();
-                        newItemStackHashMap.put(i, patternItemStack);
-                    }
-                    i++;
-                }
-                newItemStackHashMap.forEach((integer, itemStack) -> {
-                    if (itemStack.is(AEItems.PROCESSING_PATTERN.asItem())){
-                        internalInventory.extractItem(integer,1,false);
-                        internalInventory.insertItem(integer, itemStack, false);
-                    }
-                });
-//                Iterator<ItemStack> iterator = internalInventory.iterator();
-//                while(iterator.hasNext()){
-//                    ItemStack itemStack = iterator.next();
-//                    Ae2BaseProcessingPattern ae2BaseProcessingPattern = new Ae2BaseProcessingPattern(1, itemStack, serverPlayer);
-//                    ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorScale);
-//                    serverPlayer.kjs$give(ae2BaseProcessingPattern.getPatternItemStack());
-//                }
-
-
-
-            }
             serverPlayer.displayClientMessage(Component.literal("右键空气打开GUI"),true);
         }
         return InteractionResult.SUCCESS;

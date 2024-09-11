@@ -24,6 +24,7 @@ import com.gregtechceu.gtceu.common.item.TooltipBehavior;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import org.gtlcore.gtlcore.common.item.PatternModifier;
 import org.gtlcore.gtlcore.common.item.PatternTestBehavior;
 import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
 import org.gtlcore.gtlcore.utils.TextUtil;
@@ -203,6 +204,10 @@ public class GTLItems {
             .onRegister(GTItems.attach(PatternTestBehavior.INSTANCE))
             .register();
 
+    public static final ItemEntry<ComponentItem> PATTERN_MODIFIER = REGISTRATE
+            .item("pattern_modifier", ComponentItem::create)
+            .onRegister(GTItems.attach(PatternModifier.INSTANCE))
+            .register();
 
     public static final ItemEntry<StorageComponentItem> CELL_COMPONENT_1M = registerStorageComponentItem(1);
     public static final ItemEntry<StorageComponentItem> CELL_COMPONENT_4M = registerStorageComponentItem(4);
