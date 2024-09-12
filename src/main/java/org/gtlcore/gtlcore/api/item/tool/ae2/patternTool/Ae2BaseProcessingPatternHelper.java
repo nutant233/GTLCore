@@ -16,10 +16,10 @@ import java.util.List;
 
 public class Ae2BaseProcessingPatternHelper {
     // 乘或除 输入解码后样板，输出编码后样板
-    public static ItemStack multiplyScale(int scale, boolean div, AEProcessingPattern patternDetail){
+    public static ItemStack multiplyScale(int scale, boolean div, AEProcessingPattern patternDetail,long maxStack){
         var input = patternDetail.getSparseInputs();
         var output = patternDetail.getOutputs();
-        if (checkModify(input, scale, div) && checkModify(output, scale, div)) {
+        if (checkModify(input, scale, div,maxStack) && checkModify(output, scale, div,maxStack)) {
             var mulInput = new GenericStack[input.length];
             var mulOutput = new GenericStack[output.length];
             modifyStacks(input, mulInput, scale, div);
@@ -71,7 +71,7 @@ public class Ae2BaseProcessingPatternHelper {
         return false;
     }
 
-    private static boolean checkModify(GenericStack[] stacks, int scale, boolean div) {
+    private static boolean checkModify(GenericStack[] stacks, int scale, boolean div,long maxStack) {
         if (div) {
             for (var stack : stacks) {
                 if (stack != null) {
@@ -83,7 +83,7 @@ public class Ae2BaseProcessingPatternHelper {
         } else {
             for (var stack : stacks) {
                 if (stack != null) {
-                    long upper = 999999L * stack.what().getAmountPerUnit();
+                    long upper = maxStack * stack.what().getAmountPerUnit();
                     if (stack.amount() * scale > upper) {
                         return false;
                     }

@@ -45,43 +45,40 @@ public class Ae2BaseProcessingPattern {
     }
 
 
-
-    public void setScale(int newScale) {
+    public void useSetScale(int newScale,boolean div,long maxStack) {
         try{
-            int oldScale = this.scale;
             ItemStack oldPatternStack = this.patternStack;
-            ItemStack divedPatternStack;
             ItemStack newPatternStack;
-            // 先除到一份
-            divedPatternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
-                    oldScale,
-                    true,
-                    Objects.requireNonNull(Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(oldPatternStack, serverPlayer)));
-            if (divedPatternStack != null && !divedPatternStack.isEmpty()) {
-                // 乘到新的份数
-                newPatternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
-                        newScale,
-                        false,
-                        Objects.requireNonNull(Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(divedPatternStack, serverPlayer)));
-                if (newPatternStack != null && !newPatternStack.isEmpty()) {
-                    // 更新份数
-                    this.patternStack = newPatternStack;
-                    this.scale = newScale;
-                }
+            // 乘或除到新的份数
+            newPatternStack = Ae2BaseProcessingPatternHelper.multiplyScale(
+                    newScale,
+                    div,
+                    Objects.requireNonNull(Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(oldPatternStack, serverPlayer)),
+                    maxStack
+            );
+            if (newPatternStack != null && !newPatternStack.isEmpty()) {
+                this.patternStack = newPatternStack;
             }
         }catch(Exception e){
             GTLCore.LOGGER.error(e.getMessage());
         }
     }
 
+    public void setScale(int newScale,boolean div,long maxStack) {
+        maxStack=Math.min(maxStack,1000000L);
+        useSetScale(newScale, div, maxStack);
+    }
+    public void setScale(int newScale,boolean div) {
+        long maxStack=1000000L;
+        useSetScale(newScale, div, maxStack);
+    }
+
     public ItemStack getPatternItemStack(){
         return this.patternStack;
     }
 
-    public Ae2BaseProcessingPattern(int scale,
-                                    ItemStack patternStack,
+    public Ae2BaseProcessingPattern(ItemStack patternStack,
                                     ServerPlayer serverPlayer) {
-        this.scale = scale;
         this.patternStack = patternStack;
         this.serverPlayer = serverPlayer;
 
