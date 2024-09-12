@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.api.item.tool.ae2.patternTool;
 
 import appeng.api.crafting.PatternDetailsHelper;
 import appeng.api.stacks.AEItemKey;
+import appeng.api.stacks.AEKeyType;
 import appeng.api.stacks.GenericStack;
 import appeng.crafting.pattern.AEProcessingPattern;
 import appeng.crafting.pattern.EncodedPatternItem;
@@ -16,10 +17,10 @@ import java.util.List;
 
 public class Ae2BaseProcessingPatternHelper {
     // 乘或除 输入解码后样板，输出编码后样板
-    public static ItemStack multiplyScale(int scale, boolean div, AEProcessingPattern patternDetail,long maxStack){
+    public static ItemStack multiplyScale(int scale, boolean div, AEProcessingPattern patternDetail,long maxItemStack,long maxFluidStack){
         var input = patternDetail.getSparseInputs();
         var output = patternDetail.getOutputs();
-        if (checkModify(input, scale, div,maxStack) && checkModify(output, scale, div,maxStack)) {
+        if (checkModify(input, scale, div, maxItemStack,maxFluidStack) && checkModify(output, scale, div,10000000L,1000000L)) {
             var mulInput = new GenericStack[input.length];
             var mulOutput = new GenericStack[output.length];
             modifyStacks(input, mulInput, scale, div);
@@ -71,7 +72,7 @@ public class Ae2BaseProcessingPatternHelper {
         return false;
     }
 
-    private static boolean checkModify(GenericStack[] stacks, int scale, boolean div,long maxStack) {
+    private static boolean checkModify(GenericStack[] stacks, int scale, boolean div,long maxItemStack,long maxFluidStack) {
         if (div) {
             for (var stack : stacks) {
                 if (stack != null) {
@@ -83,9 +84,17 @@ public class Ae2BaseProcessingPatternHelper {
         } else {
             for (var stack : stacks) {
                 if (stack != null) {
-                    long upper = maxStack * stack.what().getAmountPerUnit();
-                    if (stack.amount() * scale > upper) {
-                        return false;
+                    if(stack.what().getType().equals(AEKeyType.fluids())){
+                        long upper = maxFluidStack * stack.what().getAmountPerUnit();
+                        if (stack.amount() * scale > upper) {
+                            return false;
+                        }
+                    }
+                    if(stack.what().getType().equals(AEKeyType.items())){
+                        long upper = maxItemStack * stack.what().getAmountPerUnit();
+                        if (stack.amount() * scale > upper) {
+                            return false;
+                        }
                     }
                 }
             }

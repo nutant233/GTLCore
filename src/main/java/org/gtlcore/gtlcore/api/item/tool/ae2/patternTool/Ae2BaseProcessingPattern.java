@@ -8,7 +8,6 @@ import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.gtlcore.gtlcore.GTLCore;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class Ae2BaseProcessingPattern {
     }
 
 
-    public void useSetScale(int newScale,boolean div,long maxStack) {
+    public void useSetScale(int newScale,boolean div,long maxItemStack,long maxFluidStack) {
         try{
             ItemStack oldPatternStack = this.patternStack;
             ItemStack newPatternStack;
@@ -54,7 +53,8 @@ public class Ae2BaseProcessingPattern {
                     newScale,
                     div,
                     Objects.requireNonNull(Ae2BaseProcessingPatternHelper.decodeToAEProcessingPattern(oldPatternStack, serverPlayer)),
-                    maxStack
+                    maxItemStack,
+                    maxFluidStack
             );
             if (newPatternStack != null && !newPatternStack.isEmpty()) {
                 this.patternStack = newPatternStack;
@@ -64,13 +64,15 @@ public class Ae2BaseProcessingPattern {
         }
     }
 
-    public void setScale(int newScale,boolean div,long maxStack) {
-        maxStack=Math.min(maxStack,1000000L);
-        useSetScale(newScale, div, maxStack);
+    public void setScale(int newScale,boolean div,long maxItemStack,long maxFluidStack) {
+        maxFluidStack=Math.min(maxFluidStack,1000000L);
+        maxItemStack=Math.min(maxItemStack,1000000L);
+        useSetScale(newScale, div, maxItemStack,maxFluidStack);
     }
     public void setScale(int newScale,boolean div) {
-        long maxStack=1000000L;
-        useSetScale(newScale, div, maxStack);
+        long maxItemStack=1000000L;
+        long maxFluidStack =1000000L;
+        useSetScale(newScale, div, maxItemStack,maxFluidStack);
     }
 
     public ItemStack getPatternItemStack(){

@@ -35,7 +35,8 @@ import java.util.HashMap;
 public class PatternModifier implements IItemUIFactory {
     public static final PatternModifier INSTANCE = new PatternModifier();
     private int Ae2PatternGeneratorScale = 1;
-    private long Ae2PatternGeneratorMaxStack = 1000000L;
+    private long Ae2PatternGeneratorMaxItemStack = 1000000L;
+    private long Ae2PatternGeneratorMaxFluidStack = 1000000L;
     private int Ae2PatternGeneratorDivScale = 1;
 
     @Override
@@ -45,24 +46,32 @@ public class PatternModifier implements IItemUIFactory {
                         .addWidget(new ImageWidget(8,8,160,108, GuiTextures.DISPLAY))
                         .addWidget(new LabelWidget(12, 12, "AE样板倍乘器"))
                         .addWidget(new LabelWidget(12, 22, "设置倍数后，shift右键样板供应器方块使用"))
-                        .addWidget(new LabelWidget(12, 32, "先做乘法，后做除法"))
+                        .addWidget(new LabelWidget(12, 32, "先做乘法，后做除法，数量限制对成品不生效"))
                         .addWidget(new AETextInputButtonWidget(90, 40, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorScale))
                                 .setOnConfirm(this::setAe2PatternGeneratorScale)
                                 .setButtonTooltips(Component.literal("设置模板乘数")))
                         .addWidget(new AETextInputButtonWidget(90, 54, 72, 12)
-                                .setText(String.valueOf(Ae2PatternGeneratorMaxStack))
-                                .setOnConfirm(this::setAe2PatternGeneratorMaxStack)
-                                .setButtonTooltips(Component.literal("设置乘法后最大物品或流体数量 个或B")))
-                        .addWidget(new AETextInputButtonWidget(90, 68, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorDivScale))
                                 .setOnConfirm(this::setAe2PatternGeneratorDivScale)
                                 .setButtonTooltips(Component.literal("设置模板除数")))
+                        .addWidget(new AETextInputButtonWidget(90, 68, 72, 12)
+                                .setText(String.valueOf(Ae2PatternGeneratorMaxItemStack))
+                                .setOnConfirm(this::setAe2PatternGeneratorMaxItemStack)
+                                .setButtonTooltips(Component.literal("设置乘法后最大物品/个")))
+                        .addWidget(new AETextInputButtonWidget(90, 82, 72, 12)
+                                .setText(String.valueOf(Ae2PatternGeneratorMaxFluidStack))
+                                .setOnConfirm(this::setAe2PatternGeneratorMaxFluidStack)
+                                .setButtonTooltips(Component.literal("设置乘法后最大流体/桶")))
         ).background(GuiTextures.BACKGROUND);
     }
 
-    private void setAe2PatternGeneratorMaxStack(String s) {
-        Ae2PatternGeneratorMaxStack= Integer.parseInt(s);
+    private void setAe2PatternGeneratorMaxFluidStack(String s) {
+        Ae2PatternGeneratorMaxFluidStack = Integer.parseInt(s);
+    }
+
+    private void setAe2PatternGeneratorMaxItemStack(String s) {
+        Ae2PatternGeneratorMaxItemStack = Integer.parseInt(s);
     }
 
     private void setAe2PatternGeneratorDivScale(String s) {
@@ -125,10 +134,7 @@ public class PatternModifier implements IItemUIFactory {
                 while (i<soltNumber){
                     ItemStack itemStack = internalInventory.getStackInSlot(i);
                     if (!itemStack.isEmpty()) {
-                        Ae2BaseProcessingPattern ae2BaseProcessingPattern = new Ae2BaseProcessingPattern(itemStack, serverPlayer);
-                        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorScale,false,Ae2PatternGeneratorMaxStack);
-                        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorDivScale,true);
-                        ItemStack patternItemStack = ae2BaseProcessingPattern.getPatternItemStack();
+                        ItemStack patternItemStack = getNewPatternItemStack(serverPlayer, itemStack);
                         newItemStackHashMap.put(i, patternItemStack);
                     }
                     i++;
@@ -146,5 +152,15 @@ public class PatternModifier implements IItemUIFactory {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    private ItemStack getNewPatternItemStack(ServerPlayer serverPlayer, ItemStack itemStack) {
+        Ae2BaseProcessingPattern ae2BaseProcessingPattern = new Ae2BaseProcessingPattern(itemStack, serverPlayer);
+        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorScale,
+                false,
+                Ae2PatternGeneratorMaxItemStack,
+                Ae2PatternGeneratorMaxFluidStack);
+        ae2BaseProcessingPattern.setScale(Ae2PatternGeneratorDivScale,true);
+        return ae2BaseProcessingPattern.getPatternItemStack();
     }
 }
