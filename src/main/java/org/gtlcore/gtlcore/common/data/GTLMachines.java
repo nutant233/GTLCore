@@ -168,6 +168,24 @@ public class GTLMachines {
                     .register(),
             ULV, LV);
 
+    private static MachineDefinition[] registerHugeFluidHatches(String name, String displayname, String model,
+                                                            String tooltip, IO io, PartAbility... abilities) {
+        return registerTieredMachines(name,
+                (holder, tier) -> new HugeFluidHatchPartMachine(holder, tier, io),
+                (tier, builder) -> {
+                    builder.langValue(VNF[tier] + ' ' + displayname)
+                            .rotationState(RotationState.ALL)
+                            .overlayTieredHullRenderer(model)
+                            .abilities(abilities)
+                            .compassNode("fluid_hatch")
+                            .tooltips(Component.translatable("gtceu.machine." + tooltip + ".tooltip"));
+                    builder.tooltips(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity_mult",
+                            tier, FormattingUtil.formatNumbers(Long.MAX_VALUE)));
+                    return builder.register();
+                },
+                GTValues.tiersBetween(LV, OpV));
+    }
+
     //////////////////////////////////////
     // ********** Part **********//
     //////////////////////////////////////
@@ -322,6 +340,10 @@ public class GTLMachines {
             .renderer(() -> new MaintenanceHatchPartRenderer(8, GTCEu.id("block/machine/part/maintenance.full_auto")))
             .compassNodeSelf()
             .register();
+
+    public final static MachineDefinition[] HUGE_FLUID_IMPORT_HATCH = registerHugeFluidHatches("huge_input_hatch", "Huge Input Hatch", "fluid_hatch.import", "fluid_hatch.import", IO.IN, PartAbility.IMPORT_FLUIDS);
+
+    public final static MachineDefinition[] HUGE_FLUID_EXPORT_HATCH = registerHugeFluidHatches("huge_output_hatch", "Huge Output Hatch", "fluid_hatch.export", "fluid_hatch.export", IO.OUT, PartAbility.EXPORT_FLUIDS);
 
     public static final MachineDefinition[] LASER_INPUT_HATCH_16384 = registerLaserHatch(IO.IN, 16384,
             PartAbility.INPUT_LASER);

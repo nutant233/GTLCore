@@ -41,4 +41,9 @@ public class ParallelHatchPartMachineMixin extends TieredPartMachine {
     private void setCurrentParallelInj(int parallelAmount, CallbackInfo ci) {
         if (currentParallel == 0) currentParallel = maxParallel;
     }
+
+    @Inject(method = "canShared", at = @At("HEAD"), remap = false, cancellable = true)
+    public void canShared(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(true);
+    }
 }

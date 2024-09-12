@@ -1,10 +1,5 @@
 package org.gtlcore.gtlcore.common.item;
 
-import appeng.api.inventories.InternalInventory;
-import appeng.blockentity.crafting.PatternProviderBlockEntity;
-import appeng.core.definitions.AEBlocks;
-import appeng.core.definitions.AEItems;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.item.component.IItemUIFactory;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -20,7 +15,6 @@ import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
 import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import lombok.Setter;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,12 +28,13 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.*;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2GtmProcessingPattern;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisManager;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.ConflictAnalysisResult;
+import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.GTRecipeManager;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

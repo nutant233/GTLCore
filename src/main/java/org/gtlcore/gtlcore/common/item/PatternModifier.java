@@ -1,10 +1,14 @@
 package org.gtlcore.gtlcore.common.item;
 
 import appeng.api.inventories.InternalInventory;
-import appeng.blockentity.crafting.PatternProviderBlockEntity;
+import appeng.api.parts.IPart;
+import appeng.api.parts.PartHelper;
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
+import appeng.helpers.patternprovider.PatternProviderLogicHost;
+import appeng.parts.crafting.PatternProviderPart;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.common.parts.PartExPatternProvider;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.item.component.IItemUIFactory;
 import com.gregtechceu.gtceu.integration.ae2.gui.widget.AETextInputButtonWidget;
@@ -25,6 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2BaseProcessingPattern;
 import org.gtlcore.gtlcore.config.ConfigHolder;
@@ -47,19 +52,19 @@ public class PatternModifier implements IItemUIFactory {
                         .addWidget(new LabelWidget(12, 12, "AE样板倍乘器"))
                         .addWidget(new LabelWidget(12, 22, "设置倍数后，shift右键样板供应器方块使用"))
                         .addWidget(new LabelWidget(12, 32, "先做乘法，后做除法，数量限制对成品不生效"))
-                        .addWidget(new AETextInputButtonWidget(90, 40, 72, 12)
+                        .addWidget(new AETextInputButtonWidget(90, 46, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorScale))
                                 .setOnConfirm(this::setAe2PatternGeneratorScale)
                                 .setButtonTooltips(Component.literal("设置模板乘数")))
-                        .addWidget(new AETextInputButtonWidget(90, 54, 72, 12)
+                        .addWidget(new AETextInputButtonWidget(90, 60, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorDivScale))
                                 .setOnConfirm(this::setAe2PatternGeneratorDivScale)
                                 .setButtonTooltips(Component.literal("设置模板除数")))
-                        .addWidget(new AETextInputButtonWidget(90, 68, 72, 12)
+                        .addWidget(new AETextInputButtonWidget(90, 74, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorMaxItemStack))
                                 .setOnConfirm(this::setAe2PatternGeneratorMaxItemStack)
                                 .setButtonTooltips(Component.literal("设置乘法后最大物品/个")))
-                        .addWidget(new AETextInputButtonWidget(90, 82, 72, 12)
+                        .addWidget(new AETextInputButtonWidget(90, 88, 72, 12)
                                 .setText(String.valueOf(Ae2PatternGeneratorMaxFluidStack))
                                 .setOnConfirm(this::setAe2PatternGeneratorMaxFluidStack)
                                 .setButtonTooltips(Component.literal("设置乘法后最大流体/桶")))
@@ -101,26 +106,23 @@ public class PatternModifier implements IItemUIFactory {
                 BlockPos clickedPos = context.getClickedPos();
                 Level level = context.getLevel();
                 BlockEntity blockEntityBlock = level.getBlockEntity(clickedPos);
-                if (
-                        !level.getBlockState(clickedPos).getBlock().equals(AEBlocks.PATTERN_PROVIDER.block()) &&
-                        !level.getBlockState(clickedPos).getBlock().equals(EPPItemAndBlock.EX_PATTERN_PROVIDER)
-                ) {
-                    serverPlayer.displayClientMessage(Component.literal("只能对着块状样板供应器使用"),true);
+                Block block = level.getBlockState(clickedPos).getBlock();
+                IPart Part = PartHelper.getPart(level, clickedPos, context.getClickedFace());
+                int soltNumber = 0;
+                boolean isPart = Part != null;
+                if (block.equals(AEBlocks.PATTERN_PROVIDER.block()) || Part instanceof PatternProviderPart) {
+                    soltNumber = 9;
+                }
+                if (block.equals(EPPItemAndBlock.EX_PATTERN_PROVIDER) || Part instanceof PartExPatternProvider) {
+                    soltNumber = ConfigHolder.INSTANCE.exPatternProvider;
+                }
+                if (soltNumber == 0) {
+                    serverPlayer.displayClientMessage(Component.literal("只能对着块状样板供应器使用"), true);
                     return InteractionResult.FAIL;
-                }
-                int soltNumber=0;
-
-                if(
-                        level.getBlockState(clickedPos).getBlock().equals(AEBlocks.PATTERN_PROVIDER.block())
-                ){
-                    soltNumber=9;
-                }
-                if(level.getBlockState(clickedPos).getBlock().equals(EPPItemAndBlock.EX_PATTERN_PROVIDER)){
-                    soltNumber= ConfigHolder.INSTANCE.exPatternProvider;
                 }
                 InternalInventory internalInventory;
                 if (blockEntityBlock != null) {
-                    internalInventory = ((PatternProviderBlockEntity) blockEntityBlock).getLogic().getPatternInv();
+                    internalInventory = ((PatternProviderLogicHost) (isPart ? Part : blockEntityBlock)).getLogic().getPatternInv();
                 } else {
                     internalInventory = null;
                 }
@@ -140,7 +142,7 @@ public class PatternModifier implements IItemUIFactory {
                     i++;
                 }
                 newItemStackHashMap.forEach((integer, itemStack) -> {
-                    if (itemStack.is(AEItems.PROCESSING_PATTERN.asItem())){
+                    if (itemStack.is(AEItems.PROCESSING_PATTERN.asItem())) {
                         internalInventory.extractItem(integer,1,false);
                         internalInventory.insertItem(integer, itemStack, false);
                     }
