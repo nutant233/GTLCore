@@ -82,10 +82,10 @@ public class GCyMRecipes {
                 "FSF", "DWD", 'C', ZPM_CIRCUITS, 'S', ELECTRIC_BLAST_FURNACE.asStack(), 'F',
                 FIELD_GENERATOR_ZPM.asStack(), 'P', new UnificationEntry(spring, Naquadah), 'D',
                 new UnificationEntry(plateDense, NaquadahAlloy), 'W',
-                new UnificationEntry(wireGtQuadruple, RutheniumTriniumAmericiumNeutronate));
+                new UnificationEntry(wireGtQuadruple, EnrichedNaquadahTriniumEuropiumDuranide));
         VanillaRecipeHelper.addShapedRecipe(provider, true, "mega_vacuum_freezer", MEGA_VACUUM_FREEZER.asStack(), "PCP",
                 "FSF", "DWD", 'C', ZPM_CIRCUITS, 'S', VACUUM_FREEZER.asStack(), 'F', FIELD_GENERATOR_ZPM.asStack(), 'P',
-                new UnificationEntry(pipeNormalFluid, NiobiumTitanium), 'D',
+                new UnificationEntry(pipeNormalFluid, EnrichedNaquadahTriniumEuropiumDuranide), 'D',
                 new UnificationEntry(plateDense, RhodiumPlatedPalladium), 'W',
                 new UnificationEntry(wireGtQuadruple, RutheniumTriniumAmericiumNeutronate));
         VanillaRecipeHelper.addShapedRecipe(provider, true, "large_autoclave", LARGE_AUTOCLAVE.asStack(), "PCP", "PAP",

@@ -19,6 +19,8 @@ public class HeatExchangerMachine extends WorkableMultiblockMachine {
         super(holder, args);
     }
 
+    private long count = 0;
+
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe) {
         if (machine instanceof HeatExchangerMachine hMachine) {
             if (FluidRecipeCapability.CAP.of(recipe.inputs.get(FluidRecipeCapability.CAP)
@@ -34,23 +36,19 @@ public class HeatExchangerMachine extends WorkableMultiblockMachine {
                     .buildRawRecipe(), Integer.MAX_VALUE, false);
             long count = result.getSecond() * recipe.data.getLong("eu");
             if (MachineIO.inputFluid(hMachine, GTMaterials.DistilledWater.getFluid(count / 160))) {
-                GTRecipe recipe1 = result.getFirst();
-                recipe1.data.putLong("count", count);
-                return recipe1;
+                hMachine.count = count;
+                return result.getFirst();
             }
         }
         return null;
     }
 
     @Override
-    public boolean onWorking() {
-        boolean value = super.onWorking();
-        if (getRecipeLogic().getProgress() == 199) {
-            if (getRecipeLogic().getLastRecipe() != null) {
-                MachineIO.outputFluid(this, GTLMaterials.SupercriticalSteam
-                        .getFluid(getRecipeLogic().getLastRecipe().data.getLong("count")));
-            }
+    public void afterWorking() {
+        if (count != 0) {
+            MachineIO.outputFluid(this, GTLMaterials.SupercriticalSteam
+                    .getFluid(count));
         }
-        return value;
+        count = 0;
     }
 }

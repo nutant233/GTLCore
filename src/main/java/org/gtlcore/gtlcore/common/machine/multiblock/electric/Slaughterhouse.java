@@ -84,7 +84,6 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
 
     @Override
     public void afterWorking() {
-        boolean value = super.onWorking();
         final BlockPos pos = getPos();
         final Level level = getLevel();
         BlockPos[][] coordinates = new BlockPos[][] {

@@ -52,15 +52,6 @@ public class Misc {
                 .cleanroom(CleanroomType.STERILE_CLEANROOM)
                 .save(provider);
 
-        MIXER_RECIPES.recipeBuilder("graphene").duration(100).EUt(VA[HV])
-                .inputItems(dust, Graphite)
-                .inputItems(dust, Silicon)
-                .inputItems(dust, Carbon, 4)
-                .circuitMeta(1)
-                .outputItems(dust, Graphene)
-                .addCondition(new GravityCondition(true))
-                .save(provider);
-
         LASER_ENGRAVER_RECIPES.recipeBuilder("crystal_cpu")
                 .inputItems(ENGRAVED_CRYSTAL_CHIP)
                 .notConsumable(lens, MarkerMaterials.Color.Lime)

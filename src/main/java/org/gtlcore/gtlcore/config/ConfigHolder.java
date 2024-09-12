@@ -21,7 +21,7 @@ public class ConfigHolder {
     }
 
     @Configurable
-    public boolean disableDrift = false;
+    public boolean disableDrift = true;
     @Configurable
     public boolean enablePrimitiveVoidOre = false;
     @Configurable

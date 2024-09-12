@@ -17,6 +17,8 @@ import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
+import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
+import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
@@ -205,9 +207,8 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
     }
 
     @Override
-    public void onWaiting() {
-        getRecipeLogic().resetRecipeLogic();
-        super.onWaiting();
+    public boolean dampingWhenWaiting() {
+        return false;
     }
 
     @Nullable
@@ -217,7 +218,7 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
             int a = generatorArrayMachine.machineStorage.storage.getStackInSlot(0).getCount();
             if (a > 0) {
                 long EUt = RecipeHelper.getOutputEUt(recipe);
-                int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 / EUt);
+                int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a / EUt);
                 int multipliers = 0;
                 for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
                     if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
@@ -225,9 +226,13 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
                     }
                 }
                 GTRecipe paraRecipe =  recipe.copy(ContentModifier.multiplier(multipliers), false);
+                long eut = RecipeHelper.getOutputEUt(paraRecipe) * 2;
                 if (generatorArrayMachine.isw) {
-                    generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
+                    generatorArrayMachine.eut = eut;
                     paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);
+                } else {
+                    paraRecipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(),
+                            0, null, null)));
                 }
                 return paraRecipe;
             }

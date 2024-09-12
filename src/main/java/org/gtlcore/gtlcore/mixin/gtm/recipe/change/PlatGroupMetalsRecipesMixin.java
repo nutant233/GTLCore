@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe.change;
 
+import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.serialized.chemistry.PlatGroupMetalsRecipes;
 import net.minecraft.data.recipes.FinishedRecipe;
 import org.spongepowered.asm.mixin.Mixin;
@@ -278,14 +281,14 @@ public class PlatGroupMetalsRecipesMixin {
                 .inputItems(dust, IridiumChloride, 4)
                 .inputItems(dust, Calcium, 1)
                 .outputItems(dust, Iridium, 1)
-                .outputItems(dust, CalciumChloride, 4)
+                .outputItems(dust, CalciumChloride, 3)
                 .duration(80).EUt(VA[EV]).save(provider);
 
-        CHEMICAL_RECIPES.recipeBuilder("osmium_tetroxide_separation").duration(70).EUt(VA[LV])
-                .inputItems(dust, OsmiumTetroxide, 5)
-                .inputFluids(Hydrogen.getFluid(8000))
-                .outputItems(dust, Osmium)
-                .outputFluids(Water.getFluid(4000))
+        CHEMICAL_RECIPES.recipeBuilder("osmium_tetroxide_separation").duration(100).EUt(GTValues.VA[1])
+                .inputItems(TagPrefix.dust, GTMaterials.IridiumChloride, 4)
+                .inputFluids(GTMaterials.Hydrogen.getFluid(3000L))
+                .outputItems(TagPrefix.dust, GTMaterials.Iridium)
+                .outputFluids(GTMaterials.HydrochloricAcid.getFluid(3000L))
                 .save(provider);
     }
 }

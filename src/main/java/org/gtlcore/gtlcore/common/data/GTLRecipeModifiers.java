@@ -38,7 +38,7 @@ public class GTLRecipeModifiers {
 
             if (coilMachine.getCoilTier() > 0) {
                 result.setEut(Math.max(1, (long) (result.getEut() * (1.0 - coilMachine.getCoilTier() * 0.05))));
-                result.setDuration((int) Math.max(1, (result.getEut() * (1.0 - coilMachine.getCoilTier() * 0.05))));
+                result.setDuration((int) Math.max(1, (result.getDuration() * (1.0 - coilMachine.getCoilTier() * 0.05))));
             }
             return re;
         }
