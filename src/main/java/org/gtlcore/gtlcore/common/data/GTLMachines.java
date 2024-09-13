@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
 import com.gregtechceu.gtceu.GTCEu;
+import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.RotationState;
@@ -24,6 +25,9 @@ import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.FusionReactorMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.steam.LargeBoilerMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+import com.hepdd.gtmthings.common.registry.GTMTRegistration;
+import com.hepdd.gtmthings.data.CreativeModeTabs;
+import com.hepdd.gtmthings.data.WirelessMachines;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -51,6 +55,7 @@ import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMul
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -365,6 +370,20 @@ public class GTLMachines {
             PartAbility.INPUT_LASER);
     public static final MachineDefinition[] LASER_OUTPUT_HATCH_4194304 = registerLaserHatch(IO.OUT, 4194304,
             PartAbility.OUTPUT_LASER);
+
+    static {
+        GTMTRegistration.GTMTHINGS_REGISTRATE.creativeModeTab(() -> CreativeModeTabs.WIRELESS_TAB);
+    }
+
+    public static final MachineDefinition[] WIRELESS_ENERGY_INPUT_HATCH_64A = WirelessMachines.registerWirelessEnergyHatch(IO.IN,64, PartAbility.INPUT_ENERGY, GTValues.tiersBetween(EV, MAX));
+    public static final MachineDefinition[] WIRELESS_ENERGY_OUTPUT_HATCH_64A = WirelessMachines.registerWirelessEnergyHatch(IO.OUT,64,PartAbility.OUTPUT_ENERGY, GTValues.tiersBetween(EV, MAX));
+
+    public static final MachineDefinition[] WIRELESS_ENERGY_INPUT_HATCH_262144A = WirelessMachines.registerWirelessLaserHatch(IO.IN,262144, PartAbility.INPUT_LASER, WirelessMachines.WIRELL_ENERGY_HIGH_TIERS);
+    public static final MachineDefinition[] WIRELESS_ENERGY_INPUT_HATCH_1048576A = WirelessMachines.registerWirelessLaserHatch(IO.IN,1048576, PartAbility.INPUT_LASER, WirelessMachines.WIRELL_ENERGY_HIGH_TIERS);
+    public static final MachineDefinition[] WIRELESS_ENERGY_INPUT_HATCH_4194304A = WirelessMachines.registerWirelessLaserHatch(IO.IN,4194304, PartAbility.INPUT_LASER, WirelessMachines.WIRELL_ENERGY_HIGH_TIERS);
+    public static final MachineDefinition[] WIRELESS_ENERGY_OUTPUT_HATCH_262144A = WirelessMachines.registerWirelessLaserHatch(IO.OUT,262144, PartAbility.OUTPUT_LASER, WirelessMachines.WIRELL_ENERGY_HIGH_TIERS);
+    public static final MachineDefinition[] WIRELESS_ENERGY_OUTPUT_HATCH_1048576A = WirelessMachines.registerWirelessLaserHatch(IO.OUT,1048576, PartAbility.OUTPUT_LASER, WirelessMachines.WIRELL_ENERGY_HIGH_TIERS);
+    public static final MachineDefinition[] WIRELESS_ENERGY_OUTPUT_HATCH_4194304A = WirelessMachines.registerWirelessLaserHatch(IO.OUT,4194304, PartAbility.OUTPUT_LASER, WirelessMachines.WIRELL_ENERGY_HIGH_TIERS);
 
     //////////////////////////////////////
     // ******* Multiblock *******//
@@ -1372,5 +1391,57 @@ public class GTLMachines {
                     .where('#', Predicates.air())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/processing_array"))
+            .register();
+
+    public static final MultiblockMachineDefinition ADVANCED_MULTI_SMELTER = REGISTRATE
+            .multiblock("advanced_multi_smelter", CoilWorkableElectricMultipleRecipesMultiblockMachine::new)
+            .rotationState(RotationState.ALL)
+            .recipeTypes(GTRecipeTypes.FURNACE_RECIPES)
+            .appearanceBlock(CASING_INVAR_HEATPROOF)
+            .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
+            .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
+            .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("XXX", "CCC", "XXX")
+                    .aisle("XXX", "C#C", "XMX")
+                    .aisle("XSX", "CCC", "XXX")
+                    .where('S', controller(blocks(definition.get())))
+                    .where('X', blocks(CASING_INVAR_HEATPROOF.get()).setMinGlobalLimited(9)
+                            .or(autoAbilities(definition.getRecipeTypes()))
+                            .or(Predicates.abilities(PartAbility.INPUT_LASER))
+                            .or(autoAbilities(true, false, false)))
+                    .where('M', abilities(PartAbility.MUFFLER))
+                    .where('C', heatingCoils())
+                    .where('#', air())
+                    .build())
+            .shapeInfos(definition -> {
+                List<MultiblockShapeInfo> shapeInfo = new ArrayList<>();
+                var builder = MultiblockShapeInfo.builder()
+                        .aisle("ISO", "CCC", "XMX")
+                        .aisle("XXX", "C#C", "XHX")
+                        .aisle("EEX", "CCC", "XXX")
+                        .where('S', definition, Direction.NORTH)
+                        .where('X', CASING_INVAR_HEATPROOF.getDefaultState())
+                        .where('E', ENERGY_INPUT_HATCH[GTValues.LV], Direction.SOUTH)
+                        .where('I', ITEM_IMPORT_BUS[GTValues.LV], Direction.NORTH)
+                        .where('O', ITEM_EXPORT_BUS[GTValues.LV], Direction.NORTH)
+                        .where('H', MUFFLER_HATCH[GTValues.LV], Direction.SOUTH)
+                        .where('M', MAINTENANCE_HATCH, Direction.NORTH)
+                        .where('#', Blocks.AIR.defaultBlockState());
+                GTCEuAPI.HEATING_COILS.entrySet().stream()
+                        .sorted(Comparator.comparingInt(entry -> entry.getKey().getTier()))
+                        .forEach(
+                                coil -> shapeInfo.add(builder.shallowCopy().where('C', coil.getValue().get()).build()));
+                return shapeInfo;
+            })
+            .recoveryItems(
+                    () -> new ItemLike[] { GTItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash).get() })
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_heatproof"),
+                    GTCEu.id("block/multiblock/multi_furnace"))
+            .additionalDisplay((controller, components) -> {
+                if (controller.isFormed()) {
+                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.min(2147483647, Math.pow(2, (double) ((CoilWorkableElectricMultipleRecipesMultiblockMachine) controller).getCoilType().getCoilTemperature() / 900)))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                }
+            })
             .register();
 }

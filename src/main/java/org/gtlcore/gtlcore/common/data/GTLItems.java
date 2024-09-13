@@ -21,6 +21,7 @@ import com.gregtechceu.gtceu.common.data.GTCompassSections;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.item.CoverPlaceBehavior;
 import com.gregtechceu.gtceu.common.item.TooltipBehavior;
+import com.hepdd.gtmthings.data.CreativeModeTabs;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -30,8 +31,11 @@ import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
 import java.util.List;
+import java.util.Locale;
 
+import static com.gregtechceu.gtceu.api.GTValues.VNF;
 import static com.gregtechceu.gtceu.common.data.GTItems.*;
+import static com.hepdd.gtmthings.common.registry.GTMTRegistration.GTMTHINGS_REGISTRATE;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 public class GTLItems {
@@ -193,6 +197,22 @@ public class GTLItems {
             })))
             .onRegister(compassNodeExist(GTCompassSections.COMPONENTS, "fluid_regulator"))
             .register();
+
+    private static ItemEntry<ComponentItem> registerTieredCover(int amperage) {
+        ItemEntry<ComponentItem> cover = GTMTHINGS_REGISTRATE.item(GTValues.VN[GTValues.MAX].toLowerCase(Locale.ROOT) + "_" + (amperage == 1 ? "" :amperage + "a_") + "wireless_energy_receive_cover", ComponentItem::create)
+                .lang(VNF[GTValues.MAX] + " " + "Wireless Energy Receive Cover")
+                .onRegister(attach(new TooltipBehavior(lines -> {
+                    lines.add(Component.translatable("item.gtmthings.wireless_energy_receive_cover.tooltip.1"));
+                    lines.add(Component.translatable("item.gtmthings.wireless_energy_receive_cover.tooltip.2"));
+                    lines.add(Component.translatable("item.gtmthings.wireless_energy_receive_cover.tooltip.3",GTValues.V[GTValues.MAX] * amperage));
+                }), new CoverPlaceBehavior(amperage == 1 ? GTLCovers.MAX_WIRELESS_ENERGY_RECEIVE : GTLCovers.MAX_WIRELESS_ENERGY_RECEIVE_4A))).register();
+        GTMTHINGS_REGISTRATE.setCreativeTab(cover, CreativeModeTabs.WIRELESS_TAB);
+        return cover;
+    }
+
+    public static ItemEntry<ComponentItem> WIRELESS_ENERGY_RECEIVE_COVER_MAX = registerTieredCover(1);
+
+    public static ItemEntry<ComponentItem> WIRELESS_ENERGY_RECEIVE_COVER_MAX_4A = registerTieredCover(4);
 
     public static final ItemEntry<ComponentItem> DEBUG_STRUCTURE_WRITER = REGISTRATE
             .item("debug_structure_writer", ComponentItem::create)

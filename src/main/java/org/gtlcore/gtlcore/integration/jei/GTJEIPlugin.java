@@ -7,9 +7,8 @@ import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.data.GTLMachines;
 import org.jetbrains.annotations.NotNull;
-
-import static org.gtlcore.gtlcore.common.data.GTLMachines.DIMENSIONALLY_TRANSCENDENT_STEAM_OVEN;
 
 @JeiPlugin
 public class GTJEIPlugin implements IModPlugin {
@@ -22,6 +21,7 @@ public class GTJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         if (LDLib.isReiLoaded() || LDLib.isEmiLoaded()) return;
-        registration.addRecipeCatalyst(DIMENSIONALLY_TRANSCENDENT_STEAM_OVEN.asStack(), RecipeTypes.SMELTING);
+        registration.addRecipeCatalyst(GTLMachines.ADVANCED_MULTI_SMELTER.asStack(), RecipeTypes.SMELTING);
+        registration.addRecipeCatalyst(GTLMachines.DIMENSIONALLY_TRANSCENDENT_STEAM_OVEN.asStack(), RecipeTypes.SMELTING);
     }
 }

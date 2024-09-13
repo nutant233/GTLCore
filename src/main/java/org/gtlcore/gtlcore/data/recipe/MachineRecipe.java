@@ -5,16 +5,23 @@ import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.data.tag.TagUtil;
+import com.gregtechceu.gtceu.api.item.ComponentItem;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
+import com.hepdd.gtmthings.GTMThings;
+import com.hepdd.gtmthings.data.CustomItems;
+import com.hepdd.gtmthings.data.WirelessMachines;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import org.apache.commons.lang3.ArrayUtils;
+import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
@@ -184,5 +191,233 @@ public class MachineRecipe {
                 GTMachines.QUANTUM_CHEST[OpV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.OpV_CIRCUITS, 'P',
                 new UnificationEntry(TagPrefix.plate, getMaterial("draconium")), 'F',
                 GTItems.FIELD_GENERATOR_UIV.asStack(), 'H', GTMachines.HULL[13].asStack());
+
+        List<ItemEntry<ComponentItem>> WIRELESS_ENERGY_RECEIVE_COVER = List.of(
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_LV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_MV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_HV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_EV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_IV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_LUV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_ZPM,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UHV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UEV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UIV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UXV,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_OPV,
+                GTLItems.WIRELESS_ENERGY_RECEIVE_COVER_MAX);
+
+        List<ItemEntry<ComponentItem>> WIRELESS_ENERGY_RECEIVE_COVER_4A = List.of(
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_LV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_MV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_HV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_EV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_IV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_LUV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_ZPM_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UHV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UEV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UIV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_UXV_4A,
+                CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_OPV_4A,
+                GTLItems.WIRELESS_ENERGY_RECEIVE_COVER_MAX_4A);
+
+        for (int tier : GTValues.tiersBetween(GTValues.LV, GTValues.HV)) {
+            ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[tier].toLowerCase() + "_4a"))
+                    .inputItems(GTMachines.ENERGY_INPUT_HATCH_4A[tier].asStack())
+                    .inputItems(WIRELESS_ENERGY_RECEIVE_COVER.get(tier - 1).asStack(2))
+                    .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                    .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                    .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_4A[tier].asStack())
+                    .duration(200)
+                    .EUt(GTValues.VA[tier])
+                    .save(provider);
+
+            ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[tier].toLowerCase() + "_16a"))
+                    .inputItems(GTMachines.ENERGY_INPUT_HATCH_16A[tier].asStack())
+                    .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(tier - 1).asStack(2))
+                    .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                    .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                    .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_16A[tier].asStack())
+                    .duration(200)
+                    .EUt(GTValues.VA[tier])
+                    .save(provider);
+
+            ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[tier].toLowerCase() + "_4a"))
+                    .inputItems(GTMachines.ENERGY_OUTPUT_HATCH_4A[tier].asStack())
+                    .inputItems(WIRELESS_ENERGY_RECEIVE_COVER.get(tier - 1).asStack(2))
+                    .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                    .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                    .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_4A[tier].asStack())
+                    .duration(200)
+                    .EUt(GTValues.VA[tier])
+                    .save(provider);
+
+            ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[tier].toLowerCase() + "_16a"))
+                    .inputItems(GTMachines.ENERGY_OUTPUT_HATCH_16A[tier].asStack())
+                    .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(tier - 1).asStack(2))
+                    .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                    .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                    .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_16A[tier].asStack())
+                    .duration(200)
+                    .EUt(GTValues.VA[tier])
+                    .save(provider);
+        }
+
+        for (int tier : GTValues.tiersBetween(GTValues.EV, GTValues.MAX)) {
+            ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[tier].toLowerCase() + "_64a"))
+                    .inputItems(GTMachines.SUBSTATION_ENERGY_INPUT_HATCH[tier].asStack())
+                    .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(tier - 1).asStack(4))
+                    .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                    .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                    .outputItems(GTLMachines.WIRELESS_ENERGY_INPUT_HATCH_64A[tier].asStack())
+                    .duration(200)
+                    .EUt(GTValues.VA[tier])
+                    .save(provider);
+
+            ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[tier].toLowerCase() + "_64a"))
+                    .inputItems(GTMachines.SUBSTATION_ENERGY_OUTPUT_HATCH[tier].asStack())
+                    .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(tier - 1).asStack(4))
+                    .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                    .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                    .outputItems(GTLMachines.WIRELESS_ENERGY_OUTPUT_HATCH_64A[tier].asStack())
+                    .duration(200)
+                    .EUt(GTValues.VA[tier])
+                    .save(provider);
+        }
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[MAX].toLowerCase()))
+                .inputItems(GTMachines.ENERGY_INPUT_HATCH[MAX].asStack())
+                .inputItems(GTLItems.WIRELESS_ENERGY_RECEIVE_COVER_MAX.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack())
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[MAX].toLowerCase()))
+                .inputItems(GTMachines.ENERGY_OUTPUT_HATCH[MAX].asStack())
+                .inputItems(GTLItems.WIRELESS_ENERGY_RECEIVE_COVER_MAX.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack())
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[MAX].toLowerCase() + "_4a"))
+                .inputItems(GTMachines.ENERGY_INPUT_HATCH_4A[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER.get(MAX - 1).asStack(2))
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_4A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[MAX].toLowerCase() + "_16a"))
+                .inputItems(GTMachines.ENERGY_INPUT_HATCH_16A[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(2))
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_16A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[MAX].toLowerCase() + "_4a"))
+                .inputItems(GTMachines.ENERGY_OUTPUT_HATCH_4A[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER.get(MAX - 1).asStack(2))
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_4A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[MAX].toLowerCase() + "_16a"))
+                .inputItems(GTMachines.ENERGY_OUTPUT_HATCH_16A[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(2))
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_16A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[MAX].toLowerCase() + "_256a"))
+                .inputItems(GTMachines.LASER_INPUT_HATCH_256[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(4))
+                .inputItems(GTMachines.ACTIVE_TRANSFORMER.asStack())
+                .inputItems(GTBlocks.SUPERCONDUCTING_COIL.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_256A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[MAX].toLowerCase() + "_1024a"))
+                .inputItems(GTMachines.LASER_INPUT_HATCH_1024[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(8))
+                .inputItems(GTMachines.ACTIVE_TRANSFORMER.asStack())
+                .inputItems(GTBlocks.SUPERCONDUCTING_COIL.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_1024A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_input_hatch_" + GTValues.VN[MAX].toLowerCase() + "_4096a"))
+                .inputItems(GTMachines.LASER_INPUT_HATCH_4096[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(16))
+                .inputItems(GTMachines.ACTIVE_TRANSFORMER.asStack())
+                .inputItems(GTBlocks.SUPERCONDUCTING_COIL.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_INPUT_HATCH_4096A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[MAX].toLowerCase() + "_256a"))
+                .inputItems(GTMachines.LASER_OUTPUT_HATCH_256[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(4))
+                .inputItems(GTMachines.ACTIVE_TRANSFORMER.asStack())
+                .inputItems(GTBlocks.SUPERCONDUCTING_COIL.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_256A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[MAX].toLowerCase() + "_1024a"))
+                .inputItems(GTMachines.LASER_OUTPUT_HATCH_1024[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(8))
+                .inputItems(GTMachines.ACTIVE_TRANSFORMER.asStack())
+                .inputItems(GTBlocks.SUPERCONDUCTING_COIL.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_1024A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder(GTMThings.id("wireless_energy_output_hatch_" + GTValues.VN[MAX].toLowerCase() + "_4096a"))
+                .inputItems(GTMachines.LASER_OUTPUT_HATCH_4096[MAX].asStack())
+                .inputItems(WIRELESS_ENERGY_RECEIVE_COVER_4A.get(MAX - 1).asStack(16))
+                .inputItems(GTMachines.ACTIVE_TRANSFORMER.asStack())
+                .inputItems(GTBlocks.SUPERCONDUCTING_COIL.asStack())
+                .inputItems(GTItems.COVER_ENERGY_DETECTOR_ADVANCED.asStack(1))
+                .inputFluids(GTMaterials.SolderingAlloy.getFluid(144))
+                .outputItems(WirelessMachines.WIRELESS_ENERGY_OUTPUT_HATCH_4096A[MAX].asStack())
+                .duration(200)
+                .EUt(GTValues.VA[MAX])
+                .save(provider);
     }
 }
