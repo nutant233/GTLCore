@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -243,6 +244,27 @@ public class GTLBlocks {
         ALL_FUSION_CASINGS.put(casingType, casingBlock);
         return casingBlock;
     }
+
+    @SuppressWarnings("all")
+    private static BlockEntry<Block> createHermeticCasing(int tier) {
+        String tierName = GTValues.VN[tier].toLowerCase(Locale.ROOT);
+        return REGISTRATE
+                .block("%s_hermetic_casing".formatted(tierName), Block::new)
+                .lang("Hermetic Casing %s".formatted(GTValues.LVT[tier]))
+                .initialProperties(() -> Blocks.IRON_BLOCK)
+                .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
+                .addLayer(() -> RenderType::cutoutMipped)
+                .blockstate(GTModels.createHermeticCasingModel(tierName))
+                .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
+                .item(BlockItem::new)
+                .build()
+                .register();
+    }
+
+    public static final BlockEntry<Block> HERMETIC_CASING_UEV = createHermeticCasing(GTValues.UEV);
+    public static final BlockEntry<Block> HERMETIC_CASING_UIV = createHermeticCasing(GTValues.UIV);
+    public static final BlockEntry<Block> HERMETIC_CASING_UXV = createHermeticCasing(GTValues.UXV);
+    public static final BlockEntry<Block> HERMETIC_CASING_OpV = createHermeticCasing(GTValues.OpV);
 
     public static final BlockEntry<FusionCasingBlock> FUSION_CASING_MK4 = createFusionCasing(
             GTLFusionCasingBlock.CasingType.FUSION_CASING_MK4);

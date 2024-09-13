@@ -18,6 +18,7 @@ import com.hepdd.gtmthings.data.WirelessMachines;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import org.apache.commons.lang3.ArrayUtils;
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 
@@ -171,6 +172,46 @@ public class MachineRecipe {
 
         registerMachineRecipe(provider, GTMachines.DUAL_IMPORT_HATCH, "PG", "CM", 'P', PIPE_NONUPLE, 'M', HULL, 'G', GLASS, 'C', BUFFER);
         registerMachineRecipe(provider, GTMachines.DUAL_EXPORT_HATCH, "MG", "CP", 'P', PIPE_NONUPLE, 'M', HULL, 'G', GLASS, 'C', BUFFER);
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "hermetic_casing_uev",
+                GTLBlocks.HERMETIC_CASING_UEV.asStack(), "PPP", "PFP", "PPP", 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("quantanium")), 'F',
+                new UnificationEntry(TagPrefix.pipeLargeFluid, GTMaterials.Neutronium));
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "hermetic_casing_uiv",
+                GTLBlocks.HERMETIC_CASING_UIV.asStack(), "PPP", "PFP", "PPP", 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("adamantium")), 'F',
+                new UnificationEntry(TagPrefix.pipeLargeFluid, GTMaterials.Neutronium));
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "hermetic_casing_uxv",
+                GTLBlocks.HERMETIC_CASING_UXV.asStack(), "PPP", "PFP", "PPP", 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("vibranium")), 'F',
+                new UnificationEntry(TagPrefix.pipeLargeFluid, getMaterial("enderium")));
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "hermetic_casing_opv",
+                GTLBlocks.HERMETIC_CASING_OpV.asStack(), "PPP", "PFP", "PPP", 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("draconium")), 'F',
+                new UnificationEntry(TagPrefix.pipeLargeFluid, getMaterial("heavy_quark_degenerate_matter")));
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_tank_uev", GTMachines.QUANTUM_TANK[UEV].asStack(),
+                "CGC", "PHP", "CUC", 'C', CustomTags.UEV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("quantanium")), 'U', GTItems.ELECTRIC_PUMP_UHV.asStack(),
+                'G', GTItems.FIELD_GENERATOR_UV.asStack(), 'H', GTLBlocks.HERMETIC_CASING_UEV.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_tank_uiv", GTMachines.QUANTUM_TANK[UIV].asStack(),
+                "CGC", "PHP", "CUC", 'C', CustomTags.UIV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("adamantium")), 'U', GTItems.ELECTRIC_PUMP_UEV.asStack(),
+                'G', GTItems.FIELD_GENERATOR_UHV.asStack(), 'H', GTLBlocks.HERMETIC_CASING_UIV.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_tank_uxv", GTMachines.QUANTUM_TANK[UXV].asStack(),
+                "CGC", "PHP", "CUC", 'C', CustomTags.UXV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("vibranium")), 'U', GTItems.ELECTRIC_PUMP_UIV.asStack(),
+                'G', GTItems.FIELD_GENERATOR_UEV.asStack(), 'H', GTLBlocks.HERMETIC_CASING_UXV.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_tank_opv", GTMachines.QUANTUM_TANK[OpV].asStack(),
+                "CGC", "PHP", "CUC", 'C', CustomTags.OpV_CIRCUITS, 'P',
+                new UnificationEntry(TagPrefix.plate, getMaterial("draconium")), 'U', GTItems.ELECTRIC_PUMP_UXV.asStack(),
+                'G', GTItems.FIELD_GENERATOR_UIV.asStack(), 'H', GTLBlocks.HERMETIC_CASING_OpV.asStack());
 
         VanillaRecipeHelper.addShapedRecipe(provider, true, "quantum_chest_uev",
                 GTMachines.QUANTUM_CHEST[UEV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.UEV_CIRCUITS, 'P',

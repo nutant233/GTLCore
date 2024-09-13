@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "gtlcore:block/uiv_hermetic_casing"
+    }
+  }
+}

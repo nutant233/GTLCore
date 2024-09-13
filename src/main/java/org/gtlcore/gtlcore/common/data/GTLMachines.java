@@ -185,7 +185,7 @@ public class GTLMachines {
                             .compassNode("fluid_hatch")
                             .tooltips(Component.translatable("gtceu.machine." + tooltip + ".tooltip"));
                     builder.tooltips(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity_mult",
-                            tier, FormattingUtil.formatNumbers(Long.MAX_VALUE)));
+                            tier, FormattingUtil.formatNumbers(Integer.MAX_VALUE)));
                     return builder.register();
                 },
                 GTValues.tiersBetween(LV, OpV));

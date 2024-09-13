@@ -22,7 +22,7 @@ public class HugeFluidHatchPartMachine extends FluidHatchPartMachine {
 
     @Override
     protected NotifiableFluidTank createTank(long initialCapacity, int slots, Object... args) {
-        return new NotifiableFluidTank(this, slots, Long.MAX_VALUE, io);
+        return new NotifiableFluidTank(this, slots, Integer.MAX_VALUE, io);
     }
 
     @Override
