@@ -218,7 +218,7 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
             int a = generatorArrayMachine.machineStorage.storage.getStackInSlot(0).getCount();
             if (a > 0) {
                 long EUt = RecipeHelper.getOutputEUt(recipe);
-                int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a / EUt);
+                int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 / EUt);
                 int multipliers = 0;
                 for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
                     if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
@@ -226,13 +226,9 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
                     }
                 }
                 GTRecipe paraRecipe =  recipe.copy(ContentModifier.multiplier(multipliers), false);
-                long eut = RecipeHelper.getOutputEUt(paraRecipe) * 2;
                 if (generatorArrayMachine.isw) {
-                    generatorArrayMachine.eut = eut;
+                    generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
                     paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);
-                } else {
-                    paraRecipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(),
-                            0, null, null)));
                 }
                 return paraRecipe;
             }
@@ -251,8 +247,8 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
         textList.add(Component.translatable("gtceu.machine.generator_array.wireless")
                 .append(ComponentPanelWidget.withButton(Component.literal("[")
                         .append(this.isw ?
-                                Component.translatable("gtceu.machine.off") :
-                                Component.translatable("gtceu.machine.on"))
+                                Component.translatable("gtceu.machine.on") :
+                                Component.translatable("gtceu.machine.off"))
                         .append(Component.literal("]")), "wireless_switch")));
         if (isActive() && this.isw) {
             GTRecipe r = getRecipeLogic().getLastRecipe();
