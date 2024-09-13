@@ -4,9 +4,9 @@
   "package": "org.gtlcore.gtlcore.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "gtm.TagPrefixItemRendererMixin",
     "ae2.client.BuiltInModelHooksAccessor",
-    "ae2.client.ModelBakeryMixin"
+    "ae2.client.ModelBakeryMixin",
+    "gtm.TagPrefixItemRendererMixin"
   ],
   "mixins": [
     "adastra.ModUtilsMixin",
@@ -19,6 +19,9 @@
     "ae2.MixinGenericStackInv",
     "ae2.PortableCellItemMixin",
     "ae2.TooltipsMixin",
+    "ae2.gui.PatternEncodingTermMenuMixin",
+    "ae2.gui.ProcessingEncodingPanelMixin",
+    "ae2.gui.StyleManagerMixin",
     "extendedae.ContainerPatternModifierMixin",
     "extendedae.PartExPatternProviderMixin",
     "extendedae.TileExPatternProviderMixin",
