@@ -277,14 +277,14 @@ public class PlatGroupMetalsRecipesMixin {
                 .outputFluids(Ammonia.getFluid(3000))
                 .duration(40).EUt(VA[LV]).save(provider);
 
-        CHEMICAL_RECIPES.recipeBuilder("iridium_chloride_separation")
-                .inputItems(dust, IridiumChloride, 4)
-                .inputItems(dust, Calcium, 1)
-                .outputItems(dust, Iridium, 1)
-                .outputItems(dust, CalciumChloride, 3)
-                .duration(80).EUt(VA[EV]).save(provider);
+        CHEMICAL_RECIPES.recipeBuilder("osmium_tetroxide_separation").duration(70).EUt(VA[LV])
+                .inputItems(dust, OsmiumTetroxide, 5)
+                .inputFluids(Hydrogen.getFluid(8000))
+                .outputItems(dust, Osmium)
+                .outputFluids(Water.getFluid(4000))
+                .save(provider);
 
-        CHEMICAL_RECIPES.recipeBuilder("osmium_tetroxide_separation").duration(100).EUt(GTValues.VA[1])
+        CHEMICAL_RECIPES.recipeBuilder("iridium_chloride_separation").duration(100).EUt(GTValues.VA[1])
                 .inputItems(TagPrefix.dust, GTMaterials.IridiumChloride, 4)
                 .inputFluids(GTMaterials.Hydrogen.getFluid(3000L))
                 .outputItems(TagPrefix.dust, GTMaterials.Iridium)
