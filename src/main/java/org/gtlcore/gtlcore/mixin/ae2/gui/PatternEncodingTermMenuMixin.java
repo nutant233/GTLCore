@@ -72,11 +72,16 @@ public abstract class PatternEncodingTermMenuMixin extends MEStorageMenu impleme
 
     @Unique
     private GenericStack[] gTLCore$valid(ConfigInventory inv, int data) {
+        // data 错误的被修改为正数, 在有多个多个材料时
+        boolean flag = data > 0;
+        if (!flag) {
+            data = -data;
+        }
         GenericStack[] result = new GenericStack[inv.size()];
         for (int slot = 0; slot < inv.size(); ++slot) {
             GenericStack stack = inv.getStack(slot);
             if (stack != null) {
-                if (data > 0) {
+                if (flag) {
                     if (data * stack.amount() <= 0) {
                         return null;
                     } else {
@@ -84,7 +89,6 @@ public abstract class PatternEncodingTermMenuMixin extends MEStorageMenu impleme
                                 new GenericStack(stack.what(), data * stack.amount());
                     }
                 } else {
-                    data = -data;
                     if (stack.amount() % data != 0) {
                         return null;
                     } else {
