@@ -134,7 +134,7 @@ public class PlatGroupMetalsRecipesMixin {
         // RHODIUM / RUTHENIUM
         BLAST_RECIPES.recipeBuilder("leach_residue_one")
                 .inputItems(dust, InertMetalMixture, 6)
-                .inputItems(dust, Saltpeter, 10)
+                .inputItems(dust, SodiumNitrate, 10)
                 .inputFluids(SulfuricAcid.getFluid(1000))
                 .outputFluids(RhodiumSulfateGas.getFluid(500))
                 .outputItems(dust, SodiumRutheniate, 7)

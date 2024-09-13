@@ -195,7 +195,11 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
     public boolean onWorking() {
         boolean value = super.onWorking();
         if (this.isw) {
-            WirelessEnergyManager.addEUToGlobalEnergyMap(userid, eut, this);
+            if (eut > 0) {
+                WirelessEnergyManager.addEUToGlobalEnergyMap(userid, eut, this);
+            } else {
+                return false;
+            }
         }
         return value;
     }
@@ -218,19 +222,21 @@ public class GeneratorArrayMachine extends TieredWorkableElectricMultiblockMachi
             int a = generatorArrayMachine.machineStorage.storage.getStackInSlot(0).getCount();
             if (a > 0) {
                 long EUt = RecipeHelper.getOutputEUt(recipe);
-                int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 / EUt);
-                int multipliers = 0;
-                for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
-                    if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
-                        multipliers += fluidRecipeCapability.getMaxParallelRatio(generatorArrayMachine, recipe, maxParallel);
+                if (EUt > 0) {
+                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 / EUt);
+                    int multipliers = 0;
+                    for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
+                        if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
+                            multipliers += fluidRecipeCapability.getMaxParallelRatio(generatorArrayMachine, recipe, maxParallel);
+                        }
                     }
+                    GTRecipe paraRecipe = recipe.copy(ContentModifier.multiplier(multipliers), false);
+                    if (generatorArrayMachine.isw) {
+                        generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
+                        paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);
+                    }
+                    return paraRecipe;
                 }
-                GTRecipe paraRecipe =  recipe.copy(ContentModifier.multiplier(multipliers), false);
-                if (generatorArrayMachine.isw) {
-                    generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
-                    paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);
-                }
-                return paraRecipe;
             }
         }
         return null;
