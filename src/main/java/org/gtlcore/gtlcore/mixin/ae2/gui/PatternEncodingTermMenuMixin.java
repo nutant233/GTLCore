@@ -9,7 +9,6 @@ import appeng.menu.me.items.PatternEncodingTermMenu;
 import appeng.util.ConfigInventory;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
-import org.gtlcore.gtlcore.client.gui.ModifyData;
 import org.gtlcore.gtlcore.client.gui.PatterEncodingTermMenuModify;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,12 +39,12 @@ public abstract class PatternEncodingTermMenuMixin extends MEStorageMenu impleme
     @Inject(method = "<init>(Lnet/minecraft/world/inventory/MenuType;ILnet/minecraft/world/entity/player/Inventory;Lappeng/helpers/IPatternTerminalMenuHost;Z)V",
             at = @At("TAIL"), remap = false)
     public void initHooks(MenuType<?> menuType, int id, Inventory ip, IPatternTerminalMenuHost host, boolean bindInventory, CallbackInfo ci) {
-        this.registerClientAction("modifyPatter", ModifyData.class,
+        this.registerClientAction("modifyPatter", Integer.class,
                 this::gTLCore$modifyPatter);
     }
 
     @Override
-    public void gTLCore$modifyPatter(ModifyData data) {
+    public void gTLCore$modifyPatter(Integer data) {
         if (this.isClientSide()) {
             this.sendClientAction("modifyPatter", data);
         } else {
@@ -72,28 +71,26 @@ public abstract class PatternEncodingTermMenuMixin extends MEStorageMenu impleme
     }
 
     @Unique
-    private GenericStack[] gTLCore$valid(ConfigInventory inv, ModifyData data) {
+    private GenericStack[] gTLCore$valid(ConfigInventory inv, int data) {
         GenericStack[] result = new GenericStack[inv.size()];
         for (int slot = 0; slot < inv.size(); ++slot) {
             GenericStack stack = inv.getStack(slot);
             if (stack != null) {
-                switch (data.getType()) {
-                    case MULTIPLY -> {
-                        if (data.getAmount() * stack.amount() <= 0) {
-                            return null;
-                        } else {
-                            result[slot] =
-                                    new GenericStack(stack.what(), data.getAmount() * stack.amount());
-                        }
+                if (data > 0) {
+                    if (data * stack.amount() <= 0) {
+                        return null;
+                    } else {
+                        result[slot] =
+                                new GenericStack(stack.what(), data * stack.amount());
                     }
-                    case DIVISION -> {
-                        if (stack.amount() % data.getAmount() != 0) {
-                            return null;
-                        } else {
-                            // 除尽
-                            result[slot] =
-                                    new GenericStack(stack.what(), data.getAmount() * stack.amount());
-                        }
+                } else {
+                    data = -data;
+                    if (stack.amount() % data != 0) {
+                        return null;
+                    } else {
+                        // 除尽
+                        result[slot] =
+                                new GenericStack(stack.what(), stack.amount() / data);
                     }
                 }
             }
