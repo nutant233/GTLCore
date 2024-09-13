@@ -4,9 +4,9 @@
   "package": "org.gtlcore.gtlcore.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "gtm.TagPrefixItemRendererMixin",
     "ae2.client.BuiltInModelHooksAccessor",
-    "ae2.client.ModelBakeryMixin"
+    "ae2.client.ModelBakeryMixin",
+    "gtm.TagPrefixItemRendererMixin"
   ],
   "mixins": [
     "adastra.ModUtilsMixin",
@@ -46,7 +46,8 @@
     "gtm.registry.GTDimensionMarkersMixin",
     "gtm.registry.GTMachinesMixin",
     "gtm.registry.GTRecipeBuilderMixin",
-    "gtm.registry.GTRecipeTypeMixin"
+    "gtm.registry.GTRecipeTypeMixin",
+    "gtmt.WirelessEnergyReceiveCoverMixin"
   ],
   "injectors": {
     "defaultRequire": 1,

@@ -605,9 +605,9 @@ public class GTLMachines {
                     Component.translatable(
                             "gtceu.universal.tooltip.uses_per_hour_lubricant", 2000),
                     Component.literal(
-                            "提供§f120L/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
+                            "提供§f120mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
                     Component.literal(
-                            "再额外提供§f80L/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
+                            "再额外提供§f80mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
             .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()

@@ -292,14 +292,11 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.multiblock.exact_hatch_1.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.assembler")))
-            .tooltips(GTMachines.defaultEnvironmentRequirement())
             .rotationState(RotationState.ALL)
             .recipeType(ASSEMBLER_RECIPES)
-            .recipeModifiers(GTRecipeModifiers.DEFAULT_ENVIRONMENT_REQUIREMENT,
-                    GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
+            .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_LARGE_SCALE_ASSEMBLING)
             .pattern(definition -> FactoryBlockPattern.start()
@@ -308,9 +305,7 @@ public class GCyMMachines {
                     .aisle("XXXXXXXXX", "XGGGXXSXX", "XGGGX###X")
                     .where('S', controller(blocks(definition.get())))
                     .where('X', blocks(CASING_LARGE_SCALE_ASSEMBLING.get()).setMinGlobalLimited(40)
-                            .or(Predicates.autoAbilities(definition.getRecipeTypes(), false, false, true, true, true,
-                                    true))
-                            .or(Predicates.abilities(INPUT_ENERGY).setExactLimit(1))
+                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.autoAbilities(true, false, true)))
                     .where('G', Predicates.blocks(CASING_TEMPERED_GLASS.get()))
                     .where('A', Predicates.air())
@@ -331,11 +326,9 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.circuit_assembler")))
             .tooltips(Component.translatable("gtceu.multiblock.exact_hatch_1.tooltip"))
-            .tooltips(GTMachines.defaultEnvironmentRequirement())
             .rotationState(RotationState.ALL)
             .recipeType(CIRCUIT_ASSEMBLER_RECIPES)
-            .recipeModifiers(GTRecipeModifiers.DEFAULT_ENVIRONMENT_REQUIREMENT,
-                    GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
+            .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_LARGE_SCALE_ASSEMBLING)
             .pattern(definition -> FactoryBlockPattern.start()
@@ -404,11 +397,9 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.laser_engraver")))
-            .tooltips(GTMachines.defaultEnvironmentRequirement())
             .rotationState(RotationState.ALL)
             .recipeType(LASER_ENGRAVER_RECIPES)
-            .recipeModifiers(GTRecipeModifiers.DEFAULT_ENVIRONMENT_REQUIREMENT,
-                    GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
+            .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_LASER_SAFE_ENGRAVING)
             .pattern(definition -> FactoryBlockPattern.start()
