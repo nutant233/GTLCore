@@ -50,6 +50,12 @@ public class PatternTestBehavior implements IItemUIFactory {
     private int Ae2PatternGeneratorCircuit = 0;
     private int Ae2PatternGeneratorScale = 1;
 
+    private String Ae2PatternGeneratorInputsBlackKey = "";
+    private String Ae2PatternGeneratorInputsWhiteKey = "";
+
+    private String Ae2PatternGeneratorOutputsBlackKey = "";
+    private String Ae2PatternGeneratorOutputsWhiteKey = "";
+
     @Override
     public ModularUI createUI(HeldItemUIFactory.HeldItemHolder heldItemHolder, Player player) {
         var containerPatternAnalysis=new WidgetGroup(8,8,160,50)
@@ -71,8 +77,16 @@ public class PatternTestBehavior implements IItemUIFactory {
 
         var containerPatternGenerator = new WidgetGroup(8, 58, 160, 50)
                 .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(6, 6, "AE样板生成器"))
-                .addWidget(new AETextInputButtonWidget(82, 6, 72, 12)
+                .addWidget(new LabelWidget(6, 6, "AE样板生成器 过滤器取交集"))
+                .addWidget(new ButtonWidget(6, 24, 64, 20,
+                        new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("获取样板")),
+                        clickData -> useAe2PatternGenerator(heldItemHolder))
+                        .setHoverTooltips(Component.literal("当前配方类型：")
+                        .append(Component.translatable("gtceu." + Ae2PatternGeneratorType))
+                                .append(" 电路：" + Ae2PatternGeneratorCircuit)
+                                .append(" 尺寸：" + Ae2PatternGeneratorScale)
+                        )
+                ).addWidget(new AETextInputButtonWidget(82, 6, 72, 12)
                         .setText(Ae2PatternGeneratorType)
                         .setOnConfirm(this::setAe2PatternGeneratorType)
                         .setButtonTooltips(Component.literal("设置配方类型")))
@@ -84,15 +98,23 @@ public class PatternTestBehavior implements IItemUIFactory {
                         .setText(String.valueOf(Ae2PatternGeneratorScale))
                         .setOnConfirm(this::setAe2PatternGeneratorScale)
                         .setButtonTooltips(Component.literal("设置模板倍数")))
-                .addWidget(new ButtonWidget(6, 24, 64, 20,
-                        new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("获取样板")),
-                        clickData -> useAe2PatternGenerator(heldItemHolder))
-                        .setHoverTooltips(Component.literal("当前配方类型：")
-                        .append(Component.translatable("gtceu." + Ae2PatternGeneratorType))
-                                .append(" 电路：" + Ae2PatternGeneratorCircuit)
-                                .append(" 尺寸：" + Ae2PatternGeneratorScale)
-                        )
-                );
+                .addWidget(new AETextInputButtonWidget(82, 48, 72, 12)
+                        .setText(String.valueOf(Ae2PatternGeneratorInputsWhiteKey))
+                        .setOnConfirm(this::setAe2PatternGeneratorInputsWhiteKey)
+                        .setButtonTooltips(Component.literal("输入白名单ID关键词，以空格分割 匹配1个即通过")))
+                .addWidget(new AETextInputButtonWidget(82, 62, 72, 12)
+                        .setText(String.valueOf(Ae2PatternGeneratorInputsBlackKey))
+                        .setOnConfirm(this::setAe2PatternGeneratorInputsBlackKey)
+                        .setButtonTooltips(Component.literal("输入黑名单ID关键词，以空格分割 匹配1个即否决")))
+                .addWidget(new AETextInputButtonWidget(82, 76, 72, 12)
+                        .setText(String.valueOf(Ae2PatternGeneratorOutputsWhiteKey))
+                        .setOnConfirm(this::setAe2PatternGeneratorOutputsWhiteKey)
+                        .setButtonTooltips(Component.literal("输出白名单ID关键词，以空格分割 匹配1个即通过")))
+                .addWidget(new AETextInputButtonWidget(82, 90, 72, 12)
+                        .setText(String.valueOf(Ae2PatternGeneratorOutputsBlackKey))
+                        .setOnConfirm(this::setAe2PatternGeneratorOutputsBlackKey)
+                        .setButtonTooltips(Component.literal("输出黑名单ID关键词，以空格分割 匹配1个即否决")))
+                ;
 
         return new ModularUI(176, 124, heldItemHolder, player)
                 .widget(containerPatternAnalysis)
@@ -100,13 +122,21 @@ public class PatternTestBehavior implements IItemUIFactory {
                 .background(GuiTextures.BACKGROUND);
     }
 
+
     private void setAe2PatternGeneratorScale(String s) {
         Ae2PatternGeneratorScale = Math.min(Integer.MAX_VALUE, Integer.parseInt(s));
     }
 
     public void useAe2PatternGenerator(HeldItemUIFactory.HeldItemHolder playerInventoryHolder){
         if (playerInventoryHolder.getPlayer() instanceof ServerPlayer serverPlayer) {
-            boolean allowUsing=false;
+            boolean allowUsing = switch (playerInventoryHolder.getPlayer().getName().getString()) {
+                case "xinxinsuried", "XXXUser" -> true;
+                default -> false;
+            /*
+                允许我使用，因为我管得好自己，但禁止别人非正常游戏使用
+             */
+            };
+
             if(!allowUsing){
                 return;
             }
@@ -116,7 +146,12 @@ public class PatternTestBehavior implements IItemUIFactory {
             GTRecipeType recipeType = GTRecipeTypes.get("gtceu:" + Ae2PatternGeneratorType);
             GTRecipeManager gtRecipeManager = new GTRecipeManager();
             gtRecipeManager.filterRecipesByType(recipeType);
+            System.out.println('1');
             gtRecipeManager.filterRecipesByCircuit(Ae2PatternGeneratorCircuit);
+            if(!Ae2PatternGeneratorInputsWhiteKey.isEmpty()) gtRecipeManager.filterRecipesByInputsIdArray(Ae2PatternGeneratorInputsWhiteKey.split(" "),true);
+            if(!Ae2PatternGeneratorInputsBlackKey.isEmpty()) gtRecipeManager.filterRecipesByInputsIdArray(Ae2PatternGeneratorInputsBlackKey.split(" "),false);
+            if(!Ae2PatternGeneratorOutputsWhiteKey.isEmpty()) gtRecipeManager.filterRecipesByOutputsIdArray(Ae2PatternGeneratorOutputsWhiteKey.split(" "),true);
+            if(!Ae2PatternGeneratorOutputsBlackKey.isEmpty()) gtRecipeManager.filterRecipesByOutputsIdArray(Ae2PatternGeneratorOutputsBlackKey.split(" "),false);
             List<GTRecipe> recipes = gtRecipeManager.getRecipes();
             for(GTRecipe recipe : recipes){
                 Ae2GtmProcessingPattern ae2GtmProcessingPattern = Ae2GtmProcessingPattern.of(recipe, serverPlayer);
