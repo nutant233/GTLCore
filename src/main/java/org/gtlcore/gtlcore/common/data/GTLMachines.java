@@ -195,37 +195,13 @@ public class GTLMachines {
     // ********** Part **********//
     //////////////////////////////////////
     public static final MachineDefinition LARGE_STEAM_HATCH = REGISTRATE
-            .machine("large_steam_input_hatch", holder -> new GTLSteamHatchPartMachine(holder, IO.IN, 8192, false))
+            .machine("large_steam_input_hatch", holder -> new LargeSteamHatchPartMachine(holder, IO.IN, 8192, false))
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.STEAM)
             .overlaySteamHullRenderer("steam_hatch")
             .tooltips(Component.translatable("gtceu.machine.large_steam_input_hatch.tooltip.0"),
                     Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
                             8192 * FluidHelper.getBucket()),
-                    Component.translatable("gtceu.machine.steam.steam_hatch.tooltip"))
-            .compassSections(GTCompassSections.STEAM)
-            .compassNode("steam_hatch")
-            .register();
-
-    public static final MachineDefinition MEGA_STEAM_INPUT_HATCH = REGISTRATE
-            .machine("mega_steam_input_hatch", holder -> new GTLSteamHatchPartMachine(holder, IO.IN, 4096000, true))
-            .rotationState(RotationState.ALL)
-            .abilities(PartAbility.IMPORT_FLUIDS)
-            .overlaySteamHullRenderer("fluid_hatch.import")
-            .tooltips(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
-                            4096000 * FluidHelper.getBucket()),
-                    Component.translatable("gtceu.machine.steam.steam_hatch.tooltip"))
-            .compassSections(GTCompassSections.STEAM)
-            .compassNode("steam_hatch")
-            .register();
-
-    public static final MachineDefinition MEGA_STEAM_OUTPUT_HATCH = REGISTRATE
-            .machine("mega_steam_output_hatch", holder -> new GTLSteamHatchPartMachine(holder, IO.OUT, 4096000, true))
-            .rotationState(RotationState.ALL)
-            .abilities(PartAbility.EXPORT_FLUIDS)
-            .overlaySteamHullRenderer("fluid_hatch.export")
-            .tooltips(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
-                            4096000 * FluidHelper.getBucket()),
                     Component.translatable("gtceu.machine.steam.steam_hatch.tooltip"))
             .compassSections(GTCompassSections.STEAM)
             .compassNode("steam_hatch")
