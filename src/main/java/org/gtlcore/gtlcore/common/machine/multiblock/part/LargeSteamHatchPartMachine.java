@@ -19,11 +19,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class GTLSteamHatchPartMachine extends FluidHatchPartMachine {
+public class LargeSteamHatchPartMachine extends FluidHatchPartMachine {
 
     public final boolean is_steel;
 
-    public GTLSteamHatchPartMachine(IMachineBlockEntity holder, IO io, int tank, boolean steel, Object... args) {
+    public LargeSteamHatchPartMachine(IMachineBlockEntity holder, IO io, int tank, boolean steel, Object... args) {
         super(holder, steel ? 0 : 1, io, tank * FluidHelper.getBucket(), 1, args);
         this.is_steel = steel;
     }
