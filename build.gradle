@@ -132,6 +132,9 @@ dependencies {
     modImplementation("curse.maven:glodium-957920:5006780")
     modImplementation("dev:ExtendedAE-1.20-1.1.12-forge")
 
+    modImplementation("org.moddingx:LibX:1.20.1-5.0.1")
+    modImplementation("dev:TravelAnchors-1.20.1-5.0.1")
+
     modRuntimeOnly("mezz.jei:jei-$project.minecraft_version-forge:$project.jei_version") { transitive = false }
 
     modRuntimeOnly("maven.modrinth:embeddium:0.3.30+mc1.20.1")

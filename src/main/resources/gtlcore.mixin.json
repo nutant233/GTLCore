@@ -51,7 +51,8 @@
     "gtm.registry.GTMachinesMixin",
     "gtm.registry.GTRecipeBuilderMixin",
     "gtm.registry.GTRecipeTypeMixin",
-    "gtmt.WirelessEnergyReceiveCoverMixin"
+    "gtmt.WirelessEnergyReceiveCoverMixin",
+    "travelanchors.EventListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1,

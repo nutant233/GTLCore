@@ -57,6 +57,7 @@
     "config.gtlcore.option.durationMultiplier": "配方时间乘数",
     "config.gtlcore.option.enablePrimitiveVoidOre": "启用原始虚空矿机",
     "config.gtlcore.option.exPatternProvider": "扩展样板供应器样板容量",
+    "config.gtlcore.option.travelStaffCD": "旅行权杖CD",
     "config.gtlcore.option.oreMultiplier": "矿石产量乘数",
     "config.gtlcore.option.spacetimePip": "时空管道流量",
     "gtlcore.condition.gravity": "需要强重力环境",
