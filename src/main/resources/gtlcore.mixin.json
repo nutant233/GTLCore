@@ -37,6 +37,7 @@
     "gtm.machine.FluidHatchPartMachineMixin",
     "gtm.machine.HPCAComputationPartMachineMixin",
     "gtm.machine.ItemBusPartMachineMixin",
+    "gtm.machine.LargeBoilerMachineMixin",
     "gtm.machine.ParallelHatchPartMachineMixin",
     "gtm.machine.SimpleTieredMachineMixin",
     "gtm.machine.WorkableTieredMachineMixin",

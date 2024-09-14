@@ -144,8 +144,8 @@ public class GTLBedrockFluids {
     public static BedrockFluidDefinition HELIUM_3 = create(GTCEu.id("helium3_deposit"),
             builder -> builder
                     .fluid(GTMaterials.Helium3::getFluid)
-                    .weight(20)
-                    .yield(50, 80)
+                    .weight(10)
+                    .yield(50, 180)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -155,7 +155,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Helium::getFluid)
                     .weight(20)
-                    .yield(50, 100)
+                    .yield(50, 300)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -165,7 +165,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.SulfuricAcid::getFluid)
                     .weight(20)
-                    .yield(50, 150)
+                    .yield(100, 250)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -174,8 +174,8 @@ public class GTLBedrockFluids {
     public static BedrockFluidDefinition DEUTERIUM = create(GTCEu.id("deuterium_deposit"),
             builder -> builder
                     .fluid(GTMaterials.Deuterium::getFluid)
-                    .weight(20)
-                    .yield(50, 100)
+                    .weight(15)
+                    .yield(80, 300)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -194,8 +194,8 @@ public class GTLBedrockFluids {
     public static BedrockFluidDefinition CERES_RADON = create(GTCEu.id("ceres_radon_deposit"),
             builder -> builder
                     .fluid(GTMaterials.Radon::getFluid)
-                    .weight(20)
-                    .yield(50, 150)
+                    .weight(15)
+                    .yield(100, 250)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -205,7 +205,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Methane::getFluid)
                     .weight(20)
-                    .yield(50, 100)
+                    .yield(100, 250)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -215,7 +215,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Benzene::getFluid)
                     .weight(15)
-                    .yield(50, 80)
+                    .yield(60, 160)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -225,7 +225,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.CharcoalByproducts::getFluid)
                     .weight(10)
-                    .yield(50, 60)
+                    .yield(80, 260)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -235,7 +235,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.CoalGas::getFluid)
                     .weight(20)
-                    .yield(50, 200)
+                    .yield(100, 300)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -245,7 +245,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.NitricAcid::getFluid)
                     .weight(20)
-                    .yield(80, 150)
+                    .yield(80, 300)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -255,7 +255,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.HydrochloricAcid::getFluid)
                     .weight(20)
-                    .yield(100, 200)
+                    .yield(100, 350)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -265,7 +265,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Xenon::getFluid)
                     .weight(20)
-                    .yield(50, 150)
+                    .yield(100, 250)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -275,7 +275,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Krypton::getFluid)
                     .weight(20)
-                    .yield(50, 150)
+                    .yield(100, 250)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -285,7 +285,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Neon::getFluid)
                     .weight(20)
-                    .yield(50, 150)
+                    .yield(100, 250)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -295,7 +295,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Fluorine::getFluid)
                     .weight(10)
-                    .yield(80, 120)
+                    .yield(180, 320)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
@@ -305,7 +305,7 @@ public class GTLBedrockFluids {
             builder -> builder
                     .fluid(GTMaterials.Chlorine::getFluid)
                     .weight(20)
-                    .yield(80, 120)
+                    .yield(180, 420)
                     .depletionAmount(1)
                     .depletionChance(100)
                     .depletedYield(40)
