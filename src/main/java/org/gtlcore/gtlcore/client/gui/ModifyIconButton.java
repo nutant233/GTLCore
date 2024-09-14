@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.client.gui;
 
+import appeng.client.gui.Icon;
 import appeng.client.gui.style.Blitter;
 import appeng.client.gui.widgets.ITooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -57,7 +58,7 @@ public class ModifyIconButton extends Button implements ITooltip {
             pose.pushPose();
             pose.translate((float) this.getX(), (float) this.getY(), 0.0F);
             pose.scale(0.5F, 0.5F, 1.0F);
-            ModifyIcon.TOOLBAR_BUTTON_BACKGROUND.getBlitter().dest(0, 0).blit(guiGraphics);
+            Icon.TOOLBAR_BUTTON_BACKGROUND.getBlitter().dest(0, 0).blit(guiGraphics);
             blitter.dest(0, 0).blit(guiGraphics);
             pose.popPose();
             RenderSystem.enableDepthTest();
