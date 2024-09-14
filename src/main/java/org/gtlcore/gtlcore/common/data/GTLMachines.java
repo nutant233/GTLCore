@@ -1097,7 +1097,13 @@ public class GTLMachines {
             UHV, UEV);
 
     public static final MultiblockMachineDefinition[] COMPRESSED_FUSION_REACTOR = registerTieredMultis("compressed_fusion_reactor",
-            FusionReactorMachine::new, (tier, builder) -> builder
+            (holder, tier) -> new FusionReactorMachine(holder, tier) {
+
+                @Override
+                public long getMaxVoltage() {
+                    return super.getOverclockVoltage();
+                }
+            }, (tier, builder) -> builder
                     .rotationState(RotationState.ALL)
                     .langValue("Fusion Reactor Computer MK %s".formatted(toRomanNumeral(tier - 5)))
                     .recipeType(GTRecipeTypes.FUSION_RECIPES)

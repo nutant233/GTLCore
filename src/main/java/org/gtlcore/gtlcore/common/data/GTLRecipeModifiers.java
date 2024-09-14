@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IOverclockMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
@@ -72,5 +73,30 @@ public class GTLRecipeModifiers {
             }
         }
         return 1;
+    }
+
+    public static GTRecipe standardOverclocking(WorkableElectricMultiblockMachine machine, @NotNull GTRecipe recipe) {
+        double resultDuration = recipe.duration;
+        double resultVoltage = RecipeHelper.getOutputEUt(recipe);
+        long maxVoltage = machine.getOverclockVoltage();
+
+        for (int numberOfOCs = 16; numberOfOCs > 0; numberOfOCs--) {
+            double potentialVoltage = resultVoltage * 4;
+
+            if (potentialVoltage > maxVoltage) break;
+
+            double potentialDuration = resultDuration / 4;
+
+            if (potentialDuration < 1) break;
+
+            resultDuration = potentialDuration;
+
+            resultVoltage = potentialVoltage;
+        }
+        GTRecipe recipe1 = recipe.copy();
+        recipe1.duration = (int) resultDuration;
+        recipe1.tickOutputs.put(EURecipeCapability.CAP,
+                List.of(new Content((long) resultVoltage, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
+        return recipe1;
     }
 }

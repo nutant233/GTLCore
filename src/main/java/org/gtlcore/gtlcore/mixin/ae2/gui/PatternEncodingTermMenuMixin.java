@@ -82,7 +82,7 @@ public abstract class PatternEncodingTermMenuMixin extends MEStorageMenu impleme
             GenericStack stack = inv.getStack(slot);
             if (stack != null) {
                 if (flag) {
-                    if (data * stack.amount() <= 0) {
+                    if (data * stack.amount() > Integer.MAX_VALUE) {
                         return null;
                     } else {
                         result[slot] =

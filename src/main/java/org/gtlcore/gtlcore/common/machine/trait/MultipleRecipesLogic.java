@@ -1,9 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.trait;
 
-import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.IO;
-import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
@@ -46,15 +43,15 @@ public class MultipleRecipesLogic extends RecipeLogic {
     @Nullable
     private GTRecipe getRecipe() {
         if (!machine.hasProxies()) return null;
+        GTRecipe match = LookupRecipe();
+        if (match == null) return null;
         GTRecipe recipe = buildEmptyRecipe();
         recipe.outputs.put(ItemRecipeCapability.CAP, new ArrayList<>());
+        recipe.outputs.put(FluidRecipeCapability.CAP, new ArrayList<>());
         long totalEu = 0;
         int parallel = getMachine().getMaxParallel();
-        for (int i = 0; i < 64 && parallel > 0; i++) {
-            GTRecipe match = machine.getRecipeType().getLookup().findRecipe(machine);
-            if (match == null) break;
+        for (int i = 0; i < 64; i++) {
             int maxMultipliers = calculateMaxMultipliers(match, parallel);
-            parallel -= maxMultipliers;
             if (maxMultipliers != 0) {
                 match =  match.copy(ContentModifier.multiplier(maxMultipliers), false);
             }
@@ -62,15 +59,28 @@ public class MultipleRecipesLogic extends RecipeLogic {
             input.inputs.putAll(match.inputs);
             input.handleRecipeIO(IO.IN, machine, getChanceCaches());
             totalEu += match.duration * RecipeHelper.getInputEUt(match);
-            recipe.outputs.get(ItemRecipeCapability.CAP).addAll(match.outputs.get(ItemRecipeCapability.CAP));
+            List<Content> item = match.outputs.get(ItemRecipeCapability.CAP);
+            if (item != null) {
+                recipe.outputs.get(ItemRecipeCapability.CAP).addAll(item);
+            }
+            List<Content> fluid = match.outputs.get(FluidRecipeCapability.CAP);
+            if (fluid != null) {
+                recipe.outputs.get(FluidRecipeCapability.CAP).addAll(fluid);
+            }
+            match = LookupRecipe();
+            if (match == null) break;
         }
-        if (recipe.outputs.get(ItemRecipeCapability.CAP).equals(new ArrayList<>())) return null;
+        if (recipe.outputs.get(ItemRecipeCapability.CAP).equals(new ArrayList<>()) && recipe.outputs.get(FluidRecipeCapability.CAP).equals(new ArrayList<>())) return null;
         long maxEUt = getMachine().getOverclockVoltage();
         double d = (double) totalEu / maxEUt;
         long eut = d > 20 ? maxEUt : (long) (maxEUt * d / 20);
         recipe.tickInputs.put(EURecipeCapability.CAP, List.of(new Content(eut, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
         recipe.duration = (int) Math.max(d, 20);
         return recipe;
+    }
+
+    private GTRecipe LookupRecipe() {
+        return machine.getRecipeType().getLookup().findRecipe(machine);
     }
 
     private GTRecipe buildEmptyRecipe() {
