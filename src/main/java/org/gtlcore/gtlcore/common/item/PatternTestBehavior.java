@@ -146,7 +146,6 @@ public class PatternTestBehavior implements IItemUIFactory {
             GTRecipeType recipeType = GTRecipeTypes.get("gtceu:" + Ae2PatternGeneratorType);
             GTRecipeManager gtRecipeManager = new GTRecipeManager();
             gtRecipeManager.filterRecipesByType(recipeType);
-            System.out.println('1');
             gtRecipeManager.filterRecipesByCircuit(Ae2PatternGeneratorCircuit);
             if(!Ae2PatternGeneratorInputsWhiteKey.isEmpty()) gtRecipeManager.filterRecipesByInputsIdArray(Ae2PatternGeneratorInputsWhiteKey.split(" "),true);
             if(!Ae2PatternGeneratorInputsBlackKey.isEmpty()) gtRecipeManager.filterRecipesByInputsIdArray(Ae2PatternGeneratorInputsBlackKey.split(" "),false);
