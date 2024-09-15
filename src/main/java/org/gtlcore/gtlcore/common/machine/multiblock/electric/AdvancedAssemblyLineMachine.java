@@ -10,6 +10,7 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
+import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.core.BlockPos;
@@ -21,27 +22,24 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
-public class GTLAssemblyLineMachine extends WorkableElectricMultiblockMachine {
+public class AdvancedAssemblyLineMachine extends WorkableElectricMultiblockMachine {
 
-    public GTLAssemblyLineMachine(IMachineBlockEntity holder) {
+    public AdvancedAssemblyLineMachine(IMachineBlockEntity holder) {
         super(holder);
     }
 
     public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            GTLAssemblyLineMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
+            AdvancedAssemblyLineMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     @Persisted
     private int speed = 0;
 
-    public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe) {
-        if (machine instanceof GTLAssemblyLineMachine lineMachine) {
-            GTRecipe recipe1 = recipe.copy();
-            recipe1.duration = Math.max(lineMachine.speed * recipe.duration / 100, 1);
-            if (RecipeHelper.getRecipeEUtTier(recipe) / recipe.parallels > lineMachine.getTier()) {
-                return null;
-            }
+    public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, OCParams params, OCResult result) {
+        if (machine instanceof AdvancedAssemblyLineMachine lineMachine) {
+            GTRecipe recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe, false, params, result);
+            recipe1.duration = Math.max(lineMachine.speed * recipe1.duration / 100, 1);
             return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK,
-                    recipe1, lineMachine.getOverclockVoltage(), new OCParams(), new OCResult());
+                    recipe1, lineMachine.getOverclockVoltage(), params, result);
         }
         return null;
     }

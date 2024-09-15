@@ -8,8 +8,6 @@ import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
 import lombok.Getter;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricMultipleRecipesMachine;
 import org.jetbrains.annotations.Nullable;
@@ -51,10 +49,7 @@ public class MultipleRecipesLogic extends RecipeLogic {
         long totalEu = 0;
         int parallel = getMachine().getMaxParallel();
         for (int i = 0; i < 64; i++) {
-            int maxMultipliers = calculateMaxMultipliers(match, parallel);
-            if (maxMultipliers != 0) {
-                match =  match.copy(ContentModifier.multiplier(maxMultipliers), false);
-            }
+            match = parallelRecipe(match, parallel);
             GTRecipe input = buildEmptyRecipe();
             input.inputs.putAll(match.inputs);
             input.handleRecipeIO(IO.IN, machine, getChanceCaches());
@@ -87,14 +82,20 @@ public class MultipleRecipesLogic extends RecipeLogic {
         return GTRecipeBuilder.ofRaw().buildRawRecipe();
     }
 
-    private int calculateMaxMultipliers(GTRecipe match, int max) {
-        IntSet multipliers = new IntOpenHashSet();
-        for (RecipeCapability<?> cap : match.inputs.keySet()) {
+    private GTRecipe parallelRecipe(GTRecipe recipe, int max) {
+        int maxMultipliers = Integer.MAX_VALUE;
+        for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
             if (cap.doMatchInRecipe()) {
-                multipliers.add(cap.getMaxParallelRatio(machine, match, max));
+                int currentMultiplier = cap.getMaxParallelRatio(machine, recipe, max);
+                if (currentMultiplier < maxMultipliers) {
+                    maxMultipliers = currentMultiplier;
+                }
             }
         }
-        return multipliers.intStream().min().orElse(0);
+        if (maxMultipliers > 0) {
+            recipe = recipe.copy(ContentModifier.multiplier(maxMultipliers), false);
+        }
+        return recipe;
     }
 
     @Override

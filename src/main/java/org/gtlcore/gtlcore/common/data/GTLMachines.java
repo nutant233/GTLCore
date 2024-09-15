@@ -620,7 +620,7 @@ public class GTLMachines {
             .register();
 
     public final static MultiblockMachineDefinition ADVANCED_ASSEMBLY_LINE = REGISTRATE
-            .multiblock("advanced_assembly_line", GTLAssemblyLineMachine::new)
+            .multiblock("advanced_assembly_line", AdvancedAssemblyLineMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.ASSEMBLY_LINE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.advanced_assembly_line.tooltip.0"))
@@ -629,7 +629,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.assembly_line")))
-            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, (machine, recipe, params, result) -> GTLAssemblyLineMachine.recipeModifier(machine, recipe))
+            .recipeModifier(AdvancedAssemblyLineMachine::recipeModifier)
             .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
             .pattern(definition ->
                     FactoryBlockPattern.start(BACK, UP, RIGHT)
