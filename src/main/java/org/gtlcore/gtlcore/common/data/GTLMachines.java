@@ -90,16 +90,16 @@ public class GTLMachines {
     public static void init() {
         MachineDefinition hpca_computation_component = GTResearchMachines.HPCA_COMPUTATION_COMPONENT;
         hpca_computation_component.setTooltipBuilder(hpca_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 8))));
-        hpca_computation_component.setTooltipBuilder(GTL_MODIFY);
+        hpca_computation_component.setTooltipBuilder(hpca_computation_component.getTooltipBuilder().andThen(GTL_MODIFY));
         MachineDefinition hpca_advanced_computation_component = GTResearchMachines.HPCA_ADVANCED_COMPUTATION_COMPONENT;
         hpca_advanced_computation_component.setTooltipBuilder(hpca_advanced_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 32))));
-        hpca_advanced_computation_component.setTooltipBuilder(GTL_MODIFY);
+        hpca_advanced_computation_component.setTooltipBuilder(hpca_advanced_computation_component.getTooltipBuilder().andThen(GTL_MODIFY));
         MachineDefinition electric_blast_furnace = GTMachines.ELECTRIC_BLAST_FURNACE;
         electric_blast_furnace.setTooltipBuilder(electric_blast_furnace.getTooltipBuilder().andThen((itemStack, components) -> {
             components.add(1, Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"));
             components.set(3, Component.translatable("gtceu.machine.perfect_oc"));
         }));
-        electric_blast_furnace.setTooltipBuilder(GTL_MODIFY);
+        electric_blast_furnace.setTooltipBuilder(electric_blast_furnace.getTooltipBuilder().andThen(GTL_MODIFY));
     }
 
     static {
@@ -751,7 +751,8 @@ public class GTLMachines {
             GTLCore.id("block/supercritical_turbine_casing"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
 
     public final static MultiblockMachineDefinition FISSION_REACTOR = REGISTRATE.multiblock("fission_reactor", FissionReactorMachine::new)
-            .rotationState(RotationState.ALL)
+            .rotationState(RotationState.NON_Y_AXIS)
+            .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.FISSION_REACTOR_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.fission_reactor.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.fission_reactor.tooltip.1"))
@@ -794,8 +795,8 @@ public class GTLMachines {
                                     .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1))
                                     .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1)))
                             .where("B", Predicates.blocks(CASING_LAMINATED_GLASS.get()).or(Predicates.blocks(getBlock("kubejs:fission_reactor_casing"))))
-                            .where("C", Predicates.air().or(GTLPredicates.countBlock("FuelAssembly", getBlock("gtlcore:fission_fuel_assembly")))
-                                    .or(GTLPredicates.countBlock("Cooler", getBlock("gtlcore:cooler"))))
+                            .where("C", Predicates.air().or(GTLPredicates.countBlock("FuelAssembly", GTLBlocks.FISSION_FUEL_ASSEMBLY.get()))
+                                    .or(GTLPredicates.countBlock("Cooler", GTLBlocks.COOLER.get())))
                             .build())
             .workableCasingRenderer(new ResourceLocation("kubejs:block/fission_reactor_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
@@ -1432,6 +1433,8 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.electric_furnace")))
             .tooltipBuilder(GTL_ADD)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXX", "CCC", "XXX")

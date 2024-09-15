@@ -15,6 +15,8 @@ public class RemoveRecipe {
 
     public static void init(Consumer<ResourceLocation>  consumer) {
         DISASSEMBLY_RECORD.clear();
+        consumer.accept(GTCEu.id("macerator/macerate_wheat"));
+        consumer.accept(GTCEu.id("autoclave/agar"));
         consumer.accept(GTCEu.id("assembly_line/dynamo_hatch_uhv"));
         consumer.accept(GTCEu.id("assembly_line/energy_hatch_uhv"));
         consumer.accept(GTCEu.id("research_station/1_x_gtceu_uv_energy_input_hatch"));
@@ -22,7 +24,6 @@ public class RemoveRecipe {
 
         Material[] fluidMap = new Material[] { GTMaterials.Glue, GTMaterials.Polyethylene,
                 GTMaterials.Polytetrafluoroethylene, GTMaterials.Polybenzimidazole };
-
 
         for (var machine : GTMachines.FLUID_IMPORT_HATCH) {
             if (machine == null) continue;
