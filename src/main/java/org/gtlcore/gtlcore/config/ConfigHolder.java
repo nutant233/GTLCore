@@ -43,4 +43,8 @@ public class ConfigHolder {
     @Configurable.Comment({"更大的数值会让界面显示有问题，推荐在样板管理终端管理"})
     @Configurable.Range(min = 36, max = 360)
     public int exPatternProvider = 36;
+    @Configurable
+    public String[] mobList1 = new String[] {"chicken", "rabbit", "sheep", "cow", "horse", "pig", "donkey", "skeleton_horse", "iron_golem", "wolf", "goat", "parrot", "camel", "cat", "fox", "llama", "panda", "polar_bear"};
+    @Configurable
+    public String[] mobList2 = new String[] {"ghast", "zombie", "pillager", "zombie_villager", "skeleton", "drowned", "witch", "spider", "creeper", "husk", "wither_skeleton", "blaze", "zombified_piglin", "slime", "vindicator", "enderman"};
 }
