@@ -26,6 +26,7 @@
     "extendedae.PartExPatternProviderMixin",
     "extendedae.TileExPatternProviderMixin",
     "gtm.FluidPipeTypeMixin",
+    "ldlib.ModularUIRecipeCategoryMixin",
     "gtm.OverclockingLogicMixin",
     "gtm.RockBreakerConditionMixin",
     "gtm.TagPrefixItemMixin",
