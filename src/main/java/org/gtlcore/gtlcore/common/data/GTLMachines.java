@@ -20,6 +20,7 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.client.renderer.machine.FusionReactorRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
+import com.gregtechceu.gtceu.client.util.TooltipHelper;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.FusionReactorMachine;
@@ -33,6 +34,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -58,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
@@ -76,16 +79,27 @@ import static org.gtlcore.gtlcore.utils.Registries.getFluid;
 
 public class GTLMachines {
 
+    public static final BiConsumer<ItemStack, List<Component>> GTL_MODIFY = (stack, components) -> components
+            .add(Component.translatable("gtlcore.registry.modify")
+                    .withStyle(style -> style.withColor(TooltipHelper.RAINBOW.getCurrent())));
+
+    public static final BiConsumer<ItemStack, List<Component>> GTL_ADD = (stack, components) -> components
+            .add(Component.translatable("gtlcore.registry.add")
+                    .withStyle(style -> style.withColor(TooltipHelper.RAINBOW_SLOW.getCurrent())));
+
     public static void init() {
         MachineDefinition hpca_computation_component = GTResearchMachines.HPCA_COMPUTATION_COMPONENT;
         hpca_computation_component.setTooltipBuilder(hpca_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 8))));
+        hpca_computation_component.setTooltipBuilder(GTL_MODIFY);
         MachineDefinition hpca_advanced_computation_component = GTResearchMachines.HPCA_ADVANCED_COMPUTATION_COMPONENT;
         hpca_advanced_computation_component.setTooltipBuilder(hpca_advanced_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 32))));
+        hpca_advanced_computation_component.setTooltipBuilder(GTL_MODIFY);
         MachineDefinition electric_blast_furnace = GTMachines.ELECTRIC_BLAST_FURNACE;
         electric_blast_furnace.setTooltipBuilder(electric_blast_furnace.getTooltipBuilder().andThen((itemStack, components) -> {
             components.add(1, Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"));
             components.set(3, Component.translatable("gtceu.machine.perfect_oc"));
         }));
+        electric_blast_furnace.setTooltipBuilder(GTL_MODIFY);
     }
 
     static {
@@ -153,6 +167,7 @@ public class GTLMachines {
                             FormattingUtil.formatNumbers(GTValues.V[tier - 1]), GTValues.VNF[tier - 1]))
                     .tooltips(Component.translatable("gtceu.universal.tooltip.energy_storage_capacity",
                             FormattingUtil.formatNumbers((long) (48828 * Math.pow(4, tier)))))
+                    .tooltipBuilder(GTL_ADD)
                     .register(),
             EV, IV, LuV);
 
@@ -170,6 +185,7 @@ public class GTLMachines {
                             FormattingUtil.formatNumbers(GTValues.V[tier]), GTValues.VNF[tier]))
                     .tooltips(Component.translatable("gtceu.universal.tooltip.energy_storage_capacity",
                             FormattingUtil.formatNumbers(GTValues.V[tier] * 512L)))
+                    .tooltipBuilder(GTL_ADD)
                     .register(),
             ULV, LV);
 
@@ -185,7 +201,8 @@ public class GTLMachines {
                             .compassNode("fluid_hatch")
                             .tooltips(Component.translatable("gtceu.machine." + tooltip + ".tooltip"));
                     builder.tooltips(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity_mult",
-                            tier, FormattingUtil.formatNumbers(Integer.MAX_VALUE)));
+                            tier, FormattingUtil.formatNumbers(Integer.MAX_VALUE)))
+                            .tooltipBuilder(GTL_ADD);
                     return builder.register();
                 },
                 GTValues.tiersBetween(LV, OpV));
@@ -203,6 +220,7 @@ public class GTLMachines {
                     Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
                             8192 * FluidHelper.getBucket()),
                     Component.translatable("gtceu.machine.steam.steam_hatch.tooltip"))
+            .tooltipBuilder(GTL_ADD)
             .compassSections(GTCompassSections.STEAM)
             .compassNode("steam_hatch")
             .register();
@@ -221,6 +239,7 @@ public class GTLMachines {
                             Component.translatable(type.getTranslationKey()).getString())));
                 }
             })
+            .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(7,
                     GTCEu.id("block/machine/part/maintenance.sterile_cleaning")))
             .compassNodeSelf()
@@ -240,6 +259,7 @@ public class GTLMachines {
                             Component.translatable(type.getTranslationKey()).getString())));
                 }
             })
+            .tooltipBuilder(GTL_ADD)
             .renderer(
                     () -> new MaintenanceHatchPartRenderer(10, GTCEu.id("block/machine/part/maintenance.law_cleaning")))
             .compassNodeSelf()
@@ -250,6 +270,7 @@ public class GTLMachines {
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.MAINTENANCE)
             .tooltips(Component.translatable("gtceu.universal.disabled"))
+            .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(5, GTCEu.id("block/machine/part/maintenance.full_auto")))
             .compassNodeSelf()
             .register();
@@ -269,6 +290,7 @@ public class GTLMachines {
                             Component.translatable(type.getTranslationKey()).getString())));
                 }
             })
+            .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(5, GTCEu.id("block/machine/part/maintenance.cleaning")))
             .compassNodeSelf()
             .register();
@@ -288,6 +310,7 @@ public class GTLMachines {
                             Component.translatable(type.getTranslationKey()).getString())));
                 }
             })
+            .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(9,
                     GTCEu.id("block/machine/part/maintenance.sterile_cleaning")))
             .compassNodeSelf()
@@ -308,6 +331,7 @@ public class GTLMachines {
                             Component.translatable(type.getTranslationKey()).getString())));
                 }
             })
+            .tooltipBuilder(GTL_ADD)
             .renderer(
                     () -> new MaintenanceHatchPartRenderer(12, GTCEu.id("block/machine/part/maintenance.law_cleaning")))
             .compassNodeSelf()
@@ -318,6 +342,7 @@ public class GTLMachines {
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.MAINTENANCE)
             .tooltips(Component.translatable("gtceu.universal.disabled"))
+            .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(8, GTCEu.id("block/machine/part/maintenance.full_auto")))
             .compassNodeSelf()
             .register();
@@ -372,6 +397,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.electric_implosion_compressor")))
+            .tooltipBuilder(GTL_ADD)
             .rotationState(RotationState.ALL)
             .recipeType(ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES)
             .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH,
@@ -411,6 +437,7 @@ public class GTLMachines {
                             Component.translatable("gtceu.machine.neutron_accelerator.tooltip.0", V[tier] * 8 / 10),
                             Component.translatable("gtceu.machine.neutron_accelerator.tooltip.1"),
                             Component.translatable("gtceu.universal.tooltip.energy_storage_capacity", 2 * V[tier]))
+                    .tooltipBuilder(GTL_ADD)
                     .overlayTieredHullRenderer("neutron_accelerator")
                     .compassNode("neutron_accelerator")
                     .register(),
@@ -422,6 +449,7 @@ public class GTLMachines {
             .tier(GTValues.IV)
             .rotationState(RotationState.ALL)
             .tooltips(Component.translatable("gtceu.machine.neutron_sensor.tooltip.0"))
+            .tooltipBuilder(GTL_ADD)
             .overlayTieredHullRenderer("neutron_sensor")
             .register();
 
@@ -436,6 +464,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.neutron_activator")))
+            .tooltipBuilder(GTL_ADD)
             .recipeTypes(NEUTRON_ACTIVATOR_RECIPES)
             .recipeModifiers(((machine, recipe, params, result) -> NeutronActivatorMachine.recipeModifier(machine, recipe)))
             .appearanceBlock(CASING_STAINLESS_CLEAN)
@@ -474,6 +503,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.heat_exchanger.tooltip.1"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.heat_exchanger")))
+            .tooltipBuilder(GTL_ADD)
             .rotationState(RotationState.ALL)
             .recipeType(HEAT_EXCHANGER_RECIPES)
             .recipeModifiers((machine, recipe, params, result) -> HeatExchangerMachine.recipeModifier(machine, recipe))
@@ -509,6 +539,7 @@ public class GTLMachines {
                     .langValue("Primitive Void Ore")
                     .tooltips(Component.literal("运行时根据维度每tick随机产出一组任意粗矿"))
                     .tooltips(Component.literal("支持主世界,下界,末地"))
+                    .tooltipBuilder(GTL_ADD)
                     .rotationState(RotationState.ALL)
                     .recipeType(PRIMITIVE_VOID_ORE_RECIPES)
                     .appearanceBlock(() -> Blocks.DIRT)
@@ -543,6 +574,7 @@ public class GTLMachines {
                             Component.translatable("gtceu.machine.fluid_drilling_rig.production",
                                     INFFluidDrillMachine.getRigMultiplier(tier),
                                     FormattingUtil.formatNumbers(INFFluidDrillMachine.getRigMultiplier(tier) * 1.5)))
+                    .tooltipBuilder(GTL_ADD)
                     .appearanceBlock(() -> INFFluidDrillMachine.getCasingState(tier))
                     .pattern((definition) -> FactoryBlockPattern.start()
                             .aisle("XXX", "#F#", "#F#", "#F#", "###", "###", "###")
@@ -584,6 +616,8 @@ public class GTLMachines {
                             "提供§f120mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
                     Component.literal(
                             "再额外提供§f80mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
+            .tooltipBuilder(GTL_ADD)
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
@@ -629,6 +663,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.assembly_line")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier(AdvancedAssemblyLineMachine::recipeModifier)
             .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
             .pattern(definition ->
@@ -665,6 +700,7 @@ public class GTLMachines {
                 .tooltips(Component.literal("可使用变电动力仓"))
                 .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", FormattingUtil.formatNumbers(GTValues.V[tier] * value)))
                 .tooltips(Component.translatable("gtceu.multiblock.turbine.efficiency_tooltip", GTValues.VNF[tier]))
+                .tooltipBuilder(GTL_ADD)
                 .recipeModifier(MegaTurbineMachine::recipeModifier)
                 .appearanceBlock(casing)
                 .pattern(definition -> FactoryBlockPattern.start()
@@ -735,6 +771,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.fission_reactor.tooltip.15"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.fission_reactor")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier((machine, recipe, params, result) -> FissionReactorMachine.recipeModifier(machine, recipe))
             .appearanceBlock(() -> getBlock("kubejs:fission_reactor_casing"))
             .pattern((definition) ->
@@ -770,6 +807,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.stellar_forge")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(GCyMBlocks.CASING_ATOMIC)
             .pattern(definition -> FactoryBlockPattern.start()
@@ -809,6 +847,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.space_elevator.tooltip.2"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.space_elevator")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 4, false)))
             .appearanceBlock(() -> getBlock("kubejs:space_elevator_mechanical_casing"))
             .pattern(definition ->
@@ -876,6 +915,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.component_assembly_line")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(() -> getBlock("kubejs:iridium_casing"))
             .pattern((definition) ->
@@ -955,6 +995,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.slaughterhouse.tooltip.5"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.slaughterhouse")))
+            .tooltipBuilder(GTL_ADD)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("AAAAAAA", "AAAAAAA", "ABBBBBA", "ABBBBBA", "ABBBBBA", "ABBBBBA", "ABBBBBA", "ABBBBBA", "ABBBBBA", "AAAAAAA")
                     .aisle("AAAAAAA", "ACCCCCA", "BDDDDDB", "BDDDDDB", "BDDDDDB", "BDDDDDB", "BDDDDDB", "BDDDDDB", "BEEEEEB", "AAAAAAA")
@@ -991,6 +1032,7 @@ public class GTLMachines {
                             Component.translatable("gtceu.machine.fusion_reactor.overclocking"),
                             Component.translatable("gtceu.multiblock.%s_fusion_reactor.description"
                                     .formatted(VN[tier].toLowerCase(Locale.ROOT))))
+                    .tooltipBuilder(GTL_ADD)
                     .appearanceBlock(() -> GTLFusionCasingBlock.getCasingState(tier))
                     .pattern((definition) -> {
                         var casing = blocks(GTLFusionCasingBlock.getCasingState(tier));
@@ -1090,6 +1132,7 @@ public class GTLMachines {
                             Component.translatable("gtceu.machine.fusion_reactor.overclocking"))
                     .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
                     .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
+                    .tooltipBuilder(GTL_ADD)
                     .appearanceBlock(() -> GTLFusionCasingBlock.getCasingState(tier))
                     .pattern((definition) -> {
                         var casing = blocks(GTLFusionCasingBlock.getCasingState(tier));
@@ -1167,6 +1210,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.integrated_ore_processor")))
+            .tooltipBuilder(GTL_ADD)
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
             .pattern((definition) ->
                     FactoryBlockPattern.start()
@@ -1234,6 +1278,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.super_computation.tooltip.5"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.super_computation")))
+            .tooltipBuilder(GTL_ADD)
             .appearanceBlock(GTBlocks.COMPUTER_CASING)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .pattern((definition) ->
@@ -1276,6 +1321,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.create_computation.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.super_computation")))
+            .tooltipBuilder(GTL_ADD)
             .appearanceBlock(GTBlocks.ADVANCED_COMPUTER_CASING)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .pattern((definition) -> FactoryBlockPattern.start()
@@ -1302,6 +1348,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.large_boiler.heat_time_tooltip", 4096000 / 32 / 20))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                       Component.translatable("gtceu.large_boiler")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier(LargeBoilerMachine::recipeModifier)
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
         .pattern(definition ->
@@ -1325,6 +1372,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.machine.dimensionally_transcendent_dirt_forge.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("compass.node.gtceu.steam/steam_furnace")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe, 0.01, 1), (machine, recipe, params, result) -> LargeSteamParallelMultiblockMachine.recipeModifier(machine, recipe, 0))
             .appearanceBlock(GTBlocks.CASING_COKE_BRICKS)
             .pattern(definition ->
@@ -1358,6 +1406,7 @@ public class GTLMachines {
                     Component.translatable("gtceu.semi_fluid_generator"),
                     Component.translatable("gtceu.rocket_engine"),
                     Component.translatable("gtceu.naquadah_reactor")))
+            .tooltipBuilder(GTL_ADD)
             .recipeModifier(GeneratorArrayMachine::recipeModifier, true)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXX", "CCC", "XXX")
@@ -1383,6 +1432,7 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
+            .tooltipBuilder(GTL_ADD)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXX", "CCC", "XXX")
                     .aisle("XXX", "C#C", "XMX")

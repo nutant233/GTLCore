@@ -62,6 +62,8 @@
     "config.gtlcore.option.spacetimePip": "时空管道流量",
     "gtlcore.condition.gravity": "需要强重力环境",
     "gtlcore.condition.zero_gravity": "需要无重力环境",
+    "gtlcore.registry.add": "由GregTech Leisure添加",
+    "gtlcore.registry.modify": "由GregTech Leisure修改",
     "item.gtlcore.cell_component_16m": "16M 存储组件",
     "item.gtlcore.cell_component_1m": "1M 存储组件",
     "item.gtlcore.cell_component_256m": "256M 存储组件",
