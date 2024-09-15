@@ -1,6 +1,10 @@
 {
   "$schema": "../../schema.json",
   "widgets": {
+    "processingCycleOutput": {
+      "left": 127,
+      "bottom": 163
+    },
     "modify1": {
       "left": 127,
       "bottom": 152
