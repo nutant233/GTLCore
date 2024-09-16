@@ -33,6 +33,7 @@
     "gtm.cover.ConveyorCoverMixin",
     "gtm.cover.InfiniteWaterCoverMixin",
     "gtm.cover.PumpCoverMixin",
+    "gtm.gui.AEFluidConfigSlotWidgetMixin",
     "gtm.gui.ProspectingMapWidgetMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
