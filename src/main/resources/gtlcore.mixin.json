@@ -6,7 +6,8 @@
   "client": [
     "ae2.client.BuiltInModelHooksAccessor",
     "ae2.client.ModelBakeryMixin",
-    "gtm.TagPrefixItemRendererMixin"
+    "gtm.TagPrefixItemRendererMixin",
+    "gtm.gui.ProspectingTextureMixin"
   ],
   "mixins": [
     "adastra.ModUtilsMixin",
@@ -26,13 +27,13 @@
     "extendedae.PartExPatternProviderMixin",
     "extendedae.TileExPatternProviderMixin",
     "gtm.FluidPipeTypeMixin",
-    "ldlib.ModularUIRecipeCategoryMixin",
     "gtm.OverclockingLogicMixin",
     "gtm.RockBreakerConditionMixin",
     "gtm.TagPrefixItemMixin",
     "gtm.cover.ConveyorCoverMixin",
     "gtm.cover.InfiniteWaterCoverMixin",
     "gtm.cover.PumpCoverMixin",
+    "gtm.gui.ProspectingMapWidgetMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
     "gtm.machine.FluidHatchPartMachineMixin",
@@ -53,6 +54,7 @@
     "gtm.registry.GTRecipeBuilderMixin",
     "gtm.registry.GTRecipeTypeMixin",
     "gtmt.WirelessEnergyReceiveCoverMixin",
+    "ldlib.ModularUIRecipeCategoryMixin",
     "travelanchors.EventListenerMixin"
   ],
   "injectors": {
