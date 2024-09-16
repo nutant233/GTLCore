@@ -28,6 +28,7 @@ import com.gregtechceu.gtceu.common.machine.multiblock.steam.LargeBoilerMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.hepdd.gtmthings.common.registry.GTMTRegistration;
 import com.hepdd.gtmthings.data.CreativeModeTabs;
+import com.hepdd.gtmthings.data.CustomMachines;
 import com.hepdd.gtmthings.data.WirelessMachines;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
@@ -688,13 +689,13 @@ public class GTLMachines {
                             .where("O", Predicates.abilities(PartAbility.EXPORT_ITEMS).addTooltips(Component.translatable("gtceu.multiblock.pattern.location_end")))
                             .where("Y", Predicates.blocks(GTBlocks.CASING_STEEL_SOLID.get())
                                     .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2)))
-                            .where("I", Predicates.blocks(ITEM_IMPORT_BUS[0].get()).or(Predicates.blocks(getBlock("gtmthings:ulv_huge_item_import_bus"))))
+                            .where("I", Predicates.blocks(ITEM_IMPORT_BUS[0].get()).or(Predicates.blocks(CustomMachines.HUGE_ITEM_IMPORT_BUS[0].get())))
                             .where("G", Predicates.blocks(CASING_GRATE.get()))
                             .where("D", Predicates.blocks(CASING_GRATE.get())
                                     .or(Predicates.abilities(PartAbility.OPTICAL_DATA_RECEPTION).setExactLimit(1)))
                             .where("A", Predicates.blocks(CASING_ASSEMBLY_CONTROL.get()))
-                            .where("R", Predicates.blocks(CASING_ASSEMBLY_LINE.get()))
-                            .where("T", GTLPredicates.countBlock("Unit", getBlock("kubejs:advanced_assembly_line_unit")))
+                            .where("R", Predicates.blocks(CASING_LAMINATED_GLASS.get()))
+                            .where("T", GTLPredicates.countBlock("Unit", GTLBlocks.ADVANCED_ASSEMBLY_LINE_UNIT.get()))
                             .where("#", Predicates.any())
                             .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/assembly_line"))
@@ -904,7 +905,7 @@ public class GTLMachines {
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setExactLimit(1))
                                     .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                            .where("E", Predicates.blocks(getBlock("kubejs:space_elevator_support")))
+                            .where("E", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_SUPPORT.get()))
                             .where("H", Predicates.blocks(GTBlocks.MATERIAL_BLOCKS.get(TagPrefix.frameGt, GTMaterials.Neutronium).get()))
                             .where("F", Predicates.blocks(getBlock("kubejs:space_elevator_internal_support")))
                             .where("C", GTLPredicates.tierActiveCasings(GTLBlocks.sepmmap, "SEPMTier"))
