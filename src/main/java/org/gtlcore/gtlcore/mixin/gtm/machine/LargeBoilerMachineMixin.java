@@ -13,10 +13,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LargeBoilerMachine.class)
 public class LargeBoilerMachineMixin {
 
-    @Inject(method = "recipeModifier", at = @At("RETURN"), remap = false, cancellable = true)
+    @Inject(method = "recipeModifier", at = @At("HEAD"), remap = false, cancellable = true)
     private static void recipeModifier(MetaMachine machine, GTRecipe recipe, OCParams params, OCResult result, CallbackInfoReturnable<GTRecipe> cir) {
-        GTRecipe recipe1 = cir.getReturnValue();
-        recipe1.duration = recipe1.duration * 6400 / ((LargeBoilerMachine) machine).maxTemperature;
-        cir.setReturnValue(recipe1);
+        if (machine instanceof LargeBoilerMachine largeBoilerMachine) {
+            GTRecipe recipe1 = recipe.copy();
+            recipe1.duration = recipe.duration * 6400 / largeBoilerMachine.maxTemperature;
+            if (largeBoilerMachine.getThrottle() < 100) {
+                recipe1.duration = recipe1.duration * 100 / largeBoilerMachine.getThrottle();
+                cir.setReturnValue(recipe1);
+            }
+            cir.setReturnValue(recipe1);
+        }
     }
 }

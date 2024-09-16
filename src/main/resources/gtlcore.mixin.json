@@ -26,7 +26,6 @@
     "extendedae.PartExPatternProviderMixin",
     "extendedae.TileExPatternProviderMixin",
     "gtm.FluidPipeTypeMixin",
-    "ldlib.ModularUIRecipeCategoryMixin",
     "gtm.OverclockingLogicMixin",
     "gtm.RockBreakerConditionMixin",
     "gtm.TagPrefixItemMixin",
@@ -40,7 +39,10 @@
     "gtm.machine.ItemBusPartMachineMixin",
     "gtm.machine.LargeBoilerMachineMixin",
     "gtm.machine.ParallelHatchPartMachineMixin",
+    "gtm.machine.SimpleGeneratorMachineMixin",
     "gtm.machine.SimpleTieredMachineMixin",
+    "gtm.machine.SteamItemBusPartMachineMixin",
+    "gtm.machine.SteamParallelMultiblockMachineMixin",
     "gtm.machine.WorkableTieredMachineMixin",
     "gtm.recipe.CraftingComponentMixin",
     "gtm.recipe.GCyMRecipesMixin",
@@ -53,6 +55,7 @@
     "gtm.registry.GTRecipeBuilderMixin",
     "gtm.registry.GTRecipeTypeMixin",
     "gtmt.WirelessEnergyReceiveCoverMixin",
+    "ldlib.ModularUIRecipeCategoryMixin",
     "travelanchors.EventListenerMixin"
   ],
   "injectors": {

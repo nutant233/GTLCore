@@ -105,15 +105,15 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
                 var parallelResult = GTRecipeModifiers.fastParallel(engineMachine, recipe, maxParallel, false);
                 if (engineMachine.isOxygenBoosted && engineMachine.isDinitrogenTetroxideBoosted) {
                     long eut = EUt * parallelResult.getSecond() * 4;
-                    result.init(-eut, recipe.duration, 1, params.getOcAmount());
+                    result.setEut(-eut);
                 } else if (engineMachine.isOxygenBoosted) {
                     long eut = EUt * parallelResult.getSecond() * 2;
-                    result.init(-eut, recipe.duration, 1, params.getOcAmount());
+                    result.setEut(-eut);
                 } else {
                     long eut = EUt * parallelResult.getSecond();
-                    result.init(-eut, recipe.duration, 1, params.getOcAmount());
+                    result.setEut(-eut);
                 }
-                return recipe;
+                return parallelResult.getFirst();
             }
         }
         return null;
