@@ -62,7 +62,7 @@ public class PatternTestBehavior implements IItemUIFactory {
     public ModularUI createUI(HeldItemUIFactory.HeldItemHolder heldItemHolder, Player player) {
         var containerPatternAnalysis=new WidgetGroup(8,8,160,50)
                 .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(6, 6, "AE样板冲突分析"))
+                .addWidget(new LabelWidget(6, 6, "配方冲突分析"))
                 .addWidget(new AETextInputButtonWidget(82, 6, 72, 12)
                         .setText(ConflictAnalysisType)
                         .setOnConfirm(this::setConflictAnalysisType)
@@ -79,7 +79,7 @@ public class PatternTestBehavior implements IItemUIFactory {
 
         var containerPatternGenerator = new WidgetGroup(8, 58, 160, 50)
                 .addWidget(new ImageWidget(4, 4, 152, 42, GuiTextures.DISPLAY))
-                .addWidget(new LabelWidget(6, 6, "AE样板生成器 过滤器取交集"))
+                .addWidget(new LabelWidget(6, 6, "样板调试"))
                 .addWidget(new ButtonWidget(6, 24, 64, 20,
                         new GuiTextureGroup(GuiTextures.BUTTON, new TextTexture("获取样板")),
                         clickData -> useAe2PatternGenerator(heldItemHolder))
@@ -135,7 +135,7 @@ public class PatternTestBehavior implements IItemUIFactory {
                 case "xinxinsuried", "Dev" -> true;
                 default -> false;
             /*
-                允许我使用，因为我管得好自己，但禁止别人非正常游戏使用
+                仅测试使用，有多次崩档记录，慎用
              */
             };
 
