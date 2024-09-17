@@ -136,10 +136,12 @@ dependencies {
     modImplementation("org.moddingx:LibX:1.20.1-5.0.1")
     modImplementation("dev:TravelAnchors-1.20.1-5.0.1")
 
+
     // ftb-chunk
     modImplementation("dev.ftb.mods:ftb-chunks-forge:2001.3.1"){ transitive = false }
     modRuntimeOnly("dev.ftb.mods:ftb-library-forge:2001.2.4"){ transitive = false }
     modRuntimeOnly("dev.ftb.mods:ftb-teams-forge:2001.3.0"){ transitive = false }
+
 
     modRuntimeOnly("mezz.jei:jei-$project.minecraft_version-forge:$project.jei_version") { transitive = false }
 

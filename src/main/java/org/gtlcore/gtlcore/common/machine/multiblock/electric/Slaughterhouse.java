@@ -26,6 +26,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.util.FakePlayer;
+import org.gtlcore.gtlcore.config.ConfigHolder;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,8 +46,8 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
     private boolean isSpawn;
     @Persisted
     private final UUID uuid;
-    private final String[] mobList1 = new  String[] {"chicken", "rabbit", "sheep", "cow", "horse", "pig", "donkey", "skeleton_horse", "iron_golem", "wolf", "goat", "parrot", "camel", "cat", "fox", "llama", "panda", "polar_bear"};
-    private final String[] mobList2 = new  String[] {"ghast", "zombie", "pillager", "zombie_villager", "skeleton", "drowned", "witch", "spider", "creeper", "husk", "wither_skeleton", "blaze", "zombified_piglin", "slime", "vindicator", "enderman"};
+    private final String[] mobList1 = ConfigHolder.INSTANCE.mobList1;
+    private final String[] mobList2 = ConfigHolder.INSTANCE.mobList2;
 
     public Slaughterhouse(IMachineBlockEntity holder) {
         super(holder);

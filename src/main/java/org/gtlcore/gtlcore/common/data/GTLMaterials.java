@@ -5,13 +5,18 @@ import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.FluidProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.WireProperties;
+import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.FluidState;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+import com.lowdragmc.lowdraglib.Platform;
+import committee.nova.mods.avaritia.init.registry.ModBlocks;
+import committee.nova.mods.avaritia.init.registry.ModItems;
 import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
@@ -67,6 +72,7 @@ public class GTLMaterials {
     public static Material WaterAgarMix;
     public static Material TungstenTrioxide;
     public static Material SpaceTime;
+    public static Material Infinity;
 
     public static void init() {
         Duranium.addFlags(GENERATE_FRAME);
@@ -332,5 +338,20 @@ public class GTLMaterials {
                 .flags(GTLMaterialFlags.GENERATE_NANOSWARM, MaterialFlags.NO_UNIFICATION)
                 .cableProperties(GTValues.V[GTValues.MAX], 524288, 0, true)
                 .buildAndRegister();
+
+        Infinity = new Material.Builder(GTCEu.id("infinity"))
+                .ingot()
+                .liquid(new FluidBuilder().temperature(1000000).customStill().translation("fluid.kubejs.infinity"))
+                .blastTemp(32000, BlastProperty.GasTier.HIGHEST)
+                .element(GTLElements.INFINITY)
+                .iconSet(new MaterialIconSet("infinity"))
+                .flags(MaterialFlags.GENERATE_FRAME)
+                .cableProperties(GTValues.V[GTValues.MAX], 8192, 0, true)
+                .buildAndRegister();
+
+        if (!Platform.isDevEnv()) {
+            TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);
+            TagPrefix.block.setIgnored(Infinity, ModBlocks.infinity);
+        }
     }
 }

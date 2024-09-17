@@ -79,7 +79,12 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
     }
 
     protected NotifiableItemStackHandler createMachineStorage(Object... args) {
-        var storage = new NotifiableItemStackHandler(this, 1, IO.NONE, IO.NONE, slots -> new ItemStackTransfer(1));
+        var storage = new NotifiableItemStackHandler(this, 1, IO.NONE, IO.NONE, slots -> new ItemStackTransfer(1) {
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 16;
+            }});
         storage.setFilter(this::isMachineStack);
         return storage;
     }
@@ -213,6 +218,14 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
         return false;
     }
 
+    public static int getAmperage(int tier) {
+        return Math.max(1, 2 * (5 - tier));
+    }
+
+    public static int getEfficiency(int tier) {
+        return (105 - 5 * tier);
+    }
+
     @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                           @NotNull OCResult result) {
@@ -221,7 +234,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
             if (a > 0) {
                 long EUt = RecipeHelper.getOutputEUt(recipe);
                 if (EUt > 0) {
-                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 / EUt);
+                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 * getAmperage(generatorArrayMachine.getTier()) / EUt);
                     int multipliers = 0;
                     for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
                         if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
@@ -229,6 +242,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
                         }
                     }
                     GTRecipe paraRecipe = recipe.copy(ContentModifier.multiplier(multipliers), false);
+                    paraRecipe.duration = paraRecipe.duration * (105 - 5 * generatorArrayMachine.getTier()) / 100;
                     if (generatorArrayMachine.isw) {
                         generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
                         paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);
