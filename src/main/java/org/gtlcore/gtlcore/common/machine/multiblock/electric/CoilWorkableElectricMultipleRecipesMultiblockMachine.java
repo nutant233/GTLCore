@@ -11,7 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @Getter
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class CoilWorkableElectricMultipleRecipesMultiblockMachine extends WorkableElectricMultipleRecipesMachine{
+public class CoilWorkableElectricMultipleRecipesMultiblockMachine extends WorkableElectricMultipleRecipesMachine {
 
     public CoilWorkableElectricMultipleRecipesMultiblockMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, args);

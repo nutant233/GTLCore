@@ -37,10 +37,10 @@ import java.util.UUID;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class Slaughterhouse extends WorkableElectricMultiblockMachine {
+public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            Slaughterhouse.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
+            SlaughterhouseMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     @Persisted
     private boolean isSpawn;
@@ -49,7 +49,7 @@ public class Slaughterhouse extends WorkableElectricMultiblockMachine {
     private final String[] mobList1 = ConfigHolder.INSTANCE.mobList1;
     private final String[] mobList2 = ConfigHolder.INSTANCE.mobList2;
 
-    public Slaughterhouse(IMachineBlockEntity holder) {
+    public SlaughterhouseMachine(IMachineBlockEntity holder) {
         super(holder);
         this.uuid = UUID.randomUUID();
     }

@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-public class SpaceElevator extends TierCasingMachine {
+public class SpaceElevatorMachine extends TierCasingMachine {
 
-    public SpaceElevator(IMachineBlockEntity holder) {
+    public SpaceElevatorMachine(IMachineBlockEntity holder) {
         super(holder, "SEPMTier");
     }
 

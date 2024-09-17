@@ -21,6 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
+import org.gtlcore.gtlcore.common.data.machines.KJSAdvancedMachine;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -232,6 +233,10 @@ public class MachineRecipe {
                 GTMachines.QUANTUM_CHEST[OpV].asStack(), "CPC", "PHP", "CFC", 'C', CustomTags.OpV_CIRCUITS, 'P',
                 new UnificationEntry(TagPrefix.plate, getMaterial("draconium")), 'F',
                 GTItems.FIELD_GENERATOR_UIV.asStack(), 'H', GTMachines.HULL[13].asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "large_block_conversion_room",
+                KJSAdvancedMachine.LARGE_BLOCK_CONVERSION_ROOM.asStack(), "SES", "EHE", "SES",
+                'S', GTItems.SENSOR_ZPM.asStack(), 'E', GTItems.EMITTER_ZPM.asStack(), 'H', KJSAdvancedMachine.BLOCK_CONVERSION_ROOM.asStack());
 
         List<ItemEntry<ComponentItem>> WIRELESS_ENERGY_RECEIVE_COVER = List.of(
                 CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_LV,
