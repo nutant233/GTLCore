@@ -36,8 +36,8 @@ public abstract class ModularUIRecipeCategoryMixin<T extends ModularWrapper<?>> 
     }
 
     /**
-     * @author easterfg
-     * @reason 修复多方快结构无法写入样板的问题
+     * @author liansishen
+     * @reason 修复多方快结构无法写入样板的问题, 参见
      */
     @SuppressWarnings("all")
     @Overwrite(remap = false)
@@ -52,12 +52,15 @@ public abstract class ModularUIRecipeCategoryMixin<T extends ModularWrapper<?>> 
                     if (role == null) {
                         builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addIngredientsUnsafe(slot.getXEIIngredients());
                         builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addIngredientsUnsafe(slot.getXEIIngredients());
-                        // 将相对坐标绘制到屏幕外, 待修改
-                        addJEISlot(builder, slot, RecipeIngredientRole.INPUT, -100000, -100000);
-                        addJEISlot(builder, slot, RecipeIngredientRole.OUTPUT, -10000, -10000);
+                        // draw in an empty widget
+                        builder.addSlotToWidget(RecipeIngredientRole.INPUT, (builder1, recipe, slots) -> {
+                        }).addIngredientsUnsafe(slot.getXEIIngredients());
+                        builder.addSlotToWidget(RecipeIngredientRole.OUTPUT, (builder1, recipe, slots) -> {
+                        }).addIngredientsUnsafe(slot.getXEIIngredients());
                     } else {
                         builder.addInvisibleIngredients(role).addIngredientsUnsafe(slot.getXEIIngredients());
-                        addJEISlot(builder, slot, role, -100000, -100000);
+                        builder.addSlotToWidget(RecipeIngredientRole.INPUT, (builder1, recipe, slots) -> {
+                        }).addIngredientsUnsafe(slot.getXEIIngredients());
                     }
                     continue;
                 }

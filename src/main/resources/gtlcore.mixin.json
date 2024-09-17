@@ -6,7 +6,8 @@
   "client": [
     "ae2.client.BuiltInModelHooksAccessor",
     "ae2.client.ModelBakeryMixin",
-    "gtm.TagPrefixItemRendererMixin"
+    "gtm.TagPrefixItemRendererMixin",
+    "gtm.gui.ProspectingTextureMixin"
   ],
   "mixins": [
     "adastra.ModUtilsMixin",
@@ -32,6 +33,9 @@
     "gtm.cover.ConveyorCoverMixin",
     "gtm.cover.InfiniteWaterCoverMixin",
     "gtm.cover.PumpCoverMixin",
+    "gtm.gui.AEFluidConfigSlotWidgetMixin",
+    "gtm.gui.AEItemConfigSlotWidgetMixin",
+    "gtm.gui.ProspectingMapWidgetMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
     "gtm.machine.FluidHatchPartMachineMixin",
