@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.data.recipe;
 
-import com.gregtechceu.gtceu.api.data.chemical.material.MarkerMaterials;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
@@ -52,21 +51,23 @@ public class Misc {
                 .cleanroom(CleanroomType.STERILE_CLEANROOM)
                 .save(provider);
 
-        LASER_ENGRAVER_RECIPES.recipeBuilder("crystal_cpu")
-                .inputItems(ENGRAVED_CRYSTAL_CHIP)
-                .notConsumable(lens, MarkerMaterials.Color.Lime)
-                .outputItems(CRYSTAL_CENTRAL_PROCESSING_UNIT)
-                .cleanroom(CleanroomType.CLEANROOM)
-                .duration(100).EUt(10000)
+        BLAST_RECIPES.recipeBuilder("engraved_crystal_chip_from_emerald")
+                .inputItems(plate, Emerald)
+                .inputItems(RAW_CRYSTAL_CHIP)
+                .inputFluids(Helium.getFluid(1000))
+                .outputItems(ENGRAVED_CRYSTAL_CHIP)
+                .blastFurnaceTemp(5000)
+                .duration(900).EUt(VA[HV])
                 .addCondition(new GravityCondition(true))
                 .save(provider);
 
-        LASER_ENGRAVER_RECIPES.recipeBuilder("crystal_soc")
-                .inputItems(CRYSTAL_CENTRAL_PROCESSING_UNIT)
-                .notConsumable(lens, MarkerMaterials.Color.Blue)
-                .outputItems(CRYSTAL_SYSTEM_ON_CHIP)
-                .cleanroom(CleanroomType.CLEANROOM)
-                .duration(100).EUt(40000)
+        BLAST_RECIPES.recipeBuilder("engraved_crystal_chip_from_olivine")
+                .inputItems(plate, Olivine)
+                .inputItems(RAW_CRYSTAL_CHIP)
+                .inputFluids(Helium.getFluid(1000))
+                .outputItems(ENGRAVED_CRYSTAL_CHIP)
+                .blastFurnaceTemp(5000)
+                .duration(900).EUt(VA[HV])
                 .addCondition(new GravityCondition(true))
                 .save(provider);
 

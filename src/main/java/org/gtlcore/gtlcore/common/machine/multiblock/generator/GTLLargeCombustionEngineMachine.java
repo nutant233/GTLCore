@@ -33,29 +33,36 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+/**
+ * @author KilaBash
+ * @date 2023/7/9
+ * @implNote GTLLargeCombustionEngineMachine
+ */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
+public class GTLLargeCombustionEngineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
 
-    private static final FluidStack DINITROGEN_TETROXIDE_STACK = GTMaterials.DinitrogenTetroxide.getFluid(80);
-    private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID, 120);
-    private static final FluidStack LUBRICANT_STACK = GTMaterials.Lubricant.getFluid(2);
+    private static final FluidStack OXYGEN_STACK = GTMaterials.Oxygen.getFluid(20);
+    private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID, 80);
+    private static final FluidStack LUBRICANT_STACK = GTMaterials.Lubricant.getFluid(1);
 
     @Getter
-    private final int tier = 5;
+    private final int tier;
+    // runtime
     private boolean isOxygenBoosted = false;
-    private boolean isDinitrogenTetroxideBoosted = false;
 
-    public ChemicalEnergyDevourerMachine(IMachineBlockEntity holder) {
+    public GTLLargeCombustionEngineMachine(IMachineBlockEntity holder, int tier) {
         super(holder);
+        this.tier = tier;
     }
 
     private boolean isIntakesObstructed() {
         var facing = this.getFrontFacing();
         boolean permuteXZ = facing.getAxis() == Direction.Axis.Z;
         var centerPos = this.getPos().relative(facing);
-        for (int x = -3; x < 4; x++) {
-            for (int y = -3; y < 4; y++) {
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                // Skip the controller block itself
                 if (x == 0 && y == 0)
                     continue;
                 var blockPos = centerPos.offset(permuteXZ ? x : 0, y, permuteXZ ? 0 : x);
@@ -67,8 +74,12 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
         return false;
     }
 
+    private boolean isExtreme() {
+        return getTier() > GTValues.EV;
+    }
+
     public boolean isBoostAllowed() {
-        return getMaxVoltage() >= GTValues.V[getTier() + 3];
+        return getMaxVoltage() >= GTValues.V[getTier() + 1];
     }
 
     //////////////////////////////////////
@@ -77,12 +88,10 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
 
     @Override
     public long getOverclockVoltage() {
-        if (isOxygenBoosted && isDinitrogenTetroxideBoosted)
-            return GTValues.V[tier] * 128;
-        else if (isOxygenBoosted)
-            return GTValues.V[tier] * 64;
+        if (isOxygenBoosted)
+            return GTValues.V[tier] * 8;
         else
-            return GTValues.V[tier] * 32;
+            return GTValues.V[tier] * 4;
     }
 
     protected GTRecipe getLubricantRecipe() {
@@ -90,36 +99,24 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
     }
 
     protected GTRecipe getBoostRecipe() {
-        return GTRecipeBuilder.ofRaw().inputFluids(LIQUID_OXYGEN_STACK).buildRawRecipe();
-    }
-
-    protected GTRecipe getBoostRecipea() {
-        return GTRecipeBuilder.ofRaw().inputFluids(DINITROGEN_TETROXIDE_STACK).buildRawRecipe();
+        return GTRecipeBuilder.ofRaw().inputFluids(isExtreme() ? LIQUID_OXYGEN_STACK : OXYGEN_STACK).buildRawRecipe();
     }
 
     @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                           @NotNull OCResult result) {
-        if (machine instanceof ChemicalEnergyDevourerMachine engineMachine) {
+        if (machine instanceof GTLLargeCombustionEngineMachine engineMachine) {
             var EUt = RecipeHelper.getOutputEUt(recipe);
             if (EUt > 0 && engineMachine.getLubricantRecipe().matchRecipe(engineMachine).isSuccess() &&
                     !engineMachine.isIntakesObstructed()) {
                 var maxParallel = (int) (engineMachine.getOverclockVoltage() / EUt);
-                var parallelResult = GTRecipeModifiers.fastParallel(engineMachine, recipe, maxParallel, false);
-                if (engineMachine.isOxygenBoosted && engineMachine.isDinitrogenTetroxideBoosted) {
-                    recipe = parallelResult.getFirst() == recipe ? recipe.copy() : parallelResult.getFirst();
-                    long eut = EUt * parallelResult.getSecond() * 4;
-                    recipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut,
-                            ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
-                } else if (engineMachine.isOxygenBoosted) {
-                    recipe = parallelResult.getFirst() == recipe ? recipe.copy() : parallelResult.getFirst();
-                    long eut = EUt * parallelResult.getSecond() * 2;
-                    recipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut,
-                            ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
-                } else {
-                    recipe = parallelResult.getFirst();
+                GTRecipe parallelResult = GTRecipeModifiers.fastParallel(engineMachine, recipe, maxParallel, false).getFirst();
+                if (engineMachine.isOxygenBoosted) {
+                    parallelResult.tickOutputs.put(EURecipeCapability.CAP,
+                            List.of(new Content((long) (RecipeHelper.getOutputEUt(parallelResult) * (engineMachine.isExtreme() ? 2 : 1.5)),
+                                    ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
                 }
-                return recipe;
+                return parallelResult;
             }
         }
         return null;
@@ -128,20 +125,20 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
     @Override
     public boolean onWorking() {
         boolean value = super.onWorking();
+        // check lubricant
         val totalContinuousRunningTime = recipeLogic.getTotalContinuousRunningTime();
         if ((totalContinuousRunningTime == 1 || totalContinuousRunningTime % 72 == 0)) {
+            // insufficient lubricant
             if (!getLubricantRecipe().handleRecipeIO(IO.IN, this, this.recipeLogic.getChanceCaches())) {
                 recipeLogic.interruptRecipe();
                 return false;
             }
         }
+        // check boost fluid
         if ((totalContinuousRunningTime == 1 || totalContinuousRunningTime % 20 == 0) && isBoostAllowed()) {
             var boosterRecipe = getBoostRecipe();
-            var boosterRecipea = getBoostRecipea();
             this.isOxygenBoosted = boosterRecipe.matchRecipe(this).isSuccess() &&
                     boosterRecipe.handleRecipeIO(IO.IN, this, this.recipeLogic.getChanceCaches());
-            this.isDinitrogenTetroxideBoosted = boosterRecipea.matchRecipe(this).isSuccess() &&
-                    boosterRecipea.handleRecipeIO(IO.IN, this, this.recipeLogic.getChanceCaches());
         }
         return value;
     }
@@ -160,21 +157,24 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
         super.addDisplayText(textList);
         if (isFormed()) {
             if (isBoostAllowed()) {
-                if (isOxygenBoosted && isDinitrogenTetroxideBoosted) {
-                    textList.add(Component.translatable(
-                            "gtceu.multiblock.large_combustion_engine.Joint_boosted"));
-                } else if (isOxygenBoosted) {
-                    textList.add(Component.translatable(
-                            "gtceu.multiblock.large_combustion_engine.supply_dinitrogen_tetroxide_to_boost"));
-                    textList.add(Component.translatable(
-                            "gtceu.multiblock.large_combustion_engine.liquid_oxygen_boosted"));
+                if (!isExtreme()) {
+                    if (isOxygenBoosted) {
+                        textList.add(Component.translatable("gtceu.multiblock.large_combustion_engine.oxygen_boosted"));
+                    } else {
+                        textList.add(Component
+                                .translatable("gtceu.multiblock.large_combustion_engine.supply_oxygen_to_boost"));
+                    }
                 } else {
-                    textList.add(Component.translatable(
-                            "gtceu.multiblock.large_combustion_engine.supply_liquid_oxygen_to_boost"));
+                    if (isOxygenBoosted) {
+                        textList.add(Component
+                                .translatable("gtceu.multiblock.large_combustion_engine.liquid_oxygen_boosted"));
+                    } else {
+                        textList.add(Component.translatable(
+                                "gtceu.multiblock.large_combustion_engine.supply_liquid_oxygen_to_boost"));
+                    }
                 }
             } else {
-                textList.add(Component.translatable(
-                        "gtceu.multiblock.large_combustion_engine.boost_disallowed"));
+                textList.add(Component.translatable("gtceu.multiblock.large_combustion_engine.boost_disallowed"));
             }
         }
     }
