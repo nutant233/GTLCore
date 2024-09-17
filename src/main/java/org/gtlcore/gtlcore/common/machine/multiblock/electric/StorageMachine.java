@@ -29,12 +29,12 @@ public class StorageMachine extends WorkableElectricMultiblockMachine implements
     @Persisted
     public final NotifiableItemStackHandler machineStorage;
 
-    public StorageMachine(IMachineBlockEntity holder, byte slot) {
+    public StorageMachine(IMachineBlockEntity holder, int slot) {
         super(holder);
         this.machineStorage = createMachineStorage(slot);
     }
 
-    protected NotifiableItemStackHandler createMachineStorage(byte value) {
+    protected NotifiableItemStackHandler createMachineStorage(int value) {
         return new NotifiableItemStackHandler(
                 this, 1, IO.NONE, IO.BOTH, slots -> new ItemStackTransfer(1) {
 

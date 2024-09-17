@@ -51,15 +51,6 @@ public class GTLBlocks {
     public static Map<Integer, Supplier<Block>> calmap = new HashMap<>();
 
     public static void init() {
-        GTLBlocks.createTierCasings("stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
-        GTLBlocks.createTierCasings("advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 2);
-        GTLBlocks.createTierCasings("ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 3);
-
-        GTLBlocks.createActiveTierCasing("power_module", "block/variant/power_module", sepmmap, 1);
-        GTLBlocks.createActiveTierCasing("power_module_2", "block/variant/power_module", sepmmap, 2);
-        GTLBlocks.createActiveTierCasing("power_module_3", "block/variant/power_module", sepmmap, 3);
-        GTLBlocks.createActiveTierCasing("power_module_4", "block/variant/power_module", sepmmap, 4);
-        GTLBlocks.createActiveTierCasing("power_module_5", "block/variant/power_module", sepmmap, 5);
         for (int i = 1; i < 15; i++) {
             GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(), new ResourceLocation("kubejs:block/component_assembly_line_casing_" + i), calmap, i);
         }
@@ -295,6 +286,16 @@ public class GTLBlocks {
     public static final BlockEntry<ActiveBlock> COOLER = createActiveCasing("cooler", "block/variant/cooler");
     public static final BlockEntry<ActiveBlock> ADVANCED_ASSEMBLY_LINE_UNIT = createActiveCasing("advanced_assembly_line_unit", "block/variant/advanced_assembly_line_unit");
     public static final BlockEntry<ActiveBlock> SPACE_ELEVATOR_SUPPORT = createActiveCasing("space_elevator_support", "block/variant/space_elevator_support");
+
+    public static final BlockEntry<Block> STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings("stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
+    public static final BlockEntry<Block> ADVANCED_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings("advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 2);
+    public static final BlockEntry<Block> ULTIMATE_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings("ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 3);
+
+    public static final BlockEntry<ActiveBlock> POWER_MODULE = GTLBlocks.createActiveTierCasing("power_module", "block/variant/power_module", sepmmap, 1);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_2 = GTLBlocks.createActiveTierCasing("power_module_2", "block/variant/power_module", sepmmap, 2);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_3 = GTLBlocks.createActiveTierCasing("power_module_3", "block/variant/power_module", sepmmap, 3);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_4 = GTLBlocks.createActiveTierCasing("power_module_4", "block/variant/power_module", sepmmap, 4);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_5 = GTLBlocks.createActiveTierCasing("power_module_5", "block/variant/power_module", sepmmap, 5);
 
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
             GTLBlocks.CraftingUnitType.STORAGE_1M);

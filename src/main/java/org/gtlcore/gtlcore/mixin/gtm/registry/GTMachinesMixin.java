@@ -26,8 +26,8 @@ import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.*;
 import com.gregtechceu.gtceu.common.machine.storage.BufferMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
-import com.gregtechceu.gtceu.integration.kjs.GTRegistryInfo;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+import com.lowdragmc.lowdraglib.Platform;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
 import it.unimi.dsi.fastutil.ints.Int2LongFunction;
@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModLoader;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 import org.gtlcore.gtlcore.common.data.machines.GCyMMachines;
+import org.gtlcore.gtlcore.common.data.machines.KJSMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GTLLargeCombustionEngineMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.MegaTurbineMachine;
@@ -72,8 +73,8 @@ public class GTMachinesMixin {
         if (GTCEu.isAE2Loaded()) {
             GTAEMachines.init();
         }
-        if (GTCEu.isKubeJSLoaded()) {
-            GTRegistryInfo.registerFor(GTRegistries.MACHINES.getRegistryName());
+        if (!Platform.isDevEnv()) {
+            KJSMachine.init();
         }
         ModLoader.get().postEvent(new GTCEuAPI.RegisterEvent<>(GTRegistries.MACHINES, MachineDefinition.class));
         GTRegistries.MACHINES.freeze();

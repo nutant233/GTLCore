@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DISASSEMBLY;
+import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DISASSEMBLY_RECIPES;
 import static org.gtlcore.gtlcore.common.data.GTLRecipes.DISASSEMBLY_RECORD;
 
 public class GenerateDisassembly {
@@ -45,7 +45,7 @@ public class GenerateDisassembly {
         String id = output.kjs$getId();
         boolean cal = r.recipeType == GTRecipeTypes.get("circuit_assembly_line");
         if (isExcludeItems(id, outputItem)) return;
-        GTRecipeBuilder builder = DISASSEMBLY.recipeBuilder(new ResourceLocation(id))
+        GTRecipeBuilder builder = DISASSEMBLY_RECIPES.recipeBuilder(new ResourceLocation(id))
                 .inputItems(output)
                 .duration(1)
                 .EUt(4 * EURecipeCapability.CAP

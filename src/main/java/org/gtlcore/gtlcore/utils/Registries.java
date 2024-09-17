@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.utils;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -48,6 +49,14 @@ public class Registries {
             return Fluids.WATER;
         }
         return f;
+    }
+
+    public static FluidStack getFluidStack(String s) {
+        return getFluidStack(s, 1);
+    }
+
+    public static FluidStack getFluidStack(String s, long a) {
+        return FluidStack.create(getFluid(s), a);
     }
 
     public static Material getMaterial(String s) {

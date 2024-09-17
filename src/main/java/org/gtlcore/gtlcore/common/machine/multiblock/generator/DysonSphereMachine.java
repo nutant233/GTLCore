@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-public class DysonSphere extends WorkableElectricMultiblockMachine {
+public class DysonSphereMachine extends WorkableElectricMultiblockMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            DysonSphere.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
+            DysonSphereMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     @Persisted
     private int DysonSphereData;
@@ -38,7 +38,7 @@ public class DysonSphere extends WorkableElectricMultiblockMachine {
 
     protected ConditionalSubscriptionHandler nightSubs;
 
-    public DysonSphere(IMachineBlockEntity holder) {
+    public DysonSphereMachine(IMachineBlockEntity holder) {
         super(holder);
         this.nightSubs = new ConditionalSubscriptionHandler(this, this::nightUpdate, () -> DysonSphereData > 0);
     }
@@ -131,7 +131,7 @@ public class DysonSphere extends WorkableElectricMultiblockMachine {
 
     @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe) {
-        if (machine instanceof DysonSphere engineMachine) {
+        if (machine instanceof DysonSphereMachine engineMachine) {
             if (!engineMachine.isLaunch(recipe)) {
                 GTRecipe recipe1 = recipe.copy();
                 recipe1.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(

@@ -14,7 +14,6 @@ import org.gtlcore.gtlcore.common.machine.multiblock.electric.StorageMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricParallelHatchMultipleRecipesMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
 import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
-import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.Registries;
 import org.gtlcore.gtlcore.utils.TextUtil;
@@ -44,7 +43,6 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("MachineIO", MachineIO.class);
         event.add("TextUtil", TextUtil.class);
         event.add("Registries", Registries.class);
-        event.add("GenerateDisassembly", GenerateDisassembly.class);
         event.add("LargeSteamParallelMultiblockMachine", LargeSteamParallelMultiblockMachine.class);
         event.add("StorageMachine", StorageMachine.class);
         event.add("CoilWorkableElectricMultipleRecipesMultiblockMachine", CoilWorkableElectricMultipleRecipesMultiblockMachine.class);
