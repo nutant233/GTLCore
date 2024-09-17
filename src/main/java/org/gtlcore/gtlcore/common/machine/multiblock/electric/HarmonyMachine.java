@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
+import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
 import com.hepdd.gtmthings.utils.TeamUtil;
@@ -18,7 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
 import org.gtlcore.gtlcore.utils.MachineIO;
-import org.gtlcore.gtlcore.utils.Registries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,12 +47,18 @@ public class HarmonyMachine extends NoEnergyMultiblockMachine {
         this.StartupSubs = new ConditionalSubscriptionHandler(this, this::StartupUpdate, this::isFormed);
     }
 
+    @Override
+    public ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
+    }
+
     protected void StartupUpdate() {
-        if (getOffsetTimer() % 10 == 0 && !this.onWorking()) {
-            if (MachineIO.inputFluid(this, Registries.getFluidStack("gtceu:hydrogen", 1000000))) {
+        if (getOffsetTimer() % 10 == 0) {
+            oc = 0;
+            if (MachineIO.inputFluid(this, GTMaterials.Hydrogen.getFluid(1000000))) {
                 hydrogen += 1000000;
             }
-            if (MachineIO.inputFluid(this, Registries.getFluidStack("gtceu:helium", 1000000))) {
+            if (MachineIO.inputFluid(this, GTMaterials.Helium.getFluid(1000000))) {
                 helium += 1000000;
             }
             if (MachineIO.notConsumableCircuit(this, 4)) {

@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class GreenhouseMachine extends WorkableElectricMultipleRecipesMachine {
+public class GreenhouseMachine extends WorkableElectricMultiblockMachine {
 
     public GreenhouseMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, args);
@@ -27,10 +28,11 @@ public class GreenhouseMachine extends WorkableElectricMultipleRecipesMachine {
     private void getGreenhouseLight() {
         Level level = getLevel();
         BlockPos pos = getPos();
+        SkyLight = 15;
         BlockPos[] coordinates = new BlockPos[] { pos.offset(1, 2, 0), pos.offset(1, 2, 1), pos.offset(1, 2, -1), pos.offset(0, 2, 1), pos.offset(0, 2, -1), pos.offset(-1, 2, 0), pos.offset(-1, 2, 1), pos.offset(-1, 2, -1), pos.offset(2, 2, 0), pos.offset(2, 2, -1), pos.offset(2, 2, 1), pos.offset(3, 2, 0), pos.offset(3, 2, -1), pos.offset(3, 2, 1), pos.offset(-2, 2, 0), pos.offset(-2, 2, -1), pos.offset(-2, 2, 1), pos.offset(-3, 2, 0), pos.offset(-3, 2, -1), pos.offset(-3, 2, 1), pos.offset(-1, 2, 2), pos.offset(0, 2, 2), pos.offset(1, 2, 2), pos.offset(-1, 2, 3), pos.offset(0, 2, 3), pos.offset(1, 2, 3), pos.offset(-1, 2, -2), pos.offset(0, 2, -2), pos.offset(1, 2, -2), pos.offset(-1, 2, - 3), pos.offset(0, 2, -3), pos.offset(1, 2, -3)};
         for(BlockPos i : coordinates) {
             if (level != null && level.getBlockState(i).getBlock() == GTBlocks.CASING_TEMPERED_GLASS.get()) {
-                int l = level.getBrightness(LightLayer.SKY, i.offset(0, 1, 0));
+                int l = level.getBrightness(LightLayer.SKY, i.offset(0, 1, 0)) - level.getSkyDarken();
                 if (l < SkyLight) {
                     SkyLight = l;
                 }
@@ -56,7 +58,7 @@ public class GreenhouseMachine extends WorkableElectricMultipleRecipesMachine {
             if (SkyLight == 0) {
                 getRecipeLogic().setProgress(0);
             }
-            if (SkyLight < 15) {
+            if (SkyLight < 13) {
                 getRecipeLogic().setProgress(getRecipeLogic().getProgress() - 10);
             }
         }

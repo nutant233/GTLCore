@@ -144,7 +144,7 @@ public class KJSAdvancedMachine {
                     Component.translatable("gtceu.greenhouse")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .appearanceBlock(GTBlocks.MACHINE_CASING_ULV)
-            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
             .pattern((definition) ->
                     FactoryBlockPattern.start()
                             .aisle("0BBB0", "0BBB0", "0BBB0", "0BBB0")

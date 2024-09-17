@@ -9,10 +9,6 @@ import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
 import org.gtlcore.gtlcore.api.item.tool.GTLToolType;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.CoilWorkableElectricMultipleRecipesMultiblockMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.StorageMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricParallelHatchMultipleRecipesMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
 import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.Registries;
@@ -43,10 +39,6 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("MachineIO", MachineIO.class);
         event.add("TextUtil", TextUtil.class);
         event.add("Registries", Registries.class);
-        event.add("LargeSteamParallelMultiblockMachine", LargeSteamParallelMultiblockMachine.class);
-        event.add("StorageMachine", StorageMachine.class);
-        event.add("CoilWorkableElectricMultipleRecipesMultiblockMachine", CoilWorkableElectricMultipleRecipesMultiblockMachine.class);
-        event.add("WorkableElectricParallelHatchMultipleRecipesMachine", WorkableElectricParallelHatchMultipleRecipesMachine.class);
         event.add("GravityCondition", GravityCondition.class);
     }
 }

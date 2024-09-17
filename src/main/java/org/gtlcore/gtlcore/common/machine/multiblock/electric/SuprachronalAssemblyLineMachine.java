@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import com.gregtechceu.gtceu.api.capability.GTCapabilityHelper;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
@@ -20,12 +21,12 @@ import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class SuprachronalAssemblyLineMachine extends WorkableElectricMultipleRecipesMachine {
+public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockMachine {
 
     private final boolean isModule;
 
     private int module = 0;
-    private WorkableElectricMultipleRecipesMachine machine = null;
+    private WorkableElectricMultiblockMachine machine = null;
 
     public SuprachronalAssemblyLineMachine(IMachineBlockEntity holder, boolean isModule, Object... args) {
         super(holder, args);
@@ -43,7 +44,7 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultipleRec
                     pos.offset(0, 0, -3)};
             for (BlockPos i : coordinates) {
                 RecipeLogic logic = GTCapabilityHelper.getRecipeLogic(level, i, null);
-                if (logic != null && Objects.equals(logic.getMachine().getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line_module") && ((WorkableElectricMultipleRecipesMachine) logic.getMachine()).isFormed()) {
+                if (logic != null && Objects.equals(logic.getMachine().getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line_module") && ((WorkableElectricMultiblockMachine) logic.getMachine()).isFormed()) {
                     module++;
                 }
             }
@@ -60,8 +61,8 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultipleRec
                     pos.offset(0, 0, -3) };
             for (BlockPos i : coordinates){
                 RecipeLogic logic = GTCapabilityHelper.getRecipeLogic(level, i, null);
-                if (logic != null && Objects.equals(logic.getMachine().getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line") && ((WorkableElectricMultipleRecipesMachine) logic.getMachine()).isFormed()) {
-                    machine = (WorkableElectricMultipleRecipesMachine) logic.getMachine();
+                if (logic != null && Objects.equals(logic.getMachine().getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line") && ((WorkableElectricMultiblockMachine) logic.getMachine()).isFormed()) {
+                    machine = (WorkableElectricMultiblockMachine) logic.getMachine();
                 }
             }
         }
