@@ -7,8 +7,10 @@ import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
+import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.mojang.datafixers.util.Pair;
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +29,7 @@ public class HeatExchangerMachine extends WorkableMultiblockMachine {
                     .get(1).getContent()).getStacks()[0].getFluid() == GTMaterials.Water.getFluid()) {
                 return GTRecipeModifiers.accurateParallel(machine, recipe, Integer.MAX_VALUE, false).getFirst();
             }
-            final Pair<GTRecipe, Integer> result = GTRecipeModifiers.accurateParallel(machine, GTRecipeBuilder.ofRaw()
+            final Pair<GTRecipe, Integer> result = GTRecipeModifiers.accurateParallel(machine, new GTRecipeBuilder(GTLCore.id("heat_exchanger"), GTRecipeTypes.DUMMY_RECIPES)
                     .inputFluids(FluidRecipeCapability.CAP.of(recipe.inputs
                             .get(FluidRecipeCapability.CAP).get(0).getContent()))
                     .outputFluids(FluidRecipeCapability.CAP.of(recipe.outputs

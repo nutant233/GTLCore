@@ -23,6 +23,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
@@ -792,10 +793,14 @@ public class KJSAdvancedMachine {
             })
             .additionalDisplay((controller, components) -> {
                 if(controller.isFormed()) {
-                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal("524288").withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal("64").withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                }
+                if (controller instanceof CoilWorkableElectricMultiblockMachine coilMachine && controller.isFormed()) {
+                    components.add(Component.translatable("gtceu.multiblock.blast_furnace.max_temperature",
+                            Component.translatable(FormattingUtil.formatNumbers(coilMachine.getCoilType().getCoilTemperature() + 100L * Math.max(0, coilMachine.getTier() - GTValues.MV)) + "K")
+                                    .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
                 }
             })
-            .additionalDisplay(GTLMachines.MAX_TEMPERATURE)
             .workableCasingRenderer(new ResourceLocation("kubejs:block/blaze_blast_furnace_casing"), GTCEu.id("block/multiblock/electric_blast_furnace"))
             .register();
 
