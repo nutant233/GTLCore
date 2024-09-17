@@ -4,6 +4,7 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
+import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
@@ -402,7 +403,7 @@ public class KJSAdvancedMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/gcym/atomic_casing"), GTCEu.id("block/multiblock/data_bank"))
             .register();
 
-    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_PLASMA_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_plasma_forge", (holder) -> new CoilWorkableElectricMultiblockMachine(holder))
+    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_PLASMA_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_plasma_forge", CoilWorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.DIMENSIONALLY_TRANSCENDENT_PLASMA_FORGE_RECIPES)
@@ -558,14 +559,22 @@ public class KJSAdvancedMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
-    private static final List<int[]> poses = new ArrayList<>();
+    private static final List<int[]> poses1 = new ArrayList<>();
+    private static final List<int[]> poses2 = new ArrayList<>();
     private static final Map<String, String> covRecipe = new HashMap<>();
 
     static {
         for (int i = -2; i <= 2; i++) {
             for (int j = -1; j >= -5; j--) {
                 for (int k = -2; k <= 2; k++) {
-                    poses.add(new int[]{i, j, k});
+                    poses1.add(new int[]{i, j, k});
+                }
+            }
+        }
+        for (int i = -4; i <= 4; i++) {
+            for (int j = -1; j >= -7; j--) {
+                for (int k = -4; k <= 4; k++) {
+                    poses2.add(new int[]{i, j, k});
                 }
             }
         }
@@ -576,6 +585,32 @@ public class KJSAdvancedMachine {
         covRecipe.put("minecraft:moss_block", "minecraft:sculk");
         covRecipe.put("minecraft:grass_block", "minecraft:moss_block");
         covRecipe.put("kubejs:infused_obsidian", "kubejs:draconium_block_charged");
+    }
+
+    private static boolean blockConversionRoom(List<int[]> poses, IRecipeLogicMachine machine,int tier) {
+        if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
+            if (workableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
+                Level level = machine.self().getLevel();
+                if (level != null) {
+                    int amount = workableElectricMultiblockMachine.getTier() * tier - 7;
+                    int[] pos = new int[]{};
+                    for (int i = 0; i < amount; i++) {
+                        int[] pos_0 = poses.get((int) (Math.random() * poses.size()));
+                        if (pos_0 != pos) {
+                            pos = pos_0;
+                            BlockPos blockPos = machine.self().getPos().offset(pos[0], pos[1], pos[2]);
+                            String block = level.getBlockState(blockPos).getBlock().kjs$getId();
+                            if (covRecipe.containsKey(block)) {
+                                level.setBlockAndUpdate(blockPos, Registries.getBlock(covRecipe.get(block)).defaultBlockState());
+                            }
+                        } else {
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public final static MultiblockMachineDefinition BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("block_conversion_room", WorkableElectricMultiblockMachine::new)
@@ -608,35 +643,55 @@ public class KJSAdvancedMachine {
                                     .or(Predicates.blocks(Blocks.IRON_DOOR).setMaxGlobalLimited(4)))
                             .where(" ", Predicates.any())
                             .build())
-            .onWorking(machine -> {
-                if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-                    if (workableElectricMultiblockMachine.getOffsetTimer() % 10 == 0) {
-                        Level level = machine.self().getLevel();
-                        if (level != null) {
-                            int amount = workableElectricMultiblockMachine.getTier() * 4 - 7;
-                            int[] pos = new int[]{};
-                            for (int i = 0; i < amount; i++) {
-                                int[] pos_0 = poses.get((int) Math.floor(Math.random() * poses.size()));
-                                if (pos_0 != pos) {
-                                    pos = pos_0;
-                                    BlockPos blockPos = machine.self().getPos().offset(pos[0], pos[1], pos[2]);
-                                    String block = level.getBlockState(blockPos).getBlock().kjs$getId();
-                                    if (covRecipe.containsKey(block)) {
-                                        level.setBlockAndUpdate(blockPos, Registries.getBlock(covRecipe.get(block)).defaultBlockState());
-                                    }
-                                } else {
-                                    i--;
-                                }
-                            }
-                        }
-                    }
-                }
-                return true;
-            })
+            .onWorking(machine -> blockConversionRoom(poses1, machine, 4))
             .onWaiting(machine -> machine.getRecipeLogic().interruptRecipe())
             .additionalDisplay((controller, components) -> {
                 if(controller.isFormed() && controller instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
                     components.add(Component.literal("每次转化数量：" + (workableElectricMultiblockMachine.getTier() * 4 - 7)));
+                }
+            })
+            .workableCasingRenderer(new ResourceLocation("kubejs:block/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
+            .register();
+
+    public final static MultiblockMachineDefinition LARGE_BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("large_block_conversion_room", WorkableElectricMultiblockMachine::new)
+            .rotationState(RotationState.NONE)
+            .allowExtendedFacing(false)
+            .allowFlip(false)
+            .recipeType(GTLRecipeTypes.BLOCK_CONVERSIONRECIPES)
+            .tooltips(Component.translatable("gtceu.machine.block_conversion_room.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.large_block_conversion_room.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.block_conversion")))
+            .tooltipBuilder(GTLMachines.GTL_ADD)
+            .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 4, false)))
+            .appearanceBlock(() -> Registries.getBlock("kubejs:aluminium_bronze_casing"))
+            .pattern(definition ->
+                    FactoryBlockPattern.start()
+                            .aisle("bbbbbbbbbbb", "bbbbbbbbbbb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbabbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
+                            .aisle("bbbbbbbbbbb", "bbbbbbbbbbb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bbbbbbbbbbb")
+                            .where("a", Predicates.controller(Predicates.blocks(definition.get())))
+                            .where("b", Predicates.blocks(Registries.getBlock("kubejs:aluminium_bronze_casing")).setMinGlobalLimited(240)
+                                    .or(Predicates.autoAbilities(definition.getRecipeTypes()))
+                                    .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
+                            .where("c", Predicates.blocks(Registries.getBlock("kubejs:shining_obsidian")))
+                            .where("d", Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get())
+                                    .or(Predicates.blocks(Blocks.IRON_DOOR).setMaxGlobalLimited(4)))
+                            .where(" ", Predicates.any())
+                            .build())
+            .onWorking(machine -> blockConversionRoom(poses2, machine, 64))
+            .onWaiting(machine -> machine.getRecipeLogic().interruptRecipe())
+            .additionalDisplay((controller, components) -> {
+                if(controller.isFormed() && controller instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
+                    components.add(Component.literal("每次转化数量：" + (workableElectricMultiblockMachine.getTier() * 64 - 7)));
                 }
             })
             .workableCasingRenderer(new ResourceLocation("kubejs:block/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
@@ -720,20 +775,25 @@ public class KJSAdvancedMachine {
                     .where("#", Predicates.air())
                     .build())
             .beforeWorking((machine, recipe) -> {
-                if(MachineIO.inputFluid((WorkableMultiblockMachine) machine, Registries.getFluidStack("gtceu:blaze", (long) Math.pow(2, (((CoilWorkableElectricMultiblockMachine) machine).getTier() - 2) * 10)))) {
+                if (MachineIO.inputFluid((WorkableMultiblockMachine) machine,GTMaterials.Blaze.getFluid((long) (Math.pow(2, (((CoilWorkableElectricMultiblockMachine) machine).getTier() - 2)) * 10)))) {
                     return true;
                 }
                 machine.getRecipeLogic().interruptRecipe();
                 return false;
             })
             .onWorking(machine -> {
-                if(machine instanceof CoilWorkableElectricMultiblockMachine coilWorkableElectricMultiblockMachine && coilWorkableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
-                    if(MachineIO.inputFluid(coilWorkableElectricMultiblockMachine, Registries.getFluidStack("gtceu:blaze", (long) Math.pow(2, (coilWorkableElectricMultiblockMachine.getTier() - 2) * 10)))) {
+                if (machine instanceof CoilWorkableElectricMultiblockMachine coilWorkableElectricMultiblockMachine && coilWorkableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
+                    if (MachineIO.inputFluid((WorkableMultiblockMachine) machine,GTMaterials.Blaze.getFluid((long) (Math.pow(2, (coilWorkableElectricMultiblockMachine.getTier() - 2)) * 10)))) {
                         return true;
                     }
                     machine.getRecipeLogic().setProgress(0);
                 }
                 return true;
+            })
+            .additionalDisplay((controller, components) -> {
+                if(controller.isFormed()) {
+                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal("524288").withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                }
             })
             .additionalDisplay(GTLMachines.MAX_TEMPERATURE)
             .workableCasingRenderer(new ResourceLocation("kubejs:block/blaze_blast_furnace_casing"), GTCEu.id("block/multiblock/electric_blast_furnace"))
@@ -762,20 +822,25 @@ public class KJSAdvancedMachine {
                     .where("#", Predicates.blocks(GTBlocks.HERMETIC_CASING_LuV.get()))
                     .build())
             .beforeWorking((machine, recipe) -> {
-                if(MachineIO.inputFluid((WorkableMultiblockMachine) machine, Registries.getFluidStack("gtceu:ice", (long) Math.pow(2, (((WorkableElectricMultiblockMachine) machine).getTier() - 2) * 10)))) {
+                if (MachineIO.inputFluid((WorkableMultiblockMachine) machine,GTMaterials.Ice.getFluid((long) (Math.pow(2, (((WorkableElectricMultiblockMachine) machine).getTier() - 2)) * 10)))) {
                     return true;
                 }
                 machine.getRecipeLogic().interruptRecipe();
                 return false;
             })
             .onWorking(machine -> {
-                if(machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine && workableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
-                    if(MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:ice", (long) Math.pow(2, (workableElectricMultiblockMachine.getTier() - 2) * 10)))) {
+                if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine && workableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
+                    if (MachineIO.inputFluid((WorkableMultiblockMachine) machine,GTMaterials.Ice.getFluid((long) (Math.pow(2, (workableElectricMultiblockMachine.getTier() - 2)) * 10)))) {
                         return true;
                     }
                     machine.getRecipeLogic().setProgress(0);
                 }
                 return true;
+            })
+            .additionalDisplay((controller, components) -> {
+                if(controller.isFormed()) {
+                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal("64").withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                }
             })
             .workableCasingRenderer(new ResourceLocation("kubejs:block/cold_ice_casing"), GTCEu.id("block/multiblock/vacuum_freezer"))
             .register();
@@ -842,7 +907,7 @@ public class KJSAdvancedMachine {
                                 pos.getX() + 10,
                                 pos.getY() + 10,
                                 pos.getZ() + 10));
-                        for (Entity entity : entities){
+                        for (Entity entity : entities) {
                             if (entity instanceof Player player) {
                                 if (Objects.equals(player.getArmorSlots().toString(), "[1 magnetohydrodynamicallyconstrainedstarmatter_boots, 1 magnetohydrodynamicallyconstrainedstarmatter_leggings, 1 magnetohydrodynamicallyconstrainedstarmatter_chestplate, 1 magnetohydrodynamicallyconstrainedstarmatter_helmet]")) {
                                     player.getServer().kjs$runCommandSilent("execute in kubejs:create as " + entity.getName().getString() + " run tp 0 1 0");
@@ -851,12 +916,12 @@ public class KJSAdvancedMachine {
                                 }
                             }
                             if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magnetohydrodynamicallyconstrainedstarmatter_block")) {
-                                entity.getServer().kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"minecraft:command_block\",Count:" + item.getItem().getCount() + "b}}");
-                                entity.kill();
+                                item.getServer().kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"minecraft:command_block\",Count:" + item.getItem().getCount() + "b}}");
+                                item.kill();
                             }
                             if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magmatter_ingot") && item.getItem().getCount() >= 64) {
-                                entity.getServer().kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"minecraft:magmatter_block\",Count:" + (item.getItem().getCount() / 64) + "b}}");
-                                entity.kill();
+                                item.getServer().kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"gtceu:magmatter_block\",Count:" + (item.getItem().getCount() / 64) + "b}}");
+                                item.kill();
                             }
                         }
                     }

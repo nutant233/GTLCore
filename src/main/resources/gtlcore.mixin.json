@@ -7,6 +7,7 @@
     "ae2.client.BuiltInModelHooksAccessor",
     "ae2.client.ModelBakeryMixin",
     "gtm.TagPrefixItemRendererMixin",
+    "gtm.gui.ProspectingMapWidgetMixin",
     "gtm.gui.ProspectingTextureMixin"
   ],
   "mixins": [
@@ -35,7 +36,6 @@
     "gtm.cover.PumpCoverMixin",
     "gtm.gui.AEFluidConfigSlotWidgetMixin",
     "gtm.gui.AEItemConfigSlotWidgetMixin",
-    "gtm.gui.ProspectingMapWidgetMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
     "gtm.machine.FluidHatchPartMachineMixin",

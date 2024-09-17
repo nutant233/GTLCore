@@ -168,7 +168,7 @@ public class GTLRecipeTypes {
             .setMaxIOSize(2, 2, 2, 2)
             .setEUIO(IO.IN)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARC_FURNACE, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.ARC)
+            .setSound(GTLSoundEntries.DTPF)
             .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.temperature", FormattingUtil.formatNumbers(data.getInt("ebf_temp"))))
             .addDataInfo(data -> {
                 int temp = data.getInt("ebf_temp");
@@ -443,7 +443,7 @@ public class GTLRecipeTypes {
             .setSlotOverlay(false, false, GuiTextures.SOLIDIFIER_OVERLAY)
             .setMaxIOSize(0, 0, 2, 1)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.ARC);
+            .setSound(GTLSoundEntries.FUSIONLOOP);
 
     public static final GTRecipeType DIMENSIONAL_FOCUS_ENGRAVING_ARRAY_RECIPES = register("dimensional_focus_engraving_array", MULTIBLOCK)
             .setEUIO(IO.IN)

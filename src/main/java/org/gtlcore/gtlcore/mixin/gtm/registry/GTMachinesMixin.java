@@ -21,7 +21,6 @@ import com.gregtechceu.gtceu.client.renderer.machine.RotorHolderMachineRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.common.data.machines.GTAEMachines;
-import com.gregtechceu.gtceu.common.data.machines.GTCreateMachines;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.*;
 import com.gregtechceu.gtceu.common.machine.storage.BufferMachine;
@@ -66,13 +65,7 @@ public class GTMachinesMixin {
     private static void init(CallbackInfo ci) {
         GCyMMachines.init();
         GTResearchMachines.init();
-
-        if (GTCEu.isCreateLoaded()) {
-            GTCreateMachines.init();
-        }
-        if (GTCEu.isAE2Loaded()) {
-            GTAEMachines.init();
-        }
+        GTAEMachines.init();
         if (!Platform.isDevEnv()) {
             KJSMachine.init();
         }
