@@ -452,7 +452,7 @@ public class GTLMaterials {
                 .components(Carbon, 6, Fluorine, 6)
                 .color(0x15752B).iconSet(GTLMaterialIconSet.LIMPID)
                 .flags(DISABLE_DECOMPOSITION)
-                .buildAndRegister().setFormula("(CH3)3SiCl");
+                .buildAndRegister();
         Trimethylsilane = new Material.Builder(GTCEu.id("trimethylsilane"))
                 .fluid()
                 .components(Carbon, 3, Hydrogen, 10, Silicon, 1)
@@ -462,7 +462,7 @@ public class GTLMaterials {
         Trimethylchlorosilane = new Material.Builder(GTCEu.id("trimethylchlorosilane"))
                 .fluid()
                 .color(0x591399).iconSet(GTLMaterialIconSet.LIMPID)
-                .buildAndRegister();
+                .buildAndRegister().setFormula("(CH3)3SiCl");
         NitratedTriniiteCompoundSolution = new Material.Builder(GTCEu.id("nitrated_triniite_compound_solution"))
                 .fluid()
                 .color(0x5E9699).iconSet(GTLMaterialIconSet.LIMPID)
