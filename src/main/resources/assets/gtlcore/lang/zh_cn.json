@@ -99,9 +99,11 @@
     "item.gtlcore.pattern_modifier": "供应器样板修改器",
     "item.gtlcore.primitive_fluid_regulator": "原始流体校准器",
     "item.gtlcore.primitive_robot_arm": "原始机械臂",
+    "item.gtlcore.protonated_fullerene_sieving_matrix": "质子化富勒烯筛分基质",
     "item.gtlcore.really_max_battery": "真·终极电池",
     "item.gtlcore.super_portable_fluid_storage_cell": "超级便携流体存储元件",
     "item.gtlcore.super_portable_item_storage_cell": "超级便携物品存储元件",
+    "item.gtlcore.saturated_fullerene_sieving_matrix": "饱和富勒烯筛分基质",
     "item.gtlcore.transcendent_max_battery": "超·终极电池",
     "itemGroup.gtlcore.creative_tab": "格雷科技休闲版"
 }
