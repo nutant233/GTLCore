@@ -1,9 +1,12 @@
 package org.gtlcore.gtlcore.api.data.chemical.material.info;
 
+import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
 import com.gregtechceu.gtceu.api.item.component.ICustomRenderer;
+import com.lowdragmc.lowdraglib.client.renderer.IRenderer;
 import lombok.Getter;
 import org.gtlcore.gtlcore.client.renderer.item.StereoscopicItemRenderer;
+import org.gtlcore.gtlcore.client.renderer.item.WrappedItemRenderer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,4 +28,6 @@ public class GTLMaterialIconSet extends com.gregtechceu.gtceu.api.data.chemical.
             MaterialIconSet.METALLIC,
             false,
             () -> StereoscopicItemRenderer.INSTANCE);
+
+    public static final MaterialIconSet LIMPID = new MaterialIconSet("limpid", null, true);
 }
