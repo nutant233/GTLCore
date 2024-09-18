@@ -15,6 +15,7 @@ import com.lowdragmc.lowdraglib.Platform;
 import committee.nova.mods.avaritia.init.registry.ModBlocks;
 import committee.nova.mods.avaritia.init.registry.ModItems;
 import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
@@ -84,7 +85,13 @@ public class GTLMaterials {
     public static Material HeavilyFluorinatedTriniumSolution;
     public static Material Perfluorobenzene;
     public static Material TriniumTetrafluoride;
-
+    public static Material Trimethylsilane;
+    public static Material Trimethylchlorosilane;
+    public static Material Fluorocarborane;
+    public static Material CaesiumNitrate;
+    public static Material CesiumCarborane;
+    public static Material SilverIodide;
+    public static Material SilverNitrate;
 
     public static void init() {
         Duranium.addFlags(GENERATE_FRAME);
@@ -403,31 +410,78 @@ public class GTLMaterials {
                 .color(0x529E57)
                 .components(Trinium, 1, Fluorine, 4)
                 .buildAndRegister();
+        Fluorocarborane = new Material.Builder(GTCEu.id("fluorocarborane"))
+                .dust()
+                .components(Hydrogen, 1, Carbon, 1, Hydrogen, 1, Boron, 11, Fluorine, 11)
+                .color(0x00EC80).iconSet(BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CaesiumNitrate = new Material.Builder(GTCEu.id("caesium_nitrate"))
+                .dust()
+                .components(Caesium, 1, Nitrogen, 1, Oxygen, 3)
+                .color(0x821EC7).iconSet(BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CesiumCarborane = new Material.Builder(GTCEu.id("cesium_carborane"))
+                .dust()
+                .components(Caesium, 1, Carbon, 1, Boron, 11, Hydrogen, 12)
+                .color(0xAE6EDA).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SilverIodide = new Material.Builder(GTCEu.id("silver_iodide"))
+                .dust()
+                .components(Silver, 1, Iodine, 1)
+                .color(0xACA56A).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SilverNitrate = new Material.Builder(GTCEu.id("silver_nitrate"))
+                .dust()
+                .components(Silver, 1, Nitrogen, 1, Oxygen, 3)
+                .color(0xFFFCE0).iconSet(BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
 
         FumingNitricAcid = new Material.Builder(GTCEu.id("fuming_nitric_acid"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
                 .components(Hydrogen, 1, Nitrogen, 1, Oxygen, 3)
+                .color(0xB46800).iconSet(GTLMaterialIconSet.LIMPID)
                 .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
         Perfluorobenzene = new Material.Builder(GTCEu.id("perfluorobenzene"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
                 .components(Carbon, 6, Fluorine, 6)
+                .color(0x15752B).iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister().setFormula("(CH3)3SiCl");
+        Trimethylsilane = new Material.Builder(GTCEu.id("trimethylsilane"))
+                .fluid()
+                .components(Carbon, 3, Hydrogen, 10, Silicon, 1)
+                .color(0x7D2FC3).iconSet(GTLMaterialIconSet.LIMPID)
                 .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
+        Trimethylchlorosilane = new Material.Builder(GTCEu.id("trimethylchlorosilane"))
+                .fluid()
+                .color(0x591399).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
         NitratedTriniiteCompoundSolution = new Material.Builder(GTCEu.id("nitrated_triniite_compound_solution"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
+                .color(0x5E9699).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
         ResidualTriniiteSolution = new Material.Builder(GTCEu.id("residual_triniite_solution"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
+                .color(0x68B59).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
         ActiniumRadiumHydroxideSolution = new Material.Builder(GTCEu.id("actinium_radium_hydroxide_solution"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
+                .color(0xC3E0DC).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
         ActiniumRadiumNitrateSolution = new Material.Builder(GTCEu.id("actinium_radium_nitrate_solution"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
+                .color(0x89C0B3).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
         HeavilyFluorinatedTriniumSolution = new Material.Builder(GTCEu.id("heavily_fluorinated_trinium_solution"))
-                .liquid(new FluidBuilder().customStill())
+                .fluid()
+                .color(0x169A33).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
 
         if (!Platform.isDevEnv()) {
