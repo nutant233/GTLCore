@@ -981,7 +981,7 @@ public class GTLMachines {
                             .aisle("AAAAAAAAA", "A  B B  A", "A  CCC  A", "A  CCC  A", "A       A", "A       A", "AA DDD AA", " AAD~DAA ", "   DDD   ", "         ")
                             .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                             .where("A", Predicates.blocks(Registries.getBlock("kubejs:iridium_casing")))
-                            .where("B", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
+                            .where("B", Predicates.blocks(GTBlocks.MATERIAL_BLOCKS.get(TagPrefix.frameGt, GTMaterials.TungstenSteel).get())
                                     .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                                     .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
                             .where("C", Predicates.blocks(Registries.getBlock("kubejs:iridium_casing"))

@@ -1640,7 +1640,7 @@ public class KJSMachine {
                             .where("C", Predicates.blocks(Registries.getBlock("kubejs:molecular_casing")))
                             .where("D", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
                             .where("E", Predicates.blocks(Registries.getBlock("kubejs:hollow_casing")))
-                            .where("F", Predicates.blocks(GTLBlocks.POWER_CORE.get()))
+                            .where("F", Predicates.blocks(GTLBlocks.HYPER_CORE.get()))
                             .where("G", Predicates.blocks(Registries.getBlock("gtceu:tritanium_frame")))
                             .where(" ", Predicates.any())
                             .build())
