@@ -180,7 +180,7 @@ public class GTLMachines {
             GTLRecipeTypes.DEHYDRATOR_RECIPES, GTMachines.defaultTankSizeFunction);
 
     public static final MachineDefinition[] WORLD_DATA_SCANNER = GTMachines.registerSimpleMachines("world_data_scanner",
-            GTLRecipeTypes.WORLD_DATA_SCANNER_RECIPES, GTMachines.defaultTankSizeFunction);
+            GTLRecipeTypes.WORLD_DATA_SCANNER_RECIPES, tier -> 64000);
 
     public static final MachineDefinition[] NEUTRON_COMPRESSOR = GTMachines.registerSimpleMachines("neutron_compressor",
             GTLRecipeTypes.NEUTRON_COMPRESSOR_RECIPES, GTMachines.defaultTankSizeFunction, false, GTValues.MAX);
