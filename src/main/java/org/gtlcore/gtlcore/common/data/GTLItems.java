@@ -151,6 +151,12 @@ public class GTLItems {
             REGISTRATE.item("max_electric_piston", Item::new).lang("MAX Electric Piston")
                     .onRegister(compassNodeExist(GTCompassSections.COMPONENTS, "piston")).register() :
             null;
+    public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = REGISTRATE
+            .item("protonated_fullerene_sieving_matrix", Item::new).lang("Protonated Fullerene Sieving Matrix")
+            .register();
+    public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = REGISTRATE
+            .item("saturated_fullerene_sieving_matrix", Item::new).lang("Saturated Fullerene Sieving Matrix")
+            .register();
 
     public static ItemEntry<ComponentItem> ROBOT_ARM_MAX = GTCEuAPI.isHighTier() ?
             REGISTRATE.item("max_robot_arm", ComponentItem::create)

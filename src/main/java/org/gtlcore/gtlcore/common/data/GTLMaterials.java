@@ -5,10 +5,7 @@ import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.FluidProperty;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.WireProperties;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.*;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.FluidState;
@@ -73,6 +70,21 @@ public class GTLMaterials {
     public static Material TungstenTrioxide;
     public static Material SpaceTime;
     public static Material Infinity;
+    public static Material CompoundTriniite;
+    public static Material FumingNitricAcid;
+    public static Material CrystallineNitricAcid;
+    public static Material SodiumChlorate;
+    public static Material SodiumPerchlorate;
+    public static Material NitratedTriniiteCompoundSolution;
+    public static Material ResidualTriniiteSolution;
+    public static Material ActiniumTriniumHydroxides;
+    public static Material ActiniumRadiumHydroxideSolution;
+    public static Material ActiniumRadiumNitrateSolution;
+    public static Material SeleniumOxide;
+    public static Material HeavilyFluorinatedTriniumSolution;
+    public static Material Perfluorobenzene;
+    public static Material TriniumTetrafluoride;
+
 
     public static void init() {
         Duranium.addFlags(GENERATE_FRAME);
@@ -85,6 +97,9 @@ public class GTLMaterials {
         Mendelevium.setProperty(PropertyKey.WIRE, new WireProperties((int) GTValues.V[GTValues.UHV], 4, 16));
         RutheniumTetroxide.setProperty(PropertyKey.FLUID, new FluidProperty(FluidStorageKeys.LIQUID, new FluidBuilder()));
         RutheniumTetroxide.addFlags(NO_UNIFICATION);
+        Actinium.setProperty(PropertyKey.DUST, new DustProperty());
+        Actinium.setProperty(PropertyKey.FLUID, new FluidProperty(FluidStorageKeys.LIQUID, new FluidBuilder()));
+        Selenium.setProperty(PropertyKey.DUST, new DustProperty());
         PotassiumPyrosulfate = new Material.Builder(GTCEu.id("potassium_pyrosulfate"))
                 .dust()
                 .components(Potassium, 2, Sulfur, 2, Oxygen, 7)
@@ -347,6 +362,72 @@ public class GTLMaterials {
                 .iconSet(new MaterialIconSet("infinity"))
                 .flags(MaterialFlags.GENERATE_FRAME)
                 .cableProperties(GTValues.V[GTValues.MAX], 8192, 0, true)
+                .buildAndRegister();
+
+        CompoundTriniite = new Material.Builder(GTCEu.id("trinium_compound"))
+                .dust()
+                .ore()
+                .components(Trinium, 3, Actinium, 3, Selenium, 4, Astatine, 4)
+                .color(0x675989)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CrystallineNitricAcid = new Material.Builder(GTCEu.id("crystalline_nitric_acid"))
+                .dust()
+                .components(Hydrogen, 1, Nitrogen, 1, Oxygen, 3)
+                .color(0xCDBD14)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SodiumChlorate = new Material.Builder(GTCEu.id("sodium_chlorate"))
+                .dust()
+                .components(Sodium, 1, Chlorine, 1, Oxygen, 3)
+                .color(0xA5A5A5)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SodiumPerchlorate = new Material.Builder(GTCEu.id("sodium_perchlorate"))
+                .dust()
+                .components(Sodium, 1, Chlorine, 1, Oxygen, 4)
+                .color(0xF0F0F0)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        ActiniumTriniumHydroxides = new Material.Builder(GTCEu.id("actinium_trinium_hydroxides"))
+                .dust()
+                .color(0xAD47CF).iconSet(ROUGH)
+                .buildAndRegister().setFormula("Ke3Ac2(OH)12");
+        SeleniumOxide = new Material.Builder(GTCEu.id("selenium_oxide"))
+                .dust()
+                .color(0xFFF71C).iconSet(BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        TriniumTetrafluoride = new Material.Builder(GTCEu.id("trinium_tetrafluoride"))
+                .dust()
+                .color(0x529E57)
+                .components(Trinium, 1, Fluorine, 4)
+                .buildAndRegister();
+
+        FumingNitricAcid = new Material.Builder(GTCEu.id("fuming_nitric_acid"))
+                .liquid(new FluidBuilder().customStill())
+                .components(Hydrogen, 1, Nitrogen, 1, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        Perfluorobenzene = new Material.Builder(GTCEu.id("perfluorobenzene"))
+                .liquid(new FluidBuilder().customStill())
+                .components(Carbon, 6, Fluorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        NitratedTriniiteCompoundSolution = new Material.Builder(GTCEu.id("nitrated_triniite_compound_solution"))
+                .liquid(new FluidBuilder().customStill())
+                .buildAndRegister();
+        ResidualTriniiteSolution = new Material.Builder(GTCEu.id("residual_triniite_solution"))
+                .liquid(new FluidBuilder().customStill())
+                .buildAndRegister();
+        ActiniumRadiumHydroxideSolution = new Material.Builder(GTCEu.id("actinium_radium_hydroxide_solution"))
+                .liquid(new FluidBuilder().customStill())
+                .buildAndRegister();
+        ActiniumRadiumNitrateSolution = new Material.Builder(GTCEu.id("actinium_radium_nitrate_solution"))
+                .liquid(new FluidBuilder().customStill())
+                .buildAndRegister();
+        HeavilyFluorinatedTriniumSolution = new Material.Builder(GTCEu.id("heavily_fluorinated_trinium_solution"))
+                .liquid(new FluidBuilder().customStill())
                 .buildAndRegister();
 
         if (!Platform.isDevEnv()) {
