@@ -66,11 +66,13 @@ public class GTLGTAddon implements IGTAddon {
 
     @Override
     public void addRecipes(Consumer<FinishedRecipe> provider) {
-        GCyMRecipes.init(provider);
-        FuelRecipes.init(provider);
-        MachineRecipe.init(provider);
-        Misc.init(provider);
-        ElementCopying.init(provider);
+        if (!Platform.isDevEnv()) {
+            GCyMRecipes.init(provider);
+            FuelRecipes.init(provider);
+            MachineRecipe.init(provider);
+            Misc.init(provider);
+            ElementCopying.init(provider);
+        }
     }
 
     @Override

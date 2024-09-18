@@ -33,10 +33,8 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("GTLRecipeModifiers", GTLRecipeModifiers.class);
         event.add("GTLCleanroomType", GTLCleanroomType.class);
         event.add("GTLToolType", GTLToolType.class);
-        event.add("GTLSoundEntries", GTLSoundEntries.class);
         event.add("GTLMaterialIconSet", GTLMaterialIconSet.class);
         event.add("GTLMaterialFlags", GTLMaterialFlags.class);
-        event.add("MachineIO", MachineIO.class);
         event.add("TextUtil", TextUtil.class);
         event.add("Registries", Registries.class);
         event.add("GravityCondition", GravityCondition.class);

@@ -56,13 +56,15 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
 
     public static int adjacent(Level level, BlockPos pos, String id) {
         int a = 0;
-        for (int i = -1; i < 1; i += 2) {
-            for (int j = -1; j < 1; j += 2) {
-                for (int k = -1; k < 1; k += 2) {
-                    if (Objects.equals(level.kjs$getBlock(pos.offset(i, j, k)).getId(), id)) {
-                        a++;
-                    }
-                }
+        BlockPos[] coordinates = new BlockPos[] { pos.offset(1, 0, 0),
+                pos.offset(-1, 0, 0),
+                pos.offset(0, 1, 0),
+                pos.offset(0, -1, 0),
+                pos.offset(0, 0, 1),
+                pos.offset(0, 0, -1) };
+        for (BlockPos blockPos : coordinates) {
+            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), id)) {
+                a++;
             }
         }
         return a;
@@ -73,6 +75,8 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         super.onStructureFormed();
         BlockPos pos = getPos();
         Level level = getLevel();
+        int heatA = 0;
+        int coolerA = 0;
         BlockPos[] coordinates = new BlockPos[] { pos.offset(4, 0, 0),
                 pos.offset(-4, 0, 0),
                 pos.offset(0, 0, 4),
@@ -85,16 +89,18 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
                         for (int k = -3; k < 4; k++) {
                             BlockPos assemblyPos = blockPos.offset(i, j, k);
                             if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:fission_fuel_assembly")) {
-                                this.heatAdjacent += adjacent(level, assemblyPos, "gtlcore:fission_fuel_assembly");
+                                heatA += adjacent(level, assemblyPos, "gtlcore:fission_fuel_assembly");
                             }
                             if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:cooler")) {
-                                this.coolerAdjacent += adjacent(level, assemblyPos, "gtlcore:cooler");
+                                coolerA += adjacent(level, assemblyPos, "gtlcore:cooler");
                             }
                         }
                     }
                 }
             }
         }
+        heatAdjacent = (heatA / 2) + 1;
+        coolerAdjacent = coolerA / 2;
         IValueContainer<?> FuelContainer = getMultiblockState().getMatchContext()
                 .getOrCreate("FuelAssemblyValue", IValueContainer::noop);
         if (FuelContainer.getValue() instanceof Integer Fuel) {
@@ -113,7 +119,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         super.onStructureInvalid();
         fuel = 0;
         cooler = 0;
-        heatAdjacent = 0;
+        heatAdjacent = 1;
         coolerAdjacent = 0;
     }
 
