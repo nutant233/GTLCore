@@ -1730,7 +1730,7 @@ public class KJSMachine {
                             .where("D", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
                             .where("E", Predicates.blocks(Registries.getBlock("kubejs:hollow_casing")))
                             .where("F", Predicates.blocks(Registries.getBlock("kubejs:force_field_glass")))
-                            .where("G", Predicates.blocks(GTLBlocks.STELLAR_CONTAINMENT_CASING.get()))
+                            .where("G", Predicates.blocks(GTLBlocks.ULTIMATE_STELLAR_CONTAINMENT_CASING.get()))
                             .where(" ", Predicates.any())
                             .build())
             .additionalDisplay((controller, components) -> {

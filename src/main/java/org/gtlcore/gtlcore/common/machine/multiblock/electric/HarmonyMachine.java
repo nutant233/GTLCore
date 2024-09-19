@@ -53,13 +53,13 @@ public class HarmonyMachine extends NoEnergyMultiblockMachine {
     }
 
     protected void StartupUpdate() {
-        if (getOffsetTimer() % 10 == 0) {
+        if (getOffsetTimer() % 20 == 0) {
             oc = 0;
-            if (MachineIO.inputFluid(this, GTMaterials.Hydrogen.getFluid(1000000))) {
-                hydrogen += 1000000;
+            if (MachineIO.inputFluid(this, GTMaterials.Hydrogen.getFluid(100000000))) {
+                hydrogen += 100000000;
             }
-            if (MachineIO.inputFluid(this, GTMaterials.Helium.getFluid(1000000))) {
-                helium += 1000000;
+            if (MachineIO.inputFluid(this, GTMaterials.Helium.getFluid(100000000))) {
+                helium += 100000000;
             }
             if (MachineIO.notConsumableCircuit(this, 4)) {
                 oc = 4;
