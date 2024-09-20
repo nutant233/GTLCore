@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.client.renderer.machine;
 
 import com.gregtechceu.gtceu.GTCEu;
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
@@ -10,7 +9,6 @@ import com.gregtechceu.gtceu.client.renderer.machine.WorkableCasingMachineRender
 import com.lowdragmc.lowdraglib.client.bakedpipeline.FaceQuad;
 import com.lowdragmc.lowdraglib.client.model.ModelFactory;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -37,6 +35,10 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
 
     private static final ResourceLocation SPACE_MODEL = GTLCore.id("obj/space");
     public static final ResourceLocation STAR_MODEL = GTLCore.id("obj/star");
+    public static final List<ResourceLocation> ORBIT_OBJECTS = List.of(
+            GTLCore.id("obj/the_nether"),
+            GTLCore.id("obj/overworld"),
+            GTLCore.id("obj/the_end"));
 
     public EyeOfHarmonyRenderer() {
         super(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/cosmos_simulation"));
@@ -48,7 +50,7 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
                        int combinedLight, int combinedOverlay) {
         if (blockEntity instanceof IMachineBlockEntity machineBlockEntity &&
                 machineBlockEntity.getMetaMachine() instanceof HarmonyMachine machine && machine.isActive()) {
-            float tick = machine.getLevel().getGameTime() + partialTicks;
+            float tick = machine.getOffsetTimer() + partialTicks;
             double x = 0.5, y = 0.5, z = 0.5;
             switch (machine.getFrontFacing()) {
                 case NORTH -> z = 16.5;
@@ -58,23 +60,31 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
             }
             poseStack.pushPose();
             poseStack.translate(x, y, z);
-            renderStar(tick, poseStack, buffer, combinedLight, combinedOverlay);
+            renderStar(tick, poseStack, buffer);
+            renderOrbitObjects(tick, poseStack, buffer, x, y, z);
             renderOuterSpaceShell(poseStack, buffer);
             poseStack.popPose();
         }
     }
 
-    private static void renderStar(float tick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+    private static void renderStar(float tick, PoseStack poseStack, MultiBufferSource buffer) {
         poseStack.pushPose();
         poseStack.scale(0.02F, 0.02F, 0.02F);
-        poseStack.mulPose(new Quaternionf().fromAxisAngleDeg(0F, 1F, 1F, 130F + tick % 360F));
-        PoseStack.Pose pose = poseStack.last();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.translucent());
-        List<BakedQuad> quads = ClientUtil.getBakedModel(STAR_MODEL).getQuads(null, null, GTValues.RNG);
-        for (BakedQuad quad : quads) {
-            consumer.putBulkData(pose, quad, 1f, 1f, 1f, combinedLight, combinedOverlay);
-        }
+        poseStack.mulPose(new Quaternionf().fromAxisAngleDeg(0F, 1F, 1F, (tick / 2) % 360F));
+        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.translucent()), null, ClientUtil.getBakedModel(STAR_MODEL), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.translucent());
         poseStack.popPose();
+    }
+
+    private void renderOrbitObjects(float tick, PoseStack poseStack, MultiBufferSource buffer, double x, double y, double z) {
+        for (int a = 1; a < 4; a++) {
+            float scale = 0.007F + 0.003F * a;
+            poseStack.pushPose();
+            poseStack.scale(scale, scale, scale);
+            poseStack.mulPose(new Quaternionf().fromAxisAngleDeg(1F, 0F, 1F, (tick * 1.5F / a) % 360F));
+            poseStack.translate(x + (a * 100 + 160) * Math.sin(tick * a / 80 + 0.4), y, z + (a * 100 + 160) * Math.cos(tick * a / 80 + 0.4));
+            ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(ORBIT_OBJECTS.get(a - 1)), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
+            poseStack.popPose();
+        }
     }
 
     private void renderOuterSpaceShell(PoseStack poseStack, MultiBufferSource buffer) {
@@ -90,6 +100,9 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
         super.onAdditionalModel(registry);
         registry.accept(SPACE_MODEL);
         registry.accept(STAR_MODEL);
+        registry.accept(ORBIT_OBJECTS.get(0));
+        registry.accept(ORBIT_OBJECTS.get(1));
+        registry.accept(ORBIT_OBJECTS.get(2));
     }
 
     @Override

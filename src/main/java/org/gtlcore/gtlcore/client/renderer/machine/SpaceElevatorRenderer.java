@@ -35,7 +35,7 @@ public class SpaceElevatorRenderer extends WorkableCasingMachineRenderer {
                        int combinedLight, int combinedOverlay) {
         if (blockEntity instanceof IMachineBlockEntity machineBlockEntity &&
                 machineBlockEntity.getMetaMachine() instanceof SpaceElevatorMachine machine && machine.isFormed()) {
-            float tick = machine.getLevel().getGameTime() + partialTicks;
+            float tick = machine.getOffsetTimer() + partialTicks;
             double x = 0.5, y = 1, z = 0.5;
             switch (machine.getFrontFacing()) {
                 case NORTH -> z = 3.5;
@@ -80,6 +80,6 @@ public class SpaceElevatorRenderer extends WorkableCasingMachineRenderer {
     @Override
     @OnlyIn(Dist.CLIENT)
     public int getViewDistance() {
-        return 256;
+        return 512;
     }
 }
