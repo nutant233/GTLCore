@@ -228,7 +228,7 @@ public class GTLMaterials {
         Indium.getProperty(PropertyKey.ORE).setOreByProducts(Aluminium, Zinc);
         NaquadahEnriched.setProperty(PropertyKey.ORE, new OreProperty());
         NaquadahEnriched.getProperty(PropertyKey.ORE).setOreByProducts(Naquadah, Sulfur);
-        Echo.setProperty(PropertyKey.FLUID, new FluidProperty(FluidStorageKeys.LIQUID, new FluidBuilder()));
+        EchoShard.setProperty(PropertyKey.FLUID, new FluidProperty(FluidStorageKeys.LIQUID, new FluidBuilder()));
         Graphite.setProperty(PropertyKey.INGOT, new IngotProperty());
         VanadiumSteel.addFlags(MaterialFlags.GENERATE_FRAME);
         Lutetium.setProperty(PropertyKey.INGOT, new IngotProperty());

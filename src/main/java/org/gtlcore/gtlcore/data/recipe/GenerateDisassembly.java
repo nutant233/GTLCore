@@ -11,6 +11,7 @@ import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.gtlcore.gtlcore.GTLCore;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -38,10 +39,15 @@ public class GenerateDisassembly {
     }
 
     public static void generateDisassembly(GTRecipeBuilder r, Consumer<FinishedRecipe> p) {
+        List<Content> c = r.output.getOrDefault(ItemRecipeCapability.CAP, null);
+        if (c == null) {
+            GTLCore.LOGGER.atError().log("配方{}没有输出", r.id);
+            return;
+        }
         ItemStack[] outputs = ItemRecipeCapability.CAP
-                .of(r.output.get(ItemRecipeCapability.CAP).get(0).getContent()).getItems();
+                .of(c.get(0).getContent()).getItems();
         if (outputs.length == 0) return;
-        ItemStack  output = outputs[0];
+        ItemStack output = outputs[0];
         String id = output.kjs$getId();
         boolean cal = r.recipeType == GTRecipeTypes.get("circuit_assembly_line");
         if (isExcludeItems(id, outputItem)) return;

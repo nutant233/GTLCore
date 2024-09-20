@@ -75,7 +75,7 @@ public class ForgeClientEventListener {
                 RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
                 RenderSystem.lineWidth(3);
 
-                RenderBufferUtils.renderCubeFrame(
+                RenderBufferUtils.drawCubeFrame(
                         poseStack,
                         buffer,
                         poses[0].getX(),

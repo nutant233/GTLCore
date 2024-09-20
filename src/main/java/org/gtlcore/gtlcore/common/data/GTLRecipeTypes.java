@@ -19,7 +19,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.common.recipe.condition.RecipeModify;
+import org.gtlcore.gtlcore.common.recipe.RecipeModify;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
 

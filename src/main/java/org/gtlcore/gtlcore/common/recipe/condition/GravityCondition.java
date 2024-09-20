@@ -7,11 +7,15 @@ import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockControllerMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeCondition;
+import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.NoArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
+import org.gtlcore.gtlcore.common.data.GTLRecipeConditions;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.GravityPartMachine;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +23,12 @@ import java.util.Objects;
 
 @NoArgsConstructor
 public class GravityCondition extends RecipeCondition {
+
+    public static final Codec<GravityCondition> CODEC = RecordCodecBuilder
+            .create(instance -> RecipeCondition.isReverse(instance)
+                    .and(Codec.BOOL.fieldOf("dimension").forGetter(val -> val.zero))
+                    .apply(instance, GravityCondition::new));
+
     public final static GravityCondition INSTANCE = new GravityCondition();
 
     private boolean zero = false;
@@ -27,9 +37,14 @@ public class GravityCondition extends RecipeCondition {
         this.zero = zero;
     }
 
+    public GravityCondition(boolean isReverse, boolean zero) {
+        super(isReverse);
+        this.zero = zero;
+    }
+
     @Override
-    public String getType() {
-        return "gravity";
+    public RecipeConditionType<?> getType() {
+        return GTLRecipeConditions.GRAVITY;
     }
 
     @Override

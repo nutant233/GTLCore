@@ -34,8 +34,6 @@
     "gtm.cover.ConveyorCoverMixin",
     "gtm.cover.InfiniteWaterCoverMixin",
     "gtm.cover.PumpCoverMixin",
-    "gtm.gui.AEFluidConfigSlotWidgetMixin",
-    "gtm.gui.AEItemConfigSlotWidgetMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
     "gtm.machine.FluidHatchPartMachineMixin",
@@ -59,7 +57,6 @@
     "gtm.registry.GTRecipeBuilderMixin",
     "gtm.registry.GTRecipeTypeMixin",
     "gtmt.WirelessEnergyReceiveCoverMixin",
-    "ldlib.ModularUIRecipeCategoryMixin",
     "travelanchors.EventListenerMixin"
   ],
   "injectors": {
