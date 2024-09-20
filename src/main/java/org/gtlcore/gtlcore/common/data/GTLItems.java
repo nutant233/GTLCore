@@ -25,6 +25,7 @@ import com.hepdd.gtmthings.data.CreativeModeTabs;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import org.gtlcore.gtlcore.common.item.ConfigurationCopyBehavior;
 import org.gtlcore.gtlcore.common.item.PatternModifier;
 import org.gtlcore.gtlcore.common.item.PatternTestBehavior;
 import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
@@ -233,6 +234,11 @@ public class GTLItems {
     public static final ItemEntry<ComponentItem> PATTERN_MODIFIER = REGISTRATE
             .item("pattern_modifier", ComponentItem::create)
             .onRegister(GTItems.attach(PatternModifier.INSTANCE))
+            .register();
+
+    public static ItemEntry<ComponentItem> CFG_COPY = REGISTRATE
+            .item("cfg_copy", ComponentItem::create)
+            .onRegister(attach(ConfigurationCopyBehavior.INSTANCE))
             .register();
 
     public static final ItemEntry<StorageComponentItem> CELL_COMPONENT_1M = registerStorageComponentItem(1);

@@ -73,6 +73,7 @@
     "item.gtlcore.cell_component_256m": "256M 存储组件",
     "item.gtlcore.cell_component_4m": "4M 存储组件",
     "item.gtlcore.cell_component_64m": "64M 存储组件",
+    "item.gtlcore.cfg_copy": "配置复制工具",
     "item.gtlcore.debug_pattern_test": "配方样板调试工具",
     "item.gtlcore.debug_structure_writer": "多方块结构导出工具",
     "item.gtlcore.extremely_max_battery": "极·终极电池",
