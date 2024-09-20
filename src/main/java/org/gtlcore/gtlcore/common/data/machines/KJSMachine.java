@@ -1386,7 +1386,7 @@ public class KJSMachine {
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                                     .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
                             .where("c", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
-                            .where("d", Predicates.blocks(GTBlocks.FUSION_CASING.get()))
+                            .where("d", Predicates.blocks(GTBlocks.FILTER_CASING.get()))
                             .where("e", Predicates.blocks(Registries.getBlock("gtceu:hastelloy_n_frame")))
                             .where("f", Predicates.blocks(GTLBlocks.ADVANCED_ASSEMBLY_LINE_UNIT.get()))
                             .where("g", Predicates.blocks(Registries.getBlock("gtceu:tungsten_steel_frame")))

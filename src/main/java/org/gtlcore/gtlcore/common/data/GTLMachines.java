@@ -43,6 +43,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
+import org.gtlcore.gtlcore.client.renderer.machine.SpaceElevatorRenderer;
 import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
 import org.gtlcore.gtlcore.common.data.machines.TootipsModify;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
@@ -931,7 +932,8 @@ public class GTLMachines {
                             .where("-", Predicates.air())
                             .where(" ", Predicates.any())
                             .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/space_elevator_mechanical_casing"), GTCEu.id("block/space_elevator"))
+            .renderer(SpaceElevatorRenderer::new)
+            .hasTESR(true)
             .register();
 
     public final static MultiblockMachineDefinition COMPONENT_ASSEMBLY_LINE = REGISTRATE.multiblock("component_assembly_line", (holder) -> new TierCasingMachine(holder, "CATier"))

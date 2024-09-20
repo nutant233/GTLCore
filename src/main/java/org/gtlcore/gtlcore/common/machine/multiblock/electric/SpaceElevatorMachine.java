@@ -76,14 +76,6 @@ public class SpaceElevatorMachine extends TierCasingMachine {
             if (getRecipeLogic().getProgress() > 240) {
                 getRecipeLogic().setProgress(120);
             }
-            final Level level = getLevel();
-            final BlockPos blockPos = getPowerCore(getPos(), level);
-            if (blockPos != null) {
-                BlockPos pos = blockPos.offset(0, 140, 0);
-                Objects.requireNonNull(level.getServer()).kjs$runCommandSilent("execute in " +
-                        level.kjs$getDimension().toString() + " run particle minecraft:end_rod " +
-                        pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 0.1 40 0.1 0.001 10000 force");
-            }
         }
         return value;
     }

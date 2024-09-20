@@ -35,8 +35,8 @@ import java.util.function.Consumer;
 
 public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implements IControllerRenderer {
 
-    public static final ResourceLocation SPACE_MODEL = GTLCore.id("obj/space");
-    private static final ResourceLocation STAR_MODEL = GTLCore.id("obj/star");
+    private static final ResourceLocation SPACE_MODEL = GTLCore.id("obj/space");
+    public static final ResourceLocation STAR_MODEL = GTLCore.id("obj/star");
 
     public EyeOfHarmonyRenderer() {
         super(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/cosmos_simulation"));
@@ -77,7 +77,7 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
         poseStack.popPose();
     }
 
-    public void renderOuterSpaceShell(PoseStack poseStack, MultiBufferSource buffer) {
+    private void renderOuterSpaceShell(PoseStack poseStack, MultiBufferSource buffer) {
         float scale = 0.01F * 17.5F;
         poseStack.pushPose();
         poseStack.scale(scale, scale, scale);
@@ -115,6 +115,6 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
     @Override
     @OnlyIn(Dist.CLIENT)
     public int getViewDistance() {
-        return 64;
+        return 128;
     }
 }
