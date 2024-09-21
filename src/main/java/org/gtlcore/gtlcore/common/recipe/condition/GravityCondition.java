@@ -26,7 +26,7 @@ public class GravityCondition extends RecipeCondition {
 
     public static final Codec<GravityCondition> CODEC = RecordCodecBuilder
             .create(instance -> RecipeCondition.isReverse(instance)
-                    .and(Codec.BOOL.fieldOf("dimension").forGetter(val -> val.zero))
+                    .and(Codec.BOOL.fieldOf("gravity").forGetter(val -> val.zero))
                     .apply(instance, GravityCondition::new));
 
     public final static GravityCondition INSTANCE = new GravityCondition();

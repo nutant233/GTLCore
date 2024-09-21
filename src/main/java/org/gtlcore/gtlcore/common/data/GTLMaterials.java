@@ -633,6 +633,7 @@ public class GTLMaterials {
 
         if (!Platform.isDevEnv()) {
             TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);
+            TagPrefix.nugget.setIgnored(Infinity, ModItems.infinity_nugget);
             TagPrefix.block.setIgnored(Infinity, ModBlocks.infinity);
         }
     }
