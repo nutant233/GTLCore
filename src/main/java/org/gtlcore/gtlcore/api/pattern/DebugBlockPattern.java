@@ -4,8 +4,8 @@ import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public class DebugBlockPattern {
     public String[][] pattern;
     public int[][] aisleRepetitions;
     public Map<Character, Set<String>> symbolMap;
-    public Map<BlockState, Character> legend = new HashMap<>();
+    public Map<Block, Character> legend = new HashMap<>();
 
     public DebugBlockPattern() {
         symbolMap = new HashMap<>();
@@ -37,7 +37,7 @@ public class DebugBlockPattern {
             aisleRepetition[1] = 1;
         }
 
-        legend.put(Blocks.AIR.defaultBlockState(), ' ');
+        legend.put(Blocks.AIR, ' ');
 
         char c = 'A'; // auto
 
@@ -45,15 +45,14 @@ public class DebugBlockPattern {
             for (int y = minY; y <= maxY; y++) {
                 StringBuilder builder = new StringBuilder();
                 for (int z = minZ; z <= maxZ; z++) {
-                    BlockPos pos = new BlockPos(x, y, z);
-                    BlockState state = world.getBlockState(pos);
-                    if (!legend.containsKey(state)) {
-                        legend.put(state, c);
+                    Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
+                    if (!legend.containsKey(block)) {
+                        legend.put(block, c);
                         String name = String.valueOf(c);
                         symbolMap.computeIfAbsent(c, key -> new HashSet<>()).add(name); // any
                         c++;
                     }
-                    builder.append(legend.get(state));
+                    builder.append(legend.get(block));
                 }
                 pattern[x - minX][y - minY] = builder.toString();
             }

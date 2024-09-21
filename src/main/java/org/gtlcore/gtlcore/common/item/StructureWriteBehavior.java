@@ -116,15 +116,7 @@ public class StructureWriteBehavior implements IItemUIFactory {
                     blockPos[1].getZ());
             RelativeDirection[] dirs = DebugBlockPattern.getDir(direction);
             blockPattern.changeDir(dirs[0], dirs[1], dirs[2]);
-            if (Arrays.equals(dirs, new RelativeDirection[] {
-                    RelativeDirection.LEFT, RelativeDirection.UP, RelativeDirection.FRONT })) {
-                builder.append(".pattern(definition => FactoryBlockPattern.start()\n");
-            } else {
-                builder.append(".pattern(definition => FactoryBlockPattern.start(")
-                        .append(dirs[0].name().toLowerCase()).append(", ")
-                        .append(dirs[1].name().toLowerCase()).append(", ")
-                        .append(dirs[2].name().toLowerCase()).append(")\n");
-            }
+            builder.append(".pattern(definition -> FactoryBlockPattern.start()\n");
             for (int i = 0; i < blockPattern.pattern.length; i++) {
                 String[] strings = blockPattern.pattern[i];
                 builder.append(".aisle(\"%s\")\n".formatted(Joiner.on("\", \"").join(strings)));
@@ -132,8 +124,8 @@ public class StructureWriteBehavior implements IItemUIFactory {
             builder.append(".where(\"~\", Predicates.controller(Predicates.blocks(definition.get())))\n");
             blockPattern.legend.forEach((b, c) -> {
                 if (c.equals(' ')) return;
-                builder.append(".where(\"").append(c).append("\", Predicates.blocks(\"")
-                        .append(b.getBlock().kjs$getId()).append("\")\n");
+                builder.append(".where(\"").append(c).append("\", Predicates.blocks(Registries.getBlock(\"")
+                        .append(b.kjs$getId()).append("\")))\n");
             });
             GTLCore.LOGGER.info(builder.toString());
         }

@@ -1,9 +1,8 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
-import com.gregtechceu.gtceu.api.capability.GTCapabilityHelper;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
-import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.lowdragmc.lowdraglib.gui.util.ClickData;
 import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
 import earth.terrarium.adastra.common.menus.base.PlanetsMenuProvider;
@@ -54,8 +53,8 @@ public class SpaceElevatorMachine extends TierCasingMachine {
                         blockPos.offset(-3, 2, -8) };
                 mam = 0;
                 for (BlockPos blockPoss : coordinatess) {
-                    RecipeLogic logic = GTCapabilityHelper.getRecipeLogic(level, blockPoss, null);
-                    if (logic != null && logic.machine instanceof WorkableElectricMultiblockMachine mbmachine &&
+                    MetaMachine metaMachine = MetaMachine.getMachine(level, blockPoss);
+                    if (metaMachine instanceof WorkableElectricMultiblockMachine mbmachine &&
                             mbmachine.isFormed()) {
                         String bid = mbmachine.getBlockState().getBlock().kjs$getId();
                         if (bid.equals("gtceu:assembler_module") || bid.equals("gtceu:resource_collection")) {

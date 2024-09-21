@@ -1,9 +1,8 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
-import com.gregtechceu.gtceu.api.capability.GTCapabilityHelper;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
-import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import net.minecraft.ChatFormatting;
@@ -43,8 +42,8 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
                     pos.offset(0, 0, 3),
                     pos.offset(0, 0, -3)};
             for (BlockPos i : coordinates) {
-                RecipeLogic logic = GTCapabilityHelper.getRecipeLogic(level, i, null);
-                if (logic != null && Objects.equals(logic.getMachine().getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line_module") && ((WorkableElectricMultiblockMachine) logic.getMachine()).isFormed()) {
+                MetaMachine metaMachine = MetaMachine.getMachine(level, i);
+                if (metaMachine != null && Objects.equals(metaMachine.getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line_module") && ((WorkableElectricMultiblockMachine) metaMachine).isFormed()) {
                     module++;
                 }
             }
@@ -59,10 +58,10 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
                     pos.offset(-3, 0, 0),
                     pos.offset(0, 0, 3),
                     pos.offset(0, 0, -3) };
-            for (BlockPos i : coordinates){
-                RecipeLogic logic = GTCapabilityHelper.getRecipeLogic(level, i, null);
-                if (logic != null && Objects.equals(logic.getMachine().getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line") && ((WorkableElectricMultiblockMachine) logic.getMachine()).isFormed()) {
-                    machine = (WorkableElectricMultiblockMachine) logic.getMachine();
+            for (BlockPos i : coordinates) {
+                MetaMachine metaMachine = MetaMachine.getMachine(level, i);
+                if (metaMachine != null && Objects.equals(metaMachine.getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line") && ((WorkableElectricMultiblockMachine) metaMachine).isFormed()) {
+                    machine = (WorkableElectricMultiblockMachine) metaMachine;
                 }
             }
         }

@@ -1,10 +1,12 @@
 package org.gtlcore.gtlcore.common.item;
 
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
+import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.item.component.IInteractionItem;
 import com.gregtechceu.gtceu.api.item.tool.behavior.IToolBehavior;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.SimpleTieredMachine;
+import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.common.item.IntCircuitBehaviour;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 import net.minecraft.core.Direction;
@@ -33,7 +35,6 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
                     context.getPlayer().displayClientMessage(Component.literal("已保复制机器数据"), true);
                 } else {
                     if (tags.getBoolean("Configuration")) {
-                        stack.removeTagKey("GT.Behaviours");
                         setSTMCfg(tags, simpleTieredMachine);
                         context.getPlayer().displayClientMessage(Component.literal("已粘贴机器数据"), true);
                     } else {
@@ -46,7 +47,6 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
                     context.getPlayer().displayClientMessage(Component.literal("已保复制机器数据"), true);
                 } else {
                     if (tags.getBoolean("Configuration")) {
-                        stack.removeTagKey("GT.Behaviours");
                         setBusCfg(tags, itemBusPartMachine);
                         context.getPlayer().displayClientMessage(Component.literal("已粘贴机器数据"), true);
                     } else {
@@ -63,9 +63,12 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
         tags.putBoolean("Configuration", true);
         tags.putBoolean("isDistinct", metaMachine.isDistinct());
         tags.putBoolean("isWorkingEnabled", metaMachine.isWorkingEnabled());
-        int c = IntCircuitBehaviour.getCircuitConfiguration(metaMachine.getCircuitInventory().getStackInSlot(0));
-        if (c > 0) {
-            tags.putInt("circuit", c);
+        NotifiableItemStackHandler circuitInventory = metaMachine.getCircuitInventory();
+        if (circuitInventory.handlerIO.support(IO.IN)) {
+            int c = IntCircuitBehaviour.getCircuitConfiguration(circuitInventory.getStackInSlot(0));
+            if (c > 0) {
+                tags.putInt("circuit", c);
+            }
         }
     }
 
@@ -73,8 +76,9 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
         metaMachine.setDistinct(tags.getBoolean("isDistinct"));
         metaMachine.setWorkingEnabled(tags.getBoolean("isWorkingEnabled"));
         int c = tags.getInt("circuit");
-        if (c > 0) {
-            metaMachine.getCircuitInventory().setStackInSlot(0, IntCircuitBehaviour.stack(c));
+        NotifiableItemStackHandler circuitInventory = metaMachine.getCircuitInventory();
+        if (c > 0 && circuitInventory.handlerIO.support(IO.IN)) {
+            circuitInventory.setStackInSlot(0, IntCircuitBehaviour.stack(c));
         }
     }
 
@@ -92,9 +96,12 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
         }
         tags.putBoolean("allowInputFromOutputSideItems", metaMachine.isAllowInputFromOutputSideItems());
         tags.putBoolean("allowInputFromOutputSideFluids", metaMachine.isAllowInputFromOutputSideFluids());
-        int c = IntCircuitBehaviour.getCircuitConfiguration(metaMachine.getCircuitInventory().getStackInSlot(0));
-        if (c > 0) {
-            tags.putInt("circuit", c);
+        NotifiableItemStackHandler circuitInventory = metaMachine.getCircuitInventory();
+        if (circuitInventory.handlerIO.support(IO.IN)) {
+            int c = IntCircuitBehaviour.getCircuitConfiguration(circuitInventory.getStackInSlot(0));
+            if (c > 0) {
+                tags.putInt("circuit", c);
+            }
         }
     }
 
@@ -112,8 +119,9 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
         metaMachine.setAllowInputFromOutputSideItems(tags.getBoolean("allowInputFromOutputSideItems"));
         metaMachine.setAllowInputFromOutputSideFluids(tags.getBoolean("allowInputFromOutputSideFluids"));
         int c = tags.getInt("circuit");
-        if (c > 0) {
-            metaMachine.getCircuitInventory().setStackInSlot(0, IntCircuitBehaviour.stack(c));
+        NotifiableItemStackHandler circuitInventory = metaMachine.getCircuitInventory();
+        if (c > 0 && circuitInventory.handlerIO.support(IO.IN)) {
+            circuitInventory.setStackInSlot(0, IntCircuitBehaviour.stack(c));
         }
     }
 }

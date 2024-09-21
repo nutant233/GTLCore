@@ -15,6 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
@@ -80,6 +81,6 @@ public class CommonProxy {
 
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
         GTLMachines.init();
-        GTLMachines.LARGE_SEMI_FLUID_GENERATOR.setRecipeTypes(new GTRecipeType[]{GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS});
+        GeneratorMachine.LARGE_SEMI_FLUID_GENERATOR.setRecipeTypes(new GTRecipeType[]{GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS});
     }
 }

@@ -21,7 +21,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
-import org.gtlcore.gtlcore.common.data.machines.KJSAdvancedMachine;
+import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
+import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -158,10 +159,10 @@ public class MachineRecipe {
                 .inputItems(GTItems.ELECTRIC_PUMP_UV, 4)
                 .inputItems(gear, Neutronium, 4)
                 .circuitMeta(2)
-                .outputItems(GTLMachines.FLUID_DRILLING_RIG[ZPM])
+                .outputItems(AdvancedMultiBlockMachine.FLUID_DRILLING_RIG[ZPM])
                 .duration(400).EUt(VA[UV]).save(provider);
 
-        VanillaRecipeHelper.addShapedRecipe(provider, true, "generator_array", GTLMachines.GENERATOR_ARRAY.asStack(),
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "generator_array", GeneratorMachine.GENERATOR_ARRAY.asStack(),
                 "ABA", "BCB", "ABA", 'A', new UnificationEntry(plate, Steel),
                 'B', CustomTags.LV_CIRCUITS, 'C', GTItems.EMITTER_LV.asStack());
 
@@ -235,8 +236,8 @@ public class MachineRecipe {
                 GTItems.FIELD_GENERATOR_UIV.asStack(), 'H', GTMachines.HULL[13].asStack());
 
         VanillaRecipeHelper.addShapedRecipe(provider, true, "large_block_conversion_room",
-                KJSAdvancedMachine.LARGE_BLOCK_CONVERSION_ROOM.asStack(), "SES", "EHE", "SES",
-                'S', GTItems.SENSOR_ZPM.asStack(), 'E', GTItems.EMITTER_ZPM.asStack(), 'H', KJSAdvancedMachine.BLOCK_CONVERSION_ROOM.asStack());
+                AdvancedMultiBlockMachine.LARGE_BLOCK_CONVERSION_ROOM.asStack(), "SES", "EHE", "SES",
+                'S', GTItems.SENSOR_ZPM.asStack(), 'E', GTItems.EMITTER_ZPM.asStack(), 'H', AdvancedMultiBlockMachine.BLOCK_CONVERSION_ROOM.asStack());
 
         List<ItemEntry<ComponentItem>> WIRELESS_ENERGY_RECEIVE_COVER = List.of(
                 CustomItems.WIRELESS_ENERGY_RECEIVE_COVER_LV,

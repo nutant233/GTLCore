@@ -14,11 +14,13 @@ import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -180,6 +182,11 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
             if (value) MachineIO.outputFluid(this, GTMaterials.get("supercritical_sodium_potassium").getFluid((long) (amount * 20)));
         } else if (value) MachineIO.outputFluid(this, GTMaterials.get("hot_sodium_potassium").getFluid((long) (amount * 20)));
         return value;
+    }
+
+    @Override
+    public int getOutputSignal(@Nullable Direction side) {
+        return 22500 / heat;
     }
 
     @Override
