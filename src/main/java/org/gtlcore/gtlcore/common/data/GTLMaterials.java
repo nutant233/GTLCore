@@ -71,6 +71,7 @@ public class GTLMaterials {
     public static Material TungstenTrioxide;
     public static Material SpaceTime;
     public static Material Infinity;
+
     public static Material CompoundTriniite;
     public static Material FumingNitricAcid;
     public static Material CrystallineNitricAcid;
@@ -92,6 +93,71 @@ public class GTLMaterials {
     public static Material CesiumCarborane;
     public static Material SilverIodide;
     public static Material SilverNitrate;
+    public static Material TrifluoroaceticPhosphateEster;
+    public static Material EthyleneSulfide;
+    public static Material EthylTrifluoroacetate;
+    public static Material AcetylChloride;
+    public static Material RadiumNitrate;
+    public static Material ActiniumNitrate;
+    public static Material KryptonDifluoride;
+    public static Material Fluorite;
+    public static Material MoltenCalciumSalts;
+    public static Material PotassiumFluoride;
+    public static Material SodiumHydride;
+    public static Material Trimethylamine;
+    public static Material BoraneDimethylSulfide;
+    public static Material Tetrahydrofuran;
+    public static Material CesiumCarboranePrecursor;
+    public static Material Diborane;
+    public static Material LithiumAluminiumHydride;
+    public static Material LithiumAluminiumFluoride;
+    public static Material AluminiumTrifluoride;
+    public static Material SodiumAluminiumHydride;
+    public static Material AluminiumHydride;
+    public static Material Alumina;
+    public static Material CaesiumHydroxide;
+    public static Material Decaborane;
+    public static Material SodiumTetrafluoroborate;
+    public static Material DiethylEther;
+    public static Material SodiumBorohydride;
+    public static Material BoronTrifluorideAcetate;
+    public static Material SodiumHexafluoroaluminate;
+    public static Material PhosphorusPentasulfide;
+
+    public static Material DirtyHexafluorosilicicAcid;
+    public static Material DiluteHexafluorosilicicAcid;
+    public static Material StoneResidue;
+    public static Material FluorosilicicAcid;
+    public static Material AmmoniumFluoride;
+    public static Material AmmoniumBifluoride;
+    public static Material AmmoniumHydrofluorideSolution;
+    public static Material SodiumHydroxideSolution;
+    public static Material UncommonResidues;
+    public static Material RedMud;
+    public static Material NeutralisedRedMud;
+    public static Material RedSlurry;
+    public static Material FerricReeChloride;
+    public static Material TitanylSulfate;
+    public static Material DioxygenDifluoride;
+    public static Material PartiallyOxidizedResidues;
+    public static Material OxidizedResidalSolution;
+    public static Material InertResidues;
+    public static Material OxidizedResidues;
+    public static Material HeavyOxidizedResidues;
+    public static Material CleanInertResidues;
+    public static Material HeliumIIIHydride;
+    public static Material UltraacidicResidueSolution;
+    public static Material XenicAcid;
+    public static Material DiluteHydrofluoricAcid;
+    public static Material MetallicResidues;
+    public static Material HeavyMetallicResidues;
+    public static Material DiamagneticResidues;
+    public static Material ParamagneticResidues;
+    public static Material FerromagneticResidues;
+    public static Material HeavyDiamagneticResidues;
+    public static Material HeavyParamagneticResidues;
+    public static Material HeavyFerromagneticResidues;
+    public static Material ExoticHeavyResidues;
 
     public static void init() {
         Duranium.addFlags(GENERATE_FRAME);
@@ -554,8 +620,8 @@ public class GTLMaterials {
         TriniumTetrafluoride = new Material.Builder(GTCEu.id("trinium_tetrafluoride"))
                 .dust()
                 .color(0x529E57)
-                .flags(DISABLE_DECOMPOSITION)
                 .components(Trinium, 1, Fluorine, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
         Fluorocarborane = new Material.Builder(GTCEu.id("fluorocarborane"))
                 .dust()
@@ -585,6 +651,99 @@ public class GTLMaterials {
                 .dust()
                 .components(Silver, 1, Nitrogen, 1, Oxygen, 3)
                 .color(0xFFFCE0).iconSet(BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        TrifluoroaceticPhosphateEster = new Material.Builder(GTCEu.id("trifluoroacetic_phosphate_ester"))
+                .dust()
+                .components(Carbon, 8, Hydrogen, 5, Fluorine, 3, Oxygen, 2, Sulfur, 1)
+                .color(0xA99F45).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        RadiumNitrate = new Material.Builder(GTCEu.id("radium_nitrate"))
+                .dust()
+                .color(0xCD40DA).iconSet(DULL)
+                .buildAndRegister().setFormula("Ra(NO3)2");
+        ActiniumNitrate = new Material.Builder(GTCEu.id("actinium_nitrate"))
+                .dust()
+                .color(0xDAE0EE).iconSet(DULL)
+                .buildAndRegister().setFormula("Ac(NO3)3");
+        PotassiumFluoride = new Material.Builder(GTCEu.id("potassium_fluoride"))
+                .dust()
+                .components(Potassium, 1, Fluorine, 1)
+                .color(0xB9B9B9).iconSet(BRIGHT)
+                .buildAndRegister();
+        SodiumHydride = new Material.Builder(GTCEu.id("sodium_hydride"))
+                .dust()
+                .components(Sodium, 1, Hydrogen, 1)
+                .color(0x757475).iconSet(DULL)
+                .buildAndRegister();
+        CesiumCarboranePrecursor = new Material.Builder(GTCEu.id("cesium_carborane_precursor"))
+                .dust()
+                .color(0xBA5C69).iconSet(DULL)
+                .buildAndRegister().setFormula("CsB10H12CN(CH3)3Cl");
+        LithiumAluminiumHydride = new Material.Builder(GTCEu.id("lithium_aluminium_hydride"))
+                .dust()
+                .components(Lithium, 1, Aluminium, 1, Hydrogen, 1)
+                .color(0xABD7DF).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        LithiumAluminiumFluoride = new Material.Builder(GTCEu.id("lithium_aluminium_fluoride"))
+                .dust()
+                .components(Aluminium, 1, Fluorine, 4, Lithium, 1)
+                .color(0xAD1F58).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        AluminiumTrifluoride = new Material.Builder(GTCEu.id("aluminium_trifluoride"))
+                .dust()
+                .components(Aluminium, 1, Fluorine, 3)
+                .color(0xB8601A).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SodiumAluminiumHydride = new Material.Builder(GTCEu.id("sodium_aluminium_hydride"))
+                .dust()
+                .components(Sodium, 1, Aluminium, 1, Hydrogen, 4)
+                .color(0x87BFBF).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        AluminiumHydride = new Material.Builder(GTCEu.id("aluminium_hydride"))
+                .dust()
+                .components(Aluminium, 1, Hydrogen, 3)
+                .color(0x315C6E).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        Alumina = new Material.Builder(GTCEu.id("alumina"))
+                .dust()
+                .components(Aluminium, 2, Oxygen, 3)
+                .color(0x1D4759).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CaesiumHydroxide = new Material.Builder(GTCEu.id("caesium_hydroxide"))
+                .dust()
+                .components(Caesium, 1, Oxygen, 1, Hydrogen, 1)
+                .color(0xD7D7D7).iconSet(DULL)
+                .buildAndRegister();
+        Decaborane = new Material.Builder(GTCEu.id("decaborane"))
+                .dust()
+                .components(Boron, 10, Hydrogen, 14)
+                .color(0x95B78F).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SodiumTetrafluoroborate = new Material.Builder(GTCEu.id("sodium_tetrafluoroborate"))
+                .dust()
+                .components(Sodium, 1, Boron, 1, Fluorine, 4)
+                .color(0xA6640F).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SodiumBorohydride = new Material.Builder(GTCEu.id("sodium_borohydride"))
+                .dust()
+                .components(Sodium, 1, Boron, 1, Hydrogen, 4)
+                .color(0x9AB0B2).iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        PhosphorusPentasulfide = new Material.Builder(GTCEu.id("phosphorus_pentasulfide"))
+                .dust()
+                .components(Phosphorus, 4, Sulfur, 10)
+                .color(0xE7A123).iconSet(DULL)
                 .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
@@ -630,6 +789,72 @@ public class GTLMaterials {
                 .fluid()
                 .color(0x169A33).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
+        EthyleneSulfide = new Material.Builder(GTCEu.id("ethylene_sulfide"))
+                .fluid()
+                .components(Carbon, 6, Hydrogen, 6, Sulfur, 1, Oxygen, 1)
+                .color(0x868544).iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        EthylTrifluoroacetate = new Material.Builder(GTCEu.id("ethyl_trifluoroacetate"))
+                .fluid()
+                .components(Carbon, 4, Hydrogen, 5, Fluorine, 3, Oxygen, 2)
+                .color(0x93A658).iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        AcetylChloride = new Material.Builder(GTCEu.id("acetyl_chloride"))
+                .fluid()
+                .components(Carbon, 2, Hydrogen, 3, Oxygen, 1, Chlorine, 1)
+                .color(0xD1B117).iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        KryptonDifluoride = new Material.Builder(GTCEu.id("krypton_difluoride"))
+                .fluid()
+                .components(Krypton, 1, Fluorine, 2)
+                .color(0x3FF12B).iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        MoltenCalciumSalts = new Material.Builder(GTCEu.id("molten_calcium_salts"))
+                .fluid()
+                .color(0x7F478B)
+                .iconSet(DULL)
+                .buildAndRegister();
+        Trimethylamine = new Material.Builder(GTCEu.id("trimethylamine"))
+                .fluid()
+                .color(0xCEA67D).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister().setFormula("(CH3)3N");
+        BoraneDimethylSulfide = new Material.Builder(GTCEu.id("borane_dimethyl_sulfide"))
+                .fluid()
+                .color(0xCEA67D).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister().setFormula("(BH3)(CH3)2S");
+        Tetrahydrofuran = new Material.Builder(GTCEu.id("tetrahydrofuran"))
+                .fluid()
+                .color(0x86E4CE).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister().setFormula("(CH2)4O");
+        Diborane = new Material.Builder(GTCEu.id("diborane"))
+                .fluid()
+                .color(0xBEEBCD).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister().setFormula("(BH3)2");
+        DiethylEther = new Material.Builder(GTCEu.id("diethyl_ether"))
+                .fluid()
+                .color(0x9AB0B2).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister().setFormula("(C2H5)2O");
+        BoronTrifluorideAcetate = new Material.Builder(GTCEu.id("boron_trifluoride_acetate"))
+                .fluid()
+                .color(0x991062).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister().setFormula("(BF3)(C2H5)2O");
+        SodiumHexafluoroaluminate = new Material.Builder(GTCEu.id("sodium_hexafluoroaluminate"))
+                .fluid()
+                .components(Sodium, 3, Aluminium, 1, Fluorine, 6)
+                .color(0xA47732).iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        Fluorite = new Material.Builder(GTCEu.id("fluorite"))
+                .fluid()
+                .dust()
+                .components(Calcium, 1, Fluorine, 2)
+                .color(0x18B400).iconSet(DULL)
+                .buildAndRegister();
+
 
         if (!Platform.isDevEnv()) {
             TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);
