@@ -32,7 +32,7 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
             if (metaMachine instanceof SimpleTieredMachine simpleTieredMachine) {
                 if (Objects.requireNonNull(context.getPlayer()).isShiftKeyDown()) {
                     getSTMCfg(tags, simpleTieredMachine);
-                    context.getPlayer().displayClientMessage(Component.literal("已保复制机器数据"), true);
+                    context.getPlayer().displayClientMessage(Component.literal("已复制机器数据"), true);
                 } else {
                     if (tags.getBoolean("Configuration")) {
                         setSTMCfg(tags, simpleTieredMachine);
@@ -44,7 +44,7 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
             } else if (metaMachine instanceof ItemBusPartMachine itemBusPartMachine) {
                 if (Objects.requireNonNull(context.getPlayer()).isShiftKeyDown()) {
                     getBusCfg(tags, itemBusPartMachine);
-                    context.getPlayer().displayClientMessage(Component.literal("已保复制机器数据"), true);
+                    context.getPlayer().displayClientMessage(Component.literal("已复制机器数据"), true);
                 } else {
                     if (tags.getBoolean("Configuration")) {
                         setBusCfg(tags, itemBusPartMachine);

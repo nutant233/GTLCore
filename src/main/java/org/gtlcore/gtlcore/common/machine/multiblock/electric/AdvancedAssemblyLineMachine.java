@@ -4,7 +4,6 @@ import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
-import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
@@ -13,14 +12,11 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 
 public class AdvancedAssemblyLineMachine extends WorkableElectricMultiblockMachine {
 
@@ -51,7 +47,6 @@ public class AdvancedAssemblyLineMachine extends WorkableElectricMultiblockMachi
         if (container.getValue() instanceof Integer integer) {
             speed = 100 - integer;
         }
-        getDefinition().setPartSorter(Comparator.comparing(it -> multiblockPartSorter().apply(it.self().getPos())));
         super.onStructureFormed();
     }
 
@@ -60,10 +55,6 @@ public class AdvancedAssemblyLineMachine extends WorkableElectricMultiblockMachi
         super.addDisplayText(textList);
         if (!this.isFormed) return;
         textList.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", speed).append("%"));
-    }
-
-    private Function<BlockPos, Integer> multiblockPartSorter() {
-        return RelativeDirection.RIGHT.getSorter(getFrontFacing(), getUpwardsFacing(), isFlipped());
     }
 
     @Override

@@ -81,7 +81,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/antifreeze_heatproof_machine_casing"), GTCEu.id("block/multiblock/vacuum_freezer"))
             .register();
 
-    public final static MultiblockMachineDefinition RARE_EARTH_CENTRIFUGAL = REGISTRATE.multiblock("rare_earth_centrifugal", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition RARE_EARTH_CENTRIFUGAL = REGISTRATE.multiblock("rare_earth_centrifugal", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.RARE_EARTH_CENTRIFUGAL_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
@@ -110,7 +110,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_sturdy_hsse"), GTCEu.id("block/multiblock/gcym/large_centrifuge"))
             .register();
 
-    public final static MultiblockMachineDefinition SLAUGHTERHOUSE = REGISTRATE.multiblock("magic_manufacturer", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition SLAUGHTERHOUSE = REGISTRATE.multiblock("magic_manufacturer", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.MAGIC_MANUFACTURER_RECIPES)
@@ -148,7 +148,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/voltage/uiv/side"), GTCEu.id("block/multiblock/implosion_compressor"))
             .register();
 
-    public final static MultiblockMachineDefinition SPS_CRAFTING = REGISTRATE.multiblock("sps_crafting", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition SPS_CRAFTING = REGISTRATE.multiblock("sps_crafting", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.SPS_CRAFTING_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
@@ -181,7 +181,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/fusion/fusion_casing_mk2"), GTCEu.id("block/multiblock/assembly_line"))
             .register();
 
-    public final static MultiblockMachineDefinition ADVANCED_SPS_CRAFTING = REGISTRATE.multiblock("advanced_sps_crafting", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition ADVANCED_SPS_CRAFTING = REGISTRATE.multiblock("advanced_sps_crafting", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.SPS_CRAFTING_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
@@ -225,7 +225,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/fusion/fusion_casing_mk2"), GTCEu.id("block/multiblock/assembly_line"))
             .register();
 
-    public final static MultiblockMachineDefinition MATTER_FABRICATOR = REGISTRATE.multiblock("matter_fabricator", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition MATTER_FABRICATOR = REGISTRATE.multiblock("matter_fabricator", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.MATTER_FABRICATOR_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
@@ -255,7 +255,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/hpca/high_power_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition VOID_FLUID_DRILLING_RIG = REGISTRATE.multiblock("void_fluid_drilling_rig", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition VOID_FLUID_DRILLING_RIG = REGISTRATE.multiblock("void_fluid_drilling_rig", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.VOID_FLUID_DRILLING_RIG_RECIPES)
@@ -280,7 +280,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_sturdy_hsse"), GTCEu.id("block/multiblock/fluid_drilling_rig"))
             .register();
 
-    public final static MultiblockMachineDefinition VOID_MINER = REGISTRATE.multiblock("void_miner", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition VOID_MINER = REGISTRATE.multiblock("void_miner", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.VOID_MINER_RECIPES)
@@ -305,7 +305,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_stable_titanium"), GTCEu.id("block/multiblock/large_miner"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_VOID_MINER = REGISTRATE.multiblock("large_void_miner", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LARGE_VOID_MINER = REGISTRATE.multiblock("large_void_miner", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.LARGE_VOID_MINER_RECIPES)
@@ -371,7 +371,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_inert_ptfe"), GTCEu.id("block/machines/chemical_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition DECAY_HASTENER = REGISTRATE.multiblock("decay_hastener", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition DECAY_HASTENER = REGISTRATE.multiblock("decay_hastener", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.DECAY_HASTENER_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
@@ -399,7 +399,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/hyper_mechanical_casing"), GTCEu.id("block/multiblock/data_bank"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_RECYCLER = REGISTRATE.multiblock("large_recycler", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LARGE_RECYCLER = REGISTRATE.multiblock("large_recycler", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.LARGE_RECYCLER_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.large_recycler.tooltip.0"))
@@ -428,7 +428,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/steam/steel/side"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
             .register();
 
-    public final static MultiblockMachineDefinition MASS_FABRICATOR = REGISTRATE.multiblock("mass_fabricator", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition MASS_FABRICATOR = REGISTRATE.multiblock("mass_fabricator", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.MASS_FABRICATOR_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
@@ -464,7 +464,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/voltage/uhv/side"), GTCEu.id("block/multiblock/gcym/large_electrolyzer"))
             .register();
 
-    public final static MultiblockMachineDefinition A_MASS_FABRICATOR = REGISTRATE.multiblock("a_mass_fabricator", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition A_MASS_FABRICATOR = REGISTRATE.multiblock("a_mass_fabricator", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.MASS_FABRICATOR_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
@@ -509,7 +509,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/voltage/uxv/side"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition PRECISION_ASSEMBLER = REGISTRATE.multiblock("precision_assembler", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition PRECISION_ASSEMBLER = REGISTRATE.multiblock("precision_assembler", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.PRECISION_ASSEMBLER_RECIPES)
             .recipeType(GTRecipeTypes.ASSEMBLER_RECIPES)
@@ -541,7 +541,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/oxidation_resistant_hastelloy_n_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
-    public final static MultiblockMachineDefinition FISHING_GROUND = REGISTRATE.multiblock("fishing_ground", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition FISHING_GROUND = REGISTRATE.multiblock("fishing_ground", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.FISHING_GROUND_RECIPES)
@@ -574,7 +574,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/aluminium_bronze_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
-    public final static MultiblockMachineDefinition INCUBATOR = REGISTRATE.multiblock("incubator", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition INCUBATOR = REGISTRATE.multiblock("incubator", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.INCUBATOR_RECIPES)
@@ -602,7 +602,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/cleanroom/plascrete"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_INCUBATOR = REGISTRATE.multiblock("large_incubator", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LARGE_INCUBATOR = REGISTRATE.multiblock("large_incubator", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.INCUBATOR_RECIPES)
@@ -640,7 +640,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/cleanroom/plascrete"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
             .register();
 
-    public final static MultiblockMachineDefinition LAVA_FURNACE = REGISTRATE.multiblock("lava_furnace", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LAVA_FURNACE = REGISTRATE.multiblock("lava_furnace", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
@@ -663,7 +663,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/multiblock/steam_oven"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_GAS_COLLECTOR = REGISTRATE.multiblock("large_gas_collector", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LARGE_GAS_COLLECTOR = REGISTRATE.multiblock("large_gas_collector", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NONE)
             .allowExtendedFacing(false)
             .allowFlip(false)
@@ -692,7 +692,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/machines/gas_collector"))
             .register();
 
-    public final static MultiblockMachineDefinition AGGREGATION_DEVICE = REGISTRATE.multiblock("aggregation_device", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition AGGREGATION_DEVICE = REGISTRATE.multiblock("aggregation_device", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.AGGREGATION_DEVICE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.aggregation_device.tooltip.0"))
@@ -730,7 +730,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/fusion/fusion_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition SUPER_PARTICLE_COLLIDER = REGISTRATE.multiblock("super_particle_collider", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition SUPER_PARTICLE_COLLIDER = REGISTRATE.multiblock("super_particle_collider", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.SUPER_PARTICLE_COLLIDER_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
@@ -805,7 +805,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/lafium_mechanical_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition ENGRAVING_LASER_PLANT = REGISTRATE.multiblock("engraving_laser_plant", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition ENGRAVING_LASER_PLANT = REGISTRATE.multiblock("engraving_laser_plant", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.PRECISION_LASER_ENGRAVER_RECIPES)
@@ -899,7 +899,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/gcym/high_temperature_smelting_casing"), GTCEu.id("block/multiblock/gcym/blast_alloy_smelter"))
             .register();
 
-    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_MIXER = REGISTRATE.multiblock("dimensionally_transcendent_mixer", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_MIXER = REGISTRATE.multiblock("dimensionally_transcendent_mixer", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.DIMENSIONALLY_TRANSCENDENT_MIXER_RECIPES)
             .recipeType(GTRecipeTypes.MIXER_RECIPES)
@@ -944,7 +944,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition QFT = REGISTRATE.multiblock("qft", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition QFT = REGISTRATE.multiblock("qft", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.QFT_RECIPES)
@@ -1146,7 +1146,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
             .register();
 
-    public final static MultiblockMachineDefinition DRAGON_EGG_COPIER = REGISTRATE.multiblock("dragon_egg_copier", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition DRAGON_EGG_COPIER = REGISTRATE.multiblock("dragon_egg_copier", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.DRAGON_EGG_COPIER_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
@@ -1214,7 +1214,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/cracking_unit"))
             .register();
 
-    public final static MultiblockMachineDefinition MAGE_ASSEMBLER = REGISTRATE.multiblock("mage_assembler", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition MAGE_ASSEMBLER = REGISTRATE.multiblock("mage_assembler", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.ASSEMBLER_RECIPES)
             .recipeType(GTLRecipeTypes.PRECISION_ASSEMBLER_RECIPES)
@@ -1281,7 +1281,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/iridium_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_GREENHOUSE = REGISTRATE.multiblock("large_greenhouse", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LARGE_GREENHOUSE = REGISTRATE.multiblock("large_greenhouse", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.GREENHOUSE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.large_greenhouse.tooltip.0"))
@@ -1318,13 +1318,13 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/implosion_compressor"))
             .register();
 
-    public final static MultiblockMachineDefinition COOLING_TOWER = REGISTRATE.multiblock("cooling_tower", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition COOLING_TOWER = REGISTRATE.multiblock("cooling_tower", WorkableElectricParallelHatchMultipleRecipesMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTRecipeTypes.VACUUM_RECIPES)
             .recipeType(GTLRecipeTypes.PLASMA_CONDENSER_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
+            .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
                     Component.translatable("gtceu.vacuum_freezer"), Component.translatable("gtceu.plasma_condenser")))
@@ -1428,13 +1428,13 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_frost_proof"), GTCEu.id("block/multiblock/vacuum_freezer"))
             .register();
 
-    public final static MultiblockMachineDefinition MEGA_DISTILLERY = REGISTRATE.multiblock("mega_distillery", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition MEGA_DISTILLERY = REGISTRATE.multiblock("mega_distillery", WorkableElectricParallelHatchMultipleRecipesMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTRecipeTypes.DISTILLATION_RECIPES)
             .recipeType(GTRecipeTypes.EVAPORATION_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
+            .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
                     Component.translatable("gtceu.distillation_tower"), Component.translatable("gtceu.evaporation")))
@@ -1490,7 +1490,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/gcym/large_distillery"))
             .register();
 
-    public final static MultiblockMachineDefinition SUPERCONDUCTING_ELECTROMAGNETISM = REGISTRATE.multiblock("superconducting_electromagnetism", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition SUPERCONDUCTING_ELECTROMAGNETISM = REGISTRATE.multiblock("superconducting_electromagnetism", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.POLARIZER_RECIPES)
             .recipeType(GTRecipeTypes.ELECTROMAGNETIC_SEPARATOR_RECIPES)
@@ -1537,7 +1537,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/lafium_mechanical_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition GRAVITATION_SHOCKBURST = REGISTRATE.multiblock("gravitation_shockburst", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition GRAVITATION_SHOCKBURST = REGISTRATE.multiblock("gravitation_shockburst", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.GRAVITATION_SHOCKBURST_RECIPES)
             .recipeType(GTLRecipeTypes.ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES)
@@ -1572,7 +1572,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/create_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition CRYSTALLINE_INFINITY = REGISTRATE.multiblock("crystalline_infinity", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition CRYSTALLINE_INFINITY = REGISTRATE.multiblock("crystalline_infinity", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTRecipeTypes.AUTOCLAVE_RECIPES)
@@ -1641,7 +1641,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/extreme_strength_tritanium_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition STAR_ULTIMATE_MATERIAL_FORGE_FACTORY = REGISTRATE.multiblock("star_ultimate_material_forge_factory", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition STAR_ULTIMATE_MATERIAL_FORGE_FACTORY = REGISTRATE.multiblock("star_ultimate_material_forge_factory", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.ULTIMATE_MATERIAL_FORGE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.star_ultimate_material_forge_factory.tooltip.0"))
@@ -2166,7 +2166,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/multiblock/steam_ore_washer"))
             .register();
 
-    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_DIRT_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_dirt_forge", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_DIRT_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_dirt_forge", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.PRIMITIVE_BLAST_FURNACE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.dimensionally_transcendent_dirt_forge.tooltip.0"))
@@ -2331,7 +2331,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/pyrolyse_oven"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_ROCK_CRUSHER = REGISTRATE.multiblock("large_rock_crusher", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition LARGE_ROCK_CRUSHER = REGISTRATE.multiblock("large_rock_crusher", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.ROCK_BREAKER_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
@@ -2838,7 +2838,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/lafium_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_extractor"))
             .register();
 
-    public final static MultiblockMachineDefinition DISASSEMBLY = REGISTRATE.multiblock("disassembly", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition DISASSEMBLY = REGISTRATE.multiblock("disassembly", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.DISASSEMBLY_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
@@ -2863,7 +2863,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/assembly_line"))
             .register();
 
-    public final static MultiblockMachineDefinition ELEMENT_COPYING = REGISTRATE.multiblock("element_copying", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition ELEMENT_COPYING = REGISTRATE.multiblock("element_copying", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.ELEMENT_COPYING_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
@@ -2959,7 +2959,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition FLOTATION_CELL_REGULATOR = REGISTRATE.multiblock("flotation_cell_regulator", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition FLOTATION_CELL_REGULATOR = REGISTRATE.multiblock("flotation_cell_regulator", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.FLOTATING_BENEFICIATION_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.flotation_cell_regulator.tooltip.0"))
@@ -3390,7 +3390,7 @@ public class MultiBlockMachine {
             })
             .register();
 
-    public final static MultiblockMachineDefinition NANO_CORE = REGISTRATE.multiblock("nano_core", WorkableElectricMultiblockMachine:: new)
+    public final static MultiblockMachineDefinition NANO_CORE = REGISTRATE.multiblock("nano_core", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.NANO_FORGE_RECIPES)
