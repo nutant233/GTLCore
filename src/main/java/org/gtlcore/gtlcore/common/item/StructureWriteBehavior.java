@@ -29,8 +29,6 @@ import net.minecraft.world.level.Level;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.pattern.DebugBlockPattern;
 
-import java.util.Arrays;
-
 public class StructureWriteBehavior implements IItemUIFactory {
 
     public static final StructureWriteBehavior INSTANCE = new StructureWriteBehavior();

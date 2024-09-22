@@ -14,7 +14,6 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -361,9 +360,6 @@ public class GeneratorMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/hyper_mechanical_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    private static final FluidStack STARMETAL_PLASMA = Registries.getFluidStack("gtceu:starmetal_plasma");
-    private static final FluidStack DENSE_NEUTRON_PLASMA = Registries.getFluidStack("gtceu:dense_neutron_plasma");
-
     public final static MultiblockMachineDefinition ADVANCED_HYPER_REACTOR = REGISTRATE.multiblock("advanced_hyper_reactor", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
@@ -378,10 +374,10 @@ public class GeneratorMachine {
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
                     int p = 1;
-                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, STARMETAL_PLASMA)) {
+                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:starmetal_plasma"))) {
                         p = 8;
                     }
-                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, DENSE_NEUTRON_PLASMA)) {
+                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:dense_neutron_plasma"))) {
                         p = 16;
                     }
                     return GTLRecipeModifiers.standardOverclocking(workableElectricMultiblockMachine, GTRecipeModifiers.fastParallel(machine, recipe, p, false).getFirst());
@@ -416,11 +412,6 @@ public class GeneratorMachine {
             .workableCasingRenderer(new ResourceLocation("kubejs:block/enhance_hyper_mechanical_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    private static final FluidStack ORICHALCUM_PLASMA = Registries.getFluidStack("gtceu:orichalcum_plasma");
-    private static final FluidStack ENDERIUM_PLASMA = Registries.getFluidStack("gtceu:enderium_plasma");
-    private static final FluidStack INFUSCOLIUM_PLASMA = Registries.getFluidStack("gtceu:infuscolium_plasma");
-    private static final FluidStack METASTABLE_HASSIUM_PLASMA = Registries.getFluidStack("gtceu:metastable_hassium_plasma");
-
     public final static MultiblockMachineDefinition HYPER_REACTOR = REGISTRATE.multiblock("hyper_reactor", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.HYPER_REACTOR_RECIPES)
@@ -437,19 +428,19 @@ public class GeneratorMachine {
                     int p = 1;
                     long outputEUt = RecipeHelper.getOutputEUt(recipe);
                     if (outputEUt == GTValues.V[GTValues.UEV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, ORICHALCUM_PLASMA)) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:orichalcum_plasma"))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.UIV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, ENDERIUM_PLASMA)) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:enderium_plasma"))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.UXV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, INFUSCOLIUM_PLASMA)) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:infuscolium_plasma"))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.OpV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, METASTABLE_HASSIUM_PLASMA)) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:metastable_hassium_plasma"))) {
                             p = 16;
                         }
                     }

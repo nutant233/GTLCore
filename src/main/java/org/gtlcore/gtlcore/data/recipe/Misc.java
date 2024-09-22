@@ -51,6 +51,15 @@ public class Misc {
                 .cleanroom(CleanroomType.STERILE_CLEANROOM)
                 .save(provider);
 
+        CHEMICAL_RECIPES.recipeBuilder("soda_ash_from_carbon_dioxide")
+                .circuitMeta(2)
+                .inputItems(dust, SodiumHydroxide, 6)
+                .inputFluids(CarbonDioxide.getFluid(1000))
+                .outputItems(dust, SodaAsh, 6)
+                .outputFluids(Water.getFluid(1000))
+                .duration(80).EUt(VA[HV])
+                .save(provider);
+
         BLAST_RECIPES.recipeBuilder("engraved_crystal_chip_from_emerald")
                 .inputItems(plate, Emerald)
                 .inputItems(RAW_CRYSTAL_CHIP)

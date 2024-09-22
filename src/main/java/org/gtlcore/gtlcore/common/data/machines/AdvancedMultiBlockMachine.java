@@ -810,9 +810,6 @@ public class AdvancedMultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_sturdy_hsse"), GTCEu.id("block/multiblock/cleanroom"))
             .register();
 
-    private final static ItemStack CHAIN_COMMAND_BLOCK_CORE = Registries.getItemStack("kubejs:chain_command_block_core");
-    private final static ItemStack REPEATING_COMMAND_BLOCK_CORE = Registries.getItemStack("kubejs:repeating_command_block_core");
-
     public final static MultiblockMachineDefinition CREATE_AGGREGATION = REGISTRATE.multiblock("create_aggregation", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NONE)
             .allowExtendedFacing(false)
@@ -869,10 +866,10 @@ public class AdvancedMultiBlockMachine {
                     if (level != null) {
                         BlockPos pos = machine.self().getPos().offset(0, -16, 0);
                         String block = level.getBlockState(pos).getBlock().kjs$getId();
-                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, CHAIN_COMMAND_BLOCK_CORE) && Objects.equals(block, "kubejs:command_block_broken")) {
+                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, Registries.getItemStack("kubejs:chain_command_block_core")) && Objects.equals(block, "kubejs:command_block_broken")) {
                             level.setBlockAndUpdate(pos, Blocks.CHAIN_COMMAND_BLOCK.defaultBlockState());
                         }
-                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, REPEATING_COMMAND_BLOCK_CORE) && Objects.equals(block, "kubejs:chain_command_block_broken")) {
+                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, Registries.getItemStack("kubejs:repeating_command_block_core")) && Objects.equals(block, "kubejs:chain_command_block_broken")) {
                             level.setBlockAndUpdate(pos, Blocks.COMMAND_BLOCK.defaultBlockState());
                         }
                     }

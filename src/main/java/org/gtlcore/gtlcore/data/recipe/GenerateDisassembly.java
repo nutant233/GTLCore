@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.data.recipe;
 
-import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
@@ -54,8 +53,7 @@ public class GenerateDisassembly {
         GTRecipeBuilder builder = DISASSEMBLY_RECIPES.recipeBuilder(new ResourceLocation(id))
                 .inputItems(output)
                 .duration(1)
-                .EUt(4 * EURecipeCapability.CAP
-                        .of(r.tickInput.get(EURecipeCapability.CAP).get(0).getContent()));
+                .EUt(1);
         if (DISASSEMBLY_RECORD.remove(id) && !cal) {
             DISASSEMBLY_RECORD.add(id);
         } else {
