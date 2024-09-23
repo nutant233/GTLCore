@@ -3,15 +3,18 @@ package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+
 import com.lowdragmc.lowdraglib.gui.util.ClickData;
 import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
-import earth.terrarium.adastra.common.menus.base.PlanetsMenuProvider;
-import earth.terrarium.botarium.common.menu.MenuHooks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import earth.terrarium.adastra.common.menus.base.PlanetsMenuProvider;
+import earth.terrarium.botarium.common.menu.MenuHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

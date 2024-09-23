@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 
 public class Number {
 
-    private static final String[] UNITS = {"", "K", "M", "B", "T", "P", "E"};
+    private static final String[] UNITS = { "", "K", "M", "B", "T", "P", "E" };
     private static final Style NUMBER = Style.EMPTY;
     private static final Style UNIT = Style.EMPTY.withColor(0x0080FF);
 

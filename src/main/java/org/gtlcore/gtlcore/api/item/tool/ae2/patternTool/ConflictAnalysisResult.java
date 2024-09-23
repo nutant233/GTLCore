@@ -1,17 +1,18 @@
 package org.gtlcore.gtlcore.api.item.tool.ae2.patternTool;
 
-import lombok.Data;
 import org.gtlcore.gtlcore.GTLCore;
+
+import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class ConflictAnalysisResult {
+
     boolean conflict;
     List<String> matchPool;
     List<String> storagePool;
     ConflictAnalysisObj conflictAnalysisObj;
-
 
     public ConflictAnalysisResult(boolean conflict, List<String> matchPool, List<String> storagePool, ConflictAnalysisObj conflictAnalysisObj) {
         this.conflict = conflict; // 程序不出错的情况下一定为true，仅供检验用

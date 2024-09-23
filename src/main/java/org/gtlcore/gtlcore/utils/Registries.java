@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.utils;
 
+import org.gtlcore.gtlcore.GTLCore;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -9,7 +11,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.gtlcore.gtlcore.GTLCore;
 
 public class Registries {
 

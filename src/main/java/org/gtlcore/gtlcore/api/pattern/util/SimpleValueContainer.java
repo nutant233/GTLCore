@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.api.pattern.util;
 
 import net.minecraft.world.level.block.Block;
+
 import org.apache.commons.lang3.function.TriFunction;
 
 public class SimpleValueContainer<T> implements IValueContainer<T> {

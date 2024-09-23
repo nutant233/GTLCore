@@ -1,5 +1,9 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
+import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
+import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.GTCapabilityHelper;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
@@ -13,19 +17,19 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
-import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
-import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -61,7 +65,7 @@ public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachin
                     RecipeLogic logic = GTCapabilityHelper.getRecipeLogic(level, j, null);
                     if (logic != null && logic.getMachine().getDefinition() == AdvancedMultiBlockMachine.SPACE_ELEVATOR && logic.isWorking() && logic.getProgress() > 80) {
                         SpaceElevatorTier = ((SpaceElevatorMachine) logic.machine).getTier() - GTValues.ZPM;
-                        ModuleTier =  ((SpaceElevatorMachine) logic.machine).getCasingTier();
+                        ModuleTier = ((SpaceElevatorMachine) logic.machine).getCasingTier();
                     }
                 }
             }

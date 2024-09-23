@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.trait;
 
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricMultipleRecipesMachine;
+
 import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -8,8 +10,8 @@ import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
+
 import lombok.Getter;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricMultipleRecipesMachine;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -116,5 +118,4 @@ public class MultipleRecipesLogic extends RecipeLogic {
         progress = 0;
         duration = 0;
     }
-
 }

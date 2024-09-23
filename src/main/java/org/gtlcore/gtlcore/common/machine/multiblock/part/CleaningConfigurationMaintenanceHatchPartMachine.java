@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.part;
 
-import com.google.common.collect.ImmutableSet;
+import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.ICleanroomReceiver;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
@@ -8,13 +9,16 @@ import com.gregtechceu.gtceu.api.machine.feature.ICleanroomProvider;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.DummyCleanroom;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
-import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
+
+import com.google.common.collect.ImmutableSet;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Set;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault

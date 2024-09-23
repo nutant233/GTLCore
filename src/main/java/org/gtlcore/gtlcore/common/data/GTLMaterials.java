@@ -1,13 +1,16 @@
 package org.gtlcore.gtlcore.common.data;
 
-import com.gregtechceu.gtceu.api.data.chemical.material.Material;
-import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
-import com.lowdragmc.lowdraglib.Platform;
-import committee.nova.mods.avaritia.init.registry.ModBlocks;
-import committee.nova.mods.avaritia.init.registry.ModItems;
 import org.gtlcore.gtlcore.common.data.material.KJSMaterial;
 import org.gtlcore.gtlcore.common.data.material.MaterialAdd;
 import org.gtlcore.gtlcore.common.data.material.MaterialBuilder;
+
+import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+
+import com.lowdragmc.lowdraglib.Platform;
+
+import committee.nova.mods.avaritia.init.registry.ModBlocks;
+import committee.nova.mods.avaritia.init.registry.ModItems;
 
 public class GTLMaterials {
 

@@ -1,14 +1,17 @@
 package org.gtlcore.gtlcore.mixin.gtm.gui;
 
+import org.gtlcore.gtlcore.client.gui.IProspectingTextureMixin;
+
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.gui.misc.ProspectorMode;
 import com.gregtechceu.gtceu.api.gui.texture.ProspectingTexture;
 import com.gregtechceu.gtceu.api.gui.widget.ProspectingMapWidget;
-import com.llamalad7.mixinextras.sugar.Local;
+
 import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
 import com.lowdragmc.lowdraglib.gui.widget.SearchComponentWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
-import org.gtlcore.gtlcore.client.gui.IProspectingTextureMixin;
+
+import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,6 +35,7 @@ public abstract class ProspectingMapWidgetMixin extends WidgetGroup implements S
         this.widgets.remove(0);
         this.addWidget(0, new ImageWidget(0, (height - imageHeight) / 2 - 4, imageWidth + 8, imageHeight + 8,
                 GuiTextures.BACKGROUND_INVERSE) {
+
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if (isMouseOverElement(mouseX, mouseY) && button == 1) {
@@ -42,5 +46,4 @@ public abstract class ProspectingMapWidgetMixin extends WidgetGroup implements S
             }
         });
     }
-
 }

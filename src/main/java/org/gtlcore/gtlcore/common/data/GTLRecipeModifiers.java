@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.common.data;
 
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.StorageMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
+
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
@@ -16,8 +19,7 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.api.recipe.modifier.RecipeModifier;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.StorageMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -70,7 +72,7 @@ public class GTLRecipeModifiers {
     }
 
     public static GTRecipe nanoForgeOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
-                                                    @NotNull OCResult result, int tier) {
+                                              @NotNull OCResult result, int tier) {
         if (machine instanceof StorageMachine storageMachine) {
             if (tier == 1) {
                 if (recipe.data.getInt("nano_forge_tier") > 1 && !Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:carbon_nanoswarm")) {

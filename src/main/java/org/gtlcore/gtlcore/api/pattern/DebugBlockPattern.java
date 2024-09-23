@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.api.pattern;
 
 import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;

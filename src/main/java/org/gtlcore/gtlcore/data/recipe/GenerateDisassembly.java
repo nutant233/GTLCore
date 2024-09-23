@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
+
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
@@ -7,10 +9,10 @@ import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.ingredient.FluidIngredient;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.GTLCore;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -4,6 +4,7 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Consumer;
@@ -13,7 +14,7 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipes.DISASSEMBLY_RECORD;
 
 public class RemoveRecipe {
 
-    public static void init(Consumer<ResourceLocation>  consumer) {
+    public static void init(Consumer<ResourceLocation> consumer) {
         DISASSEMBLY_RECORD.clear();
         consumer.accept(GTCEu.id("macerator/macerate_wheat"));
         consumer.accept(GTCEu.id("autoclave/agar"));

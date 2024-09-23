@@ -3,6 +3,7 @@ package org.gtlcore.gtlcore.api.item.tool;
 import com.gregtechceu.gtceu.api.data.tag.TagUtil;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
 import com.gregtechceu.gtceu.common.item.tool.behavior.*;
+
 import net.minecraft.tags.ItemTags;
 
 public class GTLToolType {

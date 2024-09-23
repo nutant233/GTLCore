@@ -1,15 +1,17 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
+import org.gtlcore.gtlcore.config.ConfigHolder;
+
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import java.util.function.Consumer;
 

@@ -1,6 +1,8 @@
 package org.gtlcore.gtlcore.common.recipe.condition;
 
-import com.google.gson.JsonObject;
+import org.gtlcore.gtlcore.common.data.GTLRecipeConditions;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.GravityPartMachine;
+
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockControllerMachine;
@@ -8,15 +10,16 @@ import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeCondition;
 import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.NoArgsConstructor;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
-import org.gtlcore.gtlcore.common.data.GTLRecipeConditions;
-import org.gtlcore.gtlcore.common.machine.multiblock.part.GravityPartMachine;
+
+import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -49,7 +52,7 @@ public class GravityCondition extends RecipeCondition {
 
     @Override
     public Component getTooltips() {
-        return Component.translatable("gtlcore.condition." +(zero ? "zero_" : "") + "gravity");
+        return Component.translatable("gtlcore.condition." + (zero ? "zero_" : "") + "gravity");
     }
 
     @Override

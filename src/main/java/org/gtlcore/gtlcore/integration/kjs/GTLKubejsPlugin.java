@@ -1,9 +1,5 @@
 package org.gtlcore.gtlcore.integration.kjs;
 
-import dev.latvian.mods.kubejs.KubeJSPlugin;
-import dev.latvian.mods.kubejs.script.BindingsEvent;
-import dev.latvian.mods.kubejs.script.ScriptType;
-import dev.latvian.mods.kubejs.util.ClassFilter;
 import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
 import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
 import org.gtlcore.gtlcore.api.item.tool.GTLToolType;
@@ -13,7 +9,13 @@ import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
 import org.gtlcore.gtlcore.utils.Registries;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
+import dev.latvian.mods.kubejs.KubeJSPlugin;
+import dev.latvian.mods.kubejs.script.BindingsEvent;
+import dev.latvian.mods.kubejs.script.ScriptType;
+import dev.latvian.mods.kubejs.util.ClassFilter;
+
 public class GTLKubejsPlugin extends KubeJSPlugin {
+
     @Override
     public void registerClasses(ScriptType type, ClassFilter filter) {
         super.registerClasses(type, filter);

@@ -1,9 +1,11 @@
 package org.gtlcore.gtlcore.common.data;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
+
 import com.gregtechceu.gtceu.api.block.IFilterType;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
+
 import lombok.Getter;
-import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 import org.jetbrains.annotations.NotNull;
 
 public enum GTLCleanroomFilterType implements IFilterType {

@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.forge;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.config.ConfigHolder;
+
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Shulker;
@@ -12,11 +15,8 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import java.util.Objects;
-
 
 @Mod.EventBusSubscriber(modid = GTLCore.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeCommonEventListener {

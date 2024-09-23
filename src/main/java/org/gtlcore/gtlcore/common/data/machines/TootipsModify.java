@@ -1,10 +1,12 @@
 package org.gtlcore.gtlcore.common.data.machines;
 
+import org.gtlcore.gtlcore.common.data.GTLMachines;
+
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.machines.GTResearchMachines;
+
 import net.minecraft.network.chat.Component;
-import org.gtlcore.gtlcore.common.data.GTLMachines;
 
 public class TootipsModify {
 

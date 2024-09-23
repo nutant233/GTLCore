@@ -1,15 +1,19 @@
 package org.gtlcore.gtlcore.mixin.gtm;
 
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
+
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.item.TagPrefixItem;
 import com.gregtechceu.gtceu.api.item.component.ICustomRenderer;
+
 import com.lowdragmc.lowdraglib.Platform;
 import com.lowdragmc.lowdraglib.client.renderer.IItemRendererProvider;
 import com.lowdragmc.lowdraglib.client.renderer.IRenderer;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
+
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -20,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = TagPrefixItem.class, remap = false)
 public class TagPrefixItemMixin extends Item implements IItemRendererProvider {
 
-    @Unique private ICustomRenderer gtlcore$customRenderer;
+    @Unique
+    private ICustomRenderer gtlcore$customRenderer;
 
     private TagPrefixItemMixin(Properties properties) {
         super(properties);
@@ -35,7 +40,8 @@ public class TagPrefixItemMixin extends Item implements IItemRendererProvider {
         }
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public IRenderer getRenderer(ItemStack stack) {
         if (gtlcore$customRenderer != null) {
             return gtlcore$customRenderer.getRenderer();

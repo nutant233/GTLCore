@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.api.machine.multiblock;
 
-
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 
 public class GTLPartAbility {

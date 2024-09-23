@@ -1,10 +1,12 @@
 package org.gtlcore.gtlcore.mixin.gtm;
 
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.client.model.PipeModel;
 import com.gregtechceu.gtceu.common.pipelike.fluidpipe.FluidPipeType;
-import org.gtlcore.gtlcore.common.data.GTLMaterials;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

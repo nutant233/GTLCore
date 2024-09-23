@@ -1,13 +1,16 @@
 package org.gtlcore.gtlcore.integration.jei;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachine;
+
 import com.lowdragmc.lowdraglib.LDLib;
+
+import net.minecraft.resources.ResourceLocation;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import net.minecraft.resources.ResourceLocation;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachine;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin

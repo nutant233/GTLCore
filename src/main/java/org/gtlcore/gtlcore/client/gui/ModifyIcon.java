@@ -1,10 +1,13 @@
 package org.gtlcore.gtlcore.client.gui;
 
-import appeng.client.gui.style.Blitter;
-import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.GTLCore;
 
+import net.minecraft.resources.ResourceLocation;
+
+import appeng.client.gui.style.Blitter;
+
 public enum ModifyIcon {
+
     MULTIPLY_2(0, 0),
     MULTIPLY_3(16, 0),
     MULTIPLY_5(32, 0),
@@ -12,7 +15,6 @@ public enum ModifyIcon {
     DIVISION_3(16, 16),
     DIVISION_5(32, 16),
     TOOLBAR_BUTTON_BACKGROUND(32, 32);
-
 
     public final int x;
     public final int y;

@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.generator;
 
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
@@ -22,7 +24,7 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
+
 import com.lowdragmc.lowdraglib.gui.util.ClickData;
 import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
@@ -32,19 +34,22 @@ import com.lowdragmc.lowdraglib.misc.ItemStackTransfer;
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
-import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+
+import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.UUID;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -84,7 +89,8 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
             @Override
             public int getSlotLimit(int slot) {
                 return 16;
-            }});
+            }
+        });
         storage.setFilter(this::isMachineStack);
         return storage;
     }
@@ -188,7 +194,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
 
     @Override
     public boolean shouldOpenUI(Player player, InteractionHand hand, BlockHitResult hit) {
-        if (this.userid==null || !this.userid.equals(player.getUUID())) {
+        if (this.userid == null || !this.userid.equals(player.getUUID())) {
             this.userid = player.getUUID();
         }
         return true;

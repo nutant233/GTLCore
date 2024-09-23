@@ -1,14 +1,15 @@
 package org.gtlcore.gtlcore.client.gui;
 
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.network.chat.Component;
+
 import appeng.client.gui.Icon;
 import appeng.client.gui.style.Blitter;
 import appeng.client.gui.widgets.ITooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -63,7 +64,6 @@ public class ModifyIconButton extends Button implements ITooltip {
             pose.popPose();
             RenderSystem.enableDepthTest();
         }
-
     }
 
     private ModifyIcon getIcon() {

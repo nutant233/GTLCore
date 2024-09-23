@@ -1,12 +1,16 @@
 package org.gtlcore.gtlcore.mixin.gtm.gui;
 
+import org.gtlcore.gtlcore.client.gui.IProspectingTextureMixin;
+
 import com.gregtechceu.gtceu.api.gui.texture.ProspectingTexture;
+
 import com.lowdragmc.lowdraglib.LDLib;
-import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
+
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import org.gtlcore.gtlcore.client.gui.IProspectingTextureMixin;
+
+import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -57,5 +61,4 @@ public abstract class ProspectingTextureMixin extends AbstractTexture implements
         });
         mgr.addWaypointAt(pos, "prospect_point" + index.incrementAndGet()).setColor(200);
     }
-
 }

@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.TextUtil;
+
 import com.gregtechceu.gtceu.api.capability.IControllable;
 import com.gregtechceu.gtceu.api.capability.IOpticalComputationProvider;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
@@ -7,21 +10,23 @@ import com.gregtechceu.gtceu.api.machine.TickableSubscription;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockDisplayText;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
+
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.utils.MachineIO;
-import org.gtlcore.gtlcore.utils.TextUtil;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import static org.gtlcore.gtlcore.utils.MachineIO.inputEU;
 import static org.gtlcore.gtlcore.utils.Registries.getItemStack;
@@ -94,8 +99,7 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
                 return 8192;
             }
             return 0;
-        }
-        else return maxCWUt;
+        } else return maxCWUt;
     }
 
     @Override

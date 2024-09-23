@@ -1,11 +1,13 @@
 package org.gtlcore.gtlcore.mixin.gtm.registry;
 
-import com.google.gson.JsonObject;
+import org.gtlcore.gtlcore.config.ConfigHolder;
+
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
+
+import com.google.gson.JsonObject;
 import lombok.experimental.Accessors;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -58,6 +60,6 @@ public class GTRecipeBuilderMixin {
 
     @Inject(method = "toJson", at = @At("TAIL"), remap = false)
     public void toJson(JsonObject json, CallbackInfo ci) {
-        json.addProperty("duration",gTLCore$getDuration());
+        json.addProperty("duration", gTLCore$getDuration());
     }
 }

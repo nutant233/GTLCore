@@ -1,9 +1,10 @@
 package org.gtlcore.gtlcore.client.forge;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
+
 import com.lowdragmc.lowdraglib.client.utils.RenderBufferUtils;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,8 +18,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
+
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 
 @Mod.EventBusSubscriber(modid = GTLCore.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 @OnlyIn(Dist.CLIENT)

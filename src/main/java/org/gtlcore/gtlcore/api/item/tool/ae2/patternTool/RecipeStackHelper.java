@@ -4,10 +4,13 @@ import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
+
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
+
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -16,23 +19,26 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public class RecipeStackHelper {
-   final GTRecipe recipe;
+
+    final GTRecipe recipe;
 
     protected RecipeStackHelper(GTRecipe recipe) {
         this.recipe = recipe;
     }
 
-    public List<ItemStack> getInputItemStacks(){
+    public List<ItemStack> getInputItemStacks() {
         return getInputItemStacksFromRecipe(recipe);
     }
-    public List<FluidStack> getInputFluidStacks(){
+
+    public List<FluidStack> getInputFluidStacks() {
         return getInputFluidStacksFromRecipe(recipe);
     }
 
-    public List<ItemStack> getOutputItemStacks(){
+    public List<ItemStack> getOutputItemStacks() {
         return getOutputItemStacksFromRecipe(recipe);
     }
-    public List<FluidStack> getOutputFluidStacks(){
+
+    public List<FluidStack> getOutputFluidStacks() {
         return getOutputFluidStacksFromRecipe(recipe);
     }
 
@@ -44,6 +50,7 @@ public class RecipeStackHelper {
                 .map(getContentItemStackFunction())
                 .toList();
     }
+
     public static List<FluidStack> getInputFluidStacksFromRecipe(GTRecipe recipe) {
         if (recipe == null) {
             return Collections.emptyList();
@@ -52,6 +59,7 @@ public class RecipeStackHelper {
                 .map(getContentFluidStackFunction())
                 .toList();
     }
+
     public static List<ItemStack> getOutputItemStacksFromRecipe(GTRecipe recipe) {
         if (recipe == null) {
             return Collections.emptyList();
@@ -60,6 +68,7 @@ public class RecipeStackHelper {
                 .map(getContentItemStackFunction())
                 .toList();
     }
+
     public static List<FluidStack> getOutputFluidStacksFromRecipe(GTRecipe recipe) {
         if (recipe == null) {
             return Collections.emptyList();
@@ -68,7 +77,6 @@ public class RecipeStackHelper {
                 .map(getContentFluidStackFunction())
                 .toList();
     }
-
 
     public static String getItemTranslatedName(ItemStack itemStack) {
         Item item = itemStack.getItem();
@@ -88,6 +96,7 @@ public class RecipeStackHelper {
             return (stacks != null && stacks.length > 0) ? stacks[0] : FluidStack.empty();
         };
     }
+
     private static @NotNull Function<Content, ItemStack> getContentItemStackFunction() {
         return content -> {
             if (content == null || content.getContent() == null) {

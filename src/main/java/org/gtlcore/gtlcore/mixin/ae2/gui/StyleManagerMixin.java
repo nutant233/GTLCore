@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
  */
 @Mixin(StyleManager.class)
 public abstract class StyleManagerMixin {
+
     @ModifyVariable(method = "loadStyleDoc", at = @At("HEAD"), argsOnly = true, remap = false)
     private static String loadStyleDocHooks(String path) {
         if (path.contains("wireless_pattern_encoding_terminal.json")) {

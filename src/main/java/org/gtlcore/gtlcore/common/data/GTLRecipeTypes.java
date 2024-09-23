@@ -1,5 +1,9 @@
 package org.gtlcore.gtlcore.common.data;
 
+import org.gtlcore.gtlcore.common.recipe.RecipeModify;
+import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.block.ICoilType;
@@ -11,17 +15,16 @@ import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.data.GTSoundEntries;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.gregtechceu.gtceu.utils.ResearchManager;
+
 import com.lowdragmc.lowdraglib.gui.texture.ProgressTexture;
 import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
 import com.lowdragmc.lowdraglib.utils.CycleItemStackHandler;
 import com.lowdragmc.lowdraglib.utils.LocalizationUtils;
+
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.common.recipe.RecipeModify;
-import org.gtlcore.gtlcore.config.ConfigHolder;
-import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,10 +116,10 @@ public class GTLRecipeTypes {
 
     public static final GTRecipeType FISSION_REACTOR_RECIPES = register("fission_reactor", MULTIBLOCK)
             .setMaxIOSize(1, 1, 0, 0)
-        .setEUIO(IO.IN)
-        .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-        .setSound(GTSoundEntries.ARC)
-        .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.frheat", FormattingUtil.formatNumbers(data.getInt("FRheat"))));
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC)
+            .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.frheat", FormattingUtil.formatNumbers(data.getInt("FRheat"))));
 
     public static final GTRecipeType SPACE_ELEVATOR_RECIPES = register("space_elevator", MULTIBLOCK)
             .setEUIO(IO.IN)

@@ -1,5 +1,10 @@
 package org.gtlcore.gtlcore.common.data.material;
 
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
+import org.gtlcore.gtlcore.common.data.GTLElements;
+import org.gtlcore.gtlcore.config.ConfigHolder;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
@@ -9,10 +14,6 @@ import com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
-import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
-import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
-import org.gtlcore.gtlcore.common.data.GTLElements;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet.*;
@@ -20,6 +21,7 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 
 public class MaterialBuilder {
+
     public static void init() {
         PotassiumPyrosulfate = new Material.Builder(GTCEu.id("potassium_pyrosulfate"))
                 .dust()

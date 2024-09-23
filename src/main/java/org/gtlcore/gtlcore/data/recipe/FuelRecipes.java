@@ -1,7 +1,8 @@
 package org.gtlcore.gtlcore.data.recipe;
 
-import net.minecraft.data.recipes.FinishedRecipe;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
+
+import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
 

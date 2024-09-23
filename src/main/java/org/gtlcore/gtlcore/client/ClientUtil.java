@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientUtil {
+
     public static Minecraft mc() {
         return Minecraft.getInstance();
     }
@@ -25,5 +26,4 @@ public class ClientUtil {
     public static ModelBlockRenderer modelRenderer() {
         return blockRenderer().getModelRenderer();
     }
-
 }

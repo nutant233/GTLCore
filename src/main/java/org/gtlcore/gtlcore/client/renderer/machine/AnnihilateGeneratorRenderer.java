@@ -1,10 +1,12 @@
 package org.gtlcore.gtlcore.client.renderer.machine;
 
+import org.gtlcore.gtlcore.client.ClientUtil;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.client.renderer.machine.WorkableCasingMachineRenderer;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,7 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.ModelData;
-import org.gtlcore.gtlcore.client.ClientUtil;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.joml.Quaternionf;
 
 import java.util.function.Consumer;
@@ -52,7 +55,7 @@ public class AnnihilateGeneratorRenderer extends WorkableCasingMachineRenderer {
         poseStack.pushPose();
         poseStack.scale(0.45F, 0.45F, 0.45F);
         poseStack.mulPose(new Quaternionf().fromAxisAngleDeg(0F, 1F, 1F, tick % 360F));
-        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.translucent()), null, ClientUtil.getBakedModel(STAR_MODEL), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.translucent());
+        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.translucent()), null, ClientUtil.getBakedModel(STAR_MODEL), 1.0F, 1.0F, 1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.translucent());
         poseStack.popPose();
     }
 

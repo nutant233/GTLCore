@@ -1,9 +1,10 @@
 package org.gtlcore.gtlcore.api.data.tag;
 
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconType;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
-import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
 
 @SuppressWarnings("unused")
 public class GTLTagPrefix {

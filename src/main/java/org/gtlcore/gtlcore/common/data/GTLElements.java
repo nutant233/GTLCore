@@ -58,7 +58,6 @@ public class GTLElements {
     public static Element CELESTIALTUNGSTEN;
     public static Element QUANTANIUM;
 
-
     public static void init() {
         SPACETIME = GTElements.createAndRegister(0, 0, -1, null, "spacetime", "§7熔炼为流体的时空", false);
         INFINITY = GTElements.createAndRegister(100000, 100000, -1, null, "infinity", "∞", false);

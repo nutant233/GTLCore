@@ -1,10 +1,8 @@
 package org.gtlcore.gtlcore.client;
 
-import appeng.client.render.crafting.AbstractCraftingUnitModelProvider;
-import appeng.client.render.crafting.CraftingCubeModel;
-import appeng.client.render.crafting.LightBakedModel;
-import appeng.core.AppEng;
-import appeng.hooks.BuiltInModelHooks;
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
+
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -16,8 +14,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
+
+import appeng.client.render.crafting.AbstractCraftingUnitModelProvider;
+import appeng.client.render.crafting.CraftingCubeModel;
+import appeng.client.render.crafting.LightBakedModel;
+import appeng.core.AppEng;
+import appeng.hooks.BuiltInModelHooks;
 
 import java.util.ArrayList;
 import java.util.Collections;

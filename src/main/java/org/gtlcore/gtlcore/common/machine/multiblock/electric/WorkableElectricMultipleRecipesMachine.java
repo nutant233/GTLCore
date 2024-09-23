@@ -1,9 +1,11 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.common.machine.trait.MultipleRecipesLogic;
+
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
-import org.gtlcore.gtlcore.common.machine.trait.MultipleRecipesLogic;
+
 import org.jetbrains.annotations.NotNull;
 
 public class WorkableElectricMultipleRecipesMachine extends WorkableElectricMultiblockMachine {
@@ -13,7 +15,7 @@ public class WorkableElectricMultipleRecipesMachine extends WorkableElectricMult
     }
 
     @Override
-    protected @NotNull RecipeLogic createRecipeLogic(Object @NotNull ... args) {
+    protected @NotNull RecipeLogic createRecipeLogic(Object @NotNull... args) {
         return new MultipleRecipesLogic(this);
     }
 

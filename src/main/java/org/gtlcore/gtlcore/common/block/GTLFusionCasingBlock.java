@@ -1,16 +1,19 @@
 package org.gtlcore.gtlcore.common.block;
 
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.block.IFusionCasingType;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.block.FusionCasingBlock;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
-import lombok.Getter;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
+
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;

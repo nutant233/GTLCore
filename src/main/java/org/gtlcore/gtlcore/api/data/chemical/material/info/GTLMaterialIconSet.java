@@ -1,9 +1,11 @@
 package org.gtlcore.gtlcore.api.data.chemical.material.info;
 
+import org.gtlcore.gtlcore.client.renderer.item.StereoscopicItemRenderer;
+
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
 import com.gregtechceu.gtceu.api.item.component.ICustomRenderer;
+
 import lombok.Getter;
-import org.gtlcore.gtlcore.client.renderer.item.StereoscopicItemRenderer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

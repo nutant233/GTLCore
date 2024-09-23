@@ -1,10 +1,12 @@
 package org.gtlcore.gtlcore.mixin.ae2.client;
 
+import org.gtlcore.gtlcore.GTLCore;
+
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
-import org.gtlcore.gtlcore.GTLCore;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;

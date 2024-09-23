@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.api.pattern;
 
+import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
+import org.gtlcore.gtlcore.api.pattern.util.SimpleValueContainer;
+
 import com.gregtechceu.gtceu.api.block.ActiveBlock;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.ITieredMachine;
@@ -10,11 +13,11 @@ import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gregtechceu.gtceu.api.pattern.error.PatternStringError;
 import com.gregtechceu.gtceu.api.pattern.predicates.PredicateBlocks;
 import com.gregtechceu.gtceu.api.pattern.predicates.SimplePredicate;
+
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Block;
-import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
-import org.gtlcore.gtlcore.api.pattern.util.SimpleValueContainer;
 
 import java.util.Arrays;
 import java.util.Map;

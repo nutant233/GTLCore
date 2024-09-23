@@ -13,11 +13,13 @@ import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.gregtechceu.gtceu.data.recipe.generated.OreRecipeHandler;
 import com.gregtechceu.gtceu.utils.GTUtil;
-import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import com.mojang.datafixers.util.Pair;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
@@ -129,7 +131,7 @@ public class OreRecipeHandlerMixin {
                     .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                     .chancedOutput(byproductStack, 1400, 850) // 第一步副产
                     .chancedOutput(ChemicalHelper.get(dust, byproductMaterial,
-                                    property.getByProductMultiplier() * crushedAmount),
+                            property.getByProductMultiplier() * crushedAmount),
                             1400, 850) // 第二步副产
                     .duration((int) (26 + (26 + (material.getMass() * 4)) * crushedAmount))
                     .EUt(30);
@@ -264,7 +266,7 @@ public class OreRecipeHandlerMixin {
                             .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                             .chancedOutput(byproductStack, 1400, 850) // 第一步副产
                             .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                            property.getByProductMultiplier() * crushedAmount),
+                                    property.getByProductMultiplier() * crushedAmount),
                                     7000, 580) // 第二步副产
                             .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                             .chancedOutput(TagPrefix.dust, byproductMaterial1, crushedAmount, "1/3", 0) // 第三步副产
@@ -289,7 +291,7 @@ public class OreRecipeHandlerMixin {
                         .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                         .chancedOutput(byproductStack, 1400, 850) // 第一步副产
                         .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                        property.getByProductMultiplier() * crushedAmount),
+                                property.getByProductMultiplier() * crushedAmount),
                                 7000, 580) // 第二步副产
                         .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                         .chancedOutput(byproductStack1, 1400, 850) // 第三步副产
@@ -319,7 +321,7 @@ public class OreRecipeHandlerMixin {
                                 .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                                 .chancedOutput(byproductStack, 1400, 850) // 第一步副产
                                 .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                                property.getByProductMultiplier() * crushedAmount),
+                                        property.getByProductMultiplier() * crushedAmount),
                                         7000, 580) // 第二步副产
                                 .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                                 .chancedOutput(exquisiteStack, 500, 150) // 第三步副产
@@ -346,7 +348,7 @@ public class OreRecipeHandlerMixin {
                                 .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                                 .chancedOutput(byproductStack, 1400, 850) // 第一步副产
                                 .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                                property.getByProductMultiplier() * crushedAmount),
+                                        property.getByProductMultiplier() * crushedAmount),
                                         7000, 580) // 第二步副产
                                 .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                                 .chancedOutput(exquisiteStack, 300, 100) // 第三步副产
@@ -442,7 +444,7 @@ public class OreRecipeHandlerMixin {
                     .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                     .chancedOutput(byproductStack, 1000, 300) // 第一步副产
                     .chancedOutput(ChemicalHelper.get(dust, byproductMaterial,
-                                    property.getByProductMultiplier() * crushedAmount),
+                            property.getByProductMultiplier() * crushedAmount),
                             1400, 850) // 第二步副产
                     .duration((int) (26 + (26 + (material.getMass() * 4)) * crushedAmount))
                     .EUt(30);
@@ -554,7 +556,7 @@ public class OreRecipeHandlerMixin {
                             .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                             .chancedOutput(byproductStack, 1000, 300) // 第一步副产
                             .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                            property.getByProductMultiplier() * crushedAmount),
+                                    property.getByProductMultiplier() * crushedAmount),
                                     7000, 580) // 第二步副产
                             .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                             .chancedOutput(TagPrefix.dust, byproductMaterial1, crushedAmount, "1/3", 0) // 第三步副产
@@ -573,7 +575,7 @@ public class OreRecipeHandlerMixin {
                         .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                         .chancedOutput(byproductStack, 1000, 300) // 第一步副产
                         .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                        property.getByProductMultiplier() * crushedAmount),
+                                property.getByProductMultiplier() * crushedAmount),
                                 7000, 580) // 第二步副产
                         .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                         .chancedOutput(byproductStack1, 1400, 850) // 第三步副产
@@ -597,7 +599,7 @@ public class OreRecipeHandlerMixin {
                                 .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                                 .chancedOutput(byproductStack, 1000, 300) // 第一步副产
                                 .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                                property.getByProductMultiplier() * crushedAmount),
+                                        property.getByProductMultiplier() * crushedAmount),
                                         7000, 580) // 第二步副产
                                 .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                                 .chancedOutput(exquisiteStack, 500, 150) // 第三步副产
@@ -617,7 +619,7 @@ public class OreRecipeHandlerMixin {
                                 .outputItems(ChemicalHelper.get(dust, material, crushedAmount)) // 最终产物
                                 .chancedOutput(byproductStack, 1000, 300) // 第一步副产
                                 .chancedOutput(ChemicalHelper.get(dust, washingByproduct,
-                                                property.getByProductMultiplier() * crushedAmount),
+                                        property.getByProductMultiplier() * crushedAmount),
                                         7000, 580) // 第二步副产
                                 .chancedOutput(ChemicalHelper.get(dust, Stone, crushedAmount), 4000, 650) // 第二步副产
                                 .chancedOutput(exquisiteStack, 300, 100) // 第三步副产

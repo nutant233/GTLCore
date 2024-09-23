@@ -1,13 +1,15 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.Element;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTElements;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
 import net.minecraft.data.recipes.FinishedRecipe;
-import org.gtlcore.gtlcore.common.data.GTLMaterials;
 
 import java.util.List;
 import java.util.Objects;

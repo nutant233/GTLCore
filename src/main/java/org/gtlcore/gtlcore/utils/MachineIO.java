@@ -7,13 +7,16 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.ingredient.IntCircuitIngredient;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
+
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
 public class MachineIO {
+
     public static boolean inputItem(WorkableMultiblockMachine machine, ItemStack item) {
         GTRecipe recipe = new GTRecipeBuilder(item.kjs$getIdLocation(), GTRecipeTypes.DUMMY_RECIPES).inputItems(item).buildRawRecipe();
         if (recipe.matchRecipe(machine).isSuccess()) {
@@ -42,7 +45,7 @@ public class MachineIO {
     }
 
     public static boolean inputFluid(WorkableMultiblockMachine machine, FluidStack fluid) {
-        GTRecipe recipe =  new GTRecipeBuilder(Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid.getFluid())), GTRecipeTypes.DUMMY_RECIPES).inputFluids(fluid).buildRawRecipe();
+        GTRecipe recipe = new GTRecipeBuilder(Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid.getFluid())), GTRecipeTypes.DUMMY_RECIPES).inputFluids(fluid).buildRawRecipe();
         if (recipe.matchRecipe(machine).isSuccess()) {
             return recipe.handleRecipeIO(IO.IN, machine, machine.recipeLogic.getChanceCaches());
         }

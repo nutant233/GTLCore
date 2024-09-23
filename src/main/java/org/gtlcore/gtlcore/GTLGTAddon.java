@@ -1,16 +1,19 @@
 package org.gtlcore.gtlcore;
 
-import com.gregtechceu.gtceu.api.addon.GTAddon;
-import com.gregtechceu.gtceu.api.addon.IGTAddon;
-import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
-import com.lowdragmc.lowdraglib.Platform;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.data.recipe.*;
 import org.gtlcore.gtlcore.data.recipe.processing.StoneDustProcess;
+
+import com.gregtechceu.gtceu.api.addon.GTAddon;
+import com.gregtechceu.gtceu.api.addon.IGTAddon;
+import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
+
+import com.lowdragmc.lowdraglib.Platform;
+
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Consumer;
 

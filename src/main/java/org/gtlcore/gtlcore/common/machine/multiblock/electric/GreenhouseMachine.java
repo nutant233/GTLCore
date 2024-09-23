@@ -4,16 +4,19 @@ import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -29,8 +32,8 @@ public class GreenhouseMachine extends WorkableElectricMultiblockMachine {
         Level level = getLevel();
         BlockPos pos = getPos();
         SkyLight = 15;
-        BlockPos[] coordinates = new BlockPos[] { pos.offset(1, 2, 0), pos.offset(1, 2, 1), pos.offset(1, 2, -1), pos.offset(0, 2, 1), pos.offset(0, 2, -1), pos.offset(-1, 2, 0), pos.offset(-1, 2, 1), pos.offset(-1, 2, -1), pos.offset(2, 2, 0), pos.offset(2, 2, -1), pos.offset(2, 2, 1), pos.offset(3, 2, 0), pos.offset(3, 2, -1), pos.offset(3, 2, 1), pos.offset(-2, 2, 0), pos.offset(-2, 2, -1), pos.offset(-2, 2, 1), pos.offset(-3, 2, 0), pos.offset(-3, 2, -1), pos.offset(-3, 2, 1), pos.offset(-1, 2, 2), pos.offset(0, 2, 2), pos.offset(1, 2, 2), pos.offset(-1, 2, 3), pos.offset(0, 2, 3), pos.offset(1, 2, 3), pos.offset(-1, 2, -2), pos.offset(0, 2, -2), pos.offset(1, 2, -2), pos.offset(-1, 2, - 3), pos.offset(0, 2, -3), pos.offset(1, 2, -3)};
-        for(BlockPos i : coordinates) {
+        BlockPos[] coordinates = new BlockPos[] { pos.offset(1, 2, 0), pos.offset(1, 2, 1), pos.offset(1, 2, -1), pos.offset(0, 2, 1), pos.offset(0, 2, -1), pos.offset(-1, 2, 0), pos.offset(-1, 2, 1), pos.offset(-1, 2, -1), pos.offset(2, 2, 0), pos.offset(2, 2, -1), pos.offset(2, 2, 1), pos.offset(3, 2, 0), pos.offset(3, 2, -1), pos.offset(3, 2, 1), pos.offset(-2, 2, 0), pos.offset(-2, 2, -1), pos.offset(-2, 2, 1), pos.offset(-3, 2, 0), pos.offset(-3, 2, -1), pos.offset(-3, 2, 1), pos.offset(-1, 2, 2), pos.offset(0, 2, 2), pos.offset(1, 2, 2), pos.offset(-1, 2, 3), pos.offset(0, 2, 3), pos.offset(1, 2, 3), pos.offset(-1, 2, -2), pos.offset(0, 2, -2), pos.offset(1, 2, -2), pos.offset(-1, 2, -3), pos.offset(0, 2, -3), pos.offset(1, 2, -3) };
+        for (BlockPos i : coordinates) {
             if (level != null && level.getBlockState(i).getBlock() == GTBlocks.CASING_TEMPERED_GLASS.get()) {
                 int l = level.getBrightness(LightLayer.SKY, i.offset(0, 1, 0)) - level.getSkyDarken();
                 if (l < SkyLight) {

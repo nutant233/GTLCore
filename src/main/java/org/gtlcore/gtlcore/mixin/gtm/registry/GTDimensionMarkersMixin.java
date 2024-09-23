@@ -2,9 +2,11 @@ package org.gtlcore.gtlcore.mixin.gtm.registry;
 
 import com.gregtechceu.gtceu.api.data.DimensionMarker;
 import com.gregtechceu.gtceu.common.data.GTDimensionMarkers;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -67,7 +69,7 @@ public class GTDimensionMarkersMixin {
                 10, new ResourceLocation("kubejs:dimension_creation_casing"), "dimension.kubejs.create");
         createAndRegister(new ResourceLocation("kubejs:void"),
                 0, new ResourceLocation("minecraft:obsidian"), "dimension.kubejs.void");
-       createAndRegister(new ResourceLocation("kubejs:flat"),
+        createAndRegister(new ResourceLocation("kubejs:flat"),
                 0, new ResourceLocation("minecraft:crying_obsidian"), "dimension.kubejs.flat");
     }
 

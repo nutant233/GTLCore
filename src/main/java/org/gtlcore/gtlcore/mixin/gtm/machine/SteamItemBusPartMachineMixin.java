@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.mixin.gtm.machine;
 
 import com.gregtechceu.gtceu.common.machine.multiblock.part.SteamItemBusPartMachine;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;

@@ -1,6 +1,10 @@
 package org.gtlcore.gtlcore.common;
 
-import appeng.core.AELog;
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
+import org.gtlcore.gtlcore.config.ConfigHolder;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
@@ -8,15 +12,14 @@ import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
-import org.gtlcore.gtlcore.config.ConfigHolder;
+
+import appeng.core.AELog;
 
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
@@ -53,8 +56,7 @@ public class CommonProxy {
         GTLItems.InitUpgrades();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
-    }
+    private void clientSetup(final FMLClientSetupEvent event) {}
 
     // You MUST have this for custom materials.
     // Remember to register them not to GT's namespace, but your own.
@@ -68,8 +70,7 @@ public class CommonProxy {
     }
 
     // This is optional, though.
-    private void modifyMaterials(PostMaterialEvent event) {
-    }
+    private void modifyMaterials(PostMaterialEvent event) {}
 
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
         GTLRecipeTypes.init();
@@ -81,6 +82,6 @@ public class CommonProxy {
 
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
         GTLMachines.init();
-        GeneratorMachine.LARGE_SEMI_FLUID_GENERATOR.setRecipeTypes(new GTRecipeType[]{GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS});
+        GeneratorMachine.LARGE_SEMI_FLUID_GENERATOR.setRecipeTypes(new GTRecipeType[] { GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS });
     }
 }

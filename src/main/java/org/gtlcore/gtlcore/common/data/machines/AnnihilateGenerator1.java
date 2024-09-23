@@ -2,7 +2,7 @@ package org.gtlcore.gtlcore.common.data.machines;
 
 public class AnnihilateGenerator1 {
 
-    public static final String[] A_54 = new String[] {"          EEEECCCACCCCCCEEEEEEEE  E      E                                       E      E  EEEEEEEECCCCCCACCCEEEE        ",
+    public static final String[] A_54 = new String[] { "          EEEECCCACCCCCCEEEEEEEE  E      E                                       E      E  EEEEEEEECCCCCCACCCEEEE        ",
             "                         CB       E      E                                       E      E       BC                       ",
             "                         HB       E      E                                       E      E       BH                       ",
             "                         CB       E      E                                       E      E       BC                       ",
@@ -113,8 +113,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_55 = new String[] {"          EEEECCCCACCCCCEEEEEEEE  E      E                                       E      E  EEEEEEEECCCCCACCCCEEEE        ",
+            "                                                                                                                         " };
+    public static final String[] A_55 = new String[] { "          EEEECCCCACCCCCEEEEEEEE  E      E                                       E      E  EEEEEEEECCCCCACCCCEEEE        ",
             "                         CB       E      E                                       E      E       BC                       ",
             "                         HB       E      E                                       E      E       BH                       ",
             "                         CB       E      E                                       E      E       BC                       ",
@@ -225,8 +225,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_56 = new String[] {"          EEEECCCACCCCCCEEEEEEEE  E      E                                       E      E  EEEEEEEECCCCCCACCCEEEE        ",
+            "                                                                                                                         " };
+    public static final String[] A_56 = new String[] { "          EEEECCCACCCCCCEEEEEEEE  E      E                                       E      E  EEEEEEEECCCCCCACCCEEEE        ",
             "                         CB       E      E                                       E      E       BC                       ",
             "                         HB       E      E                                       E      E       BH                       ",
             "                         CB       E      E                                       E      E       BC                       ",
@@ -337,8 +337,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_57 = new String[] {"          EEEEECACCCCCCEEEEEEEEE  E      E                                       E      E  EEEEEEEEECCCCCCACEEEEE        ",
+            "                                                                                                                         " };
+    public static final String[] A_57 = new String[] { "          EEEEECACCCCCCEEEEEEEEE  E      E                                       E      E  EEEEEEEEECCCCCCACEEEEE        ",
             "                         HB       E      E                                       E      E       BH                       ",
             "                         CB       E      E                                       E      E       BC                       ",
             "                         CB       E      E                                       E      E       BC                       ",
@@ -449,8 +449,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_58 = new String[] {"          DDDDDDDDDDDDDDDEEEEEEE  E      E                                       E      E  EEEEEEEDDDDDDDDDDDDDDD        ",
+            "                                                                                                                         " };
+    public static final String[] A_58 = new String[] { "          DDDDDDDDDDDDDDDEEEEEEE  E      E                                       E      E  EEEEEEEDDDDDDDDDDDDDDD        ",
             "                         CB       E      E                                       E      E       BC                       ",
             "                         CB       E      E                                       E      E       BC                       ",
             "                         CB       E      E                                       E      E       BC                       ",
@@ -561,8 +561,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_59 = new String[] {"          EEEEEEEEEEEEEEEEEEEEEE  E      E                                       E      E  EEEEEEEEEEEEEEEEEEEEEE        ",
+            "                                                                                                                         " };
+    public static final String[] A_59 = new String[] { "          EEEEEEEEEEEEEEEEEEEEEE  E      E                                       E      E  EEEEEEEEEEEEEEEEEEEEEE        ",
             "              CCCCCCCCCCCCCC      E      E                                       E      E      CCCCCCCCCCCCCC            ",
             "              CCEEEEEEEEEEEC      E      E                                       E      E      CEEEEEEEEEEECC            ",
             "               EEEEEEEEECEE       E      E                                       E      E       EECEEEEEEEEE             ",
@@ -673,8 +673,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_60 = new String[] {"           EEEEEEEEEEEEEEEECEEEE  E       E                                     E       E  EEEECEEEEEEEEEEEEEEEE         ",
+            "                                                                                                                         " };
+    public static final String[] A_60 = new String[] { "           EEEEEEEEEEEEEEEECEEEE  E       E                                     E       E  EEEECEEEEEEEEEEEEEEEE         ",
             "              CCCCCCCCCCCGE C     E       E                                     E       E     C EGCCCCCCCCCCC            ",
             "              CCEEEEEEEEEGE C     E       E                                     E       E     C E EEEEEEEEECC            ",
             "               EEEEEEEEEEGEC      E       E                                     E       E      CEGEEEEEEEEEE             ",
@@ -785,8 +785,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_61 = new String[] {"            EEEEEEEEEEEEEECCCEEEE  E      E                                     E      E  EEEECCCEEEEEEEEEEEEEE          ",
+            "                                                                                                                         " };
+    public static final String[] A_61 = new String[] { "            EEEEEEEEEEEEEECCCEEEE  E      E                                     E      E  EEEECCCEEEEEEEEEEEEEE          ",
             "                            C      E      E                                     E      E      C                          ",
             "                            C      E      E                                     E      E      C                          ",
             "                          EC       E      E                                     E      E       CE                        ",
@@ -897,8 +897,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_62 = new String[] {"             EE EEEEEE EEECCCE  E  E      E                                     E      E  E  ECCCEEE EEEEEE EE           ",
+            "                                                                                                                         " };
+    public static final String[] A_62 = new String[] { "             EE EEEEEE EEECCCE  E  E      E                                     E      E  E  ECCCEEE EEEEEE EE           ",
             "                            C      E      E                                     E      E      C                          ",
             "                            C      E      E                                     E      E      C                          ",
             "                           EC      E      E                                     E      E      CE                         ",
@@ -1009,8 +1009,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_63 = new String[] {"                             C  E  E       E                                   E       E  E  C                           ",
+            "                                                                                                                         " };
+    public static final String[] A_63 = new String[] { "                             C  E  E       E                                   E       E  E  C                           ",
             "                             C     E       E                                   E       E     C                           ",
             "                             C     E       E                                   E       E     C                           ",
             "                             C     E       E                                   E       E     C                           ",
@@ -1121,8 +1121,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_64 = new String[] {"                             C  E   E      E                                   E      E   E  C                           ",
+            "                                                                                                                         " };
+    public static final String[] A_64 = new String[] { "                             C  E   E      E                                   E      E   E  C                           ",
             "                             C      E      E                                   E      E      C                           ",
             "                             C      E      E                                   E      E      C                           ",
             "                             C      E      E                                   E      E      C                           ",
@@ -1233,8 +1233,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_65 = new String[] {"                              C  E  E       E                                 E       E  E  C                            ",
+            "                                                                                                                         " };
+    public static final String[] A_65 = new String[] { "                              C  E  E       E                                 E       E  E  C                            ",
             "                              C     E       E                                 E       E     C                            ",
             "                              C     E       E                                 E       E     C                            ",
             "                              C     E       E                                 E       E     C                            ",
@@ -1345,8 +1345,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_66 = new String[] {"                              C  E  E       E                                 E       E  E  C                            ",
+            "                                                                                                                         " };
+    public static final String[] A_66 = new String[] { "                              C  E  E       E                                 E       E  E  C                            ",
             "                              C     E       E                                 E       E     C                            ",
             "                              C     E       E                                 E       E     C                            ",
             "                              C     E       E                                 E       E     C                            ",
@@ -1457,8 +1457,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_67 = new String[] {"                             PE  E   E       E                               E       E   E  EP                           ",
+            "                                                                                                                         " };
+    public static final String[] A_67 = new String[] { "                             PE  E   E       E                               E       E   E  EP                           ",
             "                             PE      E       E                               E       E      EP                           ",
             "                             PE      E       E                               E       E      EP                           ",
             "                             PE      E       E                               E       E      EP                           ",
@@ -1569,8 +1569,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_68 = new String[] {"                            P  E  E  E        E                             E        E  E  E  P                          ",
+            "                                                                                                                         " };
+    public static final String[] A_68 = new String[] { "                            P  E  E  E        E                             E        E  E  E  P                          ",
             "                            P  E     E        E                             E        E     E  P                          ",
             "                            PPPE     E        E                             E        E     EPPP                          ",
             "                            P  E     E        E                             E        E     E  P                          ",
@@ -1681,8 +1681,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_69 = new String[] {"                           P   E  E   E        E                           E        E   E  E   P                         ",
+            "                                                                                                                         " };
+    public static final String[] A_69 = new String[] { "                           P   E  E   E        E                           E        E   E  E   P                         ",
             "                           PB  E      E        E                           E        E      E  BP                         ",
             "                           PPPPE      E        E                           E        E      EPPPP                         ",
             "                           E   E      E        E                           E        E      E   E                         ",
@@ -1793,8 +1793,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_70 = new String[] {"                           P    E  E  E         E                         E         E  E  E    P                         ",
+            "                                                                                                                         " };
+    public static final String[] A_70 = new String[] { "                           P    E  E  E         E                         E         E  E  E    P                         ",
             "                           HB   E     E         E                         E         E     E   BH                         ",
             "                           PPPPPE     E         E                         E         E     EPPPPP                         ",
             "                           E    E     E         E                         E         E     E    E                         ",
@@ -1905,8 +1905,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_71 = new String[] {"                            P   E   E  E         E                       E         E  E   E   P                          ",
+            "                                                                                                                         " };
+    public static final String[] A_71 = new String[] { "                            P   E   E  E         E                       E         E  E   E   P                          ",
             "                            HB  E      E         E                       E         E      E  BH                          ",
             "                            PPPPE      E         E                       E         E      EPPPP                          ",
             "                            E   E      E         E                       E         E      E   E                          ",
@@ -2017,8 +2017,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_72 = new String[] {"                            P    E  E   E         EE                   EE         E   E  E    P                          ",
+            "                                                                                                                         " };
+    public static final String[] A_72 = new String[] { "                            P    E  E   E         EE                   EE         E   E  E    P                          ",
             "                            HB   E      E         EE                   EE         E      E   BH                          ",
             "                            PPPPPE      E         EE                   EE         E      EPPPPP                          ",
             "                            E    E      E         EE                   EE         E      E    E                          ",
@@ -2129,8 +2129,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_73 = new String[] {"                             P   E   E   E          EE               EE          E   E   E   P                           ",
+            "                                                                                                                         " };
+    public static final String[] A_73 = new String[] { "                             P   E   E   E          EE               EE          E   E   E   P                           ",
             "                             HB  E       E          EE               EE          E       E  BH                           ",
             "                             PPPPE       E          EE               EE          E       EPPPP                           ",
             "                             E   E       E          EE               EE          E       E   E                           ",
@@ -2241,8 +2241,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_74 = new String[] {"                             P    E   E   E           EEE         EEE           E   E   E    P                           ",
+            "                                                                                                                         " };
+    public static final String[] A_74 = new String[] { "                             P    E   E   E           EEE         EEE           E   E   E    P                           ",
             "                             HB   E       E           EEE         EEE           E       E   BH                           ",
             "                             PPPDPE       E           EEE         EEE           E       EPDPPP                           ",
             "                                  E       E           EEE         EEE           E       E                                ",
@@ -2353,8 +2353,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_75 = new String[] {"                              P    E  E    E             EEEEEEEEE             E    E  E    P                            ",
+            "                                                                                                                         " };
+    public static final String[] A_75 = new String[] { "                              P    E  E    E             EEEEEEEEE             E    E  E    P                            ",
             "                              HB   E       E             EEEEEEEEE             E       E   BH                            ",
             "                              PDPPPE       E             EEEEEEEEE             E       EPPPDP                            ",
             "                                  DE       E             EEEEEEEEE             E       ED                                ",
@@ -2465,8 +2465,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_76 = new String[] {"                              P    E   E    E                                 E    E   E    P                            ",
+            "                                                                                                                         " };
+    public static final String[] A_76 = new String[] { "                              P    E   E    E                                 E    E   E    P                            ",
             "                              HB   E        E                                 E        E   BH                            ",
             "                              PPPPPE        E                                 E        EPPPPP                            ",
             "                                   E        E                                 E        E                                 ",
@@ -2577,8 +2577,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_77 = new String[] {"                               P    E   E    E                               E    E   E    P                             ",
+            "                                                                                                                         " };
+    public static final String[] A_77 = new String[] { "                               P    E   E    E                               E    E   E    P                             ",
             "                               HB   E        E                               E        E   BH                             ",
             "                               PPPPPE        E                               E        EPPPPP                             ",
             "                                    E        E                               E        E                                  ",
@@ -2689,8 +2689,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_78 = new String[] {"                                P    E   EE   EE                           EE   EE   E    P                              ",
+            "                                                                                                                         " };
+    public static final String[] A_78 = new String[] { "                                P    E   EE   EE                           EE   EE   E    P                              ",
             "                                HB   E        EE                           EE        E   BH                              ",
             "                                PPPPPE        EE                           EE        EPPPPP                              ",
             "                                     E        EE                           EE        E                                   ",
@@ -2801,8 +2801,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_79 = new String[] {"                                 P    E    E    EE                       EE    E    E    P                               ",
+            "                                                                                                                         " };
+    public static final String[] A_79 = new String[] { "                                 P    E    E    EE                       EE    E    E    P                               ",
             "                                 HB   E         EE                       EE         E   BH                               ",
             "                                 PPPPPE         EE                       EE         EPPPPP                               ",
             "                                      E         EE                       EE         E                                    ",
@@ -2913,8 +2913,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_80 = new String[] {"                                  P    E    EE    EEE                 EEE    EE    E    P                                ",
+            "                                                                                                                         " };
+    public static final String[] A_80 = new String[] { "                                  P    E    EE    EEE                 EEE    EE    E    P                                ",
             "                                  HB   E          EEE                 EEE          E   BH                                ",
             "                                  PPPPPE          EEE                 EEE          EPPPPP                                ",
             "                                       E          EEE                 EEE          E                                     ",
@@ -3025,8 +3025,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_81 = new String[] {"                                  P     EE    E      EEE           EEE      E    EE     P                                ",
+            "                                                                                                                         " };
+    public static final String[] A_81 = new String[] { "                                  P     EE    E      EEE           EEE      E    EE     P                                ",
             "                                  HDB   EE           EEE           EEE           EE   BDH                                ",
             "                                  PPPPPPEE           EEE           EEE           EEPPPPPP                                ",
             "                                        EE           EEE           EEE           EE                                      ",
@@ -3137,8 +3137,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_82 = new String[] {"                                   PP     E    EE       EEEEEEEEEEE       EE    E     PP                                 ",
+            "                                                                                                                         " };
+    public static final String[] A_82 = new String[] { "                                   PP     E    EE       EEEEEEEEEEE       EE    E     PP                                 ",
             "                                   HHB    E             EEEEEEEEEEE             E    BHH                                 ",
             "                                   PPPPPPPE             EEEEEEEEEEE             EPPPPPPP                                 ",
             "                                         DE             EEEEEEEEEEE             ED                                       ",
@@ -3249,8 +3249,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_83 = new String[] {"                                     P     EE    EEE                   EEE    EE     P                                   ",
+            "                                                                                                                         " };
+    public static final String[] A_83 = new String[] { "                                     P     EE    EEE                   EEE    EE     P                                   ",
             "                                     HB    EE                                 EE    BH                                   ",
             "                                     PPPPPPEE                                 EEPPPPPP                                   ",
             "                                           EE                                 EE                                         ",
@@ -3361,8 +3361,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_84 = new String[] {"                                      P      EE     EEEE           EEEE     EE      P                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_84 = new String[] { "                                      P      EE     EEEE           EEEE     EE      P                                    ",
             "                                      HB     EE                             EE     BH                                    ",
             "                                      PPPPDPPEE                             EEPPDPPPP                                    ",
             "                                             EE                             EE                                           ",
@@ -3473,8 +3473,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_85 = new String[] {"                                       P       EE      EEEEEEEEEEEEE      EE       P                                     ",
+            "                                                                                                                         " };
+    public static final String[] A_85 = new String[] { "                                       P       EE      EEEEEEEEEEEEE      EE       P                                     ",
             "                                       HBB     EE                         EE     BBH                                     ",
             "                                       PPDPPPPPEE                         EEPPPPPDPP                                     ",
             "                                               EE                         EE                                             ",
@@ -3585,8 +3585,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_86 = new String[] {"                                        PP       ECC   EEEEEEEEEEEEE   CCE       PP                                      ",
+            "                                                                                                                         " };
+    public static final String[] A_86 = new String[] { "                                        PP       ECC   EEEEEEEEEEEEE   CCE       PP                                      ",
             "                                        HHBB     ECC                   CCE     BBHH                                      ",
             "                                        PPPPPPPPPECC                   CCEPPPPPPPPP                                      ",
             "                                                 ECC                   CCE                                               ",
@@ -3697,8 +3697,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_87 = new String[] {"                                          PP     P  CCEEEEEEEEEEEEEEECC  P     PP                                        ",
+            "                                                                                                                         " };
+    public static final String[] A_87 = new String[] { "                                          PP     P  CCEEEEEEEEEEEEEEECC  P     PP                                        ",
             "                                          HHBB   P  CC               CC  P   BBHH                                        ",
             "                                          PPPPPPPP  CC               CC  PPPPPPPP                                        ",
             "                                           E     P  CC               CC  P     E                                         ",
@@ -3809,8 +3809,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_88 = new String[] {"                                            PP  P     CCEEEEEEEEEEECC     P  PP                                          ",
+            "                                                                                                                         " };
+    public static final String[] A_88 = new String[] { "                                            PP  P     CCEEEEEEEEEEECC     P  PP                                          ",
             "                                            HHBBP     CCC         CCC     PBBHH                                          ",
             "                                            PPPPP     CCC         CCC     PPPPP                                          ",
             "                                            EE  P     C             C     P  EE                                          ",
@@ -3921,8 +3921,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_89 = new String[] {"                                              PP      CCCEEEEEEEEECCC      PP                                            ",
+            "                                                                                                                         " };
+    public static final String[] A_89 = new String[] { "                                              PP      CCCEEEEEEEEECCC      PP                                            ",
             "                                              HP         C       C         PH                                            ",
             "                                              PP         C       C         PP                                            ",
             "                                              EE      ECC         CCE      EE                                            ",
@@ -4033,8 +4033,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_90 = new String[] {"                                                      CCEEEEEEEEEEECC                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_90 = new String[] { "                                                      CCEEEEEEEEEEECC                                                    ",
             "                                                        ECBBBBBBBCE                                                      ",
             "                                                        EEBBBBBBBEE                                                      ",
             "                                                       EEEBBBBBBBEEE                                                     ",
@@ -4145,8 +4145,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_91 = new String[] {"                                                      EEEEEEEEEEEEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_91 = new String[] { "                                                      EEEEEEEEEEEEEEE                                                    ",
             "                                                        GCCHCCCHCCG                                                      ",
             "                                                        GECCHHHCCEG                                                      ",
             "                                                        GECCCCCCCEG                                                      ",
@@ -4257,8 +4257,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_92 = new String[] {"                                                      EEEEDEEEEEDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_92 = new String[] { "                                                      EEEEDEEEEEDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EC       CE                                                      ",
@@ -4369,8 +4369,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_93 = new String[] {"                                                      EEEEDECCCEDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_93 = new String[] { "                                                      EEEEDECCCEDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -4481,8 +4481,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_94 = new String[] {"                                                       EEEDCCCCCDEEE                                                     ",
+            "                                                                                                                         " };
+    public static final String[] A_94 = new String[] { "                                                       EEEDCCCCCDEEE                                                     ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -4593,8 +4593,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_95 = new String[] {"                                                      EEEEDCCCCCDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_95 = new String[] { "                                                      EEEEDCCCCCDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -4705,8 +4705,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_96 = new String[] {"                                                      EEEEDCCCCCDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_96 = new String[] { "                                                      EEEEDCCCCCDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -4817,8 +4817,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_97 = new String[] {"                                                      EEEEDCCCCCDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_97 = new String[] { "                                                      EEEEDCCCCCDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -4929,8 +4929,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_98 = new String[] {"                                                      EEEEDCCACCDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_98 = new String[] { "                                                      EEEEDCCACCDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -5041,8 +5041,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_99 = new String[] {"                                                      EEEEDCACACDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_99 = new String[] { "                                                      EEEEDCACACDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -5153,8 +5153,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_100 = new String[] {"                                                      EEEEDACCCADEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_100 = new String[] { "                                                      EEEEDACCCADEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
             "                                                        EE       EE                                                      ",
@@ -5265,8 +5265,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_101 = new String[] {"                                                       EEEDCCCCCDEEE                                                     ",
+            "                                                                                                                         " };
+    public static final String[] A_101 = new String[] { "                                                       EEEDCCCCCDEEE                                                     ",
             "                                                        CC       CC                                                      ",
             "                                                        CC       CC                                                      ",
             "                                                        EE       EE                                                      ",
@@ -5377,8 +5377,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_102 = new String[] {"                                                      EEEEDECCCEDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_102 = new String[] { "                                                      EEEEDECCCEDEEEE                                                    ",
             "                                                        CC       CC                                                      ",
             "                                                        CC       CC                                                      ",
             "                                                                                                                         ",
@@ -5489,8 +5489,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_103 = new String[] {"                                                      EEEEDEEEEEDEEEE                                                    ",
+            "                                                                                                                         " };
+    public static final String[] A_103 = new String[] { "                                                      EEEEDEEEEEDEEEE                                                    ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -5601,8 +5601,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_104 = new String[] {"                                                       EEEDEEEEEDEEE                                                     ",
+            "                                                                                                                         " };
+    public static final String[] A_104 = new String[] { "                                                       EEEDEEEEEDEEE                                                     ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -5713,8 +5713,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_105 = new String[] {"                                                        EEDEEEEEDEE                                                      ",
+            "                                                                                                                         " };
+    public static final String[] A_105 = new String[] { "                                                        EEDEEEEEDEE                                                      ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -5825,8 +5825,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_106 = new String[] {"                                                         EDEEEEEDE                                                       ",
+            "                                                                                                                         " };
+    public static final String[] A_106 = new String[] { "                                                         EDEEEEEDE                                                       ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -5937,8 +5937,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_107 = new String[] {"                                                                                                                         ",
+            "                                                                                                                         " };
+    public static final String[] A_107 = new String[] { "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -6049,8 +6049,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_108 = new String[] {"                                                                                                                         ",
+            "                                                                                                                         " };
+    public static final String[] A_108 = new String[] { "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -6161,8 +6161,8 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
-    public static final String[] A_109 = new String[] {"                                                                                                                         ",
+            "                                                                                                                         " };
+    public static final String[] A_109 = new String[] { "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
@@ -6273,5 +6273,5 @@ public class AnnihilateGenerator1 {
             "                                                                                                                         ",
             "                                                                                                                         ",
             "                                                                                                                         ",
-            "                                                                                                                         "};
+            "                                                                                                                         " };
 }

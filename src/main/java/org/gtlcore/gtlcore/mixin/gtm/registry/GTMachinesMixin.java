@@ -1,5 +1,11 @@
 package org.gtlcore.gtlcore.mixin.gtm.registry;
 
+import org.gtlcore.gtlcore.common.data.GTLMachines;
+import org.gtlcore.gtlcore.common.data.machines.GCyMMachines;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.GTLLargeCombustionEngineMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.MegaTurbineMachine;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -26,19 +32,17 @@ import com.gregtechceu.gtceu.common.machine.multiblock.part.*;
 import com.gregtechceu.gtceu.common.machine.storage.BufferMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
-import it.unimi.dsi.fastutil.ints.Int2LongFunction;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModLoader;
-import org.gtlcore.gtlcore.common.data.GTLMachines;
-import org.gtlcore.gtlcore.common.data.machines.GCyMMachines;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.GTLLargeCombustionEngineMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.MegaTurbineMachine;
+
+import it.unimi.dsi.fastutil.ints.Int2LongFunction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -59,6 +63,7 @@ import static com.gregtechceu.gtceu.utils.FormattingUtil.toEnglishName;
 
 @Mixin(GTMachines.class)
 public class GTMachinesMixin {
+
     @Inject(method = "init", at = @At(value = "HEAD"), remap = false, cancellable = true)
     private static void init(CallbackInfo ci) {
         GCyMMachines.init();
@@ -88,7 +93,7 @@ public class GTMachinesMixin {
     @Inject(method = "registerTieredMachines", at = @At("HEAD"), remap = false, cancellable = true)
     private static void registerTieredMachines(String name, BiFunction<IMachineBlockEntity, Integer, MetaMachine> factory, BiFunction<Integer, MachineBuilder<MachineDefinition>, MachineDefinition> builder, int[] tiers, CallbackInfoReturnable<MachineDefinition[]> cir) {
         switch (name) {
-            case "input_bus" :
+            case "input_bus":
                 cir.setReturnValue(gTLCore$registerTieredMachines("input_bus",
                         (holder, tier) -> new ItemBusPartMachine(holder, tier, IO.IN),
                         (tier, builder1) -> builder1
@@ -105,7 +110,7 @@ public class GTMachinesMixin {
                                 .register(),
                         ALL_TIERS));
                 break;
-            case "output_bus" :
+            case "output_bus":
                 cir.setReturnValue(gTLCore$registerTieredMachines("output_bus",
                         (holder, tier) -> new ItemBusPartMachine(holder, tier, IO.OUT),
                         (tier, builder1) -> builder1
@@ -122,7 +127,7 @@ public class GTMachinesMixin {
                                 .register(),
                         ALL_TIERS));
                 break;
-            case "energy_input_hatch_4a" :
+            case "energy_input_hatch_4a":
                 cir.setReturnValue(gTLCore$registerTieredMachines("energy_input_hatch_4a",
                         (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.IN, 4),
                         (tier, builder1) -> builder1
@@ -135,7 +140,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "energy_output_hatch_4a" :
+            case "energy_output_hatch_4a":
                 cir.setReturnValue(gTLCore$registerTieredMachines("energy_output_hatch_4a",
                         (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.OUT, 4),
                         (tier, builder1) -> builder1
@@ -148,7 +153,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "energy_input_hatch_16a" :
+            case "energy_input_hatch_16a":
                 cir.setReturnValue(gTLCore$registerTieredMachines("energy_input_hatch_16a",
                         (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.IN, 16),
                         (tier, builder1) -> builder1
@@ -161,7 +166,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "energy_output_hatch_16a" :
+            case "energy_output_hatch_16a":
                 cir.setReturnValue(gTLCore$registerTieredMachines("energy_output_hatch_16a",
                         (holder, tier) -> new EnergyHatchPartMachine(holder, tier, IO.OUT, 16),
                         (tier, builder1) -> builder1
@@ -174,7 +179,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "dual_input_hatch" :
+            case "dual_input_hatch":
                 cir.setReturnValue(gTLCore$registerTieredMachines(
                         "dual_input_hatch",
                         (holder, tier) -> new DualHatchPartMachine(holder, tier, IO.IN),
@@ -199,7 +204,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "dual_output_hatch" :
+            case "dual_output_hatch":
                 cir.setReturnValue(gTLCore$registerTieredMachines(
                         "dual_output_hatch",
                         (holder, tier) -> new DualHatchPartMachine(holder, tier, IO.OUT),
@@ -224,7 +229,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "buffer" :
+            case "buffer":
                 cir.setReturnValue(gTLCore$registerTieredMachines("buffer",
                         BufferMachine::new,
                         (tier, builder1) -> builder1
@@ -245,7 +250,7 @@ public class GTMachinesMixin {
                                 .register(),
                         GTValues.tiersBetween(LV, GTCEuAPI.isHighTier() ? MAX : UHV)));
                 break;
-            case "rotor_holder" :
+            case "rotor_holder":
                 cir.setReturnValue(gTLCore$registerTieredMachines("rotor_holder",
                         RotorHolderPartMachine::new,
                         (tier, builder1) -> builder1
@@ -258,7 +263,7 @@ public class GTMachinesMixin {
                                         Component.translatable("gtceu.universal.disabled"))
                                 .compassNode("rotor_holder")
                                 .register(),
-                        HV, EV, IV, LuV, ZPM, UV ,UHV, UEV));
+                        HV, EV, IV, LuV, ZPM, UV, UHV, UEV));
         }
     }
 
@@ -360,7 +365,7 @@ public class GTMachinesMixin {
             case "supercritical_steam_turbine" -> 16;
             default -> 8;
         };
-        cir.setReturnValue(REGISTRATE.multiblock(name, holder ->  new MegaTurbineMachine(holder, tier, finalAm))
+        cir.setReturnValue(REGISTRATE.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, finalAm))
                 .rotationState(RotationState.ALL)
                 .recipeType(recipeType)
                 .generator(true)

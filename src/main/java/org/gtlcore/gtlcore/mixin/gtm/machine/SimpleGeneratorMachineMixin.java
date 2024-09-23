@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.mixin.gtm.machine;
 
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.SimpleGeneratorMachine;
@@ -8,7 +10,7 @@ import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

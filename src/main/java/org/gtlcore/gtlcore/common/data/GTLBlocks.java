@@ -1,10 +1,8 @@
 package org.gtlcore.gtlcore.common.data;
 
-import appeng.block.crafting.AbstractCraftingUnitBlock;
-import appeng.block.crafting.CraftingUnitBlock;
-import appeng.block.crafting.ICraftingUnitType;
-import appeng.blockentity.AEBaseBlockEntity;
-import appeng.blockentity.crafting.CraftingBlockEntity;
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
+
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.block.ActiveBlock;
@@ -14,9 +12,7 @@ import com.gregtechceu.gtceu.api.item.tool.GTToolType;
 import com.gregtechceu.gtceu.common.block.FusionCasingBlock;
 import com.gregtechceu.gtceu.common.data.GTModels;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
-import com.tterrag.registrate.util.entry.BlockEntityEntry;
-import com.tterrag.registrate.util.entry.BlockEntry;
-import lombok.Getter;
+
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,8 +26,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
+
+import appeng.block.crafting.AbstractCraftingUnitBlock;
+import appeng.block.crafting.CraftingUnitBlock;
+import appeng.block.crafting.ICraftingUnitType;
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.blockentity.crafting.CraftingBlockEntity;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,12 +55,39 @@ public class GTLBlocks {
 
     public static void init() {
         for (int i = 1; i < 15; i++) {
-            GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(), new ResourceLocation("kubejs:block/component_assembly_line_casing_" + i), calmap, i);
+            GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(),
+                    new ResourceLocation("kubejs:block/component_assembly_line_casing_" + i), calmap, i);
         }
     }
 
     static {
         REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
+    }
+
+    private static BlockEntry<CraftingUnitBlock> registerCraftingUnitBlock(int tier, CraftingUnitType Type) {
+        return REGISTRATE
+                .block(tier == -1 ? "max_storage" : tier + "m_storage",
+                        p -> new CraftingUnitBlock(Type))
+                .blockstate((ctx, provider) -> {
+                    String formed = "block/crafting/" + ctx.getName() + "_formed";
+                    String unformed = "block/crafting/" + ctx.getName();
+                    provider.models().cubeAll(unformed, provider.modLoc("block/crafting/" + ctx.getName()));
+                    provider.models().getBuilder(formed);
+                    provider.getVariantBuilder(ctx.get())
+                            .forAllStatesExcept(state -> {
+                                boolean b = state.getValue(AbstractCraftingUnitBlock.FORMED);
+                                return ConfiguredModel.builder()
+                                        .modelFile(provider.models()
+                                                .getExistingFile(provider.modLoc(b ? formed : unformed)))
+                                        .build();
+                            }, AbstractCraftingUnitBlock.POWERED);
+                })
+                .defaultLoot()
+                .item(BlockItem::new)
+                .model((ctx, provider) -> provider.withExistingParent(ctx.getName(),
+                        provider.modLoc("block/crafting/" + ctx.getName())))
+                .build()
+                .register();
     }
 
     public enum CraftingUnitType implements ICraftingUnitType {
@@ -106,37 +136,41 @@ public class GTLBlocks {
         }
     }
 
-    private static BlockEntry<CraftingUnitBlock> registerCraftingUnitBlock(int tier, CraftingUnitType Type) {
-        return REGISTRATE
-                .block(tier == -1 ? "max_storage" : tier + "m_storage",
-                        p -> new CraftingUnitBlock(Type))
-                .blockstate((ctx, provider) -> {
-                    String formed = "block/crafting/" + ctx.getName() + "_formed";
-                    String unformed = "block/crafting/" + ctx.getName();
-                    provider.models().cubeAll(unformed, provider.modLoc("block/crafting/" + ctx.getName()));
-                    provider.models().getBuilder(formed);
-                    provider.getVariantBuilder(ctx.get())
-                            .forAllStatesExcept(state -> {
-                                boolean b = state.getValue(AbstractCraftingUnitBlock.FORMED);
-                                return ConfiguredModel.builder()
-                                        .modelFile(provider.models()
-                                                .getExistingFile(provider.modLoc(b ? formed : unformed)))
-                                        .build();
-                            }, AbstractCraftingUnitBlock.POWERED);
-                })
-                .defaultLoot()
-                .item(BlockItem::new)
-                .model((ctx, provider) -> provider.withExistingParent(ctx.getName(),
-                        provider.modLoc("block/crafting/" + ctx.getName())))
-                .build()
-                .register();
-    }
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
+            GTLBlocks.CraftingUnitType.STORAGE_1M);
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_4M = registerCraftingUnitBlock(4,
+            GTLBlocks.CraftingUnitType.STORAGE_4M);
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_16M = registerCraftingUnitBlock(16,
+            GTLBlocks.CraftingUnitType.STORAGE_16M);
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_64M = registerCraftingUnitBlock(64,
+            GTLBlocks.CraftingUnitType.STORAGE_64M);
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_256M = registerCraftingUnitBlock(256,
+            GTLBlocks.CraftingUnitType.STORAGE_256M);
+    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_MAX = registerCraftingUnitBlock(-1,
+            GTLBlocks.CraftingUnitType.STORAGE_MAX);
+
+    public static BlockEntityEntry<CraftingBlockEntity> CRAFTING_STORAGE = REGISTRATE
+            .blockEntity("crafting_storage", CraftingBlockEntity::new)
+            .validBlocks(
+                    CRAFTING_STORAGE_1M,
+                    CRAFTING_STORAGE_4M,
+                    CRAFTING_STORAGE_16M,
+                    CRAFTING_STORAGE_64M,
+                    CRAFTING_STORAGE_256M,
+                    CRAFTING_STORAGE_MAX)
+            .onRegister(type -> {
+                for (GTLBlocks.CraftingUnitType craftingUnitType : GTLBlocks.CraftingUnitType.values()) {
+                    AEBaseBlockEntity.registerBlockEntityItem(type, craftingUnitType.getItemFromType());
+                    craftingUnitType.getDefinition().get().setBlockEntity(CraftingBlockEntity.class, type, null, null);
+                }
+            })
+            .register();
 
     @SuppressWarnings("all")
     public static BlockEntry<ActiveBlock> createActiveCasing(String name, String baseModelPath) {
         return REGISTRATE.block(name, ActiveBlock::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
-                    .addLayer(() -> RenderType::cutoutMipped)
+                .addLayer(() -> RenderType::cutoutMipped)
                 .blockstate(GTModels.createActiveModel(GTLCore.id(baseModelPath)))
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
                 .item(BlockItem::new)
@@ -149,12 +183,13 @@ public class GTLBlocks {
     public static BlockEntry<Block> createTierCasings(String name, ResourceLocation texture,
                                                       Map<Integer, Supplier<Block>> map, int tier) {
         BlockEntry<Block> Block = REGISTRATE.block(name, p -> (Block) new Block(p) {
-                    @Override
-                    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
-                                                @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-                        tooltip.add(Component.translatable("gtceu.casings.tier", tier));
-                    }
-                })
+
+            @Override
+            public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
+                                        @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+                tooltip.add(Component.translatable("gtceu.casings.tier", tier));
+            }
+        })
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
@@ -172,12 +207,13 @@ public class GTLBlocks {
     public static BlockEntry<ActiveBlock> createActiveTierCasing(String name, String baseModelPath,
                                                                  Map<Integer, Supplier<ActiveBlock>> map, int tier) {
         BlockEntry<ActiveBlock> Block = REGISTRATE.block("%s".formatted(name), p -> (ActiveBlock) new ActiveBlock(p) {
-                    @Override
-                    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
-                                                @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-                        tooltip.add(Component.translatable("gtceu.casings.tier", tier));
-                    }
-                })
+
+            @Override
+            public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level,
+                                        @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+                tooltip.add(Component.translatable("gtceu.casings.tier", tier));
+            }
+        })
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .addLayer(() -> RenderType::cutoutMipped)
                 .blockstate(GTModels.createActiveModel(GTLCore.id(baseModelPath)))
@@ -262,68 +298,65 @@ public class GTLBlocks {
     public static final BlockEntry<FusionCasingBlock> FUSION_CASING_MK5 = createFusionCasing(
             GTLFusionCasingBlock.CasingType.FUSION_CASING_MK5);
 
-    public static final BlockEntry<ActiveBlock> ADVANCED_FUSION_COIL = createActiveCasing("advanced_fusion_coil", "block/variant/advanced_fusion_coil");
-    public static final BlockEntry<ActiveBlock> FUSION_COIL_MK2 = createActiveCasing("fusion_coil_mk2", "block/variant/fusion_coil_mk2");
-    public static final BlockEntry<ActiveBlock> IMPROVED_SUPERCONDUCTOR_COIL = createActiveCasing("improved_superconductor_coil", "block/variant/improved_superconductor_coil");
-    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL = createActiveCasing("compressed_fusion_coil", "block/variant/compressed_fusion_coil");
-    public static final BlockEntry<ActiveBlock> ADVANCED_COMPRESSED_FUSION_COIL = createActiveCasing("advanced_compressed_fusion_coil", "block/variant/advanced_compressed_fusion_coil");
-    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL_MK2_PROTOTYPE = createActiveCasing("compressed_fusion_coil_mk2_prototype", "block/variant/compressed_fusion_coil_mk2_prototype");
-    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL_MK2 = createActiveCasing("compressed_fusion_coil_mk2", "block/variant/compressed_fusion_coil_mk2");
+    public static final BlockEntry<ActiveBlock> ADVANCED_FUSION_COIL = createActiveCasing("advanced_fusion_coil",
+            "block/variant/advanced_fusion_coil");
+    public static final BlockEntry<ActiveBlock> FUSION_COIL_MK2 = createActiveCasing("fusion_coil_mk2",
+            "block/variant/fusion_coil_mk2");
+    public static final BlockEntry<ActiveBlock> IMPROVED_SUPERCONDUCTOR_COIL = createActiveCasing(
+            "improved_superconductor_coil", "block/variant/improved_superconductor_coil");
+    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL = createActiveCasing("compressed_fusion_coil",
+            "block/variant/compressed_fusion_coil");
+    public static final BlockEntry<ActiveBlock> ADVANCED_COMPRESSED_FUSION_COIL = createActiveCasing(
+            "advanced_compressed_fusion_coil", "block/variant/advanced_compressed_fusion_coil");
+    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL_MK2_PROTOTYPE = createActiveCasing(
+            "compressed_fusion_coil_mk2_prototype", "block/variant/compressed_fusion_coil_mk2_prototype");
+    public static final BlockEntry<ActiveBlock> COMPRESSED_FUSION_COIL_MK2 = createActiveCasing(
+            "compressed_fusion_coil_mk2", "block/variant/compressed_fusion_coil_mk2");
 
-    public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter(GTLCleanroomFilterType.FILTER_CASING_LAW);
+    public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter(
+            GTLCleanroomFilterType.FILTER_CASING_LAW);
 
     public static final BlockEntry<Block> CASING_SUPERCRITICAL_TURBINE = createCasingBlock(
             "supercritical_turbine_casing", GTLCore.id("block/supercritical_turbine_casing"));
 
-    public static final BlockEntry<ActiveBlock> POWER_CORE = createActiveCasing("power_core", "block/variant/hyper_core");
-    public static final BlockEntry<ActiveBlock> HYPER_CORE = createActiveCasing("hyper_core", "block/variant/hyper_core");
-    public static final BlockEntry<ActiveBlock> SUPER_COMPUTATION_COMPONENT = createActiveCasing("super_computation_component", "block/variant/super_computation_component");
-    public static final BlockEntry<ActiveBlock> SUPER_COOLER_COMPONENT = createActiveCasing("super_cooler_component", "block/variant/super_cooler_component");
-    public static final BlockEntry<ActiveBlock> SPACETIMECONTINUUMRIPPER = createActiveCasing("spacetimecontinuumripper", "block/variant/spacetimecontinuumripper");
-    public static final BlockEntry<ActiveBlock> SPACETIMEBENDINGCORE = createActiveCasing("spacetimebendingcore", "block/variant/spacetimebendingcore");
+    public static final BlockEntry<ActiveBlock> POWER_CORE = createActiveCasing("power_core",
+            "block/variant/hyper_core");
+    public static final BlockEntry<ActiveBlock> HYPER_CORE = createActiveCasing("hyper_core",
+            "block/variant/hyper_core");
+    public static final BlockEntry<ActiveBlock> SUPER_COMPUTATION_COMPONENT = createActiveCasing(
+            "super_computation_component", "block/variant/super_computation_component");
+    public static final BlockEntry<ActiveBlock> SUPER_COOLER_COMPONENT = createActiveCasing("super_cooler_component",
+            "block/variant/super_cooler_component");
+    public static final BlockEntry<ActiveBlock> SPACETIMECONTINUUMRIPPER = createActiveCasing(
+            "spacetimecontinuumripper", "block/variant/spacetimecontinuumripper");
+    public static final BlockEntry<ActiveBlock> SPACETIMEBENDINGCORE = createActiveCasing("spacetimebendingcore",
+            "block/variant/spacetimebendingcore");
     public static final BlockEntry<ActiveBlock> QFT_COIL = createActiveCasing("qft_coil", "block/variant/qft_coil");
-    public static final BlockEntry<ActiveBlock> FISSION_FUEL_ASSEMBLY = createActiveCasing("fission_fuel_assembly", "block/variant/fission_fuel_assembly");
+    public static final BlockEntry<ActiveBlock> FISSION_FUEL_ASSEMBLY = createActiveCasing("fission_fuel_assembly",
+            "block/variant/fission_fuel_assembly");
     public static final BlockEntry<ActiveBlock> COOLER = createActiveCasing("cooler", "block/variant/cooler");
-    public static final BlockEntry<ActiveBlock> ADVANCED_ASSEMBLY_LINE_UNIT = createActiveCasing("advanced_assembly_line_unit", "block/variant/advanced_assembly_line_unit");
-    public static final BlockEntry<ActiveBlock> SPACE_ELEVATOR_SUPPORT = createActiveCasing("space_elevator_support", "block/variant/space_elevator_support");
+    public static final BlockEntry<ActiveBlock> ADVANCED_ASSEMBLY_LINE_UNIT = createActiveCasing(
+            "advanced_assembly_line_unit", "block/variant/advanced_assembly_line_unit");
+    public static final BlockEntry<ActiveBlock> SPACE_ELEVATOR_SUPPORT = createActiveCasing("space_elevator_support",
+            "block/variant/space_elevator_support");
 
-    public static final BlockEntry<Block> STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings("stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
-    public static final BlockEntry<Block> ADVANCED_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings("advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 2);
-    public static final BlockEntry<Block> ULTIMATE_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings("ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 3);
+    public static final BlockEntry<Block> STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings(
+            "stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
+    public static final BlockEntry<Block> ADVANCED_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings(
+            "advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"),
+            scmap, 2);
+    public static final BlockEntry<Block> ULTIMATE_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings(
+            "ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"),
+            scmap, 3);
 
-    public static final BlockEntry<ActiveBlock> POWER_MODULE = GTLBlocks.createActiveTierCasing("power_module", "block/variant/power_module", sepmmap, 1);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_2 = GTLBlocks.createActiveTierCasing("power_module_2", "block/variant/power_module", sepmmap, 2);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_3 = GTLBlocks.createActiveTierCasing("power_module_3", "block/variant/power_module", sepmmap, 3);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_4 = GTLBlocks.createActiveTierCasing("power_module_4", "block/variant/power_module", sepmmap, 4);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_5 = GTLBlocks.createActiveTierCasing("power_module_5", "block/variant/power_module", sepmmap, 5);
-
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
-            GTLBlocks.CraftingUnitType.STORAGE_1M);
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_4M = registerCraftingUnitBlock(4,
-            GTLBlocks.CraftingUnitType.STORAGE_4M);
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_16M = registerCraftingUnitBlock(16,
-            GTLBlocks.CraftingUnitType.STORAGE_16M);
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_64M = registerCraftingUnitBlock(64,
-            GTLBlocks.CraftingUnitType.STORAGE_64M);
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_256M = registerCraftingUnitBlock(256,
-            GTLBlocks.CraftingUnitType.STORAGE_256M);
-    public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_MAX = registerCraftingUnitBlock(-1,
-            GTLBlocks.CraftingUnitType.STORAGE_MAX);
-
-    public static BlockEntityEntry<CraftingBlockEntity> CRAFTING_STORAGE = REGISTRATE
-            .blockEntity("crafting_storage", CraftingBlockEntity::new)
-            .validBlocks(
-                    CRAFTING_STORAGE_1M,
-                    CRAFTING_STORAGE_4M,
-                    CRAFTING_STORAGE_16M,
-                    CRAFTING_STORAGE_64M,
-                    CRAFTING_STORAGE_256M,
-                    CRAFTING_STORAGE_MAX)
-            .onRegister(type -> {
-                for (GTLBlocks.CraftingUnitType craftingUnitType : GTLBlocks.CraftingUnitType.values()) {
-                    AEBaseBlockEntity.registerBlockEntityItem(type, craftingUnitType.getItemFromType());
-                    craftingUnitType.getDefinition().get().setBlockEntity(CraftingBlockEntity.class, type, null, null);
-                }
-            })
-            .register();
+    public static final BlockEntry<ActiveBlock> POWER_MODULE = GTLBlocks.createActiveTierCasing("power_module",
+            "block/variant/power_module", sepmmap, 1);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_2 = GTLBlocks.createActiveTierCasing("power_module_2",
+            "block/variant/power_module", sepmmap, 2);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_3 = GTLBlocks.createActiveTierCasing("power_module_3",
+            "block/variant/power_module", sepmmap, 3);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_4 = GTLBlocks.createActiveTierCasing("power_module_4",
+            "block/variant/power_module", sepmmap, 4);
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_5 = GTLBlocks.createActiveTierCasing("power_module_5",
+            "block/variant/power_module", sepmmap, 5);
 }

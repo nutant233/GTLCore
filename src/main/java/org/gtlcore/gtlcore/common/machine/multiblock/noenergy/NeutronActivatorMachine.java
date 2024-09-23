@@ -1,5 +1,10 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
+import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronSensorPartMachine;
+
 import com.gregtechceu.gtceu.api.capability.IEnergyContainer;
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
@@ -16,24 +21,24 @@ import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+
 import com.lowdragmc.lowdraglib.side.item.IItemTransfer;
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
-import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
-import lombok.Getter;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
-import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
-import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
-import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronSensorPartMachine;
+
+import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault

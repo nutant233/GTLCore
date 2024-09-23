@@ -1,10 +1,15 @@
 package org.gtlcore.gtlcore.client.renderer.machine;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.client.ClientUtil;
+import org.gtlcore.gtlcore.client.renderer.RenderBufferHelper;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.SpaceElevatorMachine;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.client.renderer.GTRenderTypes;
 import com.gregtechceu.gtceu.client.renderer.machine.WorkableCasingMachineRenderer;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,10 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.ModelData;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.client.ClientUtil;
-import org.gtlcore.gtlcore.client.renderer.RenderBufferHelper;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.SpaceElevatorMachine;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import java.util.function.Consumer;
 
@@ -44,7 +47,7 @@ public class SpaceElevatorRenderer extends WorkableCasingMachineRenderer {
                 case EAST -> x = -2.5;
             }
             poseStack.pushPose();
-            RenderBufferHelper.renderCylinder(poseStack, buffer.getBuffer(GTRenderTypes.getLightRing()),(float) x,(float) (y - 2),(float) z, 0.3F, 360, 10, 0, 0, 0, 255);
+            RenderBufferHelper.renderCylinder(poseStack, buffer.getBuffer(GTRenderTypes.getLightRing()), (float) x, (float) (y - 2), (float) z, 0.3F, 360, 10, 0, 0, 0, 255);
             poseStack.translate(x, y + 180 + (140 * Math.sin(tick / 160)), z);
             renderClimber(poseStack, buffer);
             poseStack.popPose();
@@ -55,7 +58,7 @@ public class SpaceElevatorRenderer extends WorkableCasingMachineRenderer {
         float scale = 4F;
         poseStack.pushPose();
         poseStack.scale(scale, scale, scale);
-        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(CLIMBER_MODEL), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
+        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(CLIMBER_MODEL), 1.0F, 1.0F, 1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
         poseStack.popPose();
     }
 

@@ -1,5 +1,9 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
+import org.gtlcore.gtlcore.utils.MachineIO;
+
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
@@ -9,10 +13,8 @@ import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
+
 import com.mojang.datafixers.util.Pair;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.data.GTLMaterials;
-import org.gtlcore.gtlcore.utils.MachineIO;
 import org.jetbrains.annotations.NotNull;
 
 public class HeatExchangerMachine extends WorkableMultiblockMachine {

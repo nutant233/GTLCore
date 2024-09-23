@@ -1,13 +1,15 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
+import org.gtlcore.gtlcore.utils.MachineIO;
+
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
 import net.minecraft.world.level.Level;
-import org.gtlcore.gtlcore.utils.MachineIO;
 
 import java.util.List;
 import java.util.Objects;

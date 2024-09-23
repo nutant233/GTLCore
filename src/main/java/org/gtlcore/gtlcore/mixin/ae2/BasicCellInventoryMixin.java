@@ -1,10 +1,12 @@
 package org.gtlcore.gtlcore.mixin.ae2;
 
+import org.gtlcore.gtlcore.config.ConfigHolder;
+
+import net.minecraft.world.item.ItemStack;
+
 import appeng.api.storage.cells.IBasicCellItem;
 import appeng.api.storage.cells.ISaveProvider;
 import appeng.me.cells.BasicCellInventory;
-import net.minecraft.world.item.ItemStack;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BasicCellInventory.class)
-public class BasicCellInventoryMixin  {
+public class BasicCellInventoryMixin {
 
     @Shadow(remap = false)
     private int maxItemTypes;

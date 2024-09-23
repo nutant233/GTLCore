@@ -3,7 +3,9 @@ package org.gtlcore.gtlcore.mixin.gtm;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconType;
 import com.gregtechceu.gtceu.client.renderer.item.TagPrefixItemRenderer;
+
 import net.minecraft.world.item.Item;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

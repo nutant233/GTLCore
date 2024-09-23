@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.common.data.material;
 
+import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.*;
@@ -7,12 +9,12 @@ import com.gregtechceu.gtceu.api.data.chemical.material.stack.MaterialStack;
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.FluidState;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
-import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 
 public class MaterialAdd {
+
     public static void init() {
         PotassiumSulfate.setComponents(new MaterialStack(Potassium, 2), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4));
         AmmoniumChloride.setComponents(new MaterialStack(Nitrogen, 1), new MaterialStack(Hydrogen, 4), new MaterialStack(Chlorine, 1));

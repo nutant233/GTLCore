@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.mixin.gtmt;
 
+import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.ICoverable;
 import com.gregtechceu.gtceu.api.cover.CoverBehavior;
@@ -7,10 +9,11 @@ import com.gregtechceu.gtceu.api.cover.CoverDefinition;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.common.machine.electric.BatteryBufferMachine;
 import com.gregtechceu.gtceu.common.machine.electric.HullMachine;
+
+import net.minecraft.core.Direction;
+
 import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
 import com.hepdd.gtmthings.common.cover.WirelessEnergyReceiveCover;
-import net.minecraft.core.Direction;
-import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -65,7 +68,7 @@ public abstract class WirelessEnergyReceiveCoverMixin extends CoverBehavior {
     @Overwrite(remap = false)
     private void updateEnergy() {
         if (this.uuid == null) return;
-        var energyContainer =  getEnergyContainer(coverHolder.getLevel(),coverHolder.getPos(),attachedSide);
+        var energyContainer = getEnergyContainer(coverHolder.getLevel(), coverHolder.getPos(), attachedSide);
         if (energyContainer != null) {
             var machine = MetaMachine.getMachine(coverHolder.getLevel(), coverHolder.getPos());
             if (machine instanceof BatteryBufferMachine || machine instanceof HullMachine || (machine instanceof NeutronAcceleratorPartMachine neutronAcceleratorPartMachine && neutronAcceleratorPartMachine.isWorkingEnabled())) {
@@ -76,7 +79,7 @@ public abstract class WirelessEnergyReceiveCoverMixin extends CoverBehavior {
             } else {
                 var changeStored = Math.min(this.machineMaxEnergy - energyContainer.getEnergyStored(), this.energyPerTick);
                 if (changeStored <= 0) return;
-                if (!WirelessEnergyManager.addEUToGlobalEnergyMap(this.uuid, - changeStored, machine)) return;
+                if (!WirelessEnergyManager.addEUToGlobalEnergyMap(this.uuid, -changeStored, machine)) return;
                 energyContainer.addEnergy(changeStored);
             }
         }

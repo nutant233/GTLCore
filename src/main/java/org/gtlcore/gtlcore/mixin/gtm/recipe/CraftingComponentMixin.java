@@ -1,7 +1,9 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
-import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
 import org.gtlcore.gtlcore.data.recipe.CraftingComponentAddition;
+
+import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

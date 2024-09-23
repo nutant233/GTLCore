@@ -1,8 +1,9 @@
 package org.gtlcore.gtlcore.mixin.ae2;
 
+import net.minecraft.world.item.ItemStack;
+
 import appeng.items.storage.StorageTier;
 import appeng.items.tools.powered.PortableCellItem;
-import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

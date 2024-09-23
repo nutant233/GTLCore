@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.common.data.machines;
 
+import org.gtlcore.gtlcore.common.data.GTLMachines;
+import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -21,11 +24,10 @@ import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ParallelHatchPartMachine;
+
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
-import org.gtlcore.gtlcore.common.data.GTLMachines;
-import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -3,8 +3,10 @@ package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 import com.gregtechceu.gtceu.api.block.ICoilType;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.common.block.CoilBlock;
-import lombok.Getter;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
+
+import lombok.Getter;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -34,6 +36,6 @@ public class CoilWorkableElectricMultipleRecipesMultiblockMachine extends Workab
 
     @Override
     public int getMaxParallel() {
-        return Math.min(2147483647, (int)  Math.pow(2, (double) getCoilType().getCoilTemperature() / 900));
+        return Math.min(2147483647, (int) Math.pow(2, (double) getCoilType().getCoilTemperature() / 900));
     }
 }

@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
+import org.gtlcore.gtlcore.utils.MachineIO;
+
 import com.gregtechceu.gtceu.api.machine.ConditionalSubscriptionHandler;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
@@ -8,23 +11,25 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
-import com.hepdd.gtmthings.utils.TeamUtil;
+
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
-import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
-import org.gtlcore.gtlcore.utils.MachineIO;
+
+import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
+import com.hepdd.gtmthings.utils.TeamUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.UUID;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -103,7 +108,7 @@ public class HarmonyMachine extends NoEnergyMultiblockMachine {
 
     @Override
     public boolean shouldOpenUI(Player player, InteractionHand hand, BlockHitResult hit) {
-        if (this.userid==null || !this.userid.equals(player.getUUID())) {
+        if (this.userid == null || !this.userid.equals(player.getUUID())) {
             this.userid = player.getUUID();
         }
         return true;

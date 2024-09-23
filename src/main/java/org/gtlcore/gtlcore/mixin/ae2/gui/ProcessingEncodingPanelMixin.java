@@ -1,13 +1,15 @@
 package org.gtlcore.gtlcore.mixin.ae2.gui;
 
+import org.gtlcore.gtlcore.client.gui.ModifyIcon;
+import org.gtlcore.gtlcore.client.gui.ModifyIconButton;
+import org.gtlcore.gtlcore.client.gui.PatterEncodingTermMenuModify;
+
+import net.minecraft.network.chat.Component;
+
 import appeng.client.gui.WidgetContainer;
 import appeng.client.gui.me.items.EncodingModePanel;
 import appeng.client.gui.me.items.PatternEncodingTermScreen;
 import appeng.client.gui.me.items.ProcessingEncodingPanel;
-import net.minecraft.network.chat.Component;
-import org.gtlcore.gtlcore.client.gui.ModifyIcon;
-import org.gtlcore.gtlcore.client.gui.ModifyIconButton;
-import org.gtlcore.gtlcore.client.gui.PatterEncodingTermMenuModify;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ProcessingEncodingPanel.class)
 public abstract class ProcessingEncodingPanelMixin extends EncodingModePanel {
+
     @Unique
     private ModifyIconButton gTLCore$multipleTow;
     @Unique

@@ -1,9 +1,10 @@
 package org.gtlcore.gtlcore.data.recipe.processing;
 
+import org.gtlcore.gtlcore.common.data.GTLItems;
 
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+
 import net.minecraft.data.recipes.FinishedRecipe;
-import org.gtlcore.gtlcore.common.data.GTLItems;
 
 import java.util.function.Consumer;
 
@@ -15,6 +16,7 @@ import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DEHYDRATOR_RECIPES;
 
 public class StoneDustProcess {
+
     public static void init(Consumer<FinishedRecipe> provider) {
         MIXER_RECIPES.recipeBuilder("dirty_hexafluorosilicic_acid_output")
                 .inputItems(dust, Stone, 24)
@@ -292,7 +294,7 @@ public class StoneDustProcess {
 
         MIXER_RECIPES.recipeBuilder("exotic_heavy_residues_input")
                 .inputItems(dust, ExoticHeavyResidues, 16)
-                .inputItems(dust,SodiumHydroxide, 3)
+                .inputItems(dust, SodiumHydroxide, 3)
                 .inputItems(GTLItems.PROTONATED_FULLERENE_SIEVING_MATRIX)
                 .inputFluids(Water.getFluid(2000))
                 .outputItems(GTLItems.SATURATED_FULLERENE_SIEVING_MATRIX)

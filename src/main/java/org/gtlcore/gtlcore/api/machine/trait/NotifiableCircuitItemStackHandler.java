@@ -4,7 +4,9 @@ import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.common.data.GTItems;
+
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 
 public class NotifiableCircuitItemStackHandler extends NotifiableItemStackHandler {

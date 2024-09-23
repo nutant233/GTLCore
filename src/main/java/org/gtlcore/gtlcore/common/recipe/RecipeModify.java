@@ -1,13 +1,14 @@
 package org.gtlcore.gtlcore.common.recipe;
 
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
-import org.gtlcore.gtlcore.common.data.GTLMaterials;
-import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
-import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
 
 public class RecipeModify {
 

@@ -1,14 +1,19 @@
 package org.gtlcore.gtlcore.client.renderer.machine;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.client.ClientUtil;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.HarmonyMachine;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.client.renderer.machine.IControllerRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.WorkableCasingMachineRenderer;
+
 import com.lowdragmc.lowdraglib.client.bakedpipeline.FaceQuad;
 import com.lowdragmc.lowdraglib.client.model.ModelFactory;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -22,9 +27,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.ModelData;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.client.ClientUtil;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.HarmonyMachine;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 
@@ -71,7 +75,7 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
         poseStack.pushPose();
         poseStack.scale(0.02F, 0.02F, 0.02F);
         poseStack.mulPose(new Quaternionf().fromAxisAngleDeg(0F, 1F, 1F, (tick / 2) % 360F));
-        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.translucent()), null, ClientUtil.getBakedModel(STAR_MODEL), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.translucent());
+        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.translucent()), null, ClientUtil.getBakedModel(STAR_MODEL), 1.0F, 1.0F, 1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.translucent());
         poseStack.popPose();
     }
 
@@ -82,7 +86,7 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
             poseStack.scale(scale, scale, scale);
             poseStack.mulPose(new Quaternionf().fromAxisAngleDeg(1F, 0F, 1F, (tick * 1.5F / a) % 360F));
             poseStack.translate(x + (a * 100 + 160) * Math.sin(tick * a / 80 + 0.4), y, z + (a * 100 + 160) * Math.cos(tick * a / 80 + 0.4));
-            ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(ORBIT_OBJECTS.get(a - 1)), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
+            ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(ORBIT_OBJECTS.get(a - 1)), 1.0F, 1.0F, 1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
             poseStack.popPose();
         }
     }
@@ -91,7 +95,7 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
         float scale = 0.01F * 17.5F;
         poseStack.pushPose();
         poseStack.scale(scale, scale, scale);
-        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(SPACE_MODEL), 1.0F,1.0F,1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
+        ClientUtil.modelRenderer().renderModel(poseStack.last(), buffer.getBuffer(RenderType.solid()), null, ClientUtil.getBakedModel(SPACE_MODEL), 1.0F, 1.0F, 1.0F, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
         poseStack.popPose();
     }
 

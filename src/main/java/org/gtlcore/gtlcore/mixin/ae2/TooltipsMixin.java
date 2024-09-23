@@ -1,7 +1,8 @@
 package org.gtlcore.gtlcore.mixin.ae2;
 
-import appeng.core.localization.Tooltips;
 import net.minecraft.network.chat.MutableComponent;
+
+import appeng.core.localization.Tooltips;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,6 +15,6 @@ public final class TooltipsMixin {
 
     @Inject(method = "ofBytes", at = @At("HEAD"), remap = false, cancellable = true)
     private static void ofBytes(long number, CallbackInfoReturnable<MutableComponent> cir) {
-        cir.setReturnValue((MutableComponent)numberText(number));
+        cir.setReturnValue((MutableComponent) numberText(number));
     }
 }
