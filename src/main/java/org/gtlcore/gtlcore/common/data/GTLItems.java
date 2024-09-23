@@ -158,6 +158,12 @@ public class GTLItems {
     public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = REGISTRATE
             .item("saturated_fullerene_sieving_matrix", Item::new).lang("Saturated Fullerene Sieving Matrix")
             .register();
+    public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = REGISTRATE
+            .item("microfocus_x_ray_tube", Item::new).lang("Microfocus X Ray Tube")
+            .register();
+    public static ItemEntry<Item> SEPARATION_ELECTROMAGNET = REGISTRATE
+            .item("separation_electromagnet", Item::new).lang("Separation Electromagnet")
+            .register();
 
     public static ItemEntry<ComponentItem> ROBOT_ARM_MAX = GTCEuAPI.isHighTier() ?
             REGISTRATE.item("max_robot_arm", ComponentItem::create)
