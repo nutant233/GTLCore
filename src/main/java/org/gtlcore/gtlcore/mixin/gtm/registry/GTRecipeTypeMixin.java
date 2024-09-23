@@ -56,13 +56,13 @@ public class GTRecipeTypeMixin {
                                 .save(provider);
                         recipeBuilder
                                 .copy(new ResourceLocation(recipeBuilder.id.toString() + "_8_water"))
-                                .inputFluids(GTLMaterials.Grade8PurifiedWater.getFluid((int) Math.max(1,
+                                .inputFluids(GTLMaterials.GradePurifiedWater8.getFluid((int) Math.max(1,
                                         Math.min(500, recipeBuilder.duration * recipeBuilder.EUt() / 720))))
                                 .duration((int) (recipeBuilder.duration * 0.8))
                                 .save(provider);
                         recipeBuilder
                                 .copy(new ResourceLocation(recipeBuilder.id.toString() + "_16_water"))
-                                .inputFluids(GTLMaterials.Grade16PurifiedWater.getFluid((int) Math.max(1,
+                                .inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
                                         Math.min(250, recipeBuilder.duration * recipeBuilder.EUt() / 960))))
                                 .duration((int) (recipeBuilder.duration * 0.5))
                                 .save(provider);
@@ -73,17 +73,17 @@ public class GTRecipeTypeMixin {
                     } else if (recipeBuilder.EUt() < GTValues.VA[GTValues.UEV]) {
                         recipeBuilder
                                 .copy(new ResourceLocation(recipeBuilder.id.toString() + "_16_water"))
-                                .inputFluids(GTLMaterials.Grade16PurifiedWater.getFluid((int) Math.max(1,
+                                .inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
                                         Math.min(500, recipeBuilder.duration * recipeBuilder.EUt() / 640))))
                                 .duration((int) (recipeBuilder.duration * 0.5))
                                 .save(provider);
                         recipeBuilder
-                                .inputFluids(GTLMaterials.Grade8PurifiedWater.getFluid((int) Math.max(1,
+                                .inputFluids(GTLMaterials.GradePurifiedWater8.getFluid((int) Math.max(1,
                                         Math.min(1000, recipeBuilder.duration * recipeBuilder.EUt() / 320))))
                                 .duration(Math.max(1, recipeBuilder.duration));
                     } else {
                         recipeBuilder
-                                .inputFluids(GTLMaterials.Grade16PurifiedWater.getFluid((int) Math.max(1,
+                                .inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
                                         Math.min(1000, recipeBuilder.duration * recipeBuilder.EUt() / 320))))
                                 .duration(Math.max(1, recipeBuilder.duration));
                     }

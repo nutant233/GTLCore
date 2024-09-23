@@ -568,7 +568,7 @@ public class MultiBlockMachine {
                                     .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                                     .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
                                     .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                            .where("c", Predicates.fluids(Registries.getFluid("minecraft:water")))
+                            .where("c", Predicates.fluids(Fluids.WATER))
                             .where(" ", Predicates.air())
                             .build())
             .workableCasingRenderer(new ResourceLocation("kubejs:block/aluminium_bronze_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))

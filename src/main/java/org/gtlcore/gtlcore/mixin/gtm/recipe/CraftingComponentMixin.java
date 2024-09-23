@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
 import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
-import com.lowdragmc.lowdraglib.Platform;
 import org.gtlcore.gtlcore.data.recipe.CraftingComponentAddition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,8 +12,6 @@ public class CraftingComponentMixin {
 
     @Inject(method = "initializeComponents()V", at = @At(value = "TAIL"))
     private static void initializeAddition(CallbackInfo ci) {
-        if (!Platform.isDevEnv()) {
-            CraftingComponentAddition.init();
-        }
+        CraftingComponentAddition.init();
     }
 }

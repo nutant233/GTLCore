@@ -4,6 +4,7 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
@@ -21,10 +22,7 @@ import net.minecraft.world.level.block.Block;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.client.renderer.machine.AnnihilateGeneratorRenderer;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
-import org.gtlcore.gtlcore.common.data.GTLMachines;
-import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
-import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.ChemicalEnergyDevourerMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.DysonSphereMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
@@ -375,10 +373,10 @@ public class GeneratorMachine {
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
                     int p = 1;
-                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:starmetal_plasma"))) {
+                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Starmetal.getFluid(FluidStorageKeys.PLASMA, 1))) {
                         p = 8;
                     }
-                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:dense_neutron_plasma"))) {
+                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.DenseNeutron.getFluid(FluidStorageKeys.PLASMA, 1))) {
                         p = 16;
                     }
                     return GTLRecipeModifiers.standardOverclocking(workableElectricMultiblockMachine, GTRecipeModifiers.fastParallel(machine, recipe, p, false).getFirst());
@@ -429,19 +427,19 @@ public class GeneratorMachine {
                     int p = 1;
                     long outputEUt = RecipeHelper.getOutputEUt(recipe);
                     if (outputEUt == GTValues.V[GTValues.UEV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:orichalcum_plasma"))) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Orichalcum.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.UIV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:enderium_plasma"))) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Enderium.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.UXV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:infuscolium_plasma"))) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Infuscolium.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.OpV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, Registries.getFluidStack("gtceu:metastable_hassium_plasma"))) {
+                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.MetastableHassium.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     }

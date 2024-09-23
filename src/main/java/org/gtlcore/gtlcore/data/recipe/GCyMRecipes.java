@@ -21,8 +21,6 @@ import static org.gtlcore.gtlcore.common.data.machines.GCyMMachines.*;
 
 public class GCyMRecipes {
 
-    private GCyMRecipes() {}
-
     public static void init(Consumer<FinishedRecipe> provider) {
         registerPartsRecipes(provider);
         registerMultiblockControllerRecipes(provider);

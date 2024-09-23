@@ -7,13 +7,13 @@ import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTElements;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import net.minecraft.data.recipes.FinishedRecipe;
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.ELEMENT_COPYING_RECIPES;
-import static org.gtlcore.gtlcore.utils.Registries.getMaterial;
 
 public class ElementCopying {
 
@@ -135,7 +135,7 @@ public class ElementCopying {
             GTMaterials.Thulium,
             GTMaterials.Tin,
             GTMaterials.Titanium,
-            getMaterial("titanium_50"),
+            GTLMaterials.Titanium50,
             GTMaterials.Tungsten,
             GTMaterials.Uranium238,
             GTMaterials.Uranium235,
