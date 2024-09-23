@@ -32,7 +32,7 @@ public class AnnihilateGeneratorRenderer extends WorkableCasingMachineRenderer {
     public void render(BlockEntity blockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer,
                        int combinedLight, int combinedOverlay) {
         if (blockEntity instanceof IMachineBlockEntity machineBlockEntity &&
-                machineBlockEntity.getMetaMachine() instanceof WorkableElectricMultiblockMachine machine) {
+                machineBlockEntity.getMetaMachine() instanceof WorkableElectricMultiblockMachine machine && machine.isActive()) {
             float tick = machine.getOffsetTimer() + partialTicks;
             double x = 0.5, y = 36.5, z = 0.5;
             switch (machine.getFrontFacing()) {

@@ -7,6 +7,7 @@
     "ae2.client.BuiltInModelHooksAccessor",
     "ae2.client.ModelBakeryMixin",
     "gtm.TagPrefixItemRendererMixin",
+    "gtm.gui.PatternPreviewWidgetMixin",
     "gtm.gui.ProspectingMapWidgetMixin",
     "gtm.gui.ProspectingTextureMixin"
   ],
