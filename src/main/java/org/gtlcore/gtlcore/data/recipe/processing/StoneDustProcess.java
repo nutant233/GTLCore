@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.data.recipe.processing;
 
 
+import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 import net.minecraft.data.recipes.FinishedRecipe;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 
@@ -139,27 +140,11 @@ public class StoneDustProcess {
                 .duration(80).EUt(200)
                 .save(provider);
 
-        CENTRIFUGE_RECIPES.recipeBuilder("inert_residues_output")
-                .inputFluids(DistilledWater.getFluid(10000))
-                .inputItems(dust, PartiallyOxidizedResidues, 10)
-                .outputFluids(OxidizedResidualSolution.getFluid(10000))
-                .outputItems(dust, InertResidues, 1)
-                .duration(200).EUt(VA[MV])
-                .save(provider);
-
         DEHYDRATOR_RECIPES.recipeBuilder("oxidized_residues_output")
                 .inputFluids(OxidizedResidualSolution.getFluid(2000))
                 .outputItems(dust, OxidizedResidues, 1)
                 .outputItems(dust, HeavyOxidizedResidues, 1)
                 .duration(80).EUt(3000)
-                .save(provider);
-
-        LARGE_CHEMICAL_RECIPES.recipeBuilder("clean_inert_residues_output")
-                .notConsumableFluid(FluoroantimonicAcid.getFluid(1000))
-                .inputItems(dust, InertResidues, 10)
-                .outputItems(dust, CleanInertResidues, 10)
-                .outputItems(dust, Naquadah, 1)
-                .duration(320).EUt(200)
                 .save(provider);
 
         BLAST_RECIPES.recipeBuilder("metallic_residues_output")
@@ -203,7 +188,7 @@ public class StoneDustProcess {
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("xenic_acid_output")
                 .inputFluids(Xenon.getFluid(1000))
-                .inputFluids(Oxygen.getFluid(4000))
+                .inputFluids(Oxygen.getFluid(FluidStorageKeys.LIQUID, 4000))
                 .inputFluids(UltraacidicResidueSolution.getFluid(2000))
                 .outputFluids(XenicAcid.getFluid(1000))
                 .outputFluids(DustyLiquidHeliumIII.getFluid(2000))

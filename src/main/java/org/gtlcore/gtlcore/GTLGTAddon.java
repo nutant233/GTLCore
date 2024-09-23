@@ -10,6 +10,7 @@ import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.data.recipe.*;
+import org.gtlcore.gtlcore.data.recipe.processing.StoneDustProcess;
 
 import java.util.function.Consumer;
 
@@ -65,6 +66,7 @@ public class GTLGTAddon implements IGTAddon {
             MachineRecipe.init(provider);
             Misc.init(provider);
             ElementCopying.init(provider);
+            StoneDustProcess.init(provider);
         }
     }
 

@@ -35,7 +35,7 @@ public class EyeOfHarmonyRenderer extends WorkableCasingMachineRenderer implemen
 
     private static final ResourceLocation SPACE_MODEL = GTLCore.id("obj/space");
     public static final ResourceLocation STAR_MODEL = GTLCore.id("obj/star");
-    public static final List<ResourceLocation> ORBIT_OBJECTS = List.of(
+    private static final List<ResourceLocation> ORBIT_OBJECTS = List.of(
             GTLCore.id("obj/the_nether"),
             GTLCore.id("obj/overworld"),
             GTLCore.id("obj/the_end"));
