@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.item;
 
+import net.minecraft.core.Direction;
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2BaseProcessingPattern;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
@@ -38,7 +39,10 @@ import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.parts.PartExPatternProvider;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @Setter
 public class PatternModifier implements IItemUIFactory {
@@ -125,7 +129,17 @@ public class PatternModifier implements IItemUIFactory {
                     Level level = context.getLevel();
                     BlockEntity blockEntityBlock = level.getBlockEntity(clickedPos);
                     Block block = level.getBlockState(clickedPos).getBlock();
-                    IPart Part = PartHelper.getPart(level, clickedPos, context.getClickedFace());
+                    
+                    IPart Part = null;
+                    List<Direction> directions = new ArrayList<>(Arrays.asList(Direction.UP,Direction.DOWN,Direction.WEST,Direction.EAST,Direction.NORTH,Direction.SOUTH));
+                    for (Direction direction : directions) {
+                        IPart part1 = PartHelper.getPart(level, clickedPos, direction);
+                        if (part1 instanceof PatternProviderPart||part1 instanceof PartExPatternProvider) {
+                            Part = part1;
+                        };
+                    }
+//                    IPart Part = PartHelper.getPart(level, clickedPos, context.getClickedFace());
+                    
                     int soltNumber = 0;
                     boolean isPart = Part != null;
                     if (block.equals(AEBlocks.PATTERN_PROVIDER.block()) || Part instanceof PatternProviderPart) {
@@ -135,7 +149,7 @@ public class PatternModifier implements IItemUIFactory {
                         soltNumber = ConfigHolder.INSTANCE.exPatternProvider;
                     }
                     if (soltNumber == 0) {
-                        serverPlayer.displayClientMessage(Component.literal("只能对着块状样板供应器使用"), true);
+                        serverPlayer.displayClientMessage(Component.literal("只能对着样板供应器使用"), true);
                         return InteractionResult.FAIL;
                     }
                     InternalInventory internalInventory;
