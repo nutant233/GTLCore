@@ -224,11 +224,26 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
         return false;
     }
 
-    public static int getAmperage(int tier) {
-        return Math.max(1, 2 * (5 - tier));
+    public static int getAmperage(GTRecipeType recipeType, int tier) {
+        if (recipeType == GTLRecipeTypes.ROCKET_ENGINE_FUELS) {
+            return (int) Math.pow(2, (GTValues.LuV - tier));
+        }
+        if (recipeType == GTLRecipeTypes.NAQUADAH_REACTOR) {
+            return (int) Math.pow(2, (GTValues.ZPM - tier));
+        }
+        return 10 - (2 * tier);
     }
 
-    public static int getEfficiency(int tier) {
+    public static int getEfficiency(GTRecipeType recipeType, int tier) {
+        if (recipeType == GTRecipeTypes.STEAM_TURBINE_FUELS) {
+            return (135 - 25 * tier);
+        }
+        if (recipeType == GTLRecipeTypes.ROCKET_ENGINE_FUELS) {
+            return (80 - 15 * (tier - GTValues.EV));
+        }
+        if (recipeType == GTLRecipeTypes.NAQUADAH_REACTOR) {
+            return (100 + 50 * (tier - GTValues.IV));
+        }
         return (105 - 5 * tier);
     }
 
@@ -240,7 +255,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
             if (a > 0) {
                 long EUt = RecipeHelper.getOutputEUt(recipe);
                 if (EUt > 0) {
-                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 * getAmperage(generatorArrayMachine.getTier()) / EUt);
+                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 * getAmperage(generatorArrayMachine.getRecipeType(), generatorArrayMachine.getTier()) / EUt);
                     int multipliers = 0;
                     for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
                         if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {
@@ -248,7 +263,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
                         }
                     }
                     GTRecipe paraRecipe = recipe.copy(ContentModifier.multiplier(multipliers), false);
-                    paraRecipe.duration = paraRecipe.duration * (105 - 5 * generatorArrayMachine.getTier()) / 100;
+                    paraRecipe.duration = paraRecipe.duration * getEfficiency(generatorArrayMachine.getRecipeType(), generatorArrayMachine.getTier()) / 100;
                     if (generatorArrayMachine.isw) {
                         generatorArrayMachine.eut = RecipeHelper.getOutputEUt(paraRecipe);
                         paraRecipe.tickOutputs.remove(EURecipeCapability.CAP);

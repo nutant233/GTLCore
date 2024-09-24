@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.data.machines;
 
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
@@ -2136,7 +2137,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/multiblock/steam_ore_washer"))
             .register();
 
-    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_DIRT_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_dirt_forge", WorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_DIRT_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_dirt_forge", NoEnergyMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.PRIMITIVE_BLAST_FURNACE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.dimensionally_transcendent_dirt_forge.tooltip.0"))

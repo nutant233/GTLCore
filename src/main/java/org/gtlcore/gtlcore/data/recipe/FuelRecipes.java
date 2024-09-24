@@ -2,7 +2,14 @@ package org.gtlcore.gtlcore.data.recipe;
 
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 
+import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+
+import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
+
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
@@ -10,8 +17,7 @@ import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.COMBUSTION_GENERATOR_FUELS;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.GAS_TURBINE_FUELS;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS;
+import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
 public class FuelRecipes {
 
@@ -291,6 +297,146 @@ public class FuelRecipes {
                 .inputFluids(HeavyFuel.getFluid(2))
                 .duration(45)
                 .EUt(-V[LV])
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_1")
+                .inputFluids(RocketFuel.getFluid(10))
+                .duration(5)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_2")
+                .inputFluids(GTLMaterials.RocketFuelRp1.getFluid(10))
+                .duration(8)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_3")
+                .inputFluids(GTLMaterials.DenseHydrazineFuelMixture.getFluid(10))
+                .duration(14)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_4")
+                .inputFluids(GTLMaterials.RocketFuelCn3h7o3.getFluid(10))
+                .duration(20)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_5")
+                .inputFluids(GTLMaterials.RocketFuelH8n4c2o4.getFluid(10))
+                .duration(30)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_6")
+                .inputFluids(GTLMaterials.ExplosiveHydrazine.getFluid(10))
+                .duration(60)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_7")
+                .inputFluids(FluidStack.create(ForgeRegistries.FLUIDS.getValue(new ResourceLocation("ad_astra:cryo_fuel")), 10))
+                .duration(120)
+                .EUt(-2048)
+                .save(provider);
+
+        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_8")
+                .inputFluids(GTLMaterials.StellarEnergyRocketFuel.getFluid(10))
+                .duration(240)
+                .EUt(-2048)
+                .save(provider);
+
+        NAQUADAH_REACTOR.recipeBuilder("naquadah")
+                .inputFluids(Naquadah.getFluid(1))
+                .duration(100)
+                .EUt(-32768)
+                .save(provider);
+
+        NAQUADAH_REACTOR.recipeBuilder("enriched_naquadah")
+                .inputFluids(NaquadahEnriched.getFluid(1))
+                .duration(150)
+                .EUt(-32768)
+                .save(provider);
+
+        NAQUADAH_REACTOR.recipeBuilder("naquadah_fuel")
+                .inputFluids(GTLMaterials.NaquadahFuel.getFluid(1))
+                .duration(875)
+                .EUt(-32768)
+                .save(provider);
+
+        NAQUADAH_REACTOR.recipeBuilder("enriched_naquadah_fuel")
+                .inputFluids(GTLMaterials.EnrichedNaquadahFuel.getFluid(1))
+                .duration(1250)
+                .EUt(-32768)
+                .save(provider);
+
+        LARGE_NAQUADAH_REACTOR_RECIPES.recipeBuilder("naquadah_fuel")
+                .inputFluids(GTLMaterials.NaquadahFuel.getFluid(1))
+                .inputFluids(Hydrogen.getFluid(10))
+                .duration(875)
+                .EUt(-131072)
+                .save(provider);
+
+        LARGE_NAQUADAH_REACTOR_RECIPES.recipeBuilder("enriched_naquadah_fuel")
+                .inputFluids(GTLMaterials.EnrichedNaquadahFuel.getFluid(1))
+                .inputFluids(Hydrogen.getFluid(10))
+                .duration(1250)
+                .EUt(-131072)
+                .save(provider);
+
+        LARGE_NAQUADAH_REACTOR_RECIPES.recipeBuilder("naquadah_fuel1")
+                .inputFluids(GTLMaterials.NaquadahFuel.getFluid(10))
+                .inputFluids(Oxygen.getFluid(FluidStorageKeys.PLASMA, 10))
+                .duration(16 * 875)
+                .EUt(-131072)
+                .save(provider);
+
+        LARGE_NAQUADAH_REACTOR_RECIPES.recipeBuilder("enriched_naquadah_fuel1")
+                .inputFluids(GTLMaterials.EnrichedNaquadahFuel.getFluid(10))
+                .inputFluids(Nitrogen.getFluid(FluidStorageKeys.PLASMA, 10))
+                .duration(16 * 1250)
+                .EUt(-131072)
+                .save(provider);
+
+        HYPER_REACTOR_RECIPES.recipeBuilder("hyper_fuel_1")
+                .inputFluids(GTLMaterials.HyperFuel1.getFluid(1))
+                .inputFluids(Argon.getFluid(FluidStorageKeys.PLASMA, 1))
+                .duration(200)
+                .EUt(-GTValues.V[GTValues.UEV])
+                .save(provider);
+
+        HYPER_REACTOR_RECIPES.recipeBuilder("hyper_fuel_2")
+                .inputFluids(GTLMaterials.HyperFuel2.getFluid(1))
+                .inputFluids(Iron.getFluid(FluidStorageKeys.PLASMA, 1))
+                .duration(200)
+                .EUt(-GTValues.V[GTValues.UIV])
+                .save(provider);
+
+        HYPER_REACTOR_RECIPES.recipeBuilder("hyper_fuel_3")
+                .inputFluids(GTLMaterials.HyperFuel3.getFluid(1))
+                .inputFluids(Nickel.getFluid(FluidStorageKeys.PLASMA, 1))
+                .duration(200)
+                .EUt(-GTValues.V[GTValues.UXV])
+                .save(provider);
+
+        HYPER_REACTOR_RECIPES.recipeBuilder("hyper_fuel_4")
+                .inputFluids(GTLMaterials.HyperFuel4.getFluid(1))
+                .inputFluids(GTLMaterials.DegenerateRhenium.getFluid(FluidStorageKeys.PLASMA, 1))
+                .duration(200)
+                .EUt(-GTValues.V[GTValues.OpV])
+                .save(provider);
+
+        ADVANCED_HYPER_REACTOR_RECIPES.recipeBuilder("concentration_mixing_hyper_fuel_1")
+                .inputFluids(GTLMaterials.ConcentrationMixingHyperFuel1.getFluid(1))
+                .duration(200)
+                .EUt(-4 * GTValues.V[GTValues.MAX])
+                .save(provider);
+
+        ADVANCED_HYPER_REACTOR_RECIPES.recipeBuilder("concentration_mixing_hyper_fuel_2")
+                .inputFluids(GTLMaterials.ConcentrationMixingHyperFuel2.getFluid(1))
+                .duration(200)
+                .EUt(-16 * GTValues.V[GTValues.MAX])
                 .save(provider);
     }
 }

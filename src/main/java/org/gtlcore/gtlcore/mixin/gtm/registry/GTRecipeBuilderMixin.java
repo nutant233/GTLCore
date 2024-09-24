@@ -46,11 +46,7 @@ public class GTRecipeBuilderMixin {
                 recipeType == GTRecipeTypes.get("large_boiler") ||
                 recipeType == GTRecipeTypes.get("steam_boiler") ||
                 recipeType == GTRecipeTypes.get("slaughterhouse") ||
-                recipeType == GTRecipeTypes.get("naquadah_reactor") ||
-                recipeType == GTRecipeTypes.get("large_naquadah_reactor") ||
-                recipeType == GTRecipeTypes.get("hyper_reactor") ||
                 recipeType == GTRecipeTypes.get("dyson_sphere") ||
-                recipeType == GTRecipeTypes.get("rocket_engine") ||
                 recipeType == GTRecipeTypes.get("space_elevator") ||
                 recipeType == GTRecipeTypes.get("annihilate_generator")) {
             return Math.abs(duration);

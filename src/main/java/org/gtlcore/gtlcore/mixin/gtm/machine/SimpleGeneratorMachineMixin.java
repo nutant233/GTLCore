@@ -24,9 +24,9 @@ public abstract class SimpleGeneratorMachineMixin {
         if (machine instanceof SimpleGeneratorMachine generator) {
             var EUt = RecipeHelper.getOutputEUt(recipe);
             if (EUt > 0) {
-                int Parallel = (int) ((GTValues.V[generator.getTier()] * GeneratorArrayMachine.getAmperage(generator.getTier())) / EUt);
+                int Parallel = (int) ((GTValues.V[generator.getTier()] * GeneratorArrayMachine.getAmperage(generator.getRecipeType(), generator.getTier())) / EUt);
                 GTRecipe recipe1 = GTRecipeModifiers.fastParallel(generator, recipe, Parallel, false).getFirst();
-                recipe1.duration = recipe1.duration * GeneratorArrayMachine.getEfficiency(generator.getTier()) / 100;
+                recipe1.duration = recipe1.duration * GeneratorArrayMachine.getEfficiency(generator.getRecipeType(), generator.getTier()) / 100;
                 cir.setReturnValue(recipe1);
             }
         }

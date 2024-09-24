@@ -299,11 +299,11 @@ public class GTMachinesMixin {
                         .addOutputLimit(FluidRecipeCapability.CAP, 0)
                         .renderer(() -> new SimpleGeneratorMachineRenderer(tier, GTCEu.id("block/generators/" + name)))
                         .tooltips(Component.translatable("gtceu.machine.efficiency.tooltip",
-                                GeneratorArrayMachine.getEfficiency(tier)).append("%"))
+                                GeneratorArrayMachine.getEfficiency(recipeType, tier)).append("%"))
                         .tooltips(Component.translatable("gtceu.universal.tooltip.ampere_out",
-                                GeneratorArrayMachine.getAmperage(tier)))
+                                GeneratorArrayMachine.getAmperage(recipeType, tier)))
                         .tooltips(workableTiered(tier, GTValues.V[tier],
-                                GTValues.V[tier] * 64 * GeneratorArrayMachine.getAmperage(tier), recipeType,
+                                GTValues.V[tier] * 64 * GeneratorArrayMachine.getAmperage(recipeType, tier), recipeType,
                                 tankScalingFunction.apply(tier), false))
                         .tooltipBuilder(GTLMachines.GTL_MODIFY)
                         .compassNode(name)
