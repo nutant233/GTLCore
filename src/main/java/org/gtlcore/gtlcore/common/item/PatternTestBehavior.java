@@ -135,7 +135,7 @@ public class PatternTestBehavior implements IItemUIFactory {
                 case "xinxinsuried", "Dev" -> true;
                 default -> false;
             /*
-                仅测试使用，有多次崩档记录，慎用
+                仅测试使用
              */
             };
 
