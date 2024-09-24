@@ -100,11 +100,15 @@ public class GTLRecipeModifiers {
                 return null;
             }
             GTRecipe recipe1 = recipe.copy();
-            recipe1.duration = (int) Math.max(1, recipe.duration * reductionDuration);
-            recipe1.tickInputs.put(EURecipeCapability.CAP,
-                    List.of(new Content((long) Math.max(1, RecipeHelper.getInputEUt(recipe) * reductionEUt),
-                            ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(),
-                            0, null, null)));
+            if (reductionEUt != 1) {
+                recipe1.tickInputs.put(EURecipeCapability.CAP,
+                        List.of(new Content((long) Math.max(1, RecipeHelper.getInputEUt(recipe) * reductionEUt),
+                                ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(),
+                                0, null, null)));
+            }
+            if (reductionDuration != 1) {
+                recipe1.duration = (int) Math.max(1, recipe.duration * reductionDuration);
+            }
             return recipe1;
         }
         return recipe;

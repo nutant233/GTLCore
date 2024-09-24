@@ -303,7 +303,7 @@ public class KJSMaterial {
                 .element(GTLElements.HYPogen)
                 .iconSet(RADIOACTIVE)
                 .flags(GENERATE_PLATE)
-                .cableProperties(GTValues.V[GTValues.MAX], 32768, 0, true)
+                .cableProperties(Integer.MAX_VALUE, 32768, 0, true)
                 .buildAndRegister();
 
         Shirabon = new Material.Builder(GTCEu.id("shirabon"))
@@ -362,7 +362,7 @@ public class KJSMaterial {
                 .iconSet(new MaterialIconSet("cosmicneutronium", BRIGHT))
                 .flags(GTLMaterialFlags.GENERATE_NANOSWARM, GENERATE_SPRING, GENERATE_FINE_WIRE,
                         GENERATE_SPRING_SMALL)
-                .cableProperties(GTValues.V[GTValues.MAX], 2, 128)
+                .cableProperties(Integer.MAX_VALUE, 2, 128)
                 .buildAndRegister();
 
         Echoite = new Material.Builder(GTCEu.id("echoite"))
@@ -578,7 +578,7 @@ public class KJSMaterial {
                 .color(0x87ceeb)
                 .flags(GTLMaterialFlags.GENERATE_NANOSWARM)
                 .iconSet(METALLIC)
-                .cableProperties(GTValues.V[GTValues.MAX], 16, 536870912)
+                .cableProperties(Integer.MAX_VALUE, 16, 536870912)
                 .buildAndRegister();
 
         MagnetohydrodynamicallyConstrainedStarMatter = new Material.Builder(GTCEu.id("magnetohydrodynamicallyconstrainedstarmatter"))
@@ -4203,6 +4203,87 @@ public class KJSMaterial {
                 .components(Lithium, 1, Iodine, 1)
                 .color(0xc10014)
                 .iconSet(DULL)
+                .buildAndRegister();
+
+        SilicaAluminaGel = new Material.Builder(GTCEu.id("silica_alumina_gel"))
+                .dust()
+                .color(0x0c849f)
+                .iconSet(DULL)
+                .buildAndRegister();
+
+        ZeoliteSievingPellets = new Material.Builder(GTCEu.id("zeolite_sieving_pellets"))
+                .dust()
+                .color(0x4d3e9f)
+                .iconSet(DULL)
+                .buildAndRegister();
+
+        WetZeoliteSievingPellets = new Material.Builder(GTCEu.id("wet_zeolite_sieving_pellets"))
+                .dust()
+                .color(0x1d173c)
+                .iconSet(DULL)
+                .buildAndRegister();
+
+        TertButanol = new Material.Builder(GTCEu.id("tert_butanol"))
+                .fluid()
+                .components(Carbon, 4, Hydrogen, 10, Oxygen, 1)
+                .color(0xacb500)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        DitertbutylDicarbonate = new Material.Builder(GTCEu.id("ditertbutyl_dicarbonate"))
+                .dust()
+                .components(Carbon, 10, Hydrogen, 18, Oxygen, 5)
+                .color(0x7e96b5)
+                .iconSet(DULL)
+                .buildAndRegister();
+
+        Tertbuthylcarbonylazide = new Material.Builder(GTCEu.id("tertbuthylcarbonylazide"))
+                .fluid()
+                .components(Carbon, 5, Hydrogen, 9, Nitrogen, 3, Oxygen, 2)
+                .color(0xacb500)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        SodiumToluenesulfonate = new Material.Builder(GTCEu.id("sodium_toluenesulfonate"))
+                .fluid()
+                .components(Carbon, 7, Hydrogen, 7, Sulfur, 3, Oxygen, 3, Sodium, 1)
+                .color(0xb5b41d)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        SodiumAzide = new Material.Builder(GTCEu.id("sodium_azide"))
+                .dust()
+                .components(Sodium, 1, Nitrogen, 3)
+                .color(0x1018f0)
+                .iconSet(DULL)
+                .buildAndRegister();
+
+        SodiumAzanide = new Material.Builder(GTCEu.id("sodium_azanide"))
+                .dust()
+                .components(Sodium, 1, Nitrogen, 1, Hydrogen, 2)
+                .color(0x2381b3)
+                .iconSet(DULL)
+                .buildAndRegister();
+
+        NitrogenPentoxide = new Material.Builder(GTCEu.id("nitrogen_pentoxide"))
+                .fluid()
+                .components(Nitrogen, 2, Oxygen, 5)
+                .color(0x162bb3)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        AminatedFullerene = new Material.Builder(GTCEu.id("aminated_fullerene"))
+                .fluid()
+                .components(Carbon, 60, Hydrogen, 12, Nitrogen, 12)
+                .color(0x3842f0)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        Azafullerene = new Material.Builder(GTCEu.id("azafullerene"))
+                .fluid()
+                .components(Carbon, 60, Hydrogen, 12, Nitrogen, 12)
+                .color(0xb3a500)
+                .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
     }
 }

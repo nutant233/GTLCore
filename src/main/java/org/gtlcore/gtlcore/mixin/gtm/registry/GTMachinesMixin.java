@@ -301,9 +301,9 @@ public class GTMachinesMixin {
                         .tooltips(Component.translatable("gtceu.machine.efficiency.tooltip",
                                 GeneratorArrayMachine.getEfficiency(recipeType, tier)).append("%"))
                         .tooltips(Component.translatable("gtceu.universal.tooltip.ampere_out",
-                                GeneratorArrayMachine.getAmperage(recipeType, tier)))
+                                GeneratorArrayMachine.getAmperage(tier)))
                         .tooltips(workableTiered(tier, GTValues.V[tier],
-                                GTValues.V[tier] * 64 * GeneratorArrayMachine.getAmperage(recipeType, tier), recipeType,
+                                GTValues.V[tier] * 64 * GeneratorArrayMachine.getAmperage(tier), recipeType,
                                 tankScalingFunction.apply(tier), false))
                         .tooltipBuilder(GTLMachines.GTL_MODIFY)
                         .compassNode(name)

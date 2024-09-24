@@ -51,6 +51,7 @@
     "gtm.recipe.GCyMRecipesMixin",
     "gtm.recipe.MaterialRecipeHandlerMixin",
     "gtm.recipe.OreRecipeHandlerMixin",
+    "gtm.recipe.WireRecipeHandlerMixin",
     "gtm.recipe.change.NaquadahRecipesMixin",
     "gtm.recipe.change.PlatGroupMetalsRecipesMixin",
     "gtm.registry.GTDimensionMarkersMixin",

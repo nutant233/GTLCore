@@ -17,14 +17,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SimpleGeneratorMachine.class)
-public abstract class SimpleGeneratorMachineMixin {
+public class SimpleGeneratorMachineMixin {
 
     @Inject(method = "recipeModifier", at = @At(value = "HEAD"), remap = false, cancellable = true)
     private static void recipeModifier(MetaMachine machine, GTRecipe recipe, OCParams params, OCResult result, CallbackInfoReturnable<GTRecipe> cir) {
         if (machine instanceof SimpleGeneratorMachine generator) {
             var EUt = RecipeHelper.getOutputEUt(recipe);
             if (EUt > 0) {
-                int Parallel = (int) ((GTValues.V[generator.getTier()] * GeneratorArrayMachine.getAmperage(generator.getRecipeType(), generator.getTier())) / EUt);
+                int Parallel = (int) ((GTValues.V[generator.getTier()] * GeneratorArrayMachine.getAmperage(generator.getTier())) / EUt);
                 GTRecipe recipe1 = GTRecipeModifiers.fastParallel(generator, recipe, Parallel, false).getFirst();
                 recipe1.duration = recipe1.duration * GeneratorArrayMachine.getEfficiency(generator.getRecipeType(), generator.getTier()) / 100;
                 cir.setReturnValue(recipe1);

@@ -301,5 +301,11 @@ public class StoneDustProcess {
                 .outputFluids(SodiumHydroxideSolution.getFluid(1000))
                 .duration(40).EUt(VA[UHV])
                 .save(provider);
+
+        ELECTROLYZER_RECIPES.recipeBuilder("nitrogen_pentoxide")
+                .inputFluids(Oxygen.getFluid(6000))
+                .outputFluids(Ozone.getFluid(2000))
+                .duration(120).EUt(VA[HV])
+                .save(provider);
     }
 }

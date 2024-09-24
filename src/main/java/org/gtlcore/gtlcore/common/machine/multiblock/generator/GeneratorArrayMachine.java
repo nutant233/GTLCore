@@ -224,12 +224,9 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
         return false;
     }
 
-    public static int getAmperage(GTRecipeType recipeType, int tier) {
-        if (recipeType == GTLRecipeTypes.ROCKET_ENGINE_FUELS) {
-            return (int) Math.pow(2, (GTValues.LuV - tier));
-        }
-        if (recipeType == GTLRecipeTypes.NAQUADAH_REACTOR) {
-            return (int) Math.pow(2, (GTValues.ZPM - tier));
+    public static int getAmperage(int tier) {
+        if (tier > GTValues.HV) {
+            return 16 - (2 * tier);
         }
         return 10 - (2 * tier);
     }
@@ -255,7 +252,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
             if (a > 0) {
                 long EUt = RecipeHelper.getOutputEUt(recipe);
                 if (EUt > 0) {
-                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 * getAmperage(generatorArrayMachine.getRecipeType(), generatorArrayMachine.getTier()) / EUt);
+                    int maxParallel = (int) (GTValues.V[generatorArrayMachine.getOverclockTier()] * a * 2 * getAmperage(generatorArrayMachine.getTier()) / EUt);
                     int multipliers = 0;
                     for (RecipeCapability<?> cap : recipe.inputs.keySet()) {
                         if (cap instanceof FluidRecipeCapability fluidRecipeCapability) {

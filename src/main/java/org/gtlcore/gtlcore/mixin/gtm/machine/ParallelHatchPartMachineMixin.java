@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.machine;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredPartMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ParallelHatchPartMachine;
 
 import org.spongepowered.asm.mixin.Final;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ParallelHatchPartMachine.class)
-public class ParallelHatchPartMachineMixin extends TieredPartMachine {
+public class ParallelHatchPartMachineMixin {
 
     @Mutable
     @Shadow(remap = false)
@@ -23,10 +22,6 @@ public class ParallelHatchPartMachineMixin extends TieredPartMachine {
 
     @Shadow(remap = false)
     private int currentParallel;
-
-    public ParallelHatchPartMachineMixin(IMachineBlockEntity holder, int tier) {
-        super(holder, tier);
-    }
 
     @Inject(method = "<init>", at = @At("RETURN"), remap = false)
     public void ParallelHatchPartMachine(IMachineBlockEntity holder, int tier, CallbackInfo ci) {

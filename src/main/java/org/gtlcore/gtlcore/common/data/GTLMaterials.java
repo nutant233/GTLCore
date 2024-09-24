@@ -689,6 +689,18 @@ public class GTLMaterials {
     public static Material SphaleriteFront;
     public static Material Acrylonitrile;
     public static Material LithiumIodide;
+    public static Material SilicaAluminaGel;
+    public static Material ZeoliteSievingPellets;
+    public static Material WetZeoliteSievingPellets;
+    public static Material TertButanol;
+    public static Material DitertbutylDicarbonate;
+    public static Material Tertbuthylcarbonylazide;
+    public static Material SodiumToluenesulfonate;
+    public static Material SodiumAzide;
+    public static Material SodiumAzanide;
+    public static Material NitrogenPentoxide;
+    public static Material AminatedFullerene;
+    public static Material Azafullerene;
 
     public static void init() {
         MaterialAdd.init();

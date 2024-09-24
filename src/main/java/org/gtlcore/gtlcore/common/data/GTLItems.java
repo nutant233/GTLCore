@@ -278,4 +278,5 @@ public class GTLItems {
     public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = register("saturated_fullerene_sieving_matrix");
     public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = register("microfocus_x_ray_tube");
     public static ItemEntry<Item> SEPARATION_ELECTROMAGNET = register("separation_electromagnet");
+    public static ItemEntry<Item> HIGHLY_INSULATING_FOIL = register("highly_insulating_foil");
 }

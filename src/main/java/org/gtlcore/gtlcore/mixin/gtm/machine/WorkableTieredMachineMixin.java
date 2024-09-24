@@ -29,7 +29,7 @@ public abstract class WorkableTieredMachineMixin extends TieredEnergyMachine imp
     protected void createEnergyContainer(Object[] args, CallbackInfoReturnable<NotifiableEnergyContainer> cir) {
         long tierVoltage = GTValues.V[getTier()];
         if (isEnergyEmitter()) {
-            int amperage = GeneratorArrayMachine.getAmperage(this.getRecipeType(), this.getTier());
+            int amperage = GeneratorArrayMachine.getAmperage(this.getTier());
             cir.setReturnValue(NotifiableEnergyContainer.emitterContainer(this,
                     tierVoltage * amperage * 64,
                     tierVoltage, amperage));

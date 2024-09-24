@@ -6,7 +6,6 @@ import org.gtlcore.gtlcore.common.data.GTLElements;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import com.gregtechceu.gtceu.GTCEu;
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
@@ -259,7 +258,7 @@ public class MaterialBuilder {
                 .element(GTLElements.SPACETIME)
                 .iconSet(new MaterialIconSet("spacetime"))
                 .flags(GTLMaterialFlags.GENERATE_NANOSWARM, MaterialFlags.NO_UNIFICATION)
-                .cableProperties(GTValues.V[GTValues.MAX], 524288, 0, true)
+                .cableProperties(Integer.MAX_VALUE, 524288, 0, true)
                 .buildAndRegister();
 
         Infinity = new Material.Builder(GTCEu.id("infinity"))
@@ -269,7 +268,7 @@ public class MaterialBuilder {
                 .element(GTLElements.INFINITY)
                 .iconSet(new MaterialIconSet("infinity"))
                 .flags(MaterialFlags.GENERATE_FRAME)
-                .cableProperties(GTValues.V[GTValues.MAX], 8192, 0, true)
+                .cableProperties(Integer.MAX_VALUE, 8192, 0, true)
                 .buildAndRegister();
 
         CompoundTriniite = new Material.Builder(GTCEu.id("trinium_compound"))

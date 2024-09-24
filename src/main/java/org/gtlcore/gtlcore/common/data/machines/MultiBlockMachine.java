@@ -977,7 +977,6 @@ public class MultiBlockMachine {
             .appearanceBlock(GCyMBlocks.CASING_HIGH_TEMPERATURE_SMELTING)
             .recipeType(GTRecipeTypes.BLAST_RECIPES)
             .recipeType(GCyMRecipeTypes.ALLOY_BLAST_RECIPES)
-            .recipeType(GTRecipeTypes.ALLOY_SMELTER_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.2))
             .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"))
             .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"))
@@ -985,8 +984,8 @@ public class MultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_3.tooltip",
-                    Component.translatable("gtceu.electric_blast_furnace"), Component.translatable("gtceu.alloy_blast_smelter"), Component.translatable("gtceu.alloy_smelter")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
+                    Component.translatable("gtceu.electric_blast_furnace"), Component.translatable("gtceu.alloy_blast_smelter")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("aaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaa", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ", "                       ")
@@ -2262,14 +2261,14 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/implosion_compressor"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_PYROLYSE_OVEN = REGISTRATE.multiblock("large_pyrolyse_oven", (holder) -> new CoilWorkableElectricMultiblockMachine(holder))
+    public final static MultiblockMachineDefinition LARGE_PYROLYSE_OVEN = REGISTRATE.multiblock("large_pyrolyse_oven", CoilWorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.PYROLYSE_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.pyrolyse_oven")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
-            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, (machine, recipe, params, result) -> GTRecipeModifiers.pyrolyseOvenOverclock(machine, recipe, params, result))
+            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers::pyrolyseOvenOverclock)
             .appearanceBlock(GTBlocks.CASING_STAINLESS_CLEAN)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAAAA")

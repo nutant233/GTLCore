@@ -5,11 +5,7 @@ import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 
-import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
-
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
@@ -332,12 +328,6 @@ public class FuelRecipes {
         ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_6")
                 .inputFluids(GTLMaterials.ExplosiveHydrazine.getFluid(10))
                 .duration(60)
-                .EUt(-2048)
-                .save(provider);
-
-        ROCKET_ENGINE_FUELS.recipeBuilder("rocket_engine_fuel_7")
-                .inputFluids(FluidStack.create(ForgeRegistries.FLUIDS.getValue(new ResourceLocation("ad_astra:cryo_fuel")), 10))
-                .duration(120)
                 .EUt(-2048)
                 .save(provider);
 
