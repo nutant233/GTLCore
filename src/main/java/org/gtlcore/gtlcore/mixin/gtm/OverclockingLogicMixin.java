@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.mixin.gtm;
 
+import org.gtlcore.gtlcore.utils.NumberUtils;
+
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
@@ -7,6 +9,9 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.gregtechceu.gtceu.api.recipe.OverclockingLogic.*;
 
@@ -50,5 +55,10 @@ public class OverclockingLogicMixin {
 
         result.init((long) (eut / Math.pow(STD_VOLTAGE_FACTOR, parallelIterAmount)), (int) duration, (int) parallel,
                 (long) eut, ocLevel);
+    }
+
+    @Inject(method = "getOverclockForTier", at = @At("HEAD"), remap = false, cancellable = true)
+    protected void getOverclockForTier(long voltage, CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(NumberUtils.getFakeVoltageTier(voltage));
     }
 }

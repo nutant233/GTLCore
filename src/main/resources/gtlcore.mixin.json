@@ -35,6 +35,8 @@
     "gtm.cover.ConveyorCoverMixin",
     "gtm.cover.InfiniteWaterCoverMixin",
     "gtm.cover.PumpCoverMixin",
+    "gtm.fix.GTUtilMixin",
+    "gtm.fix.WorkableElectricMultiblockMachineMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
     "gtm.machine.FluidHatchPartMachineMixin",

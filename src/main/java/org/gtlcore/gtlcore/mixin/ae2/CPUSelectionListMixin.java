@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static org.gtlcore.gtlcore.utils.Number.numberText;
+import static org.gtlcore.gtlcore.utils.NumberUtils.numberText;
 
 @Mixin(CPUSelectionList.class)
 public abstract class CPUSelectionListMixin implements ICompositeWidget {
