@@ -355,7 +355,7 @@ public class KJSMaterial {
 
         CosmicNeutronium = new Material.Builder(GTCEu.id("cosmicneutronium"))
                 .ingot()
-                .fluid()
+                .liquid(new FluidBuilder().temperature(1000000).customStill())
                 .blastTemp(24800, HIGHEST)
                 .element(GTLElements.COSMICNEUTRONIUM)
                 .color(0x000d1a)
