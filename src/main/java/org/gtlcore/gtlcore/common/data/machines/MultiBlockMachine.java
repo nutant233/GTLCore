@@ -1084,7 +1084,7 @@ public class MultiBlockMachine {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_inert_ptfe"), GTCEu.id("block/machines/chemical_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition INTEGRATED_ORE_PROCESSOR = REGISTRATE.multiblock("integrated_ore_processor", WorkableElectricParallelHatchMultipleRecipesMachine::new)
+    public final static MultiblockMachineDefinition INTEGRATED_ORE_PROCESSOR = REGISTRATE.multiblock("integrated_ore_processor", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.INTEGRATED_ORE_PROCESSOR)
@@ -1096,12 +1096,13 @@ public class MultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.integrated_ore_processor.tooltip.5"))
             .tooltips(Component.translatable("gtceu.machine.integrated_ore_processor.tooltip.6"))
             .tooltips(Component.translatable("gtceu.machine.integrated_ore_processor.tooltip.7"))
-            .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
+            .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.integrated_ore_processor")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .appearanceBlock(GTBlocks.CASING_STAINLESS_CLEAN)
+            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("aaaaaa     ", "abbbba     ", "abbbba     ", "abbbba     ", "abbbba     ", "aaaaaa     ", "           ", "           ", "           ", "           ", "           ", "           ")
                     .aisle("aaaaaaaaaaa", "bd  d accca", "bd  d accca", "bd  d accca", "bd  d accca", "aaaaaaaccca", "       ccc ", "       ccc ", "       ccc ", "       ccc ", "       ccc ", "           ")
