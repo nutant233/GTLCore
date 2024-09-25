@@ -106,9 +106,7 @@ public class GTLMachines {
 
     public static void init() {
         TootipsModify.init();
-        if (!Platform.isDevEnv()) {
-            MultiBlockMachine.init();
-        }
+        MultiBlockMachine.init();
     }
 
     static {

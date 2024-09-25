@@ -64,16 +64,14 @@ public class GTLGTAddon implements IGTAddon {
 
     @Override
     public void addRecipes(Consumer<FinishedRecipe> provider) {
-        if (!Platform.isDevEnv()) {
-            GCyMRecipes.init(provider);
-            FuelRecipes.init(provider);
-            MachineRecipe.init(provider);
-            Misc.init(provider);
-            ElementCopying.init(provider);
-            StoneDustProcess.init(provider);
-            CircuitRecipes.init(provider);
-            MixerRecipes.init(provider);
-        }
+        GCyMRecipes.init(provider);
+        FuelRecipes.init(provider);
+        MachineRecipe.init(provider);
+        Misc.init(provider);
+        ElementCopying.init(provider);
+        StoneDustProcess.init(provider);
+        CircuitRecipes.init(provider);
+        MixerRecipes.init(provider);
     }
 
     @Override
