@@ -652,6 +652,19 @@ public class GTLRecipeTypes {
                         widgetGroup.getSize().width - 25, widgetGroup.getSize().height - 40, false, false));
             });
 
+
+    public static final GTRecipeType DISSOVING = register("dissolving", MULTIBLOCK)
+            .setMaxIOSize(2, 3, 2, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC);
+
+    public static final GTRecipeType DIGESTION = register("digestion", MULTIBLOCK)
+            .setMaxIOSize(1, 1, 1, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC);
+
     public static void init() {
         RecipeModify.init();
     }

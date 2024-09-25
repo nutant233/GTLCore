@@ -727,5 +727,248 @@ public class MaterialBuilder {
                 .color(0xd58eed)
                 .iconSet(METALLIC)
                 .buildAndRegister();
+
+    //wanggugu's Lanthanide treatment
+        SamariumRefinedPowder = new Material.Builder(GTCEu.id("samarium_refined_powder"))
+                .dust()
+                .color(0x8a6d7d)
+                .iconSet(BRIGHT)
+                .buildAndRegister()
+                .setFormula("??Sm??");
+        SamariumRrareEearthTurbidLiquid = new Material.Builder(GTCEu.id("samarium_rrare_eearth_turbid_liquid"))
+                .fluid()
+                .color(0xcfc883)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        MonaziteRareEarthTurbidLiquid = new Material.Builder(GTCEu.id("monazite_rare_earth_turbid_liquid"))
+                .fluid()
+                .color(0x81624c)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        HafniumOxideZirconiaMixedPowder = new Material.Builder(GTCEu.id("hafnium_oxide_zirconia_mixed_powder"))
+                .dust()
+                .components(Hafnium, 1,Oxygen, 2, Zirconium, 1, Oxygen, 2)
+                .color(0x8e8176)
+                .iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        ThoritePowder = new Material.Builder(GTCEu.id("thorite_powder"))
+                .dust()
+                .components(Thorium, 1, Silicon, 1, Oxygen, 4)
+                .color(0x7D7D7D)
+                .iconSet(SAND)
+                .buildAndRegister();
+        DilutedMonaziteSlurry = new Material.Builder(GTCEu.id("diluted_monazite_slurry"))
+                .fluid()
+                .color(0xBDBDBD)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        RedZirconPowder = new Material.Builder(GTCEu.id("red_zircon_powder"))
+                .dust()
+                .components(Zirconium, 1, Silicon, 1, Oxygen, 4)
+                .color(0xFF4500)
+                .iconSet(SAND)
+                .buildAndRegister();
+        MonaziteSulfatePowder = new Material.Builder(GTCEu.id("monazite_sulfate_powder"))
+                .dust()
+                .color(0xCCCCCC)
+                .iconSet(SAND)
+                .buildAndRegister();
+        DilutedMonaziteSulfateSolution = new Material.Builder(GTCEu.id("diluted_monazite_sulfate_solution"))
+                .fluid()
+                .color(0xADD8E6)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        AcidicMonazitePowder = new Material.Builder(GTCEu.id("acidic_monazite_powder"))
+                .dust()
+                .color(0x9ACD32)
+                .iconSet(SAND)
+                .buildAndRegister();
+        ThoriumPhosphateFilterCakePowder = new Material.Builder(GTCEu.id("thorium_phosphate_filter_cake_powder"))
+                .dust()
+                .color(0x808080)
+                .iconSet(SAND)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        ThoriumPhosphateRefinedPowder = new Material.Builder(GTCEu.id("thorium_phosphate_refined_powder"))
+                .dust()
+                .color(0x545454)
+                .iconSet(SAND)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister()
+                .setFormula("??ThP??",true);
+        MonaziteRareEarthFilterResiduePowder = new Material.Builder(GTCEu.id("monazite_rare_earth_filter_residue_powder"))
+                .dust()
+                .color(0x7F7F7F)
+                .iconSet(SAND)
+                .buildAndRegister();
+        NeutralizedMonaziteRareEarthFilterResiduePowder = new Material.Builder(GTCEu.id("neutralized_monazite_rare_earth_filter_residue_powder"))
+                .dust()
+                .color(0x969696)
+                .iconSet(SAND)
+                .buildAndRegister();
+        UraniumFilterResiduePowder = new Material.Builder(GTCEu.id("uranium_filter_residue_powder"))
+                .dust()
+                .color(0x545454)
+                .iconSet(SAND)
+                .buildAndRegister();
+        NeutralizedUraniumFilterResiduePowder = new Material.Builder(GTCEu.id("neutralized_uranium_filter_residue_powder"))
+                .dust()
+                .components(Uranium235, 1, Oxygen, 2)
+                .color(0x7F7F7F)
+                .iconSet(SAND)
+                .buildAndRegister();
+        ConcentratedMonaziteRareEarthHydroxidePowder = new Material.Builder(GTCEu.id("concentrated_monazite_rare_earth_hydroxide_powder"))
+                .dust()
+                .color(0xC0C0C0)
+                .iconSet(SAND)
+                .buildAndRegister();
+        DriedConcentratedNitricMonaziteRareEarthPowder = new Material.Builder(GTCEu.id("dried_concentrated_nitric_monazite_rare_earth_powder"))
+                .dust()
+                .color(0x969696)
+                .iconSet(SAND)
+                .buildAndRegister();
+        ConcentratedNitrideMonaziteRareEarthSolution = new Material.Builder(GTCEu.id("concentrated_nitride_monazite_rare_earth_solution"))
+                .fluid()
+                .color(0xADD8E6)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        CeriumRichMixturePowder = new Material.Builder(GTCEu.id("cerium_rich_mixture_powder"))
+                .dust()
+                .color(0x808080)
+                .iconSet(SAND)
+                .buildAndRegister()
+                .setFormula("??Ce??");
+        CeriumChloridePowder = new Material.Builder(GTCEu.id("cerium_chloride_powder"))
+                .dust()
+                .components(Cerium, 1, Chlorine, 3)
+                .color(0x808080)
+                .iconSet(SAND)
+                .buildAndRegister();
+        OxalicAcid = new Material.Builder(GTCEu.id("oxalic_acid"))
+                .fluid()
+                .components(Carbon, 2, Hydrogen, 2, Oxygen, 4)
+                .color(0xA0FFA0)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        CeriumOxalatePowder = new Material.Builder(GTCEu.id("cerium_oxalate_powder"))
+                .dust()
+                .components(Cerium, 1, Carbon, 2, Hydrogen, 2, Oxygen, 4)
+                .color(0x969696)
+                .flags(DISABLE_DECOMPOSITION)
+                .iconSet(SAND)
+                .buildAndRegister();
+        ConcentratedCeriumChlorideSolution = new Material.Builder(GTCEu.id("concentrated_cerium_chloride_solution"))
+                .fluid()
+                .components(Cerium, 1, Chlorine, 3)
+                .color(0x00FFFF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        NitricLeachateFromMonazite = new Material.Builder(GTCEu.id("nitric_leachate_from_monazite"))
+                .fluid()
+                .color(0xADD8E6)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        ConcentratedNitricLeachateFromMonazite = new Material.Builder(GTCEu.id("concentrated_nitric_leachate_from_monazite"))
+                .fluid()
+                .color(0x00FFFF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        CoolingConcentratedNitricMonaziteRareEarthPowder = new Material.Builder(GTCEu.id("cooling_concentrated_nitric_monazite_rare_earth_powder"))
+                .dust()
+                .color(0xC0C0C0)
+                .iconSet(SAND)
+                .buildAndRegister();
+        MonaziteRareEarthPrecipitatePowder = new Material.Builder(GTCEu.id("monazite_rare_earth_precipitate_powder"))
+                .dust()
+                .color(0x808080)
+                .iconSet(SAND)
+                .buildAndRegister();
+        HeterogeneousHalideMonaziteRareEarthMixturePowder = new Material.Builder(GTCEu.id("heterogeneous_halide_monazite_rare_earth_mixture_powder"))
+                .dust()
+                .color(0x808080)
+                .iconSet(SAND)
+                .buildAndRegister();
+        SaturatedMonaziteRareEarthPowder = new Material.Builder(GTCEu.id("saturated_monazite_rare_earth_powder"))
+                .dust()
+                .color(0xFFFFFF)
+                .iconSet(SAND)
+                .buildAndRegister();
+        SamariumPrecipitatePowder = new Material.Builder(GTCEu.id("samarium_precipitate_powder"))
+                .dust()
+                .components(Samarium, 2, Gadolinium, 1)
+                .color(0x969696)
+                .flags(DISABLE_DECOMPOSITION)
+                .iconSet(SAND)
+                .buildAndRegister();
+        ConcentratedRareEarthChlorideSolution = new Material.Builder(GTCEu.id("concentrated_rare_earth_chloride_solution"))
+                .fluid()
+                .color(0x00BFFF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        EnrichedRareEarthChlorideSolution = new Material.Builder(GTCEu.id("enriched_rare_earth_chloride_solution"))
+                .fluid()
+                .color(0x87CEFA)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        DilutedRareEarthChlorideSolution = new Material.Builder(GTCEu.id("diluted_rare_earth_chloride_solution"))
+                .fluid()
+                .color(0xADD8E6)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        RareEarthProcessingWastewater = new Material.Builder(GTCEu.id("rare_earth_processing_wastewater"))
+                .fluid()
+                .color(0x87CEEB)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        SamariumRareEarthSlurry = new Material.Builder(GTCEu.id("samarium_rare_earth_slurry"))
+                .fluid()
+                .color(0x808080)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        NeodymiumRareEarthConcentratePowder = new Material.Builder(GTCEu.id("neodymium_rare_earth_concentrate_powder"))
+                .dust()
+                .color(0x969696)
+                .iconSet(SAND)
+                .buildAndRegister();
+        SamariumRareEarthDilutedSolution = new Material.Builder(GTCEu.id("samarium_rare_earth_diluted_solution"))
+                .fluid()
+                .components(Samarium, 1, Chlorine, 1, Water, 2)
+                .color(0xA9A9A9)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        SamariumOxalateWithImpurities = new Material.Builder(GTCEu.id("samarium_oxalate_with_impurities"))
+                .dust()
+                .components(Samarium, 1, Carbon, 2, Oxygen, 6)
+                .color(0x808080)
+                .iconSet(SAND)
+                .buildAndRegister();
+        SamariumChlorideWithImpurities = new Material.Builder(GTCEu.id("samarium_chloride_with_impurities"))
+                .dust()
+                .components(Samarium, 1, Chlorine, 3)
+                .color(0xB0B0B0)
+                .iconSet(SAND)
+                .buildAndRegister();
+        SamariumChlorideSodiumChlorideMixturePowder = new Material.Builder(GTCEu.id("samarium_chloride_sodium_chloride_mixture_powder"))
+                .dust()
+                .components(Samarium, 1, Chlorine, 3, Sodium, 1, Chlorine, 1)
+                .color(0xC0C0C0)
+                .iconSet(SAND)
+                .buildAndRegister();
+        PhosphorusFreeSamariumConcentratePowder = new Material.Builder(GTCEu.id("phosphorus_free_samarium_concentrate_powder"))
+                .dust()
+                .components(Samarium, 1)
+                .color(0xD3D3D3)
+                .iconSet(SAND)
+                .buildAndRegister();
+        SamariumChlorideConcentrateSolution = new Material.Builder(GTCEu.id("samarium_chloride_concentrate_solution"))
+                .fluid()
+                .components(Samarium, 1, Chlorine, 3, Water, 5)
+                .color(0xB0C4DE)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+    //wanggugu's Lanthanide treatment over
+
+
     }
 }
