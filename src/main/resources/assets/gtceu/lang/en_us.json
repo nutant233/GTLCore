@@ -806,6 +806,7 @@
     "gui.gtceu.neutron_sensor.invert.enabled.2": "中子动能介于所设定的最小值和最大值之外时传感器将发出红石信号，小于最小值时则发出红石信号",
     "item.gtceu.tool.vajra": "%s金刚杵",
     "material.gtceu.1_octene": "1-辛烯",
+    "material.gtceu.absolute_ethanol": "绝对乙醇",
     "material.gtceu.abyssalalloy": "渊狱合金",
     "material.gtceu.acetaldehyde": "乙醛",
     "material.gtceu.acetonitrile": "乙腈",

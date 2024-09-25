@@ -58,6 +58,7 @@
     "gtm.registry.GTMachinesMixin",
     "gtm.registry.GTRecipeBuilderMixin",
     "gtm.registry.GTRecipeTypeMixin",
+    "gtmt.HugeBusPartMachineMixin",
     "gtmt.WirelessEnergyReceiveCoverMixin",
     "travelanchors.EventListenerMixin"
   ],

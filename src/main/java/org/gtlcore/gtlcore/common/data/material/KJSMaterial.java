@@ -4285,5 +4285,19 @@ public class KJSMaterial {
                 .color(0xb3a500)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
+
+        AbsoluteEthanol = new Material.Builder(GTCEu.id("absolute_ethanol"))
+                .fluid()
+                .color(0xff4500)
+                .components(Carbon, 2, Hydrogen, 6, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+
+        PiranhaSolution = new Material.Builder(GTCEu.id("piranha_solution"))
+                .fluid()
+                .color(0xac2fff)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
     }
 }

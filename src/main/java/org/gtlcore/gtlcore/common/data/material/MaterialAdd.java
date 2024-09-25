@@ -177,5 +177,6 @@ public class MaterialAdd {
         Monazite.addFlags(GTLMaterialFlags.GENERATE_MILLED);
         Redstone.addFlags(GTLMaterialFlags.GENERATE_MILLED);
         NaquadahEnriched.addFlags(GTLMaterialFlags.GENERATE_MILLED);
+        Titanium.addFlags(GENERATE_FINE_WIRE);
     }
 }

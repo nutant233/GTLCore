@@ -701,6 +701,8 @@ public class GTLMaterials {
     public static Material NitrogenPentoxide;
     public static Material AminatedFullerene;
     public static Material Azafullerene;
+    public static Material AbsoluteEthanol;
+    public static Material PiranhaSolution;
 
     public static void init() {
         MaterialAdd.init();

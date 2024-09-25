@@ -4,6 +4,7 @@ import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.data.recipe.*;
+import org.gtlcore.gtlcore.data.recipe.chemistry.MixerRecipes;
 import org.gtlcore.gtlcore.data.recipe.processing.StoneDustProcess;
 
 import com.gregtechceu.gtceu.api.addon.GTAddon;
@@ -70,6 +71,8 @@ public class GTLGTAddon implements IGTAddon {
             Misc.init(provider);
             ElementCopying.init(provider);
             StoneDustProcess.init(provider);
+            CircuitRecipes.init(provider);
+            MixerRecipes.init(provider);
         }
     }
 

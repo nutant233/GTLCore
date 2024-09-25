@@ -279,4 +279,13 @@ public class GTLItems {
     public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = register("microfocus_x_ray_tube");
     public static ItemEntry<Item> SEPARATION_ELECTROMAGNET = register("separation_electromagnet");
     public static ItemEntry<Item> HIGHLY_INSULATING_FOIL = register("highly_insulating_foil");
+    public static ItemEntry<Item> STERILIZED_PETRI_DISH = register("sterilized_petri_dish");
+    public static ItemEntry<Item> ELECTRICALY_WIRED_PETRI_DISH = register("electricaly_wired_petri_dish");
+    public static ItemEntry<Item> CONTAMINATED_PETRI_DISH = register("contaminated_petri_dish");
+    public static ItemEntry<Item> BREVIBACTERIUM_PETRI_DISH = register("brevibacterium_petri_dish");
+    public static ItemEntry<Item> BIFIDOBACTERIUMM_PETRI_DISH = register("bifidobacteriumm_petri_dish");
+    public static ItemEntry<Item> ESCHERICIA_PETRI_DISH = register("eschericia_petri_dish");
+    public static ItemEntry<Item> STREPTOCOCCUS_PETRI_DISH = register("streptococcus_petri_dish");
+    public static ItemEntry<Item> CUPRIAVIDUS_PETRI_DISH = register("cupriavidus_petri_dish");
+    public static ItemEntry<Item> SHEWANELLA_PETRI_DISH = register("shewanella_petri_dish");
 }
