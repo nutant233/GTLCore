@@ -38,8 +38,6 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
 import static com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader.registerMachineRecipe;
-import static org.gtlcore.gtlcore.common.data.GTLMachines.DEHYDRATOR;
-import static org.gtlcore.gtlcore.data.recipe.CraftingComponentAddition.BUFFER;
 
 public class MachineRecipe {
 
@@ -166,8 +164,10 @@ public class MachineRecipe {
                 ArrayUtils.subarray(GTMachines.HI_AMP_TRANSFORMER_4A, GTValues.UHV, GTValues.MAX),
                 "WCC", "TH ", "WCC",
                 'W', POWER_COMPONENT, 'C', CABLE_QUAD, 'T', CABLE_TIER_UP_QUAD, 'H', HULL);
-        registerMachineRecipe(provider, DEHYDRATOR, "WCW", "AMA", "PRP", 'M', HULL, 'P', PLATE, 'C',
+        registerMachineRecipe(provider, GTLMachines.DEHYDRATOR, "WCW", "AMA", "PRP", 'M', HULL, 'P', PLATE, 'C',
                 CIRCUIT, 'W', WIRE_QUAD, 'R', ROBOT_ARM, 'A', CABLE_QUAD);
+        registerMachineRecipe(provider, GTLMachines.LIGHTNING_PROCESSOR, "WEW", "AMA", "WSW", 'M', HULL, 'E',
+                EMITTER, 'W', WIRE_HEX, 'S', SENSOR, 'A', CABLE_TIER_UP);
 
         ASSEMBLER_RECIPES.recipeBuilder("zpm_fluid_drilling_rig")
                 .inputItems(GTMachines.HULL[UV])
@@ -194,9 +194,9 @@ public class MachineRecipe {
                 TagUtil.createItemTag("chests/wooden"));
 
         registerMachineRecipe(provider, GTMachines.DUAL_IMPORT_HATCH, "PG", "CM", 'P', PIPE_NONUPLE, 'M', HULL,
-                'G', GLASS, 'C', BUFFER);
+                'G', GLASS, 'C', CraftingComponentAddition.BUFFER);
         registerMachineRecipe(provider, GTMachines.DUAL_EXPORT_HATCH, "MG", "CP", 'P', PIPE_NONUPLE, 'M', HULL,
-                'G', GLASS, 'C', BUFFER);
+                'G', GLASS, 'C', CraftingComponentAddition.BUFFER);
 
         VanillaRecipeHelper.addShapedRecipe(provider, true, "hermetic_casing_uev",
                 GTLBlocks.HERMETIC_CASING_UEV.asStack(), "PPP", "PFP", "PPP", 'P',

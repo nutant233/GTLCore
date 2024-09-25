@@ -22,6 +22,7 @@ public class RemoveRecipe {
         consumer.accept(GTCEu.id("assembly_line/energy_hatch_uhv"));
         consumer.accept(GTCEu.id("research_station/1_x_gtceu_uv_energy_input_hatch"));
         consumer.accept(GTCEu.id("research_station/1_x_gtceu_uv_energy_output_hatch"));
+        consumer.accept(GTCEu.id("mixer/ender_pearl_dust"));
 
         Material[] fluidMap = new Material[] { GTMaterials.Glue, GTMaterials.Polyethylene,
                 GTMaterials.Polytetrafluoroethylene, GTMaterials.Polybenzimidazole };

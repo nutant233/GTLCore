@@ -279,7 +279,7 @@ public class AdvancedMultiBlockMachine {
                     }
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/dimensionally_transcendent_plasma_forge"))
+            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/dimensionally_transcendent_plasma_forge"))
             .register();
 
     public final static MultiblockMachineDefinition CIRCUIT_ASSEMBLY_LINE = REGISTRATE.multiblock("circuit_assembly_line", (holder) -> new StorageMachine(holder, 64))
@@ -748,7 +748,7 @@ public class AdvancedMultiBlockMachine {
                 }
                 return true;
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimension_connection_casing"), GTCEu.id("block/door_of_create"))
+            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimension_connection_casing"), GTCEu.id("block/multiblock/door_of_create"))
             .register();
 
     public final static MultiblockMachineDefinition BEDROCK_DRILLING_RIG = REGISTRATE.multiblock("bedrock_drilling_rig", WorkableElectricMultiblockMachine::new)
@@ -868,7 +868,7 @@ public class AdvancedMultiBlockMachine {
                 }
                 return true;
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimension_connection_casing"), GTCEu.id("block/create_aggregation"))
+            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimension_connection_casing"), GTCEu.id("block/multiblock/create_aggregation"))
             .register();
 
     public final static MultiblockMachineDefinition SUPRACHRONAL_ASSEMBLY_LINE = REGISTRATE.multiblock("suprachronal_assembly_line", (holder) -> new SuprachronalAssemblyLineMachine(holder, false))
@@ -2005,7 +2005,7 @@ public class AdvancedMultiBlockMachine {
                     .where("g", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                     .where(" ", Predicates.any())
                     .build())
-            .workableCasingRenderer(GTCEu.id("block/casings/hpca/computer_casing/back"), GTCEu.id("block/super_computation"))
+            .workableCasingRenderer(GTCEu.id("block/casings/hpca/computer_casing/back"), GTCEu.id("block/multiblock/super_computation"))
             .register();
 
     public final static MultiblockMachineDefinition CREATE_COMPUTATION = REGISTRATE.multiblock("create_computation", (holder) -> new ComputationProviderMachine(holder, true))

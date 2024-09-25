@@ -162,6 +162,9 @@ public class GTLMachines {
     public static final MachineDefinition[] NAQUADAH_REACTOR_GENERATOR = GTMachines.registerSimpleGenerator("naquadah_reactor", GTRecipeTypes.get("naquadah_reactor"),
             GTMachines.genericGeneratorTankSizeFunction, 0.1f, GTValues.IV, GTValues.LuV, GTValues.ZPM);
 
+    public static final MachineDefinition[] LIGHTNING_PROCESSOR = GTMachines.registerSimpleMachines("lightning_processor",
+            GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES, GTMachines.defaultTankSizeFunction);
+
     public static final MachineDefinition[] DEHYDRATOR = GTMachines.registerSimpleMachines("dehydrator",
             GTLRecipeTypes.DEHYDRATOR_RECIPES, GTMachines.defaultTankSizeFunction);
 

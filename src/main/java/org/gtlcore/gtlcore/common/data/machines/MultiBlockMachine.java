@@ -1471,11 +1471,12 @@ public class MultiBlockMachine {
             .recipeType(GTRecipeTypes.POLARIZER_RECIPES)
             .recipeType(GTRecipeTypes.ELECTROMAGNETIC_SEPARATOR_RECIPES)
             .recipeType(GTRecipeTypes.ELECTROLYZER_RECIPES)
+            .recipeType(GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_3.tooltip",
-                    Component.translatable("gtceu.polarizer"), Component.translatable("gtceu.electromagnetic_separator"), Component.translatable("gtceu.electrolyzer")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_4.tooltip",
+                    Component.translatable("gtceu.polarizer"), Component.translatable("gtceu.electromagnetic_separator"), Component.translatable("gtceu.electrolyzer"), Component.translatable("gtceu.lightning_processor")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(() -> Registries.getBlock("kubejs:lafium_mechanical_casing"))
@@ -1770,7 +1771,7 @@ public class MultiBlockMachine {
                     .where("#", Predicates.air())
                     .where(" ", Predicates.any())
                     .build())
-            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/steam_pressor"))
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/multiblock/steam_pressor"))
             .register();
 
     public final static MultiblockMachineDefinition STEAM_FOUNDRY = REGISTRATE.multiblock("steam_foundry", (holder) -> new LargeSteamParallelMultiblockMachine(holder, 8))

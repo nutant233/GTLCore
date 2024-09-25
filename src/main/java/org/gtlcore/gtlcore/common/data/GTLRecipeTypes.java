@@ -102,6 +102,12 @@ public class GTLRecipeTypes {
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.ARC);
 
+    public static final GTRecipeType LIGHTNING_PROCESSOR_RECIPES = register("lightning_processor", GTRecipeTypes.ELECTRIC)
+            .setMaxIOSize(6, 1, 6, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC);
+
     public static final GTRecipeType DEHYDRATOR_RECIPES = register("dehydrator", GTRecipeTypes.ELECTRIC)
             .setMaxIOSize(2, 6, 2, 2)
             .setEUIO(IO.IN)

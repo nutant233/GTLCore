@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.common.data.machines;
 
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
@@ -18,6 +19,7 @@ import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
+import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.common.data.GTCompassSections;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
@@ -374,6 +376,7 @@ public class GCyMMachines {
     public final static MultiblockMachineDefinition LARGE_ARC_SMELTER = REGISTRATE
             .multiblock("large_arc_smelter", WorkableElectricMultiblockMachine::new)
             .langValue("Large Arc Smelter")
+            .tooltips(Component.translatable("gtceu.machine.large_arc_smelter.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
@@ -382,7 +385,15 @@ public class GCyMMachines {
             .tooltipBuilder(GTLMachines.GTL_MODIFY)
             .rotationState(RotationState.ALL)
             .recipeType(ARC_FURNACE_RECIPES)
-            .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
+            .recipeType(GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES)
+            .recipeModifiers((machine, recipe, params, result) -> {
+                if (((WorkableElectricMultiblockMachine) machine).getRecipeType() == GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES) {
+                    GTRecipe recipe1 = recipe.copy();
+                    recipe1.duration = recipe.duration * 4;
+                    return recipe1;
+                }
+                return recipe;
+            }, GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_HIGH_TEMPERATURE_SMELTING)
             .pattern(definition -> FactoryBlockPattern.start()
