@@ -17,6 +17,7 @@
     "adastra.VehicleItemMixin",
     "ae2.BasicCellInventoryMixin",
     "ae2.CPUSelectionListMixin",
+    "ae2.CursedInternalSlotMixin",
     "ae2.MixinCowMap",
     "ae2.MixinGenericSlotCapacities",
     "ae2.MixinGenericStackInv",

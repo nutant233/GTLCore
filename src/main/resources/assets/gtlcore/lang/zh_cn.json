@@ -118,6 +118,9 @@
     "item.gtlcore.super_portable_fluid_storage_cell": "超级便携流体存储元件",
     "item.gtlcore.super_portable_item_storage_cell": "超级便携物品存储元件",
     "item.gtlcore.transcendent_max_battery": "超·终极电池",
+    "item.gtlcore.infinite_cell_component": "无限存储组件",
+    "item.gtlcore.item_infinity_cell": "无限物品磁盘",
+    "item.gtlcore.fluid_infinity_cell": "无限流体磁盘",
     "itemGroup.gtlcore.creative_tab": "格雷科技休闲版",
     "structure_writer.export_order": "导出顺序： C:%s  S:%s  A:%s",
     "structure_writer.structural_scale": "结构规模： X:%s  Y:%s  Z:%s"
