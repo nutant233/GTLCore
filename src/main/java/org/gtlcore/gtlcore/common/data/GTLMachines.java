@@ -64,8 +64,8 @@ public class GTLMachines {
     public static final BiConsumer<IMultiController, List<Component>> CHEMICAL_PLANT_DISPLAY = (controller, components) -> {
         if (controller.isFormed()) {
             double value = 1 - ((CoilWorkableElectricMultiblockMachine) controller).getCoilTier() * 0.05;
-            components.add(Component.translatable("gtceu.machine.eut_multiplier.tooltip", value));
-            components.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", value));
+            components.add(Component.translatable("gtceu.machine.eut_multiplier.tooltip", value * 0.8));
+            components.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", value * 0.6));
         }
     };
 
