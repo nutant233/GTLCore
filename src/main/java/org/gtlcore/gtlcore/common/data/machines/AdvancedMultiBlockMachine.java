@@ -527,7 +527,7 @@ public class AdvancedMultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.pcb_factory")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
-            .recipeModifiers(PCBFactoryMachine::recipeModifier, GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
+            .recipeModifier(PCBFactoryMachine::recipeModifier)
             .appearanceBlock(GCyMBlocks.CASING_WATERTIGHT)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("ibbbi  clllc     ", "ieeei  c   c     ", "ieeei  c   c     ", "ieeei  c   c     ", "i   i  c   c     ", "       c   c     ", "       c   c     ", "       c   c     ", "       c   c     ", "       clllc     ")
