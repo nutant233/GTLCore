@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
+import org.gtlcore.gtlcore.common.data.machines.LanthanideMachine;
 import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachine;
 import org.gtlcore.gtlcore.common.data.machines.TootipsModify;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
@@ -106,6 +107,7 @@ public class GTLMachines {
     public static void init() {
         TootipsModify.init();
         MultiBlockMachine.init();
+        LanthanideMachine.init();
     }
 
     static {
