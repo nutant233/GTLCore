@@ -2976,7 +2976,7 @@ public class MultiBlockMachine {
                     return GTRecipeModifiers.ebfOverclock(machine, recipe, params, result);
                 }
             })
-            .appearanceBlock(() -> Registries.getBlock("kubejs:red_steel_casing_top"))
+            .appearanceBlock(() -> Registries.getBlock("kubejs:red_steel_casing"))
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("AAA", "BBB", "BBB", "BBB", "AAA")
                     .aisle("AAA", "B B", "B B", "B B", "ACA")
