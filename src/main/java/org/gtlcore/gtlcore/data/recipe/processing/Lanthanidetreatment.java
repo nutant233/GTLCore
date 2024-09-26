@@ -13,15 +13,15 @@ import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dust;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DISSOVING;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DIGESTION;
+import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DISSOLUTION_TREATMENT;
+import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DIGESTION_TREATMENT;
 
 
 
 public class Lanthanidetreatment {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-        DISSOVING.recipeBuilder("monazite_rare_earth_turbid_liquid")
+        DIGESTION_TREATMENT.recipeBuilder("monazite_rare_earth_turbid_liquid_output")
                 .inputItems(dust, Monazite, 2)
                 .inputFluids(NitricAcid.getFluid(700))
                 .outputItems(dust, SiliconDioxide, 1)
@@ -30,7 +30,7 @@ public class Lanthanidetreatment {
                 .EUt(1920)
                 .save(provider);
 
-        DIGESTION.recipeBuilder("diluted_monazite_slurry")
+        DISSOLUTION_TREATMENT.recipeBuilder("diluted_monazite_slurry_output")
                 .inputItems(dust, Saltpeter, 9)
                 .inputFluids(MonaziteRareEarthTurbidLiquid.getFluid(9000))
                 .inputFluids(Water.getFluid(90000))

@@ -27,6 +27,7 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 public class Misc {
 
     public static void init(Consumer<FinishedRecipe> provider) {
+
         if (ConfigHolder.INSTANCE.enablePrimitiveVoidOre) {
             VanillaRecipeHelper.addShapedRecipe(provider, true, "primitive_void_ore_recipes",
                     PRIMITIVE_VOID_ORE.asStack(), "DCD", "CGC", "DCD",
@@ -38,6 +39,7 @@ public class Misc {
                     .duration(200)
                     .save(provider);
         }
+
         AUTOCLAVE_RECIPES.recipeBuilder("water_agar_mix").EUt(VA[HV]).duration(600)
                 .inputItems(dust, Gelatin)
                 .inputFluids(DistilledWater.getFluid(1000))
