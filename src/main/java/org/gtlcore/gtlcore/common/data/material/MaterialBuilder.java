@@ -4,26 +4,20 @@ import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
 import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
 import org.gtlcore.gtlcore.api.item.tool.GTLToolType;
 import org.gtlcore.gtlcore.common.data.GTLElements;
-import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
-import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.ToolProperty;
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.attribute.FluidAttributes;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
-import com.gregtechceu.gtceu.common.data.GTMaterials;
 
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
-import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.GENERATE_LONG_ROD;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty.GasTier.*;
-import static com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty.GasTier.HIGH;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 
@@ -38,14 +32,14 @@ public class MaterialBuilder {
 
         AlienAlgae = new Material.Builder(GTCEu.id("alien_algae"))
                 .ore()
-                .addOreByproducts(GTMaterials.Paper, GTMaterials.Agar)
+                .addOreByproducts(Paper, Agar)
                 .color(0x808000)
                 .iconSet(WOOD)
                 .buildAndRegister();
 
         Bloodstone = new Material.Builder(GTCEu.id("bloodstone"))
                 .ore()
-                .addOreByproducts(GTMaterials.Deepslate, GTMaterials.Redstone)
+                .addOreByproducts(Deepslate, Redstone)
                 .color(0xd80036)
                 .iconSet(QUARTZ)
                 .buildAndRegister();
@@ -173,7 +167,7 @@ public class MaterialBuilder {
         Jasper = new Material.Builder(GTCEu.id("jasper"))
                 .gem()
                 .ore()
-                .addOreByproducts(GTMaterials.Talc, GTMaterials.Boron)
+                .addOreByproducts(Talc, Boron)
                 .color(0xc85050)
                 .iconSet(EMERALD)
                 .buildAndRegister().setFormula("?");
@@ -233,7 +227,7 @@ public class MaterialBuilder {
                 .fluid()
                 .plasma()
                 .ore()
-                .addOreByproducts(GTMaterials.Plutonium239, GTMaterials.Plutonium241)
+                .addOreByproducts(Plutonium239, Plutonium241)
                 .blastTemp(18500, HIGHER)
                 .element(GTLElements.VIBRANIUM)
                 .color(0xff0000)
@@ -327,7 +321,7 @@ public class MaterialBuilder {
                 .fluid()
                 .plasma()
                 .ore()
-                .addOreByproducts(GTMaterials.Actinium, GTMaterials.Technetium)
+                .addOreByproducts(Actinium, Technetium)
                 .blastTemp(14800, HIGHER)
                 .element(GTLElements.MITHRIL)
                 .color(0x4da6ff)
@@ -424,7 +418,7 @@ public class MaterialBuilder {
                 .ingot()
                 .fluid()
                 .plasma()
-                .addOreByproducts(GTMaterials.Sapphire, GTMaterials.Polonium)
+                .addOreByproducts(Sapphire, Polonium)
                 .blastTemp(21800, HIGHEST)
                 .element(GTLElements.STARMETAL)
                 .color(0x0000e6)
@@ -464,7 +458,7 @@ public class MaterialBuilder {
                 .plasma()
                 .ore()
                 .fluidPipeProperties(100000, 100000, true, true, true, true)
-                .addOreByproducts(GTMaterials.Endstone, GTMaterials.EnderPearl)
+                .addOreByproducts(Endstone, EnderPearl)
                 .blastTemp(16800, HIGHER)
                 .element(GTLElements.ENDERIUM)
                 .color(0x75ede2)
@@ -578,7 +572,7 @@ public class MaterialBuilder {
                 .ingot()
                 .fluid()
                 .ore()
-                .addOreByproducts(GTMaterials.Europium)
+                .addOreByproducts(Europium)
                 .blastTemp(14600, HIGHER, GTValues.VA[GTValues.UIV], 1200)
                 .element(GTLElements.URUIUM)
                 .color(0x87ceeb)
@@ -1550,7 +1544,7 @@ public class MaterialBuilder {
         RareEarthMetal = new Material.Builder(GTCEu.id("rare_earth_metal"))
                 .dust()
                 .ore()
-                .addOreByproducts(GTMaterials.RareEarth, GTMaterials.Monazite)
+                .addOreByproducts(RareEarth, Monazite)
                 .color(0x737373)
                 .iconSet(METALLIC)
                 .buildAndRegister().setFormula("?");
@@ -1810,9 +1804,15 @@ public class MaterialBuilder {
                 .iconSet(DULL)
                 .buildAndRegister();
 
+        SodiumNitrate = new Material.Builder(GTCEu.id("sodium_nitrate"))
+                .dust()
+                .color(0x4e2a40).iconSet(SAND)
+                .components(Sodium, 1, Nitrogen, 1, Oxygen, 3)
+                .buildAndRegister();
+
         SodiumNitrateSolution = new Material.Builder(GTCEu.id("sodium_nitrate_solution"))
                 .fluid()
-                .components(GTLMaterials.SodiumNitrate, 1, Water, 1)
+                .components(SodiumNitrate, 1, Water, 1)
                 .color(0x2b387e)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2157,6 +2157,15 @@ public class MaterialBuilder {
                 .components(Titanium, 1, Fluorine, 4)
                 .iconSet(DULL)
                 .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+
+        Titanium50 = new Material.Builder(GTCEu.id("titanium_50"))
+                .ingot()
+                .fluid()
+                .element(GTLElements.TITANIUM50)
+                .blastTemp(1942)
+                .color(0xd58eed)
+                .iconSet(METALLIC)
                 .buildAndRegister();
 
         Titanium50Tetrafluoride = new Material.Builder(GTCEu.id("titanium_50_tetrafluoride"))
@@ -4347,12 +4356,6 @@ public class MaterialBuilder {
                 .components(Rhodium, 1, Nitrogen, 1, Hydrogen, 4)
                 .buildAndRegister();
 
-        SodiumNitrate = new Material.Builder(GTCEu.id("sodium_nitrate"))
-                .dust()
-                .color(0x4e2a40).iconSet(SAND)
-                .components(Sodium, 1, Nitrogen, 1, Oxygen, 3)
-                .buildAndRegister();
-
         RhodiumSalt = new Material.Builder(GTCEu.id("rhodium_salt"))
                 .dust()
                 .color(0x61200A).iconSet(SAND)
@@ -4575,17 +4578,17 @@ public class MaterialBuilder {
                 .fluidPipeProperties(2147483647, ConfigHolder.INSTANCE.spacetimePip, true, true, true, true)
                 .element(GTLElements.SPACETIME)
                 .iconSet(new MaterialIconSet("spacetime"))
-                .flags(GTLMaterialFlags.GENERATE_NANOSWARM, MaterialFlags.NO_UNIFICATION)
+                .flags(GTLMaterialFlags.GENERATE_NANOSWARM, NO_UNIFICATION)
                 .cableProperties(Integer.MAX_VALUE, 524288, 0, true)
                 .buildAndRegister();
 
         Infinity = new Material.Builder(GTCEu.id("infinity"))
                 .ingot()
                 .liquid(new FluidBuilder().temperature(1000000).customStill())
-                .blastTemp(32000, BlastProperty.GasTier.HIGHEST)
+                .blastTemp(32000, HIGHEST)
                 .element(GTLElements.INFINITY)
                 .iconSet(new MaterialIconSet("infinity"))
-                .flags(MaterialFlags.GENERATE_FRAME)
+                .flags(GENERATE_FRAME)
                 .cableProperties(Integer.MAX_VALUE, 8192, 0, true)
                 .buildAndRegister();
 
@@ -5121,15 +5124,6 @@ public class MaterialBuilder {
                 .dust()
                 .components(Calcium, 1, Fluorine, 2)
                 .color(0x18B400).iconSet(DULL)
-                .buildAndRegister();
-
-        Titanium50 = new Material.Builder(GTCEu.id("titanium_50"))
-                .ingot()
-                .fluid()
-                .element(GTLElements.TITANIUM50)
-                .blastTemp(1942)
-                .color(0xd58eed)
-                .iconSet(METALLIC)
                 .buildAndRegister();
     }
 }
