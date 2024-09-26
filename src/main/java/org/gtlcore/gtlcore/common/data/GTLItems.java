@@ -1,9 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
-import org.gtlcore.gtlcore.common.item.ConfigurationCopyBehavior;
-import org.gtlcore.gtlcore.common.item.PatternModifier;
-import org.gtlcore.gtlcore.common.item.PatternTestBehavior;
-import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
+import org.gtlcore.gtlcore.common.item.*;
+import org.gtlcore.gtlcore.integration.ae2.InfinityCell;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
 import com.gregtechceu.gtceu.GTCEu;
@@ -104,6 +102,9 @@ public class GTLItems {
                     new StorageTier(100, "super", Integer.MAX_VALUE, 100, WETWARE_MAINFRAME_UHV),
                     p.stacksTo(1), 0xFF6D36))
             .register();
+
+    public static final ItemEntry<InfinityCell> ITEM_INFINITY_CELL = REGISTRATE.item("item_infinity_cell", p -> new InfinityCell(AEKeyType.items())).register();
+    public static final ItemEntry<InfinityCell> FLUID_INFINITY_CELL = REGISTRATE.item("fluid_infinity_cell", p -> new InfinityCell(AEKeyType.fluids())).register();
 
     public static void InitUpgrades() {
         String storageCellGroup = GuiText.StorageCells.getTranslationKey();
@@ -274,6 +275,7 @@ public class GTLItems {
         return REGISTRATE.item(id, Item::new).register();
     }
 
+    public static ItemEntry<Item> INFINITE_CELL_COMPONENT = register("infinite_cell_component");
     public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = register("protonated_fullerene_sieving_matrix");
     public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = register("saturated_fullerene_sieving_matrix");
     public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = register("microfocus_x_ray_tube");

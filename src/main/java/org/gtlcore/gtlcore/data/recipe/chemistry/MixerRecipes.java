@@ -7,7 +7,8 @@ import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
 
-import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.Ethanol;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.SulfuricAcid;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.MIXER_RECIPES;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 

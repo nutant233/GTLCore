@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.utils;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.MutableComponent;
 
 import com.google.common.math.LongMath;
 
@@ -9,9 +9,7 @@ import java.text.DecimalFormat;
 
 public class NumberUtils {
 
-    private static final String[] UNITS = { "", "K", "M", "B", "T", "P", "E" };
-    private static final Style NUMBER = Style.EMPTY;
-    private static final Style UNIT = Style.EMPTY.withColor(0x0080FF);
+    private static final String[] UNITS = { "", "K", "M", "G", "T", "P", "E", "B" };
 
     public static String formatLong(long number) {
         DecimalFormat df = new DecimalFormat("#.##");
@@ -23,27 +21,21 @@ public class NumberUtils {
             unitIndex++;
         }
 
-        String formattedNumber = df.format(temp);
-
-        if (unitIndex >= UNITS.length) {
-            return String.format("%.2e", number);
-        }
-
-        return formattedNumber + UNITS[unitIndex];
+        return df.format(temp) + UNITS[unitIndex];
     }
 
-    public static Component numberText(long number) {
+    public static MutableComponent numberText(long number) {
         String text = formatLong(number);
         if (text.matches(".*[a-zA-Z]$")) {
-            return Component.literal(text.substring(0, text.length() - 1)).withStyle(NUMBER)
-                    .append(Component.literal(text.substring(text.length() - 1)).withStyle(UNIT));
+            return Component.literal(text.substring(0, text.length() - 1))
+                    .append(Component.literal(text.substring(text.length() - 1)));
         } else if (text.contains("e+")) {
             String[] split = text.split("e\\+");
-            return Component.literal(split[0]).withStyle(NUMBER)
-                    .append(Component.literal("e+").withStyle(UNIT))
-                    .append(Component.literal(split[1]).withStyle(NUMBER));
+            return Component.literal(split[0])
+                    .append(Component.literal("e+"))
+                    .append(Component.literal(split[1]));
         }
-        return Component.literal(text).withStyle(NUMBER);
+        return Component.literal(text);
     }
 
     public static int getFakeVoltageTier(long voltage) {
