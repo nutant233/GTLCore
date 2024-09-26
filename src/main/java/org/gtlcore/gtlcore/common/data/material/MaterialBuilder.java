@@ -5167,6 +5167,7 @@ public class MaterialBuilder {
                 .components(Zirconium, 1, Silicon, 1, Oxygen, 4)
                 .color(0xFF4500)
                 .iconSet(SAND)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
         MonaziteSulfatePowder = new Material.Builder(GTCEu.id("monazite_sulfate_powder"))
                 .dust()
@@ -5213,9 +5214,10 @@ public class MaterialBuilder {
                 .buildAndRegister();
         NeutralizedUraniumFilterResiduePowder = new Material.Builder(GTCEu.id("neutralized_uranium_filter_residue_powder"))
                 .dust()
-                .components(Uranium235, 1, Oxygen, 2)
+                .components(Uranium235)
                 .color(0x7F7F7F)
                 .iconSet(SAND)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
         ConcentratedMonaziteRareEarthHydroxidePowder = new Material.Builder(GTCEu.id("concentrated_monazite_rare_earth_hydroxide_powder"))
                 .dust()
@@ -5249,6 +5251,12 @@ public class MaterialBuilder {
                 .components(Carbon, 2, Hydrogen, 2, Oxygen, 4)
                 .color(0xA0FFA0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        VanadiumPentoxidePowder = new Material.Builder(GTCEu.id("vanadium_pentoxide_powder"))
+                .dust()
+                .components(Vanadium, 2, Oxygen, 5)
+                .color(0x8B0000)
+                .iconSet(SAND)
                 .buildAndRegister();
         CeriumOxalatePowder = new Material.Builder(GTCEu.id("cerium_oxalate_powder"))
                 .dust()
@@ -5364,6 +5372,29 @@ public class MaterialBuilder {
                 .fluid()
                 .components(Samarium, 1, Chlorine, 3, Water, 5)
                 .color(0xB0C4DE)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        LanthanumChloride = new Material.Builder(GTCEu.id("lanthanum_chloride"))
+                .dust()
+                .components(Lanthanum, 1, Chlorine, 3)
+                .color(0xFFFFFF)
+                .iconSet(SAND)
+                .buildAndRegister();
+        LanthanumChlorideWithImpurities = new Material.Builder(GTCEu.id("lanthanum_chloride_with_impurities"))
+                .dust()
+                .color(0xE0E0E0)
+                .iconSet(SAND)
+                .buildAndRegister();
+        MoltenSamariumChlorideWithImpurities = new Material.Builder(GTCEu.id("molten_samarium_chloride_with_impurities"))
+                .fluid()
+                .components(Samarium, 1, Chlorine, 3)
+                .color(0xFFD700)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        MoltenSamarium = new Material.Builder(GTCEu.id("molten_samarium"))
+                .fluid()
+                .components(Samarium, 1)
+                .color(0x808080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
     //wanggugu's Lanthanide treatment over

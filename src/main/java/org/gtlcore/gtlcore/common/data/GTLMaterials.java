@@ -725,6 +725,7 @@ public class GTLMaterials {
     public static Material CeriumRichMixturePowder;
     public static Material CeriumChloridePowder;
     public static Material OxalicAcid;
+    public static Material VanadiumPentoxidePowder;
     public static Material CeriumOxalatePowder;
     public static Material ConcentratedCeriumChlorideSolution;
     public static Material NitricLeachateFromMonazite;
@@ -746,6 +747,10 @@ public class GTLMaterials {
     public static Material SamariumChlorideSodiumChlorideMixturePowder;
     public static Material PhosphorusFreeSamariumConcentratePowder;
     public static Material SamariumChlorideConcentrateSolution;
+    public static Material LanthanumChloride;
+    public static Material LanthanumChlorideWithImpurities;
+    public static Material MoltenSamariumChlorideWithImpurities;
+    public static Material MoltenSamarium;
 
     public static void init() {
         MaterialAdd.init();

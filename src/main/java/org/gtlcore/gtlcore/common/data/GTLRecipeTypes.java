@@ -199,7 +199,7 @@ public class GTLRecipeTypes {
 
     public static final GTRecipeType RARE_EARTH_CENTRIFUGAL_RECIPES = register("rare_earth_centrifugal", MULTIBLOCK)
             .setEUIO(IO.IN)
-            .setMaxIOSize(1, 17, 0, 0)
+            .setMaxIOSize(1, 17, 1, 2)
             .setProgressBar(GuiTextures.CENTRIFUGE_OVERLAY, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.CENTRIFUGE);
 
