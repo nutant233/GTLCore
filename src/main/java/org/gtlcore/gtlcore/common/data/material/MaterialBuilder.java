@@ -5126,8 +5126,7 @@ public class MaterialBuilder {
                 .color(0x18B400).iconSet(DULL)
                 .buildAndRegister();
 
-
-    //wanggugu's Lanthanide treatment
+        // wanggugu's Lanthanide treatment
         SamariumRefinedPowder = new Material.Builder(GTCEu.id("samarium_refined_powder"))
                 .dust()
                 .color(0x8a6d7d)
@@ -5146,7 +5145,7 @@ public class MaterialBuilder {
                 .buildAndRegister();
         HafniumOxideZirconiaMixedPowder = new Material.Builder(GTCEu.id("hafnium_oxide_zirconia_mixed_powder"))
                 .dust()
-                .components(Hafnium, 1,Oxygen, 2, Zirconium, 1, Oxygen, 2)
+                .components(Hafnium, 1, Oxygen, 2, Zirconium, 1, Oxygen, 2)
                 .color(0x8e8176)
                 .iconSet(DULL)
                 .flags(DISABLE_DECOMPOSITION)
@@ -5196,7 +5195,7 @@ public class MaterialBuilder {
                 .iconSet(SAND)
                 .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister()
-                .setFormula("??ThP??",true);
+                .setFormula("??ThP??", true);
         MonaziteRareEarthFilterResiduePowder = new Material.Builder(GTCEu.id("monazite_rare_earth_filter_residue_powder"))
                 .dust()
                 .color(0x7F7F7F)
@@ -5392,10 +5391,139 @@ public class MaterialBuilder {
                 .color(0x808080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
+        FluoroCarbonLanthanideCeriumSolution = new Material.Builder(GTCEu.id("fluoro_carbon_lanthanide_cerium_solution"))
+                .fluid()
+                .color(0x3888d2)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SteamCrackedFluoroCarbonLanthanideSlurry = new Material.Builder(GTCEu.id("steam_cracked_fluoro_carbon_lanthanide_slurry"))
+                .fluid()
+                .color(0x7F7FFF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        ModulatedFluoroCarbonLanthanideSlurry = new Material.Builder(GTCEu.id("modulated_fluoro_carbon_lanthanide_slurry"))
+                .fluid()
+                .color(0x5A5AFF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SodiumFluorosilicate = new Material.Builder(GTCEu.id("sodium_fluorosilicate"))
+                .dust()
+                .fluid()
+                .color(0x808080)
+                .iconSet(SAND)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        DilutedFluoroCarbonLanthanideSlurry = new Material.Builder(GTCEu.id("diluted_fluoro_carbon_lanthanide_slurry"))
+                .fluid()
+                .color(0x9696FF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        FilteredFluoroCarbonLanthanideSlurry = new Material.Builder(GTCEu.id("filtered_fluoro_carbon_lanthanide_slurry"))
+                .fluid()
+                .color(0xA0A0FF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        FluoroCarbonLanthanideCeriumOxidePowder = new Material.Builder(GTCEu.id("fluoro_carbon_lanthanide_cerium_oxide_powder"))
+                .dust()
+                .color(0x7F7F7F)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        AcidLeachedFluoroCarbonLanthanideCeriumOxidePowder = new Material.Builder(GTCEu.id("acid_leached_fluoro_carbon_lanthanide_cerium_oxide_powder"))
+                .dust()
+                .color(0x555555)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CalcinedRareEarthOxidePowder = new Material.Builder(GTCEu.id("calcined_rare_earth_oxide_powder"))
+                .dust()
+                .color(0x969696)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        WetRareEarthOxidePowder = new Material.Builder(GTCEu.id("wet_rare_earth_oxide_powder"))
+                .dust()
+                .color(0x6699CC)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CeriumOxideRareEarthOxidePowder = new Material.Builder(GTCEu.id("cerium_oxide_rare_earth_oxide_powder"))
+                .dust()
+                .components(Cerium, 1, Oxygen, 2)
+                .color(0xD2D2D2)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        FluoroCarbonLanthanideCeriumRareEarthOxidePowder = new Material.Builder(GTCEu.id("fluoro_carbon_lanthanide_cerium_rare_earth_oxide_powder"))
+                .dust()
+                .color(0x7F7F7F)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        NitridedFluoroCarbonLanthanideCeriumRareEarthOxideSolution = new Material.Builder(GTCEu.id("nitrided_fluoro_carbon_lanthanide_cerium_rare_earth_oxide_solution"))
+                .fluid()
+                .color(0x9999FF)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        FluoroCarbonLanthanideCeriumRareEarthSuspension = new Material.Builder(GTCEu.id("fluoro_carbon_lanthanide_cerium_rare_earth_suspension"))
+                .fluid()
+                .color(0xBEBEBE)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        SamariumRareEarthConcentratePowder = new Material.Builder(GTCEu.id("samarium_rare_earth_concentrate_powder"))
+                .dust()
+                .color(0x808080)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        FluorinatedSamariumConcentratePowder = new Material.Builder(GTCEu.id("fluorinated_samarium_concentrate_powder"))
+                .dust()
+                .color(0x969696)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        CalciumFluoride = new Material.Builder(GTCEu.id("calcium_fluoride_powder"))
+                .dust()
+                .fluid()
+                .components(Calcium, 1, Fluorine, 2)
+                .color(0xE0E0E0)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .iconSet(GTLMaterialIconSet.LIMPID)
+                .buildAndRegister();
+        SamariumTerbiumMixturePowder = new Material.Builder(GTCEu.id("samarium_terbium_mixture_powder"))
+                .dust()
+                .color(0x969696)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        NitridedSamariumTerbiumMixturePowder = new Material.Builder(GTCEu.id("nitrided_samarium_terbium_mixture_powder"))
+                .dust()
+                .color(0x7F7F7F)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
+        TerbiumNitratePowder = new Material.Builder(GTCEu.id("terbium_nitrate_powder"))
+                .dust()
+                .color(0x0080FF)
+                .components(Terbium, 1, Nitrogen, 1, Oxygen, 3)
+                .iconSet(GTLMaterialIconSet.BRIGHT)
+                .buildAndRegister();
+        PromethiumOxide = new Material.Builder(GTCEu.id("promethium_oxide"))
+                .dust()
+                .color(0xcfcfcf)
+                .components(Promethium, 2, Oxygen, 3)
+                .iconSet(GLASS)
+                .flags(DISABLE_DECOMPOSITION)
+                .buildAndRegister();
 
-    //wanggugu's Lanthanide treatment over
-
-
-
+        // wanggugu's Lanthanide treatment over
     }
 }

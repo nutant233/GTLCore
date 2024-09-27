@@ -749,8 +749,28 @@ public class GTLMaterials {
     public static Material SamariumChlorideConcentrateSolution;
     public static Material LanthanumChloride;
     public static Material LanthanumChlorideWithImpurities;
-    public static Material MoltenSamariumChlorideWithImpurities;
     public static Material MoltenSamarium;
+    public static Material FluoroCarbonLanthanideCeriumSolution;
+    public static Material SteamCrackedFluoroCarbonLanthanideSlurry;
+    public static Material ModulatedFluoroCarbonLanthanideSlurry;
+    public static Material SodiumFluorosilicate;
+    public static Material DilutedFluoroCarbonLanthanideSlurry;
+    public static Material FilteredFluoroCarbonLanthanideSlurry;
+    public static Material FluoroCarbonLanthanideCeriumOxidePowder;
+    public static Material AcidLeachedFluoroCarbonLanthanideCeriumOxidePowder;
+    public static Material CalcinedRareEarthOxidePowder;
+    public static Material WetRareEarthOxidePowder;
+    public static Material CeriumOxideRareEarthOxidePowder;
+    public static Material FluoroCarbonLanthanideCeriumRareEarthOxidePowder;
+    public static Material NitridedFluoroCarbonLanthanideCeriumRareEarthOxideSolution;
+    public static Material FluoroCarbonLanthanideCeriumRareEarthSuspension;
+    public static Material SamariumRareEarthConcentratePowder;
+    public static Material FluorinatedSamariumConcentratePowder;
+    public static Material CalciumFluoride;
+    public static Material SamariumTerbiumMixturePowder;
+    public static Material NitridedSamariumTerbiumMixturePowder;
+    public static Material TerbiumNitratePowder;
+    public static Material PromethiumOxide;
 
     public static void init() {
         MaterialAdd.init();

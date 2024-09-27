@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.common.data.machines;
 
 import com.gregtechceu.gtceu.GTCEu;
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
@@ -12,24 +11,20 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.common.data.*;
 
 import net.minecraft.network.chat.Component;
-import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 
 import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
-import static com.gregtechceu.gtceu.common.data.GCyMBlocks.*;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeModifiers.ELECTRIC_OVERCLOCK;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
 public class LanthanideMachine {
-
 
     public static void init() {
         GeneratorMachine.init();
         AdvancedMultiBlockMachine.init();
     }
 
-    /**溶解罐*/
+    /* 溶解罐 */
     public final static MultiblockMachineDefinition DISSOLVING_TANK = REGISTRATE
             .multiblock("dissolving_tank", WorkableElectricMultiblockMachine::new)
             .langValue("Dissolving Tank")
@@ -40,8 +35,7 @@ public class LanthanideMachine {
             .recipeTypes(DISSOLUTION_TREATMENT)
             .recipeModifiers(
                     GTRecipeModifiers.PARALLEL_HATCH,
-                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK)
-            )
+                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(GTBlocks.CASING_STAINLESS_CLEAN)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("X###X", "OOOOO", "XGGGX", "XGGGX", "#XXX#")
@@ -59,12 +53,11 @@ public class LanthanideMachine {
                     .where('A', air())
                     .where('#', Predicates.any())
                     .build())
-            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel")
-                    , GTCEu.id("block/multiblock/generator/large_gas_turbine"))
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/generator/large_gas_turbine"))
             .compassNodeSelf()
             .register();
 
-    /**煮解池*/
+    /* 煮解池 */
     public final static MultiblockMachineDefinition DIGESTION_TANK = REGISTRATE
             .multiblock("digestion_tank", WorkableElectricMultiblockMachine::new)
             .langValue("Digestion Tank")
@@ -75,8 +68,7 @@ public class LanthanideMachine {
             .recipeTypes(DIGESTION_TREATMENT)
             .recipeModifiers(
                     GTRecipeModifiers.PARALLEL_HATCH,
-                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK)
-            )
+                    GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("#OOOOO#", "#YMMMY#", "##YYY##", "#######")
@@ -98,9 +90,7 @@ public class LanthanideMachine {
                     .where('A', air())
                     .where('#', Predicates.any())
                     .build())
-            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel")
-                    , GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
             .compassNodeSelf()
             .register();
-
 }

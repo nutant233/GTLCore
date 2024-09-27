@@ -652,14 +652,14 @@ public class GTLRecipeTypes {
                         widgetGroup.getSize().width - 25, widgetGroup.getSize().height - 40, false, false));
             });
 
-    /**溶解*/
+    /* 溶解 */
     public static final GTRecipeType DISSOLUTION_TREATMENT = register("dissolution_treatment", MULTIBLOCK)
             .setMaxIOSize(2, 3, 2, 1)
             .setEUIO(IO.IN)
             .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.ARC);
 
-    /**煮解*/
+    /* 煮解 */
     public static final GTRecipeType DIGESTION_TREATMENT = register("digestion_treatment", MULTIBLOCK)
             .setMaxIOSize(1, 1, 1, 1)
             .setEUIO(IO.IN)

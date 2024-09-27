@@ -27,7 +27,6 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 public class Misc {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-
         if (ConfigHolder.INSTANCE.enablePrimitiveVoidOre) {
             VanillaRecipeHelper.addShapedRecipe(provider, true, "primitive_void_ore_recipes",
                     PRIMITIVE_VOID_ORE.asStack(), "DCD", "CGC", "DCD",
