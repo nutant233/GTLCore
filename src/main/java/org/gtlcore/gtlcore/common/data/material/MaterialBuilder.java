@@ -5214,7 +5214,6 @@ public class MaterialBuilder {
                 .buildAndRegister();
         NeutralizedUraniumFilterResiduePowder = new Material.Builder(GTCEu.id("neutralized_uranium_filter_residue_powder"))
                 .dust()
-                .components(Uranium235)
                 .color(0x7F7F7F)
                 .iconSet(SAND)
                 .flags(DISABLE_DECOMPOSITION)
@@ -5352,9 +5351,11 @@ public class MaterialBuilder {
                 .buildAndRegister();
         SamariumChlorideWithImpurities = new Material.Builder(GTCEu.id("samarium_chloride_with_impurities"))
                 .dust()
+                .fluid()
                 .components(Samarium, 1, Chlorine, 3)
                 .color(0xB0B0B0)
                 .iconSet(SAND)
+                .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
         SamariumChlorideSodiumChlorideMixturePowder = new Material.Builder(GTCEu.id("samarium_chloride_sodium_chloride_mixture_powder"))
                 .dust()
@@ -5385,18 +5386,13 @@ public class MaterialBuilder {
                 .color(0xE0E0E0)
                 .iconSet(SAND)
                 .buildAndRegister();
-        MoltenSamariumChlorideWithImpurities = new Material.Builder(GTCEu.id("molten_samarium_chloride_with_impurities"))
-                .fluid()
-                .components(Samarium, 1, Chlorine, 3)
-                .color(0xFFD700)
-                .iconSet(GTLMaterialIconSet.LIMPID)
-                .buildAndRegister();
         MoltenSamarium = new Material.Builder(GTCEu.id("molten_samarium"))
                 .fluid()
                 .components(Samarium, 1)
                 .color(0x808080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
+
     //wanggugu's Lanthanide treatment over
 
 

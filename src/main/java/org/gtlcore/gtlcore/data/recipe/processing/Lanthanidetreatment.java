@@ -431,7 +431,7 @@ public class Lanthanidetreatment {
 
         DISTILLERY_RECIPES.recipeBuilder("lanthanum_chloride_with_impurities")
                 .inputItems(dust, Lanthanum, 9)
-                .inputFluids(MoltenSamariumChlorideWithImpurities.getFluid(5184))
+                .inputFluids(SamariumChlorideWithImpurities.getFluid(5184))
                 .outputItems(dust, LanthanumChlorideWithImpurities, 36)
                 .outputFluids(MoltenSamarium.getFluid(2304))
                 .duration(20 * 5)
