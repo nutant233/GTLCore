@@ -3087,8 +3087,6 @@ public class MultiBlockMachine {
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
                     GTCEu.id("block/multiblock/implosion_compressor"))
-            .compassSections(GTCompassSections.TIER[GTValues.IV])
-            .compassNodeSelf()
             .register();
 
     public final static MultiblockMachineDefinition STELLAR_FORGE = REGISTRATE.multiblock("stellar_forge", (holder) -> new TierCasingMachine(holder, "SCTier"))
