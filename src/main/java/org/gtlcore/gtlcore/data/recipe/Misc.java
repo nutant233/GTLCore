@@ -22,8 +22,7 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 import static org.gtlcore.gtlcore.common.data.GTLMachines.PRIMITIVE_VOID_ORE;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.WaterAgarMix;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DEHYDRATOR_RECIPES;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.PRIMITIVE_VOID_ORE_RECIPES;
+import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
 public class Misc {
 
@@ -104,6 +103,14 @@ public class Misc {
                 .outputItems(QUANTUM_EYE)
                 .duration(480).EUt(VA[HV])
                 .addCondition(new GravityCondition(true))
+                .save(provider);
+
+        LIGHTNING_PROCESSOR_RECIPES.recipeBuilder("ender_pearl_dust").duration(400).EUt(VA[LV])
+                .inputItems(dust, Beryllium)
+                .inputItems(dust, Potassium, 4)
+                .inputFluids(Nitrogen.getFluid(5000))
+                .circuitMeta(1)
+                .outputItems(dust, EnderPearl, 10)
                 .save(provider);
     }
 }

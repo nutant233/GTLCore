@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.common.data;
 
-import org.gtlcore.gtlcore.common.data.material.KJSMaterial;
 import org.gtlcore.gtlcore.common.data.material.MaterialAdd;
 import org.gtlcore.gtlcore.common.data.material.MaterialBuilder;
 
@@ -701,11 +700,12 @@ public class GTLMaterials {
     public static Material NitrogenPentoxide;
     public static Material AminatedFullerene;
     public static Material Azafullerene;
+    public static Material AbsoluteEthanol;
+    public static Material PiranhaSolution;
 
     public static void init() {
         MaterialAdd.init();
         MaterialBuilder.init();
-        KJSMaterial.init();
 
         if (!Platform.isDevEnv()) {
             TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);

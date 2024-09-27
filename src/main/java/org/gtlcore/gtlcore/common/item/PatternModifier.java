@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.common.item;
 
 import org.gtlcore.gtlcore.api.item.tool.ae2.patternTool.Ae2BaseProcessingPattern;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.item.component.IItemUIFactory;
@@ -14,7 +13,6 @@ import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -25,24 +23,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 import appeng.api.inventories.InternalInventory;
 import appeng.api.parts.IPart;
-import appeng.api.parts.PartHelper;
-import appeng.core.definitions.AEBlocks;
-import appeng.core.definitions.AEItems;
-import appeng.helpers.patternprovider.PatternProviderLogicHost;
+import appeng.blockentity.crafting.PatternProviderBlockEntity;
+import appeng.blockentity.networking.CableBusBlockEntity;
 import appeng.parts.crafting.PatternProviderPart;
-import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.parts.PartExPatternProvider;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 @Setter
 public class PatternModifier implements IItemUIFactory {
@@ -121,68 +112,48 @@ public class PatternModifier implements IItemUIFactory {
             /*
              * shift右键乘法逻辑
              */
-            if (context.getPlayer().isShiftKeyDown()) {
-                int i_6wertg = 0;
-                while (i_6wertg < Ae2PatternGeneratorAppliedNumber) {
-                    i_6wertg++;
-                    BlockPos clickedPos = context.getClickedPos();
-                    Level level = context.getLevel();
-                    BlockEntity blockEntityBlock = level.getBlockEntity(clickedPos);
-                    Block block = level.getBlockState(clickedPos).getBlock();
+            if (serverPlayer.isShiftKeyDown()) {
+                BlockPos pos = context.getClickedPos();
+                Level level = context.getLevel();
+                BlockEntity tile = level.getBlockEntity(pos);
+                InternalInventory internalInventory;
+                if (tile instanceof CableBusBlockEntity cable) {
+                    // 获取点击方块坐标
+                    Vec3 hitVec = context.getClickLocation();
+                    // 计算具体点击位置
+                    Vec3 hitInBlock = new Vec3(hitVec.x - (double) pos.getX(), hitVec.y - (double) pos.getY(), hitVec.z - (double) pos.getZ());
+                    IPart part = cable.getCableBus().selectPartLocal(hitInBlock).part;
+                    internalInventory = (part instanceof PatternProviderPart providerPart) ?
+                            providerPart.getLogic().getPatternInv() : null;
+                } else {
+                    internalInventory = (tile instanceof PatternProviderBlockEntity providerBlock) ?
+                            providerBlock.getLogic().getPatternInv() : null;
+                }
 
-                    IPart Part = null;
-                    List<Direction> directions = new ArrayList<>(Arrays.asList(Direction.UP, Direction.DOWN, Direction.WEST, Direction.EAST, Direction.NORTH, Direction.SOUTH));
-                    for (Direction direction : directions) {
-                        IPart part1 = PartHelper.getPart(level, clickedPos, direction);
-                        if (part1 instanceof PatternProviderPart || part1 instanceof PartExPatternProvider) {
-                            Part = part1;
-                        } ;
-                    }
-                    // IPart Part = PartHelper.getPart(level, clickedPos, context.getClickedFace());
+                if (internalInventory == null) {
+                    serverPlayer.displayClientMessage(Component.literal("只能对着样板供应器使用")
+                            .withStyle(), true);
+                    return InteractionResult.FAIL;
+                }
 
-                    int soltNumber = 0;
-                    boolean isPart = Part != null;
-                    if (block.equals(AEBlocks.PATTERN_PROVIDER.block()) || Part instanceof PatternProviderPart) {
-                        soltNumber = 9;
-                    }
-                    if (block.equals(EPPItemAndBlock.EX_PATTERN_PROVIDER) || Part instanceof PartExPatternProvider) {
-                        soltNumber = ConfigHolder.INSTANCE.exPatternProvider;
-                    }
-                    if (soltNumber == 0) {
-                        serverPlayer.displayClientMessage(Component.literal("只能对着样板供应器使用"), true);
-                        return InteractionResult.FAIL;
-                    }
-                    InternalInventory internalInventory;
-                    if (blockEntityBlock != null) {
-                        internalInventory = ((PatternProviderLogicHost) (isPart ? Part : blockEntityBlock)).getLogic().getPatternInv();
-                    } else {
-                        internalInventory = null;
-                    }
-                    if (internalInventory == null) {
-                        serverPlayer.displayClientMessage(Component.literal("未能成功获得样板供应器物品栏"), true);
-                        return InteractionResult.FAIL;
-                    }
-
-                    int i = 0;
+                for (int i = 0; i < Ae2PatternGeneratorAppliedNumber; ++i) {
                     HashMap<Integer, ItemStack> newItemStackHashMap = new HashMap<>();
-                    while (i < soltNumber) {
-                        ItemStack itemStack = internalInventory.getStackInSlot(i);
+                    for (int slot = 0; slot < internalInventory.size(); slot++) {
+                        ItemStack itemStack = internalInventory.getStackInSlot(slot);
                         if (!itemStack.isEmpty()) {
                             ItemStack patternItemStack = getNewPatternItemStack(serverPlayer, itemStack);
-                            newItemStackHashMap.put(i, patternItemStack);
+                            newItemStackHashMap.put(slot, patternItemStack);
                         }
-                        i++;
+
                     }
-                    newItemStackHashMap.forEach((integer, itemStack) -> {
-                        if (itemStack.is(AEItems.PROCESSING_PATTERN.asItem())) {
-                            internalInventory.extractItem(integer, 1, false);
-                            internalInventory.insertItem(integer, itemStack, false);
-                        }
+                    newItemStackHashMap.forEach((slot, itemStack) -> {
+                        internalInventory.extractItem(slot, 1, false);
+                        internalInventory.insertItem(slot, itemStack, false);
                     });
                 }
                 serverPlayer.displayClientMessage(Component.literal("已更新内部的样板，应用了%s次".formatted(Ae2PatternGeneratorAppliedNumber)), true);
             }
-            if (!context.getPlayer().isShiftKeyDown()) {
+            if (!serverPlayer.isShiftKeyDown()) {
                 serverPlayer.displayClientMessage(Component.literal("右键空气打开GUI"), true);
             }
         }

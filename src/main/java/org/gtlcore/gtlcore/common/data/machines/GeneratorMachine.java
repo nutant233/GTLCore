@@ -51,7 +51,7 @@ public class GeneratorMachine {
             .multiblock("chemical_energy_devourer", ChemicalEnergyDevourerMachine::new)
             .rotationState(RotationState.ALL)
             .recipeTypes(GTRecipeTypes.COMBUSTION_GENERATOR_FUELS, GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS,
-                    GTRecipeTypes.GAS_TURBINE_FUELS)
+                    GTRecipeTypes.GAS_TURBINE_FUELS, GTLRecipeTypes.ROCKET_ENGINE_FUELS)
             .generator(true)
             .tooltips(Component.translatable(
                     "gtceu.universal.tooltip.base_production_eut", 2 * GTValues.V[GTValues.ZPM]),

@@ -4,6 +4,8 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
 import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.integration.ae2.InfinityCellGuiHandler;
+import org.gtlcore.gtlcore.integration.ae2.storage.InfinityCellHandler;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
@@ -19,6 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import appeng.api.storage.StorageCells;
 import appeng.core.AELog;
 
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
@@ -45,6 +48,8 @@ public class CommonProxy {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        StorageCells.addCellHandler(InfinityCellHandler.INSTANCE);
+        StorageCells.addCellGuiHandler(new InfinityCellGuiHandler());
         event.enqueueWork(this::postRegistrationInitialization).whenComplete((res, err) -> {
             if (err != null) {
                 AELog.warn(err);

@@ -233,7 +233,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
 
     public static int getEfficiency(GTRecipeType recipeType, int tier) {
         if (recipeType == GTRecipeTypes.STEAM_TURBINE_FUELS) {
-            return (135 - 25 * tier);
+            return (125 - 25 * tier);
         }
         if (recipeType == GTLRecipeTypes.ROCKET_ENGINE_FUELS) {
             return (80 - 15 * (tier - GTValues.EV));

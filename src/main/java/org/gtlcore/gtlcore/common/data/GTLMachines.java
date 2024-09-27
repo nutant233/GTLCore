@@ -32,7 +32,6 @@ import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 
-import com.lowdragmc.lowdraglib.Platform;
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 
 import net.minecraft.ChatFormatting;
@@ -65,8 +64,8 @@ public class GTLMachines {
     public static final BiConsumer<IMultiController, List<Component>> CHEMICAL_PLANT_DISPLAY = (controller, components) -> {
         if (controller.isFormed()) {
             double value = 1 - ((CoilWorkableElectricMultiblockMachine) controller).getCoilTier() * 0.05;
-            components.add(Component.translatable("gtceu.machine.eut_multiplier.tooltip", value));
-            components.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", value));
+            components.add(Component.translatable("gtceu.machine.eut_multiplier.tooltip", value * 0.8));
+            components.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", value * 0.6));
         }
     };
 
@@ -106,9 +105,7 @@ public class GTLMachines {
 
     public static void init() {
         TootipsModify.init();
-        if (!Platform.isDevEnv()) {
-            MultiBlockMachine.init();
-        }
+        MultiBlockMachine.init();
     }
 
     static {
@@ -161,6 +158,9 @@ public class GTLMachines {
             GTMachines.genericGeneratorTankSizeFunction, 0.1f, GTValues.EV, GTValues.IV, GTValues.LuV);
     public static final MachineDefinition[] NAQUADAH_REACTOR_GENERATOR = GTMachines.registerSimpleGenerator("naquadah_reactor", GTRecipeTypes.get("naquadah_reactor"),
             GTMachines.genericGeneratorTankSizeFunction, 0.1f, GTValues.IV, GTValues.LuV, GTValues.ZPM);
+
+    public static final MachineDefinition[] LIGHTNING_PROCESSOR = GTMachines.registerSimpleMachines("lightning_processor",
+            GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES, GTMachines.defaultTankSizeFunction);
 
     public static final MachineDefinition[] DEHYDRATOR = GTMachines.registerSimpleMachines("dehydrator",
             GTLRecipeTypes.DEHYDRATOR_RECIPES, GTMachines.defaultTankSizeFunction);

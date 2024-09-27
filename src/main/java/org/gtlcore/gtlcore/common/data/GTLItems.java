@@ -1,9 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
-import org.gtlcore.gtlcore.common.item.ConfigurationCopyBehavior;
-import org.gtlcore.gtlcore.common.item.PatternModifier;
-import org.gtlcore.gtlcore.common.item.PatternTestBehavior;
-import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
+import org.gtlcore.gtlcore.common.item.*;
+import org.gtlcore.gtlcore.integration.ae2.InfinityCell;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
 import com.gregtechceu.gtceu.GTCEu;
@@ -104,6 +102,9 @@ public class GTLItems {
                     new StorageTier(100, "super", Integer.MAX_VALUE, 100, WETWARE_MAINFRAME_UHV),
                     p.stacksTo(1), 0xFF6D36))
             .register();
+
+    public static final ItemEntry<InfinityCell> ITEM_INFINITY_CELL = REGISTRATE.item("item_infinity_cell", p -> new InfinityCell(AEKeyType.items())).register();
+    public static final ItemEntry<InfinityCell> FLUID_INFINITY_CELL = REGISTRATE.item("fluid_infinity_cell", p -> new InfinityCell(AEKeyType.fluids())).register();
 
     public static void InitUpgrades() {
         String storageCellGroup = GuiText.StorageCells.getTranslationKey();
@@ -274,9 +275,19 @@ public class GTLItems {
         return REGISTRATE.item(id, Item::new).register();
     }
 
+    public static ItemEntry<Item> INFINITE_CELL_COMPONENT = register("infinite_cell_component");
     public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = register("protonated_fullerene_sieving_matrix");
     public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = register("saturated_fullerene_sieving_matrix");
     public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = register("microfocus_x_ray_tube");
     public static ItemEntry<Item> SEPARATION_ELECTROMAGNET = register("separation_electromagnet");
     public static ItemEntry<Item> HIGHLY_INSULATING_FOIL = register("highly_insulating_foil");
+    public static ItemEntry<Item> STERILIZED_PETRI_DISH = register("sterilized_petri_dish");
+    public static ItemEntry<Item> ELECTRICALY_WIRED_PETRI_DISH = register("electricaly_wired_petri_dish");
+    public static ItemEntry<Item> CONTAMINATED_PETRI_DISH = register("contaminated_petri_dish");
+    public static ItemEntry<Item> BREVIBACTERIUM_PETRI_DISH = register("brevibacterium_petri_dish");
+    public static ItemEntry<Item> BIFIDOBACTERIUMM_PETRI_DISH = register("bifidobacteriumm_petri_dish");
+    public static ItemEntry<Item> ESCHERICIA_PETRI_DISH = register("eschericia_petri_dish");
+    public static ItemEntry<Item> STREPTOCOCCUS_PETRI_DISH = register("streptococcus_petri_dish");
+    public static ItemEntry<Item> CUPRIAVIDUS_PETRI_DISH = register("cupriavidus_petri_dish");
+    public static ItemEntry<Item> SHEWANELLA_PETRI_DISH = register("shewanella_petri_dish");
 }
