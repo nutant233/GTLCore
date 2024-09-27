@@ -1,6 +1,8 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.block.CleanroomFilterType;
+import org.gtlcore.gtlcore.common.block.CraftingUnitType;
 import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
@@ -18,7 +20,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -32,7 +33,6 @@ import net.minecraftforge.client.model.generators.ModelFile;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
 import appeng.block.crafting.CraftingUnitBlock;
-import appeng.block.crafting.ICraftingUnitType;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -40,7 +40,6 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,64 +95,18 @@ public class GTLBlocks {
                 .register();
     }
 
-    public enum CraftingUnitType implements ICraftingUnitType {
-
-        STORAGE_1M(1, "1m_storage"),
-        STORAGE_4M(4, "4m_storage"),
-        STORAGE_16M(16, "16m_storage"),
-        STORAGE_64M(64, "64m_storage"),
-        STORAGE_256M(256, "256m_storage"),
-        STORAGE_MAX(-1, "max_storage");
-
-        private final int storageMb;
-
-        @Getter
-        private final String affix;
-
-        CraftingUnitType(int storageMb, String affix) {
-            this.storageMb = storageMb;
-            this.affix = affix;
-        }
-
-        @Override
-        public long getStorageBytes() {
-            return storageMb == -1 ? Long.MAX_VALUE : 1024L * 1024 * storageMb;
-        }
-
-        @Override
-        public int getAcceleratorThreads() {
-            return 0;
-        }
-
-        public BlockEntry<CraftingUnitBlock> getDefinition() {
-            return switch (this) {
-                case STORAGE_1M -> CRAFTING_STORAGE_1M;
-                case STORAGE_4M -> CRAFTING_STORAGE_4M;
-                case STORAGE_16M -> CRAFTING_STORAGE_16M;
-                case STORAGE_64M -> CRAFTING_STORAGE_64M;
-                case STORAGE_256M -> CRAFTING_STORAGE_256M;
-                case STORAGE_MAX -> CRAFTING_STORAGE_MAX;
-            };
-        }
-
-        @Override
-        public Item getItemFromType() {
-            return getDefinition().asItem();
-        }
-    }
-
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_1M = registerCraftingUnitBlock(1,
-            GTLBlocks.CraftingUnitType.STORAGE_1M);
+            CraftingUnitType.STORAGE_1M);
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_4M = registerCraftingUnitBlock(4,
-            GTLBlocks.CraftingUnitType.STORAGE_4M);
+            CraftingUnitType.STORAGE_4M);
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_16M = registerCraftingUnitBlock(16,
-            GTLBlocks.CraftingUnitType.STORAGE_16M);
+            CraftingUnitType.STORAGE_16M);
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_64M = registerCraftingUnitBlock(64,
-            GTLBlocks.CraftingUnitType.STORAGE_64M);
+            CraftingUnitType.STORAGE_64M);
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_256M = registerCraftingUnitBlock(256,
-            GTLBlocks.CraftingUnitType.STORAGE_256M);
+            CraftingUnitType.STORAGE_256M);
     public static final BlockEntry<CraftingUnitBlock> CRAFTING_STORAGE_MAX = registerCraftingUnitBlock(-1,
-            GTLBlocks.CraftingUnitType.STORAGE_MAX);
+            CraftingUnitType.STORAGE_MAX);
 
     public static BlockEntityEntry<CraftingBlockEntity> CRAFTING_STORAGE = REGISTRATE
             .blockEntity("crafting_storage", CraftingBlockEntity::new)
@@ -165,7 +118,7 @@ public class GTLBlocks {
                     CRAFTING_STORAGE_256M,
                     CRAFTING_STORAGE_MAX)
             .onRegister(type -> {
-                for (GTLBlocks.CraftingUnitType craftingUnitType : GTLBlocks.CraftingUnitType.values()) {
+                for (CraftingUnitType craftingUnitType : CraftingUnitType.values()) {
                     AEBaseBlockEntity.registerBlockEntityItem(type, craftingUnitType.getItemFromType());
                     craftingUnitType.getDefinition().get().setBlockEntity(CraftingBlockEntity.class, type, null, null);
                 }
@@ -339,7 +292,7 @@ public class GTLBlocks {
             "compressed_fusion_coil_mk2", "block/variant/compressed_fusion_coil_mk2");
 
     public static final BlockEntry<Block> FILTER_CASING_LAW = createCleanroomFilter(
-            GTLCleanroomFilterType.FILTER_CASING_LAW);
+            CleanroomFilterType.FILTER_CASING_LAW);
 
     public static final BlockEntry<Block> CASING_SUPERCRITICAL_TURBINE = createCasingBlock(
             "supercritical_turbine_casing", GTLCore.id("block/supercritical_turbine_casing"));

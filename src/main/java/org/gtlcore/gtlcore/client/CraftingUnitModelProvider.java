@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.client;
 
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.block.CraftingUnitType;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.function.Function;
 
 @OnlyIn(Dist.CLIENT)
-public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider<GTLBlocks.CraftingUnitType> {
+public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider<CraftingUnitType> {
 
     private static final List<Material> MATERIALS = new ArrayList<>();
 
@@ -42,7 +43,7 @@ public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider
     protected static final Material STORAGE_256M_LIGHT = texture("256m_storage_light");
     protected static final Material STORAGE_MAX_LIGHT = texture("max_storage_light");
 
-    public CraftingUnitModelProvider(GTLBlocks.CraftingUnitType type) {
+    public CraftingUnitModelProvider(CraftingUnitType type) {
         super(type);
     }
 
@@ -89,7 +90,7 @@ public class CraftingUnitModelProvider extends AbstractCraftingUnitModelProvider
     }
 
     public static void initCraftingUnitModels() {
-        for (GTLBlocks.CraftingUnitType type : GTLBlocks.CraftingUnitType.values()) {
+        for (CraftingUnitType type : CraftingUnitType.values()) {
             BuiltInModelHooks.addBuiltInModel(
                     GTLCore.id("block/crafting/" + type.getAffix() + "_formed"),
                     new CraftingCubeModel(new CraftingUnitModelProvider(type)));
