@@ -79,6 +79,7 @@ public class CommonProxy {
 
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
         GTLRecipeTypes.init();
+        GTLLazyRecipeTypes.init();
     }
 
     private void registerRecipeConditions(GTCEuAPI.RegisterEvent<ResourceLocation, RecipeConditionType<?>> event) {

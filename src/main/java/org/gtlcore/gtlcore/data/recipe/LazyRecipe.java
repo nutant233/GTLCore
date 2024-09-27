@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 
@@ -13,8 +14,8 @@ import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMachines.DISTILLATION_TOWER;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
-import static org.gtlcore.gtlcore.common.data.GTLLazyRecipeTypes.WOOD_DISTILLATION_RECIPES;
-import static org.gtlcore.gtlcore.common.data.machines.LazyMachine.WOOD_DISTILLATION;
+import static org.gtlcore.gtlcore.common.data.GTLLazyRecipeTypes.*;
+
 
 public class LazyRecipe {
 

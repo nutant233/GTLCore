@@ -72,6 +72,7 @@ public class GTLGTAddon implements IGTAddon {
         StoneDustProcess.init(provider);
         CircuitRecipes.init(provider);
         MixerRecipes.init(provider);
+        LazyRecipe.init(provider);
     }
 
     @Override
