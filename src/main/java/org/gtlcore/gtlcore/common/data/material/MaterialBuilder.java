@@ -5243,6 +5243,7 @@ public class MaterialBuilder {
                 .components(Cerium, 1, Chlorine, 3)
                 .color(0x808080)
                 .iconSet(SAND)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
         OxalicAcid = new Material.Builder(GTCEu.id("oxalic_acid"))
                 .fluid()
@@ -5340,6 +5341,7 @@ public class MaterialBuilder {
                 .fluid()
                 .components(Samarium, 1, Chlorine, 1, Water, 2)
                 .color(0xA9A9A9)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
         SamariumOxalateWithImpurities = new Material.Builder(GTCEu.id("samarium_oxalate_with_impurities"))
@@ -5353,8 +5355,8 @@ public class MaterialBuilder {
                 .fluid()
                 .components(Samarium, 1, Chlorine, 3)
                 .color(0xB0B0B0)
-                .iconSet(SAND)
                 .iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
         SamariumChlorideSodiumChlorideMixturePowder = new Material.Builder(GTCEu.id("samarium_chloride_sodium_chloride_mixture_powder"))
                 .dust()
