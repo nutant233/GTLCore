@@ -585,7 +585,7 @@ public class MaterialBuilder {
                 .ingot()
                 .liquid(new FluidBuilder().temperature(100).customStill())
                 .element(GTLElements.RAW_STAR_MATTER)
-                .iconSet(new MaterialIconSet("magnetohydrodynamically_constrained_star_matter"))
+                .iconSet(new MaterialIconSet("magnetohydrodynamicallyconstrainedstarmatter"))
                 .flags(GENERATE_FRAME, GENERATE_FOIL, NO_UNIFICATION)
                 .buildAndRegister();
 

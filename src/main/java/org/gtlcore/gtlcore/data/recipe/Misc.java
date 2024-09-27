@@ -20,9 +20,9 @@ import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTItems.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
-import static org.gtlcore.gtlcore.common.data.GTLMachines.PRIMITIVE_VOID_ORE;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.WaterAgarMix;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
+import static org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineB.PRIMITIVE_VOID_ORE;
 
 public class Misc {
 

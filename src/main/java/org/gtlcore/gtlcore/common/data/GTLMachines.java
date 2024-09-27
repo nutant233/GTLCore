@@ -1,36 +1,35 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
+
 import org.gtlcore.gtlcore.common.data.machines.LanthanideMachine;
 import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachine;
+
+import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
+import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
+import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineA;
+
 import org.gtlcore.gtlcore.common.data.machines.TootipsModify;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
 import org.gtlcore.gtlcore.common.machine.generator.MagicEnergyMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.CoilWorkableElectricMultipleRecipesMultiblockMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.PrimitiveOreMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.*;
-import org.gtlcore.gtlcore.config.ConfigHolder;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
-import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
-import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.client.util.TooltipHelper;
-import com.gregtechceu.gtceu.common.data.GTCompassSections;
-import com.gregtechceu.gtceu.common.data.GTCreativeModeTabs;
-import com.gregtechceu.gtceu.common.data.GTMachines;
-import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
+import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
@@ -38,9 +37,7 @@ import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 
 import com.hepdd.gtmthings.common.registry.GTMTRegistration;
 import com.hepdd.gtmthings.data.CreativeModeTabs;
@@ -49,7 +46,6 @@ import com.hepdd.gtmthings.data.WirelessMachines;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 
 public class GTLMachines {
@@ -106,8 +102,11 @@ public class GTLMachines {
 
     public static void init() {
         TootipsModify.init();
-        MultiBlockMachine.init();
         LanthanideMachine.init();
+        GeneratorMachine.init();
+        MultiBlockMachineA.init();
+        AdvancedMultiBlockMachine.init();
+
     }
 
     static {
@@ -426,29 +425,4 @@ public class GTLMachines {
             .tooltipBuilder(GTL_ADD)
             .overlayTieredHullRenderer("neutron_sensor")
             .register();
-
-    public final static MultiblockMachineDefinition PRIMITIVE_VOID_ORE = ConfigHolder.INSTANCE.enablePrimitiveVoidOre ?
-            REGISTRATE.multiblock("primitive_void_ore", PrimitiveOreMachine::new)
-                    .langValue("Primitive Void Ore")
-                    .tooltips(Component.literal("运行时根据维度每tick随机产出一组任意粗矿"))
-                    .tooltips(Component.literal("支持主世界,下界,末地"))
-                    .tooltipBuilder(GTL_ADD)
-                    .rotationState(RotationState.ALL)
-                    .recipeType(GTLRecipeTypes.PRIMITIVE_VOID_ORE_RECIPES)
-                    .appearanceBlock(() -> Blocks.DIRT)
-                    .pattern(definition -> FactoryBlockPattern.start()
-                            .aisle("XXX", "XXX", "XXX")
-                            .aisle("XXX", "XAX", "XXX")
-                            .aisle("XXX", "XSX", "XXX")
-                            .where('S', controller(blocks(definition.get())))
-                            .where('X',
-                                    blocks(Blocks.DIRT)
-                                            .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
-                                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
-                            .where('A', air())
-                            .build())
-                    .workableCasingRenderer(new ResourceLocation("minecraft:block/dirt"),
-                            GTCEu.id("block/multiblock/gcym/large_extractor"))
-                    .register() :
-            null;
 }

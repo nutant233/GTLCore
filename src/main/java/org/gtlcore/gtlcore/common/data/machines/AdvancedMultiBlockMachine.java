@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.data.machines;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.client.renderer.machine.EyeOfHarmonyRenderer;
@@ -150,13 +151,13 @@ public class AdvancedMultiBlockMachine {
                     .aisle("                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "               A A               ", "               A A               ", "               A A               ", "               A A               ", "              DDDDD              ", "             DDADADD             ", "         AAAADAADAADAAAA         ", "             DDDDDDD             ", "         AAAADAADAADAAAA         ", "             DDADADD             ", "              DDDDD              ", "               A A               ", "               A A               ", "               A A               ", "               A A               ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ")
                     .aisle("                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "             AAAAAAA             ", "            AABBBBBAA            ", "            ABBBBBBBA            ", "            ABBAAABBA            ", "            ABBA~ABBA            ", "            ABBAAABBA            ", "            ABBBBBBBA            ", "            AABBBBBAA            ", "             AAAAAAA             ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ")
                     .where('~', Predicates.controller(Predicates.blocks(definition.get())))
-                    .where('A', Predicates.blocks(Registries.getBlock("kubejs:dimensionally_transcendent_casing")))
+                    .where('A', Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
                     .where('B', Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get())
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1)))
-                    .where('D', Predicates.blocks(Registries.getBlock("kubejs:dimension_injection_casing")))
+                    .where('D', Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
                     .where('E', Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
                     .where('F', Predicates.blocks(Registries.getBlock("kubejs:spacetime_compression_field_generator")))
                     .where('G', Predicates.blocks(Registries.getBlock("kubejs:dimensional_stability_casing")))
@@ -202,7 +203,7 @@ public class AdvancedMultiBlockMachine {
                     .where("c", Predicates.blocks(GCyMBlocks.HEAT_VENT.get()))
                     .where("d", Predicates.blocks(Registries.getBlock("kubejs:neutronium_pipe_casing")))
                     .where("e", Predicates.blocks(Registries.getBlock("gtceu:black_titanium_frame")))
-                    .where("f", Predicates.blocks(Registries.getBlock("kubejs:extreme_strength_tritanium_casing")))
+                    .where("f", Predicates.blocks(GTLBlocks.EXTREME_STRENGTH_TRITANIUM_CASING.get()))
                     .build())
             .beforeWorking((machine, recipe) -> {
                 Level level = machine.self().getLevel();
@@ -239,9 +240,9 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.dimensionally_transcendent_plasma_forge"), Component.translatable("gtceu.stellar_forge")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:dimensionally_transcendent_casing"))
+            .appearanceBlock(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING)
             .pattern(definition -> GTLMachines.DTPF.where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("e", Predicates.blocks(Registries.getBlock("kubejs:dimensionally_transcendent_casing"))
+                    .where("e", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get())
                             .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
@@ -249,9 +250,9 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:dimension_injection_casing")))
+                    .where("b", Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
                     .where("C", Predicates.heatingCoils())
-                    .where("d", Predicates.blocks(Registries.getBlock("kubejs:dimensionally_transcendent_casing")))
+                    .where("d", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
                     .where("s", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
                     .where(" ", Predicates.any())
                     .build())
@@ -279,7 +280,7 @@ public class AdvancedMultiBlockMachine {
                     }
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/dimensionally_transcendent_plasma_forge"))
+            .workableCasingRenderer(GTLCore.id("block/casings/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/dimensionally_transcendent_plasma_forge"))
             .register();
 
     public final static MultiblockMachineDefinition CIRCUIT_ASSEMBLY_LINE = REGISTRATE.multiblock("circuit_assembly_line", (holder) -> new StorageMachine(holder, 64))
@@ -314,13 +315,13 @@ public class AdvancedMultiBlockMachine {
                     return recipe;
                 }
             }, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:pikyonium_machine_casing"))
+            .appearanceBlock(GTLBlocks.PIKYONIUM_MACHINE_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bfb")
                     .aisle("bbb", "cec", "bdb").setRepeatable(16)
                     .aisle("bbb", "bab", "bgb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:pikyonium_machine_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.PIKYONIUM_MACHINE_CASING.get())
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMinGlobalLimited(1).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("c", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
@@ -329,7 +330,7 @@ public class AdvancedMultiBlockMachine {
                     .where("f", Predicates.abilities(PartAbility.EXPORT_ITEMS))
                     .where("g", Predicates.abilities(PartAbility.IMPORT_FLUIDS_4X))
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/pikyonium_machine_casing"), GTCEu.id("block/multiblock/assembly_line"))
+            .workableCasingRenderer(GTLCore.id("block/casings/pikyonium_machine_casing"), GTCEu.id("block/multiblock/assembly_line"))
             .register();
 
     public final static MultiblockMachineDefinition ASSEMBLER_MODULE = REGISTRATE.multiblock("assembler_module", (holder) -> new SpaceElevatorModuleMachine(holder, true))
@@ -341,18 +342,18 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.assembler_module")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(SpaceElevatorModuleMachine::recipeModifier)
-            .appearanceBlock(() -> Registries.getBlock("kubejs:space_elevator_mechanical_casing"))
+            .appearanceBlock(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("aaa", "bcb", "bbb", "bbb", "bbb")
                     .aisle("aaa", "bbb", "bbb", "bbb", "bbb")
                     .aisle("aaa", "bbb", "bbb", "b~b", "bbb")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_mechanical_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes())))
                     .where("a", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
                     .where("c", Predicates.blocks(Registries.getBlock("kubejs:module_connector")))
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition RESOURCE_COLLECTION = REGISTRATE.multiblock("resource_collection", (holder) -> new SpaceElevatorModuleMachine(holder, false))
@@ -365,18 +366,18 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.miner_module"), Component.translatable("gtceu.drilling_module")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(SpaceElevatorModuleMachine::recipeModifier)
-            .appearanceBlock(() -> Registries.getBlock("kubejs:space_elevator_mechanical_casing"))
+            .appearanceBlock(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("aaa", "bcb", "bbb", "bbb", "bbb")
                     .aisle("aaa", "bbb", "bbb", "bbb", "bbb")
                     .aisle("aaa", "bbb", "bbb", "b~b", "bbb")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_mechanical_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes())))
                     .where("a", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
                     .where("c", Predicates.blocks(Registries.getBlock("kubejs:module_connector")))
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     private static final List<int[]> poses1 = new ArrayList<>();
@@ -444,7 +445,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.block_conversion")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 4, false)))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:aluminium_bronze_casing"))
+            .appearanceBlock(GTLBlocks.ALUMINIUM_BRONZE_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("bbbbbbb", "bbbbbbb", "bdddddb", "bdddddb", "bdddddb", "bdddddb", "bdddddb", "bbbbbbb")
                     .aisle("bbbbbbb", "bcccccb", "d     d", "d     d", "d     d", "d     d", "d     d", "bbbbbbb")
@@ -454,7 +455,7 @@ public class AdvancedMultiBlockMachine {
                     .aisle("bbbbbbb", "bcccccb", "d     d", "d     d", "d     d", "d     d", "d     d", "bbbbbbb")
                     .aisle("bbbbbbb", "bbbbbbb", "bdddddb", "bdddddb", "bdddddb", "bdddddb", "bdddddb", "bbbbbbb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:aluminium_bronze_casing")).setMinGlobalLimited(120)
+                    .where("b", Predicates.blocks(GTLBlocks.ALUMINIUM_BRONZE_CASING.get()).setMinGlobalLimited(120)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("c", Predicates.blocks(Registries.getBlock("kubejs:shining_obsidian")))
@@ -469,7 +470,7 @@ public class AdvancedMultiBlockMachine {
                     components.add(Component.literal("每次转化数量：" + (workableElectricMultiblockMachine.getTier() * 4 - 7)));
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
+            .workableCasingRenderer(GTLCore.id("block/casings/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
             .register();
 
     public final static MultiblockMachineDefinition LARGE_BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("large_block_conversion_room", WorkableElectricMultiblockMachine::new)
@@ -483,7 +484,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.block_conversion")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 4, false)))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:aluminium_bronze_casing"))
+            .appearanceBlock(GTLBlocks.ALUMINIUM_BRONZE_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("bbbbbbbbbbb", "bbbbbbbbbbb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bbbbbbbbbbb")
                     .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
@@ -497,7 +498,7 @@ public class AdvancedMultiBlockMachine {
                     .aisle("bbbbbbbbbbb", "bcccccccccb", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "d         d", "bbbbbbbbbbb")
                     .aisle("bbbbbbbbbbb", "bbbbbbbbbbb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bdddddddddb", "bbbbbbbbbbb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:aluminium_bronze_casing")).setMinGlobalLimited(240)
+                    .where("b", Predicates.blocks(GTLBlocks.ALUMINIUM_BRONZE_CASING.get()).setMinGlobalLimited(240)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("c", Predicates.blocks(Registries.getBlock("kubejs:shining_obsidian")))
@@ -512,7 +513,7 @@ public class AdvancedMultiBlockMachine {
                     components.add(Component.literal("每次转化数量：" + (workableElectricMultiblockMachine.getTier() * 64 - 7)));
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
+            .workableCasingRenderer(GTLCore.id("block/casings/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
             .register();
 
     public final static MultiblockMachineDefinition PCB_FACTORY = REGISTRATE.multiblock("pcb_factory", PCBFactoryMachine::new)
@@ -552,7 +553,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("b", Predicates.blocks(GTBlocks.CASING_STAINLESS_CLEAN.get()))
                     .where("c", Predicates.blocks(Registries.getBlock("gtceu:blue_steel_frame")))
-                    .where("d", Predicates.blocks(Registries.getBlock("kubejs:antifreeze_heatproof_machine_casing")))
+                    .where("d", Predicates.blocks(GTLBlocks.ANTIFREEZE_HEATPROOF_MACHINE_CASING.get()))
                     .where("e", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                     .where("g", Predicates.blocks(GTBlocks.CASING_POLYTETRAFLUOROETHYLENE_PIPE.get()))
                     .where("h", Predicates.blocks(Registries.getBlock("gtceu:ultimet_frame")))
@@ -578,13 +579,13 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.electric_blast_furnace")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe, 1, 0.5), (machine, recipe, params, result) -> GTRecipeModifiers.accurateParallel(machine, recipe, 64, false).getFirst(), GTRecipeModifiers::ebfOverclock)
-            .appearanceBlock(() -> Registries.getBlock("kubejs:blaze_blast_furnace_casing"))
+            .appearanceBlock(GTLBlocks.BLAZE_BLAST_FURNACE_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXX", "CCC", "CCC", "XXX")
                     .aisle("XXX", "C#C", "C#C", "XMX")
                     .aisle("XSX", "CCC", "CCC", "XXX")
                     .where("S", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("X", Predicates.blocks(Registries.getBlock("kubejs:blaze_blast_furnace_casing")).setMinGlobalLimited(9)
+                    .where("X", Predicates.blocks(GTLBlocks.BLAZE_BLAST_FURNACE_CASING.get()).setMinGlobalLimited(9)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("M", Predicates.abilities(PartAbility.MUFFLER))
@@ -617,7 +618,7 @@ public class AdvancedMultiBlockMachine {
                                     .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/blaze_blast_furnace_casing"), GTCEu.id("block/multiblock/electric_blast_furnace"))
+            .workableCasingRenderer(GTLCore.id("block/blaze_blast_furnace_casing"), GTCEu.id("block/multiblock/electric_blast_furnace"))
             .register();
 
     public final static MultiblockMachineDefinition COLD_ICE_FREEZER = REGISTRATE.multiblock("cold_ice_freezer", WorkableElectricMultiblockMachine::new)
@@ -630,13 +631,13 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.vacuum_freezer")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe, 1, 0.5), (machine, recipe, params, result) -> GTRecipeModifiers.accurateParallel(machine, recipe, 64, false).getFirst(), GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:cold_ice_casing"))
+            .appearanceBlock(GTLBlocks.COLD_ICE_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXX", "XXX", "XXX")
                     .aisle("XXX", "X#X", "XMX")
                     .aisle("XXX", "XSX", "XXX")
                     .where("S", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("X", Predicates.blocks(Registries.getBlock("kubejs:cold_ice_casing")).setMinGlobalLimited(10)
+                    .where("X", Predicates.blocks(GTLBlocks.COLD_ICE_CASING.get()).setMinGlobalLimited(10)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("M", Predicates.abilities(PartAbility.MUFFLER))
@@ -663,7 +664,7 @@ public class AdvancedMultiBlockMachine {
                     components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal("64").withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/cold_ice_casing"), GTCEu.id("block/multiblock/vacuum_freezer"))
+            .workableCasingRenderer(GTLCore.id("block/cold_ice_casing"), GTCEu.id("block/multiblock/vacuum_freezer"))
             .register();
 
     public final static MultiblockMachineDefinition DOOR_OF_CREATE = REGISTRATE.multiblock("door_of_create", WorkableElectricMultiblockMachine::new)
@@ -675,7 +676,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.door_of_create")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 1, false)))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:dimension_connection_casing"))
+            .appearanceBlock(GTLBlocks.DIMENSION_CONNECTION_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "              a              ", "             aaa             ", "            aaaaa            ", "           aaaaaaa           ", "          aaaaaaaaa          ", "         aaaaaaaaaaa         ", "        aaaaaaaaaaaaa        ", "         aaaaaaaaaaa         ", "          aaaaaaaaa          ", "           aaaaaaa           ", "            aaaaa            ", "             aaa             ", "              a              ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
                     .aisle("                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "              a              ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "             acaa            ", "       aaaaaacccaaaaaa       ", "      aaaaaacccccaaaaaa      ", "       aaaaaacccaaaaaa       ", "            aacaa            ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "              a              ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
@@ -707,8 +708,8 @@ public class AdvancedMultiBlockMachine {
                     .aisle("                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "              a              ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "            aacaa            ", "       aaaaaacccaaaaaa       ", "      aaaaaacccccaaaaaa      ", "       aaaaaacccaaaaaa       ", "            aacaa            ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "             aaa             ", "              a              ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
                     .aisle("                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "              a              ", "             aaa             ", "            aaaaa            ", "           aaaaaaa           ", "          aaaaaaaaa          ", "         aaaaaaaaaaa         ", "        aaaaaaaaaaaaa        ", "         aaaaaaaaaaa         ", "          aaaaaaaaa          ", "           aaaaaaa           ", "            aaaaa            ", "             aaa             ", "              a              ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
                     .where("b", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("a", Predicates.blocks(Registries.getBlock("kubejs:dimension_connection_casing")))
-                    .where("d", Predicates.blocks(Registries.getBlock("kubejs:dimension_connection_casing"))
+                    .where("a", Predicates.blocks(GTLBlocks.DIMENSION_CONNECTION_CASING.get()))
+                    .where("d", Predicates.blocks(GTLBlocks.DIMENSION_CONNECTION_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1)))
                     .where("c", Predicates.blocks(Registries.getBlock("kubejs:dimension_creation_casing")))
@@ -748,7 +749,7 @@ public class AdvancedMultiBlockMachine {
                 }
                 return true;
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimension_connection_casing"), GTCEu.id("block/multiblock/door_of_create"))
+            .workableCasingRenderer(GTLCore.id("block/dimension_connection_casing"), GTCEu.id("block/multiblock/door_of_create"))
             .register();
 
     public final static MultiblockMachineDefinition BEDROCK_DRILLING_RIG = REGISTRATE.multiblock("bedrock_drilling_rig", WorkableElectricMultiblockMachine::new)
@@ -762,7 +763,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.bedrock_drilling_rig")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:echo_casing"))
+            .appearanceBlock(GTLBlocks.ECHO_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("aaaaaaaaaaa", "a         a", "a         a", "ab       ba", "a         a", "a         a", "a         a", "a    b    a", "aaaaaaaaaaa")
                     .aisle("a         a", "           ", "           ", "bbb     bbb", "           ", "           ", "           ", "     b     ", "a    b    a")
@@ -776,12 +777,12 @@ public class AdvancedMultiBlockMachine {
                     .aisle("a         a", "           ", "           ", "bbb     bbb", "           ", "           ", "           ", "     b     ", "a    b    a")
                     .aisle("aaaaaaaaaaa", "a         a", "a         a", "ab       ba", "a         a", "a         a", "a         a", "a    b    a", "aaaaaaaaaaa")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:echo_casing"))
+                    .where("c", Predicates.blocks(GTLBlocks.ECHO_CASING.get())
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("a", Predicates.blocks(Registries.getBlock("kubejs:oxidation_resistant_hastelloy_n_mechanical_casing")))
+                    .where("a", Predicates.blocks(GTLBlocks.OXIDATION_RESISTANT_HASTELLOY_N_MECHANICAL_CASING.get()))
                     .where("b", Predicates.blocks(Registries.getBlock("gtceu:hastelloy_x_frame")))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TITANIUM_PIPE.get()))
                     .where("e", Predicates.blocks(GCyMBlocks.MOLYBDENUM_DISILICIDE_COIL_BLOCK.get()))
@@ -799,7 +800,7 @@ public class AdvancedMultiBlockMachine {
                 }
                 return false;
             })
-            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_sturdy_hsse"), GTCEu.id("block/multiblock/cleanroom"))
+            .workableCasingRenderer(GTLCore.id("block/casings/echo_casing"), GTCEu.id("block/multiblock/cleanroom"))
             .register();
 
     public final static MultiblockMachineDefinition CREATE_AGGREGATION = REGISTRATE.multiblock("create_aggregation", WorkableElectricMultiblockMachine::new)
@@ -811,7 +812,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.create_aggregation")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 1, false)))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:dimension_connection_casing"))
+            .appearanceBlock(GTLBlocks.DIMENSION_CONNECTION_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("          aaaaaaa          ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "          aaaaaaa          ")
                     .aisle("       aaaaaaaaaaaaa       ", "             b             ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "             b             ", "       aaaaaaaaaaaaa       ")
@@ -840,13 +841,13 @@ public class AdvancedMultiBlockMachine {
                     .aisle("     aaaaaaaaaaaaaaaaa     ", "     c      bbb      c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c               c     ", "     c       b       c     ", "     c      bbb      c     ", "     aaaaaaaaaaaaaaaaa     ")
                     .aisle("       aaaaaaaaaaaaa       ", "             b             ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "             b             ", "       aaaaaaaaaaaaa       ")
                     .aisle("          aaaaaaa          ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "          aaaaaaa          ")
-                    .where("a", Predicates.blocks(Registries.getBlock("kubejs:dimension_connection_casing"))
+                    .where("a", Predicates.blocks(GTLBlocks.DIMENSION_CONNECTION_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setMaxGlobalLimited(1)))
                     .where("b", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
                     .where("c", Predicates.blocks(Registries.getBlock("gtceu:infinity_frame")))
-                    .where("d", Predicates.blocks(Registries.getBlock("kubejs:create_casing")))
+                    .where("d", Predicates.blocks(GTLBlocks.CREATE_CASING.get()))
                     .where("e", Predicates.blocks(Registries.getBlock("kubejs:spacetime_compression_field_generator")))
                     .where("f", Predicates.blocks(Registries.getBlock("kubejs:create_aggregatione_core")))
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
@@ -868,7 +869,7 @@ public class AdvancedMultiBlockMachine {
                 }
                 return true;
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/dimension_connection_casing"), GTCEu.id("block/multiblock/create_aggregation"))
+            .workableCasingRenderer(GTLCore.id("block/dimension_connection_casing"), GTCEu.id("block/multiblock/create_aggregation"))
             .register();
 
     public final static MultiblockMachineDefinition SUPRACHRONAL_ASSEMBLY_LINE = REGISTRATE.multiblock("suprachronal_assembly_line", (holder) -> new SuprachronalAssemblyLineMachine(holder, false))
@@ -886,7 +887,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.suprachronal_assembly_line"), Component.translatable("gtceu.assembly_line"), Component.translatable("gtceu.circuit_assembly_line")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe, 1, 0.4), GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:molecular_casing"))
+            .appearanceBlock(GTLBlocks.MOLECULAR_CASING)
             .pattern(definition -> FactoryBlockPattern.start(RelativeDirection.UP, RelativeDirection.BACK, RelativeDirection.LEFT)
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ")
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "            IIICCCCCIII            ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ")
@@ -928,15 +929,15 @@ public class AdvancedMultiBlockMachine {
                     .where("B", Predicates.blocks(Registries.getBlock("kubejs:spacetime_assembly_line_unit")))
                     .where("C", Predicates.blocks(Registries.getBlock("kubejs:spacetime_assembly_line_casing")))
                     .where("D", Predicates.cleanroomFilters())
-                    .where("E", Predicates.blocks(Registries.getBlock("kubejs:dimension_injection_casing")))
+                    .where("E", Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
                     .where("F", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
                     .where("G", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
                     .where("H", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
-                    .where("I", Predicates.blocks(Registries.getBlock("kubejs:molecular_casing")))
-                    .where("J", Predicates.blocks(Registries.getBlock("kubejs:dimensionally_transcendent_casing")))
+                    .where("I", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get()))
+                    .where("J", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
                     .where("M", Predicates.blocks(Registries.getBlock("kubejs:hollow_casing")))
-                    .where("K", Predicates.blocks(Registries.getBlock("kubejs:molecular_casing")))
-                    .where("L", Predicates.blocks(Registries.getBlock("kubejs:molecular_casing"))
+                    .where("K", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get()))
+                    .where("L", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1))
@@ -946,7 +947,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
                     .where(" ", Predicates.any())
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition SUPRACHRONAL_ASSEMBLY_LINE_MODULE = REGISTRATE.multiblock("suprachronal_assembly_line_module", (holder) -> new SuprachronalAssemblyLineMachine(holder, true))
@@ -960,7 +961,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.assembly_line"), Component.translatable("gtceu.circuit_assembly_line")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe, 1, 0.4), (machine, recipe, params, result) -> GTRecipeModifiers.accurateParallel(machine, recipe, ((SuprachronalAssemblyLineMachine) machine).getParallel(), false).getFirst(), GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:molecular_casing"))
+            .appearanceBlock(GTLBlocks.MOLECULAR_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle(" D ", " E ", " D ")
                     .aisle(" D ", " D ", " D ")
@@ -970,11 +971,11 @@ public class AdvancedMultiBlockMachine {
                     .aisle("AAA", "A~A", "AAA")
                     .aisle("   ", " - ", "   ")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("B", Predicates.blocks(Registries.getBlock("kubejs:dimensionally_transcendent_casing")))
+                    .where("B", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
                     .where("C", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
                     .where("D", Predicates.blocks(GTBlocks.FUSION_GLASS.get()))
                     .where("E", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:molecular_casing"))
+                    .where("A", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1))
@@ -984,7 +985,7 @@ public class AdvancedMultiBlockMachine {
                     .where(" ", Predicates.any())
                     .where("-", Predicates.air())
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition PROCESSING_PLANT = REGISTRATE.multiblock("processing_plant", (holder) -> new StorageMachine(holder, 1))
@@ -1018,12 +1019,13 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.fluid_solidifier")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
+            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bbb")
                     .aisle("bbb", "bcb", "bbb")
                     .aisle("bbb", "bab", "bbb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:multi_functional_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
                             .setMinGlobalLimited(14)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
@@ -1064,7 +1066,7 @@ public class AdvancedMultiBlockMachine {
                 return isrecipe;
             })
             .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition ASSEMBLE_PLANT = REGISTRATE.multiblock("assemble_plant", (holder) -> new StorageMachine(holder, 1))
@@ -1079,12 +1081,13 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.assembler"), Component.translatable("gtceu.circuit_assembler")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
+            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bbb")
                     .aisle("bbb", "bcb", "bbb")
                     .aisle("bbb", "bab", "bbb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:multi_functional_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
                             .setMinGlobalLimited(14)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
@@ -1107,7 +1110,7 @@ public class AdvancedMultiBlockMachine {
                 return isrecipe;
             })
             .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition SEPARATED_PLANT = REGISTRATE.multiblock("separated_plant", (holder) -> new StorageMachine(holder, 1))
@@ -1133,12 +1136,13 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.dehydrator")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
+            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bbb")
                     .aisle("bbb", "bcb", "bbb")
                     .aisle("bbb", "bab", "bbb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:multi_functional_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
                             .setMinGlobalLimited(14)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
@@ -1171,7 +1175,7 @@ public class AdvancedMultiBlockMachine {
                 return isrecipe;
             })
             .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition MIXED_PLANT = REGISTRATE.multiblock("mixed_plant", (holder) -> new StorageMachine(holder, 1))
@@ -1191,13 +1195,13 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.ore_washer")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
-            .appearanceBlock(() -> Registries.getBlock("kubejs:multi_functional_casing"))
+            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bbb")
                     .aisle("bbb", "bcb", "bbb")
                     .aisle("bbb", "bab", "bbb")
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:multi_functional_casing"))
+                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
                             .setMinGlobalLimited(14)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
@@ -1224,7 +1228,7 @@ public class AdvancedMultiBlockMachine {
                 return isrecipe;
             })
             .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition WEATHER_CONTROL = REGISTRATE.multiblock("weather_control", WorkableElectricMultiblockMachine::new)
@@ -1289,7 +1293,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.nano_forge")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.nanoForgeOverclock(machine, recipe, params, result, 1))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:naquadah_alloy_casing"))
+            .appearanceBlock(GTLBlocks.NAQUADAH_ALLOY_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "    B    ", "    B    ", "    B    ", "    B    ", "    B    ", "    B    ", "    B    ", "    B    ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ")
                     .aisle("  AAAAA  ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ")
@@ -1301,8 +1305,8 @@ public class AdvancedMultiBlockMachine {
                     .aisle(" ABBBBBA ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "  CB BC  ", "  CB BC  ", "  CB BC  ", "  CB BC  ", "  BB BB  ", "  BB BB  ", "  BB BB  ", "  BB BB  ", "  BB BB  ", "  BB BB  ", "  BB BB  ", "  BB BB  ", "  CB BC  ", "  CB BC  ", "  CB BC  ", "  CB BC  ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "    C    ", "    C    ", "    C    ", "    C    ", "    C    ")
                     .aisle("  AA~AA  ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "   CBC   ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("B", Predicates.blocks(Registries.getBlock("kubejs:naquadah_alloy_casing")))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:naquadah_alloy_casing"))
+                    .where("B", Predicates.blocks(GTLBlocks.NAQUADAH_ALLOY_CASING.get()))
+                    .where("A", Predicates.blocks(GTLBlocks.NAQUADAH_ALLOY_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
@@ -1319,7 +1323,7 @@ public class AdvancedMultiBlockMachine {
                     }
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/casings/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition NANO_FORGE_2 = REGISTRATE.multiblock("nano_forge_2", (holder) -> new StorageMachine(holder, 64))
@@ -1334,7 +1338,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.nano_forge")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.nanoForgeOverclock(machine, recipe, params, result, 2))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:naquadah_alloy_casing"))
+            .appearanceBlock(GTLBlocks.NAQUADAH_ALLOY_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "    A              ", "    A              ", "    A              ", "    A              ", "    A              ", "    A              ", "    A              ", "    A              ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ")
                     .aisle("  CCCCC            ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "   DAD             ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ")
@@ -1349,8 +1353,8 @@ public class AdvancedMultiBlockMachine {
                     .aisle("           AAAAAAAA", "                   ", "                   ", "                   ", "                   ", "              AA   ", "              BB   ", "              AA   ", "                   ", "                   ", "                   ", "                   ", "              AA   ", "              BB   ", "              AA   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ")
                     .aisle("           AAAAAAAA", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ")
                     .aisle("            AAAAAA ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ", "                   ").where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:naquadah_alloy_casing")))
-                    .where("C", Predicates.blocks(Registries.getBlock("kubejs:naquadah_alloy_casing"))
+                    .where("A", Predicates.blocks(GTLBlocks.NAQUADAH_ALLOY_CASING.get()))
+                    .where("C", Predicates.blocks(GTLBlocks.NAQUADAH_ALLOY_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
@@ -1368,7 +1372,7 @@ public class AdvancedMultiBlockMachine {
                     }
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/casings/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition NANO_FORGE_3 = REGISTRATE.multiblock("nano_forge_3", (holder) -> new StorageMachine(holder, 64))
@@ -1384,7 +1388,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.nano_forge")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.nanoForgeOverclock(machine, recipe, params, result, 3))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:naquadah_alloy_casing"))
+            .appearanceBlock(GTLBlocks.NAQUADAH_ALLOY_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "              A              ", "              A              ", "              A              ", "              A              ", "              A              ", "              A              ", "              A              ", "              A              ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
                     .aisle("            DDDDD            ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "             CAC             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
@@ -1400,8 +1404,8 @@ public class AdvancedMultiBlockMachine {
                     .aisle("AAAAAAAA             AAAAAAAA", " C                           ", "                             ", "                             ", "      C                      ", "                             ", "                             ", " C                           ", "                             ", "                             ", "      C                      ", "                             ", "                             ", " C                           ", "                             ", "                             ", "      C                      ", "                             ", "                             ", " C                           ", "                             ", "                             ", "      C                      ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
                     .aisle(" AAAAAA               AAAAAA ", "                             ", "  CC                         ", "    CC                       ", "                             ", "                             ", "                             ", "                             ", "  CC                         ", "    CC                       ", "                             ", "                             ", "                             ", "                             ", "  CC                         ", "    CC                       ", "                             ", "                             ", "                             ", "                             ", "  CC                         ", "    CC                       ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ", "                             ")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:naquadah_alloy_casing")))
-                    .where("D", Predicates.blocks(Registries.getBlock("kubejs:naquadah_alloy_casing"))
+                    .where("A", Predicates.blocks(GTLBlocks.NAQUADAH_ALLOY_CASING.get()))
+                    .where("D", Predicates.blocks(GTLBlocks.NAQUADAH_ALLOY_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
@@ -1419,7 +1423,7 @@ public class AdvancedMultiBlockMachine {
                     }
                 }
             })
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
+            .workableCasingRenderer(GTLCore.id("block/casings/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
     public final static MultiblockMachineDefinition ISA_MILL = REGISTRATE.multiblock("isa_mill", (holder) -> new StorageMachine(holder, 1))
@@ -1505,7 +1509,7 @@ public class AdvancedMultiBlockMachine {
                     .where('C', blocks(GTBlocks.CASING_STAINLESS_CLEAN.get())
                             .or(abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
                             .or(abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(2)))
-                    .where('D', blocks(Registries.getBlock("kubejs:process_machine_casing")))
+                    .where('D', blocks(GTLBlocks.PROCESS_MACHINE_CASING.get()))
                     .where('E', blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                     .where('F', GTLPredicates.countBlock("SpeedPipe",
                             Registries.getBlock("kubejs:speeding_pipe")))
@@ -1580,7 +1584,7 @@ public class AdvancedMultiBlockMachine {
                             .where('F', blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Ruridit)))
                             .where('#', any())
                             .build())
-                    .workableCasingRenderer(new ResourceLocation("kubejs:block/iridium_casing"),
+                    .workableCasingRenderer(GTLCore.id("block/casings/iridium_casing"),
                             GTCEu.id("block/multiblock/fluid_drilling_rig"))
                     .register(),
             GTValues.ZPM);
@@ -1645,7 +1649,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.fission_reactor")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier((machine, recipe, params, result) -> FissionReactorMachine.recipeModifier(machine, recipe))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:fission_reactor_casing"))
+            .appearanceBlock(GTLBlocks.FISSION_REACTOR_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("AAAAAAAAA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "AAAAAAAAA")
                     .aisle("AAAAAAAAA", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "AAAAAAAAA")
@@ -1657,18 +1661,18 @@ public class AdvancedMultiBlockMachine {
                     .aisle("AAAAAAAAA", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "BCCCCCCCB", "AAAAAAAAA")
                     .aisle("AAAA~AAAA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "ABBBBBBBA", "AAAAAAAAA")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:fission_reactor_casing"))
+                    .where("A", Predicates.blocks(GTLBlocks.FISSION_REACTOR_CASING.get())
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1)))
-                    .where("B", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()).or(Predicates.blocks(Registries.getBlock("kubejs:fission_reactor_casing"))))
+                    .where("B", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()).or(Predicates.blocks(GTLBlocks.FISSION_REACTOR_CASING.get())))
                     .where("C", Predicates.air().or(GTLPredicates.countBlock("FuelAssembly", GTLBlocks.FISSION_FUEL_ASSEMBLY.get()))
                             .or(GTLPredicates.countBlock("Cooler", GTLBlocks.COOLER.get())))
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/fission_reactor_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/casings/fission_reactor_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition SPACE_ELEVATOR = REGISTRATE.multiblock("space_elevator", SpaceElevatorMachine::new)
@@ -1682,7 +1686,7 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.space_elevator")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(new OverclockingLogic(1, 4, false)))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:space_elevator_mechanical_casing"))
+            .appearanceBlock(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING)
             .pattern(definition -> FactoryBlockPattern.start(RIGHT, DOWN, FRONT)
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               FF FF               ", "               AAAAA               ")
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               D   D               ", "            FFFFF FFFFF            ", "            AAAAAAAAAAA            ")
@@ -1720,7 +1724,7 @@ public class AdvancedMultiBlockMachine {
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               D   D               ", "            FFFFF FFFFF            ", "            AAAAAAAAAAA            ")
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               FF FF               ", "               AAAAA               ")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("X", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_mechanical_casing"))
+                    .where("X", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1))
@@ -1730,7 +1734,7 @@ public class AdvancedMultiBlockMachine {
                     .where("F", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_internal_support")))
                     .where("C", GTLPredicates.tierActiveCasings(GTLBlocks.sepmmap, "SEPMTier"))
                     .where("A", Predicates.blocks(Registries.getBlock("kubejs:high_strength_concrete")))
-                    .where("D", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_mechanical_casing")))
+                    .where("D", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get()))
                     .where("M", Predicates.blocks(GTLBlocks.POWER_CORE.get()))
                     .where("G", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
                     .where("V", Predicates.any().or(Predicates.blocks(Registries.getBlock("kubejs:module_connector")).setPreviewCount(1)))
