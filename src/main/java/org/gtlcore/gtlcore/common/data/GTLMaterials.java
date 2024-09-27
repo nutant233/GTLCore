@@ -703,6 +703,78 @@ public class GTLMaterials {
     public static Material AbsoluteEthanol;
     public static Material PiranhaSolution;
 
+    public static Material SamariumRefinedPowder;
+    public static Material SamariumRrareEearthTurbidLiquid;
+    public static Material MonaziteRareEarthTurbidLiquid;
+    public static Material HafniumOxideZirconiaMixedPowder;
+    public static Material ThoritePowder;
+    public static Material DilutedMonaziteSlurry;
+    public static Material RedZirconPowder;
+    public static Material MonaziteSulfatePowder;
+    public static Material DilutedMonaziteSulfateSolution;
+    public static Material AcidicMonazitePowder;
+    public static Material ThoriumPhosphateFilterCakePowder;
+    public static Material ThoriumPhosphateRefinedPowder;
+    public static Material MonaziteRareEarthFilterResiduePowder;
+    public static Material NeutralizedMonaziteRareEarthFilterResiduePowder;
+    public static Material UraniumFilterResiduePowder;
+    public static Material NeutralizedUraniumFilterResiduePowder;
+    public static Material ConcentratedMonaziteRareEarthHydroxidePowder;
+    public static Material DriedConcentratedNitricMonaziteRareEarthPowder;
+    public static Material ConcentratedNitrideMonaziteRareEarthSolution;
+    public static Material CeriumRichMixturePowder;
+    public static Material CeriumChloridePowder;
+    public static Material OxalicAcid;
+    public static Material VanadiumPentoxidePowder;
+    public static Material CeriumOxalatePowder;
+    public static Material ConcentratedCeriumChlorideSolution;
+    public static Material NitricLeachateFromMonazite;
+    public static Material ConcentratedNitricLeachateFromMonazite;
+    public static Material CoolingConcentratedNitricMonaziteRareEarthPowder;
+    public static Material MonaziteRareEarthPrecipitatePowder;
+    public static Material HeterogeneousHalideMonaziteRareEarthMixturePowder;
+    public static Material SaturatedMonaziteRareEarthPowder;
+    public static Material SamariumPrecipitatePowder;
+    public static Material ConcentratedRareEarthChlorideSolution;
+    public static Material EnrichedRareEarthChlorideSolution;
+    public static Material DilutedRareEarthChlorideSolution;
+    public static Material RareEarthProcessingWastewater;
+    public static Material SamariumRareEarthSlurry;
+    public static Material NeodymiumRareEarthConcentratePowder;
+    public static Material SamariumRareEarthDilutedSolution;
+    public static Material SamariumOxalateWithImpurities;
+    public static Material SamariumChlorideWithImpurities;
+    public static Material SamariumChlorideSodiumChlorideMixturePowder;
+    public static Material PhosphorusFreeSamariumConcentratePowder;
+    public static Material SamariumChlorideConcentrateSolution;
+    public static Material LanthanumChloride;
+    public static Material LanthanumChlorideWithImpurities;
+    public static Material MoltenSamarium;
+    public static Material FluoroCarbonLanthanideCeriumSolution;
+    public static Material SteamCrackedFluoroCarbonLanthanideSlurry;
+    public static Material ModulatedFluoroCarbonLanthanideSlurry;
+    public static Material SodiumFluorosilicate;
+    public static Material DilutedFluoroCarbonLanthanideSlurry;
+    public static Material FilteredFluoroCarbonLanthanideSlurry;
+    public static Material FluoroCarbonLanthanideCeriumOxidePowder;
+    public static Material AcidLeachedFluoroCarbonLanthanideCeriumOxidePowder;
+    public static Material CalcinedRareEarthOxidePowder;
+    public static Material WetRareEarthOxidePowder;
+    public static Material CeriumOxideRareEarthOxidePowder;
+    public static Material FluoroCarbonLanthanideCeriumRareEarthOxidePowder;
+    public static Material NitridedFluoroCarbonLanthanideCeriumRareEarthOxideSolution;
+    public static Material FluoroCarbonLanthanideCeriumRareEarthSuspension;
+    public static Material SamariumRareEarthConcentratePowder;
+    public static Material FluorinatedSamariumConcentratePowder;
+    public static Material CalciumFluoride;
+    public static Material SamariumTerbiumMixturePowder;
+    public static Material NitridedSamariumTerbiumMixturePowder;
+    public static Material TerbiumNitratePowder;
+    public static Material PromethiumOxide;
+
+
+
+
     public static void init() {
         MaterialAdd.init();
         MaterialBuilder.init();
