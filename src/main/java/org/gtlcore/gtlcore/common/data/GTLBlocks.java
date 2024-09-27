@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
 import appeng.block.crafting.CraftingUnitBlock;
@@ -34,6 +35,7 @@ import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,7 +58,7 @@ public class GTLBlocks {
     public static void init() {
         for (int i = 1; i < 15; i++) {
             GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(),
-                    new ResourceLocation("kubejs:block/component_assembly_line_casing_" + i), calmap, i);
+                    GTLCore.id("block/casings/component_assembly_line/component_assembly_line_casing_" + GTValues.VN[i].toLowerCase()), calmap, i);
         }
     }
 
@@ -234,7 +236,7 @@ public class GTLBlocks {
                 .properties(properties -> properties.strength(2.0f, 8.0f).sound(SoundType.METAL)
                         .isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(GTModels.createCleanroomFilterModel(filterType.getSerializedName(), filterType))
+                .blockstate(NonNullBiConsumer.noop())
                 .tag(GTToolType.WRENCH.harvestTags.get(0), CustomTags.TOOL_TIERS[1])
                 .item(BlockItem::new)
                 .build()
@@ -263,7 +265,12 @@ public class GTLBlocks {
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(properties -> properties.strength(5.0f, 10.0f).sound(SoundType.METAL))
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(GTModels.createFusionCasingModel(casingType.getSerializedName(), casingType))
+                .blockstate((ctx, prov) -> {
+                    ActiveBlock block = ctx.getEntry();
+                    ModelFile inactive = prov.models().getExistingFile(GTLCore.id(casingType.getSerializedName()));
+                    ModelFile active = prov.models().getExistingFile(GTLCore.id(casingType.getSerializedName()).withSuffix("_active"));
+                    prov.getVariantBuilder(block).partialState().with(ActiveBlock.ACTIVE, false).modelForState().modelFile(inactive).addModel().partialState().with(ActiveBlock.ACTIVE, true).modelForState().modelFile(active).addModel();
+                })
                 .tag(GTToolType.WRENCH.harvestTags.get(0), CustomTags.TOOL_TIERS[casingType.getHarvestLevel()])
                 .item(BlockItem::new)
                 .build()
@@ -281,7 +288,7 @@ public class GTLBlocks {
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
-                .blockstate(GTModels.createHermeticCasingModel(tierName))
+                .blockstate(NonNullBiConsumer.noop())
                 .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
                 .item(BlockItem::new)
                 .build()
@@ -341,12 +348,12 @@ public class GTLBlocks {
             "block/variant/space_elevator_support");
 
     public static final BlockEntry<Block> STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings(
-            "stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"), scmap, 1);
+            "stellar_containment_casing", GTLCore.id("block/stellar_containment_casing"), scmap, 1);
     public static final BlockEntry<Block> ADVANCED_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings(
-            "advanced_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"),
+            "advanced_stellar_containment_casing", GTLCore.id("block/stellar_containment_casing"),
             scmap, 2);
     public static final BlockEntry<Block> ULTIMATE_STELLAR_CONTAINMENT_CASING = GTLBlocks.createTierCasings(
-            "ultimate_stellar_containment_casing", new ResourceLocation("kubejs", "block/stellar_containment_casing"),
+            "ultimate_stellar_containment_casing", GTLCore.id("block/stellar_containment_casing"),
             scmap, 3);
 
     public static final BlockEntry<ActiveBlock> POWER_MODULE = GTLBlocks.createActiveTierCasing("power_module",
