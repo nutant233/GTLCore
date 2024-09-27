@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.machine.trait.INFFluidDrillLogic;
-import org.gtlcore.gtlcore.utils.Registries;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.IEnergyContainer;
@@ -104,6 +104,6 @@ public class INFFluidDrillMachine extends WorkableElectricMultiblockMachine impl
     }
 
     public static Block getCasingState(int tier) {
-        return Registries.getBlock("kubejs:iridium_casing");
+        return GTLBlocks.IRIDIUM_CASING.get();
     }
 }

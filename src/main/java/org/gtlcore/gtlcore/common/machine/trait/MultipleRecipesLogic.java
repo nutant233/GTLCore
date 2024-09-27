@@ -20,8 +20,6 @@ import java.util.List;
 @Getter
 public class MultipleRecipesLogic extends RecipeLogic {
 
-    private int latency = 1;
-
     public MultipleRecipesLogic(WorkableElectricMultipleRecipesMachine machine) {
         super(machine);
     }
@@ -44,13 +42,9 @@ public class MultipleRecipesLogic extends RecipeLogic {
 
     @Nullable
     private GTRecipe getRecipe() {
-        if (!machine.hasProxies() || getMachine().getOffsetTimer() % latency != 0) return null;
+        if (!machine.hasProxies()) return null;
         GTRecipe match = LookupRecipe();
-        if (match == null) {
-            if (latency < 40) latency++;
-            return null;
-        }
-        latency = 1;
+        if (match == null) return null;
         GTRecipe recipe = buildEmptyRecipe();
         recipe.outputs.put(ItemRecipeCapability.CAP, new ArrayList<>());
         recipe.outputs.put(FluidRecipeCapability.CAP, new ArrayList<>());

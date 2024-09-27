@@ -5,8 +5,11 @@ import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
+import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
+import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
+import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
@@ -46,7 +49,10 @@ public class PCBFactoryMachine extends StorageMachine {
                                           @NotNull OCResult result) {
         if (machine instanceof PCBFactoryMachine pcbFactoryMachine) {
             pcbFactoryMachine.getPCBReduction();
-            return GTLRecipeModifiers.reduction(pcbFactoryMachine, recipe, pcbFactoryMachine.reductionEUt, pcbFactoryMachine.reductionDuration);
+            GTRecipe recipe1 = GTLRecipeModifiers.reduction(pcbFactoryMachine, recipe, pcbFactoryMachine.reductionEUt, pcbFactoryMachine.reductionDuration);
+            if (recipe1 != null) {
+                return RecipeHelper.applyOverclock(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK, GTRecipeModifiers.hatchParallel(machine, recipe1, false, params, result), pcbFactoryMachine.getOverclockVoltage(), params, result);
+            }
         }
         return null;
     }

@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.integration.jei;
 
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachine;
+import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineA;
 
 import com.lowdragmc.lowdraglib.LDLib;
 
@@ -24,7 +24,7 @@ public class GTJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         if (LDLib.isReiLoaded() || LDLib.isEmiLoaded()) return;
-        registration.addRecipeCatalyst(MultiBlockMachine.ADVANCED_MULTI_SMELTER.asStack(), RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(MultiBlockMachine.DIMENSIONALLY_TRANSCENDENT_STEAM_OVEN.asStack(), RecipeTypes.SMELTING);
+        registration.addRecipeCatalyst(MultiBlockMachineA.ADVANCED_MULTI_SMELTER.asStack(), RecipeTypes.SMELTING);
+        registration.addRecipeCatalyst(MultiBlockMachineA.DIMENSIONALLY_TRANSCENDENT_STEAM_OVEN.asStack(), RecipeTypes.SMELTING);
     }
 }

@@ -40,20 +40,10 @@ public class GTLRecipeModifiers {
     public static GTRecipe chemicalPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                                   @NotNull OCResult result) {
         if (machine instanceof CoilWorkableElectricMultiblockMachine coilMachine) {
-            if (RecipeHelper.getRecipeEUtTier(recipe) > coilMachine.getTier()) {
-                return null;
+            GTRecipe recipe1 = reduction(machine, recipe, (1.0 - coilMachine.getCoilTier() * 0.05) * 0.8, (1.0 - coilMachine.getCoilTier() * 0.05) * 0.6);
+            if (recipe1 != null) {
+                return RecipeHelper.applyOverclock(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK, GTRecipeModifiers.hatchParallel(machine, recipe1, false, params, result), coilMachine.getOverclockVoltage(), params, result);
             }
-            var re = RecipeHelper.applyOverclock(
-                    new OverclockingLogic((p, r, maxVoltage) -> {
-                        OverclockingLogic.NON_PERFECT_OVERCLOCK.getLogic()
-                                .runOverclockingLogic(params, result, maxVoltage);
-                    }), recipe, coilMachine.getOverclockVoltage(), params, result);
-
-            if (coilMachine.getCoilTier() > 0) {
-                result.setEut(Math.max(1, (long) (result.getEut() * (1.0 - coilMachine.getCoilTier() * 0.05))));
-                result.setDuration((int) Math.max(1, (result.getDuration() * (1.0 - coilMachine.getCoilTier() * 0.05))));
-            }
-            return re;
         }
         return null;
     }
