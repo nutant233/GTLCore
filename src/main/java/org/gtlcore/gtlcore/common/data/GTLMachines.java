@@ -262,7 +262,6 @@ public class GTLMachines {
             .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(7,
                     GTCEu.id("block/machine/part/maintenance.sterile_cleaning")))
-            .compassNodeSelf()
             .register();
 
     public static final MachineDefinition LAW_CLEANING_MAINTENANCE_HATCH = REGISTRATE
@@ -282,7 +281,6 @@ public class GTLMachines {
             .tooltipBuilder(GTL_ADD)
             .renderer(
                     () -> new MaintenanceHatchPartRenderer(10, GTCEu.id("block/machine/part/maintenance.law_cleaning")))
-            .compassNodeSelf()
             .register();
 
     public static final MachineDefinition AUTO_CONFIGURATION_MAINTENANCE_HATCH = REGISTRATE
@@ -292,7 +290,6 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.universal.disabled"))
             .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(5, GTCEu.id("block/machine/part/maintenance.full_auto")))
-            .compassNodeSelf()
             .register();
 
     public static final MachineDefinition CLEANING_CONFIGURATION_MAINTENANCE_HATCH = REGISTRATE
@@ -312,7 +309,6 @@ public class GTLMachines {
             })
             .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(5, GTCEu.id("block/machine/part/maintenance.cleaning")))
-            .compassNodeSelf()
             .register();
 
     public static final MachineDefinition STERILE_CONFIGURATION_CLEANING_MAINTENANCE_HATCH = REGISTRATE
@@ -333,7 +329,6 @@ public class GTLMachines {
             .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(9,
                     GTCEu.id("block/machine/part/maintenance.sterile_cleaning")))
-            .compassNodeSelf()
             .register();
 
     public static final MachineDefinition LAW_CONFIGURATION_CLEANING_MAINTENANCE_HATCH = REGISTRATE
@@ -354,7 +349,6 @@ public class GTLMachines {
             .tooltipBuilder(GTL_ADD)
             .renderer(
                     () -> new MaintenanceHatchPartRenderer(12, GTCEu.id("block/machine/part/maintenance.law_cleaning")))
-            .compassNodeSelf()
             .register();
 
     public static final MachineDefinition GRAVITY_HATCH = REGISTRATE
@@ -364,7 +358,6 @@ public class GTLMachines {
             .tooltips(Component.translatable("gtceu.universal.disabled"))
             .tooltipBuilder(GTL_ADD)
             .renderer(() -> new MaintenanceHatchPartRenderer(8, GTCEu.id("block/machine/part/maintenance.full_auto")))
-            .compassNodeSelf()
             .register();
 
     public final static MachineDefinition[] HUGE_FLUID_IMPORT_HATCH = registerHugeFluidHatches("huge_input_hatch", "Huge Input Hatch", "fluid_hatch.import", "fluid_hatch.import", IO.IN, PartAbility.IMPORT_FLUIDS);

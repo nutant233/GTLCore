@@ -28,6 +28,7 @@ import appeng.items.tools.powered.PortableCellItem;
 import appeng.menu.me.common.MEStorageMenu;
 import com.hepdd.gtmthings.data.CreativeModeTabs;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 
 import java.util.List;
 import java.util.Locale;
@@ -208,10 +209,10 @@ public class GTLItems {
             })))
             .register();
 
-    public static ItemEntry<Item> ELECTRIC_PISTON_MAX = register("max_electric_piston");
-    public static ItemEntry<Item> FIELD_GENERATOR_MAX = register("max_field_generator");
-    public static ItemEntry<Item> EMITTER_MAX = register("max_emitter");
-    public static ItemEntry<Item> SENSOR_MAX = register("max_sensor");
+    public static ItemEntry<Item> ELECTRIC_PISTON_MAX = register("max_electric_piston", true);
+    public static ItemEntry<Item> FIELD_GENERATOR_MAX = register("max_field_generator", true);
+    public static ItemEntry<Item> EMITTER_MAX = register("max_emitter", true);
+    public static ItemEntry<Item> SENSOR_MAX = register("max_sensor", true);
 
     public static ItemEntry<ComponentItem> PRIMITIVE_ROBOT_ARM = REGISTRATE
             .item("primitive_robot_arm", ComponentItem::create)
@@ -254,40 +255,44 @@ public class GTLItems {
     public static final ItemEntry<ComponentItem> DEBUG_STRUCTURE_WRITER = REGISTRATE
             .item("debug_structure_writer", ComponentItem::create)
             .onRegister(GTItems.attach(StructureWriteBehavior.INSTANCE))
+            .model(NonNullBiConsumer.noop())
             .register();
 
     public static final ItemEntry<ComponentItem> DEBUG_PATTERN_TEST = REGISTRATE
             .item("debug_pattern_test", ComponentItem::create)
             .onRegister(GTItems.attach(PatternTestBehavior.INSTANCE))
+            .model(NonNullBiConsumer.noop())
             .register();
 
     public static final ItemEntry<ComponentItem> PATTERN_MODIFIER = REGISTRATE
             .item("pattern_modifier", ComponentItem::create)
             .onRegister(GTItems.attach(PatternModifier.INSTANCE))
+            .model(NonNullBiConsumer.noop())
             .register();
 
     public static ItemEntry<ComponentItem> CFG_COPY = REGISTRATE
             .item("cfg_copy", ComponentItem::create)
             .onRegister(attach(ConfigurationCopyBehavior.INSTANCE))
+            .model(NonNullBiConsumer.noop())
             .register();
 
-    private static ItemEntry<Item> register(String id) {
-        return REGISTRATE.item(id, Item::new).register();
+    private static ItemEntry<Item> register(String id, boolean defaultModel) {
+        return defaultModel ? REGISTRATE.item(id, Item::new).register() : REGISTRATE.item(id, Item::new).model(NonNullBiConsumer.noop()).register();
     }
 
-    public static ItemEntry<Item> INFINITE_CELL_COMPONENT = register("infinite_cell_component");
-    public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = register("protonated_fullerene_sieving_matrix");
-    public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = register("saturated_fullerene_sieving_matrix");
-    public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = register("microfocus_x_ray_tube");
-    public static ItemEntry<Item> SEPARATION_ELECTROMAGNET = register("separation_electromagnet");
-    public static ItemEntry<Item> HIGHLY_INSULATING_FOIL = register("highly_insulating_foil");
-    public static ItemEntry<Item> STERILIZED_PETRI_DISH = register("sterilized_petri_dish");
-    public static ItemEntry<Item> ELECTRICALY_WIRED_PETRI_DISH = register("electricaly_wired_petri_dish");
-    public static ItemEntry<Item> CONTAMINATED_PETRI_DISH = register("contaminated_petri_dish");
-    public static ItemEntry<Item> BREVIBACTERIUM_PETRI_DISH = register("brevibacterium_petri_dish");
-    public static ItemEntry<Item> BIFIDOBACTERIUMM_PETRI_DISH = register("bifidobacteriumm_petri_dish");
-    public static ItemEntry<Item> ESCHERICIA_PETRI_DISH = register("eschericia_petri_dish");
-    public static ItemEntry<Item> STREPTOCOCCUS_PETRI_DISH = register("streptococcus_petri_dish");
-    public static ItemEntry<Item> CUPRIAVIDUS_PETRI_DISH = register("cupriavidus_petri_dish");
-    public static ItemEntry<Item> SHEWANELLA_PETRI_DISH = register("shewanella_petri_dish");
+    public static ItemEntry<Item> INFINITE_CELL_COMPONENT = register("infinite_cell_component", true);
+    public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = register("protonated_fullerene_sieving_matrix", true);
+    public static ItemEntry<Item> SATURATED_FULLERENE_SIEVING_MATRIX = register("saturated_fullerene_sieving_matrix", true);
+    public static ItemEntry<Item> MICROFOCUS_X_RAY_TUBE = register("microfocus_x_ray_tube", true);
+    public static ItemEntry<Item> SEPARATION_ELECTROMAGNET = register("separation_electromagnet", true);
+    public static ItemEntry<Item> HIGHLY_INSULATING_FOIL = register("highly_insulating_foil", false);
+    public static ItemEntry<Item> STERILIZED_PETRI_DISH = register("sterilized_petri_dish", false);
+    public static ItemEntry<Item> ELECTRICALY_WIRED_PETRI_DISH = register("electricaly_wired_petri_dish", false);
+    public static ItemEntry<Item> CONTAMINATED_PETRI_DISH = register("contaminated_petri_dish", true);
+    public static ItemEntry<Item> BREVIBACTERIUM_PETRI_DISH = register("brevibacterium_petri_dish", false);
+    public static ItemEntry<Item> BIFIDOBACTERIUMM_PETRI_DISH = register("bifidobacteriumm_petri_dish", false);
+    public static ItemEntry<Item> ESCHERICIA_PETRI_DISH = register("eschericia_petri_dish", false);
+    public static ItemEntry<Item> STREPTOCOCCUS_PETRI_DISH = register("streptococcus_petri_dish", false);
+    public static ItemEntry<Item> CUPRIAVIDUS_PETRI_DISH = register("cupriavidus_petri_dish", false);
+    public static ItemEntry<Item> SHEWANELLA_PETRI_DISH = register("shewanella_petri_dish", false);
 }

@@ -1,8 +1,8 @@
 package org.gtlcore.gtlcore.common.block;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 
-import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.block.IFusionCasingType;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.block.FusionCasingBlock;
@@ -90,7 +90,7 @@ public class GTLFusionCasingBlock extends FusionCasingBlock {
 
         @Override
         public ResourceLocation getTexture() {
-            return GTCEu.id("block/casings/fusion/%s".formatted(this.name));
+            return GTLCore.id("block/casings/fusion/%s".formatted(this.name));
         }
     }
 }
