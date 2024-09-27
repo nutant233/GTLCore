@@ -772,9 +772,6 @@ public class GTLMaterials {
     public static Material TerbiumNitratePowder;
     public static Material PromethiumOxide;
 
-
-
-
     public static void init() {
         MaterialAdd.init();
         MaterialBuilder.init();

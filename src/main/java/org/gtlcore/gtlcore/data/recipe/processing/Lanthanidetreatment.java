@@ -1,10 +1,8 @@
 package org.gtlcore.gtlcore.data.recipe.processing;
 
-
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
-
 
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
@@ -12,11 +10,9 @@ import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
-
 public class Lanthanidetreatment {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-
         /* 独居石线 */
         DIGESTION_TREATMENT.recipeBuilder("monazite_rare_earth_turbid_liquid_output")
                 .inputItems(dust, Monazite, 2)
