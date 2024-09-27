@@ -1,4 +1,5 @@
 {
+    "block.gtceu.wood_distillation": "木化工厂",
     "block.gtceu.a_mass_fabricator": "进阶质量发生器",
     "block.gtceu.advanced_assembly_line": "进阶装配线",
     "block.gtceu.advanced_hyper_reactor": "进阶超能反应堆",
@@ -753,6 +754,7 @@
     "gtceu.multiblock.steam_parallel_machine.oc": "每次超频将减少2倍耗时和增加3倍蒸汽消耗",
     "gtceu.multiblock.uev_fusion_reactor.description": "核聚变反应堆MK-V是台大型多方块结构，用于融合元素形成更重的元素。它仅可使用UEV等级的能源仓。每个能源仓可增加160MEU的能量缓存，最大能量缓存为2560MEU。",
     "gtceu.multiblock.uhv_fusion_reactor.description": "核聚变反应堆MK-IV是台大型多方块结构，用于融合元素形成更重的元素。它仅可使用UHV等级的能源仓。每个能源仓可增加80MEU的能量缓存，最大能量缓存为1280MEU。",
+    "gtceu.wood_distillation_recipes":"木化工厂",
     "gtceu.nano_forge": "纳米蜂群工厂",
     "gtceu.naquadah_reactor": "硅岩反应堆",
     "gtceu.neutron_activator": "中子活化",
