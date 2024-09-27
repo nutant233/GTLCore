@@ -38,6 +38,7 @@ public class Misc {
                     .duration(200)
                     .save(provider);
         }
+
         AUTOCLAVE_RECIPES.recipeBuilder("water_agar_mix").EUt(VA[HV]).duration(600)
                 .inputItems(dust, Gelatin)
                 .inputFluids(DistilledWater.getFluid(1000))
