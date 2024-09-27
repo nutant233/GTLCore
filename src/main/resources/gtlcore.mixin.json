@@ -37,6 +37,7 @@
     "gtm.cover.InfiniteWaterCoverMixin",
     "gtm.cover.PumpCoverMixin",
     "gtm.fix.GTUtilMixin",
+    "gtm.gui.AEFluidConfigSlotWidgetMixin",
     "gtm.fix.WorkableElectricMultiblockMachineMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
