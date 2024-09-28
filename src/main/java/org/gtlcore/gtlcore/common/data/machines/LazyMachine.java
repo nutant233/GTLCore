@@ -27,7 +27,10 @@ public class LazyMachine {
             .multiblock("wood_distillation", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLLazyRecipeTypes.WOOD_DISTILLATION_RECIPES)
-            .tooltips(Component.literal("先进的原始人分馏工艺¿"))
+            .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
+            .tooltips(Component.translatable("gtceu.multiblock.wood_distillation"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                            Component.translatable("gtceu.wood_distillation")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK))
             .appearanceBlock(GTBlocks.CASING_INVAR_HEATPROOF)
