@@ -1,10 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
-import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
-import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
-import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineA;
-import org.gtlcore.gtlcore.common.data.machines.TootipsModify;
+import org.gtlcore.gtlcore.common.data.machines.*;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
 import org.gtlcore.gtlcore.common.machine.generator.MagicEnergyMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.CoilWorkableElectricMultipleRecipesMultiblockMachine;
@@ -98,6 +95,7 @@ public class GTLMachines {
     public static void init() {
         TootipsModify.init();
         GeneratorMachine.init();
+        LanthanideMachine.init();
         MultiBlockMachineA.init();
         AdvancedMultiBlockMachine.init();
     }
