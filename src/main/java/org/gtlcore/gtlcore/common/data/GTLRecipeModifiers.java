@@ -5,6 +5,7 @@ import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMul
 
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IOverclockMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
@@ -15,16 +16,20 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
 import com.gregtechceu.gtceu.api.recipe.content.Content;
+import com.gregtechceu.gtceu.api.recipe.ingredient.SizedIngredient;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.api.recipe.modifier.RecipeModifier;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class GTLRecipeModifiers {
 
@@ -139,5 +144,68 @@ public class GTLRecipeModifiers {
         recipe1.tickOutputs.put(EURecipeCapability.CAP,
                 List.of(new Content((long) resultVoltage, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
         return recipe1;
+    }
+
+    public static GTRecipe probabilityOutput(@NotNull GTRecipe recipe) {
+        String pOutput = recipe.data.getString("probabilityOutput");
+        if (pOutput.isEmpty()) {
+            return recipe;
+        }
+        String[] Lp = pOutput.split(";");
+        for (String s : Lp) {
+            if (s.isEmpty()) {
+                return recipe;
+            }
+            String[] p = s.split(",");
+            List<String> items = new ArrayList<>();
+            List<Integer> nums = new ArrayList<>();
+            List<Integer> weights = new ArrayList<>();
+            for (int j = 0; j < p.length; j++) {
+                String[] item = p[j].split(" ");
+                if (item.length < 2) {
+                    return recipe;
+                }
+                int index = 0;
+                while (index < item.length && item[index].isEmpty()) {
+                    index++;
+                }
+                if (index == item.length) {
+                    return recipe;
+                }
+                items.add(item[index]);
+                while (index < item.length && item[index].isEmpty()) {
+                    index++;
+                }
+                if (index == item.length) {
+                    return recipe;
+                }
+                nums.add(Integer.parseInt(item[index]));
+                while (index < item.length && item[index].isEmpty()) {
+                    index++;
+                }
+                if (index == item.length) {
+                    return recipe;
+                }
+                if (j == 0) {
+                    weights.add(Integer.parseInt(item[index]));
+                } else {
+                    weights.add(weights.get(j - 1) + Integer.parseInt(item[index]));
+                }
+            }
+            Random a = new Random();
+            int test = a.nextInt(weights.get(weights.size() - 1) + 1);
+            int index = Arrays.binarySearch(weights.toArray(), test);
+            if (index < 0) {
+                index = -index - 1;
+            }
+
+            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(items.get(index)));
+            ItemStack output = null;
+            if (item != null) {
+                output = new ItemStack(item, nums.get(index));
+                recipe.outputs.get(ItemRecipeCapability.CAP).add(new Content(ItemRecipeCapability.CAP.of((Object) SizedIngredient.create(output)), ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null));
+            }
+        }
+        return recipe;
     }
 }

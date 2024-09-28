@@ -92,7 +92,8 @@ public class MultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.rare_earth_centrifugal")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
-            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
+            .recipeModifiers(GTRecipeModifiers.PARALLEL_HATCH, ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK),
+                    (machine, recipe, params, result) -> GTLRecipeModifiers.probabilityOutput(recipe))
             .appearanceBlock(GTBlocks.CASING_HSSE_STURDY)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle(" bbb ", "bbbbb", "bbbbb", "bbbbb", " bbb ")
