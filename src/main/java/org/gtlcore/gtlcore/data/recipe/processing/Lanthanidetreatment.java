@@ -191,7 +191,7 @@ public class Lanthanidetreatment {
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("oxalic_acid21")
-                .inputItems(dust, VanadiumPentoxidePowder, 1)
+                .notConsumable(dust, VanadiumPentoxidePowder, 1)
                 .inputFluids(Oxygen.getFluid(40000))
                 .inputFluids(Ethanol.getFluid(9000))
                 .outputFluids(OxalicAcid.getFluid(9000))
@@ -201,7 +201,7 @@ public class Lanthanidetreatment {
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("oxalic_acid22")
-                .inputItems(dust, VanadiumPentoxidePowder, 1)
+                .notConsumable(dust, VanadiumPentoxidePowder, 1)
                 .inputFluids(Oxygen.getFluid(27000))
                 .inputFluids(Methanol.getFluid(9000))
                 .inputFluids(CarbonMonoxide.getFluid(9000))
@@ -212,7 +212,7 @@ public class Lanthanidetreatment {
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("oxalic_acid23")
-                .inputItems(dust, VanadiumPentoxidePowder, 1)
+                .notConsumable(dust, VanadiumPentoxidePowder, 1)
                 .inputItems(dust, Sugar, 24)
                 .inputFluids(NitricAcid.getFluid(6000))
                 .outputFluids(OxalicAcid.getFluid(3000))
