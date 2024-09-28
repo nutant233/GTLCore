@@ -13,44 +13,43 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 public class Lanthanidetreatment {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-        /* 独居石线 */
         DIGESTION_TREATMENT.recipeBuilder("monazite_rare_earth_turbid_liquid1")
                 .inputItems(dust, Monazite, 2)
                 .inputFluids(NitricAcid.getFluid(700))
                 .outputItems(dust, SiliconDioxide, 1)
                 .outputFluids(MonaziteRareEarthTurbidLiquid.getFluid(400))
-                .duration(20 * 20)
+                .duration(200)
                 .EUt(1920)
+                .blastFurnaceTemp(1440)
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder("diluted_monazite_slurry2")
                 .inputItems(dust, Saltpeter, 9)
                 .inputFluids(MonaziteRareEarthTurbidLiquid.getFluid(9000))
                 .inputFluids(Water.getFluid(90000))
-                .outputItems(dust, HafniumOxideZirconiaMixedPowder, 4)
                 .outputItems(dust, ThoritePowder, 9)
                 .outputItems(dust, Monazite, 2)
                 .outputFluids(DilutedMonaziteSlurry.getFluid(100000))
-                .duration(20 * 405)
-                .EUt(405)
+                .duration(200)
+                .EUt(480)
                 .save(provider);
 
         SIFTER_RECIPES.recipeBuilder("diluted_monazite_slurry3")
-                .outputFluids(DilutedMonaziteSlurry.getFluid(1000))
+                .inputFluids(DilutedMonaziteSlurry.getFluid(1000))
                 .chancedOutput(dust, MonaziteSulfatePowder, 1, 9000, 0)
                 .chancedOutput(dust, SiliconDioxide, 1, 7500, 0)
                 .chancedOutput(dust, Rutile, 1, 2000, 0)
                 .chancedOutput(dust, RedZirconPowder, 1, 500, 0)
                 .chancedOutput(dust, Ilmenite, 1, 2000, 0)
-                .duration(20 * 20)
-                .EUt(240)
+                .duration(400)
+                .EUt(120)
                 .save(provider);
 
         CENTRIFUGE_RECIPES.recipeBuilder("red_zircon_powder4")
                 .inputItems(dust, RedZirconPowder, 4)
                 .outputItems(dust, Zircon, 3)
                 .outputItems(dust, GraniteRed, 2)
-                .duration(20 * 16)
+                .duration(320)
                 .EUt(90)
                 .save(provider);
 
@@ -58,15 +57,15 @@ public class Lanthanidetreatment {
                 .inputItems(dust, MonaziteSulfatePowder, 1)
                 .inputFluids(Water.getFluid(6000))
                 .outputFluids(DilutedMonaziteSulfateSolution.getFluid(7000))
-                .duration(20 * 24)
-                .EUt(400)
+                .duration(240)
+                .EUt(120)
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("diluted_monazite_sulfate_solution6")
                 .inputFluids(DilutedMonaziteSulfateSolution.getFluid(9000))
                 .inputFluids(AmmoniumNitrateSolution.getFluid(1800))
                 .outputItems(dust, AcidicMonazitePowder, 3)
-                .duration(20 * 216)
+                .duration(160)
                 .EUt(480)
                 .save(provider);
 
@@ -74,14 +73,14 @@ public class Lanthanidetreatment {
                 .inputItems(dust, AcidicMonazitePowder, 1)
                 .chancedOutput(dust, MonaziteRareEarthFilterResiduePowder, 1, 9000, 0)
                 .chancedOutput(dust, ThoriumPhosphateFilterCakePowder, 1, 7000, 0)
-                .duration(20 * 30)
+                .duration(300)
                 .EUt(256)
                 .save(provider);
 
         BLAST_RECIPES.recipeBuilder("thorium_phosphate_filter_cake_powder8")
                 .inputItems(dust, ThoriumPhosphateFilterCakePowder, 1)
                 .outputItems(dust, ThoriumPhosphateRefinedPowder, 1)
-                .duration(20 * 5)
+                .duration(100)
                 .EUt(120)
                 .blastFurnaceTemp(1200)
                 .save(provider);
@@ -90,7 +89,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, ThoriumPhosphateRefinedPowder, 1)
                 .outputItems(dust, Monazite, 1)
                 .outputItems(dust, Phosphate, 1)
-                .duration(20 * 10)
+                .duration(200)
                 .EUt(240)
                 .save(provider);
 
@@ -98,7 +97,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, MonaziteRareEarthFilterResiduePowder, 1)
                 .inputFluids(AmmoniumNitrateSolution.getFluid(320))
                 .outputItems(dust, NeutralizedMonaziteRareEarthFilterResiduePowder, 1)
-                .duration(20 * 6)
+                .duration(120)
                 .EUt(240)
                 .save(provider);
 
@@ -107,7 +106,7 @@ public class Lanthanidetreatment {
                 .chancedOutput(dust, ConcentratedMonaziteRareEarthHydroxidePowder, 1, 9000, 0)
                 .chancedOutput(dust, UraniumFilterResiduePowder, 1, 5000, 0)
                 .chancedOutput(dust, UraniumFilterResiduePowder, 1, 4000, 0)
-                .duration(20 * 40)
+                .duration(160)
                 .EUt(480)
                 .save(provider);
 
@@ -115,7 +114,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, UraniumFilterResiduePowder, 1)
                 .inputFluids(HydrofluoricAcid.getFluid(100))
                 .outputItems(dust, NeutralizedUraniumFilterResiduePowder, 1)
-                .duration(20 * 18)
+                .duration(180)
                 .EUt(120)
                 .save(provider);
 
@@ -126,14 +125,14 @@ public class Lanthanidetreatment {
                 .chancedOutput(dust, Uranium235, 1, 3000, 0)
                 .chancedOutput(dust, Uranium235, 1, 3000, 0)
                 .chancedOutput(dust, Uranium235, 1, 2000, 0)
-                .duration(20 * 50)
+                .duration(240)
                 .EUt(30)
                 .save(provider);
 
         BLAST_RECIPES.recipeBuilder("concentrated_monazite_rare_earth_hydroxide_powder14")
                 .inputItems(dust, ConcentratedMonaziteRareEarthHydroxidePowder, 1)
                 .outputItems(dust, DriedConcentratedNitricMonaziteRareEarthPowder, 1)
-                .duration(20 * 15)
+                .duration(300)
                 .EUt(120)
                 .blastFurnaceTemp(1200)
                 .save(provider);
@@ -142,7 +141,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, DriedConcentratedNitricMonaziteRareEarthPowder, 1)
                 .inputFluids(NitricAcid.getFluid(500))
                 .outputFluids(ConcentratedNitrideMonaziteRareEarthSolution.getFluid(500))
-                .duration(20 * 25)
+                .duration(240)
                 .EUt(480)
                 .save(provider);
 
@@ -150,7 +149,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, CeriumRichMixturePowder, 3)
                 .inputFluids(ConcentratedNitrideMonaziteRareEarthSolution.getFluid(1000))
                 .outputFluids(NitricLeachateFromMonazite.getFluid(2000))
-                .duration(20 * 12)
+                .duration(240)
                 .EUt(120)
                 .save(provider);
 
@@ -158,7 +157,7 @@ public class Lanthanidetreatment {
                 .inputFluids(Water.getFluid(1000))
                 .inputFluids(ConcentratedNitrideMonaziteRareEarthSolution.getFluid(1000))
                 .outputFluids(NitricLeachateFromMonazite.getFluid(1000))
-                .duration(20 * 10)
+                .duration(200)
                 .EUt(120)
                 .save(provider);
 
@@ -168,7 +167,7 @@ public class Lanthanidetreatment {
                 .outputItems(dust, Carbon, 1)
                 .outputFluids(Oxygen.getFluid(3000))
                 .outputFluids(Fluorine.getFluid(1000))
-                .duration(20 * 10)
+                .duration(120)
                 .EUt(90)
                 .save(provider);
 
@@ -178,8 +177,8 @@ public class Lanthanidetreatment {
                 .outputItems(dust, CeriumChloridePowder, 1)
                 .outputItems(dust, Monazite, 1)
                 .outputFluids(Water.getFluid(750))
-                .duration(20 * 15)
-                .EUt(450)
+                .duration(300)
+                .EUt(480)
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("cerium_oxalate_powder20")
@@ -187,8 +186,8 @@ public class Lanthanidetreatment {
                 .inputFluids(OxalicAcid.getFluid(3000))
                 .outputItems(dust, CeriumOxalatePowder, 1)
                 .outputFluids(HydrochloricAcid.getFluid(6000))
-                .duration(20 * 15)
-                .EUt(450)
+                .duration(300)
+                .EUt(480)
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("oxalic_acid21")
@@ -197,7 +196,7 @@ public class Lanthanidetreatment {
                 .inputFluids(Ethanol.getFluid(9000))
                 .outputFluids(OxalicAcid.getFluid(9000))
                 .outputFluids(Water.getFluid(20000))
-                .duration(20 * 200)
+                .duration(400)
                 .EUt(240)
                 .save(provider);
 
@@ -208,7 +207,7 @@ public class Lanthanidetreatment {
                 .inputFluids(CarbonMonoxide.getFluid(9000))
                 .outputFluids(OxalicAcid.getFluid(9000))
                 .outputFluids(Water.getFluid(20000))
-                .duration(20 * 200)
+                .duration(400)
                 .EUt(240)
                 .save(provider);
 
@@ -218,7 +217,7 @@ public class Lanthanidetreatment {
                 .inputFluids(NitricAcid.getFluid(6000))
                 .outputFluids(OxalicAcid.getFluid(3000))
                 .outputFluids(NitricOxide.getFluid(6000))
-                .duration(20 * 30)
+                .duration(300)
                 .EUt(120)
                 .save(provider);
 
@@ -226,7 +225,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, Vanadium, 2)
                 .inputFluids(Oxygen.getFluid(5000))
                 .outputItems(dust, VanadiumPentoxidePowder, 7)
-                .duration(20 * 10)
+                .duration(200)
                 .EUt(120)
                 .blastFurnaceTemp(2500)
                 .save(provider);
@@ -236,7 +235,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, Carbon, 3)
                 .outputItems(dust, CeriumOxide, 5)
                 .outputFluids(CarbonMonoxide.getFluid(9000))
-                .duration(20 * 10)
+                .duration(200)
                 .EUt(480)
                 .blastFurnaceTemp(800)
                 .save(provider);
@@ -246,22 +245,23 @@ public class Lanthanidetreatment {
                 .inputFluids(Chlorine.getFluid(10000))
                 .outputItems(dust, SiliconDioxide, 1)
                 .outputFluids(ConcentratedCeriumChlorideSolution.getFluid(1000))
-                .duration(20 * 2)
+                .duration(40)
                 .EUt(122880)
+                .blastFurnaceTemp(3820)
                 .save(provider);
 
         SIFTER_RECIPES.recipeBuilder("concentrated_nitric_leachate_from_monazite27")
                 .inputFluids(NitricLeachateFromMonazite.getFluid(1000))
-                .chancedOutput(dust, CeriumOxide, 1, 1111, 0)
+                .chancedOutput(dust, CeriumOxide, 1, 1000, 100)
                 .outputFluids(ConcentratedNitricLeachateFromMonazite.getFluid(1000))
-                .duration(20 * 20)
+                .duration(200)
                 .EUt(240)
                 .save(provider);
 
         VACUUM_RECIPES.recipeBuilder("cooling_concentrated_nitric_monazite_rare_earth_powder28")
                 .inputFluids(ConcentratedNitricLeachateFromMonazite.getFluid(1000))
                 .outputItems(dust, CoolingConcentratedNitricMonaziteRareEarthPowder, 1)
-                .duration(20 * 5)
+                .duration(100)
                 .EUt(240)
                 .save(provider);
 
@@ -269,7 +269,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, CoolingConcentratedNitricMonaziteRareEarthPowder, 1)
                 .chancedOutput(dust, MonaziteRareEarthPrecipitatePowder, 1, 9000, 0)
                 .chancedOutput(dust, EuropiumOxide, 1, 500, 0)
-                .duration(20 * 5)
+                .duration(100)
                 .EUt(240)
                 .save(provider);
 
@@ -277,7 +277,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, MonaziteRareEarthPrecipitatePowder, 1)
                 .inputFluids(Chlorine.getFluid(1000))
                 .outputItems(dust, HeterogeneousHalideMonaziteRareEarthMixturePowder, 1)
-                .duration(20 * 25)
+                .duration(250)
                 .EUt(480)
                 .blastFurnaceTemp(1200)
                 .save(provider);
@@ -287,7 +287,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, SamariumRefinedPowder, 2)
                 .inputFluids(Acetone.getFluid(1000))
                 .outputItems(dust, SaturatedMonaziteRareEarthPowder, 3)
-                .duration(20 * 20)
+                .duration(200)
                 .EUt(240)
                 .save(provider);
 
@@ -295,24 +295,25 @@ public class Lanthanidetreatment {
                 .inputItems(dust, HeterogeneousHalideMonaziteRareEarthMixturePowder, 1)
                 .inputItems(dust, Salt, 1)
                 .inputFluids(Acetone.getFluid(1000))
-                .outputItems(dust, SaturatedMonaziteRareEarthPowder, 1)
-                .duration(20 * 10)
+                .outputItems(dust, SaturatedMonaziteRareEarthPowder, 2)
+                .duration(200)
                 .EUt(240)
                 .save(provider);
 
         CENTRIFUGE_RECIPES.recipeBuilder("samarium_precipitate_powder33")
                 .inputItems(dust, SaturatedMonaziteRareEarthPowder, 4)
+                .outputItems(dust, RareEarth, 5)
                 .outputItems(dust, SamariumPrecipitatePowder, 3)
                 .outputFluids(Chloromethane.getFluid(400))
-                .duration(20 * 160)
+                .duration(160)
                 .EUt(1920)
                 .save(provider);
 
         SIFTER_RECIPES.recipeBuilder("samarium_precipitate_powder34")
                 .inputItems(dust, SamariumPrecipitatePowder, 3)
                 .outputItems(dust, Samarium, 2)
-                .outputItems(dust, Gadolinium, 1)
-                .duration(20 * 8)
+                .chancedOutput(dust, Gadolinium, 1, 2000, 0)
+                .duration(160)
                 .EUt(1920)
                 .save(provider);
 
@@ -321,8 +322,9 @@ public class Lanthanidetreatment {
                 .inputFluids(NitricAcid.getFluid(200))
                 .outputItems(dust, ThoriumPhosphateRefinedPowder, 1)
                 .outputFluids(SamariumRrareEearthTurbidLiquid.getFluid(800))
-                .duration(20 * 10)
+                .duration(200)
                 .EUt(1920)
+                .blastFurnaceTemp(2680)
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder("samarium_rrare_eearth_turbid_liquid36")
@@ -331,7 +333,7 @@ public class Lanthanidetreatment {
                 .chancedOutput(dust, CeriumRichMixturePowder, 1, 6000, 0)
                 .chancedOutput(dust, CeriumOxide, 1, 8000, 0)
                 .outputFluids(SamariumRareEarthSlurry.getFluid(2000))
-                .duration(20 * 20)
+                .duration(80)
                 .EUt(1920)
                 .save(provider);
 
@@ -341,7 +343,7 @@ public class Lanthanidetreatment {
                 .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 1, 9000, 0)
                 .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 1, 6000, 0)
                 .outputFluids(SamariumRareEarthDilutedSolution.getFluid(10000))
-                .duration(20 * 30)
+                .duration(120)
                 .EUt(1920)
                 .save(provider);
 
@@ -350,8 +352,8 @@ public class Lanthanidetreatment {
                 .inputFluids(HydrochloricAcid.getFluid(2000))
                 .outputItems(dust, LanthanumChloride, 1)
                 .outputItems(dust, NeodymiumOxide, 1)
-                .duration(20 * 45)
-                .EUt(800)
+                .duration(450)
+                .EUt(120)
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("samarium_oxalate_with_impurities39")
@@ -360,15 +362,15 @@ public class Lanthanidetreatment {
                 .outputItems(dust, SamariumOxalateWithImpurities, 5)
                 .chancedOutput(dust, PhosphorusFreeSamariumConcentratePowder, 3, 1000, 0)
                 .outputFluids(SamariumRrareEearthTurbidLiquid.getFluid(50))
-                .duration(20 * 45)
-                .EUt(800)
+                .duration(280)
+                .EUt(480)
                 .save(provider);
 
         CENTRIFUGE_RECIPES.recipeBuilder("Samarium40")
                 .inputItems(dust, PhosphorusFreeSamariumConcentratePowder, 1)
                 .chancedOutput(dust, Samarium, 1, 9000, 0)
                 .chancedOutput(dust, ThoritePowder, 2, 8000, 0)
-                .duration(20 * 10)
+                .duration(100)
                 .EUt(1920)
                 .save(provider);
 
@@ -377,7 +379,7 @@ public class Lanthanidetreatment {
                 .inputFluids(HydrochloricAcid.getFluid(6000))
                 .outputItems(dust, SamariumChlorideWithImpurities, 8)
                 .outputFluids(CarbonMonoxide.getFluid(6000))
-                .duration(20 * 10)
+                .duration(100)
                 .EUt(960)
                 .save(provider);
 
@@ -385,7 +387,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, Salt, 1)
                 .inputItems(dust, SamariumChlorideWithImpurities, 2)
                 .outputItems(dust, SamariumChlorideSodiumChlorideMixturePowder, 3)
-                .duration(20 * 5)
+                .duration(80)
                 .EUt(30)
                 .save(provider);
 
@@ -403,26 +405,24 @@ public class Lanthanidetreatment {
                 .inputFluids(Chlorine.getFluid(10000))
                 .outputItems(dust, SiliconDioxide, 1)
                 .outputFluids(SamariumChlorideConcentrateSolution.getFluid(1000))
-                .duration(20 * 2)
+                .duration(40)
                 .EUt(122880)
+                .blastFurnaceTemp(3820)
                 .save(provider);
-
-        /* 熔融含杂氯化钐？ */
 
         DISTILLERY_RECIPES.recipeBuilder("lanthanum_chloride_with_impurities45")
                 .inputItems(dust, Lanthanum, 9)
                 .inputFluids(SamariumChlorideWithImpurities.getFluid(5184))
                 .outputItems(dust, LanthanumChlorideWithImpurities, 36)
                 .outputFluids(Samarium.getFluid(2304))
-                .duration(20 * 5)
+                .duration(100)
                 .EUt(122880)
                 .save(provider);
-        /* 熔融钐固化？ */
 
         CENTRIFUGE_RECIPES.recipeBuilder("lanthanum_chloride_with_impurities46")
                 .inputItems(dust, LanthanumChlorideWithImpurities, 36)
                 .outputItems(dust, LanthanumChloride, 36)
-                .duration(20 * 5)
+                .duration(100)
                 .EUt(1920)
                 .save(provider);
 
@@ -432,15 +432,16 @@ public class Lanthanidetreatment {
                 .inputFluids(NitricAcid.getFluid(700))
                 .outputItems(dust, SiliconDioxide, 1)
                 .outputFluids(FluoroCarbonLanthanideCeriumSolution.getFluid(400))
-                .duration(20 * 20)
+                .duration(200)
                 .EUt(1920)
+                .blastFurnaceTemp(1440)
                 .save(provider);
 
         CRACKING_RECIPES.recipeBuilder("steam_cracked_fluoro_carbon_lanthanide_slurry48")
                 .inputFluids(FluoroCarbonLanthanideCeriumSolution.getFluid(1000))
                 .inputFluids(Steam.getFluid(1000))
                 .outputFluids(SteamCrackedFluoroCarbonLanthanideSlurry.getFluid(2000))
-                .duration(20 * 30)
+                .duration(300)
                 .EUt(480)
                 .save(provider);
 
@@ -448,7 +449,7 @@ public class Lanthanidetreatment {
                 .inputFluids(SteamCrackedFluoroCarbonLanthanideSlurry.getFluid(1000))
                 .inputFluids(NitricAcid.getFluid(700))
                 .outputFluids(ModulatedFluoroCarbonLanthanideSlurry.getFluid(1320))
-                .duration(20 * 40)
+                .duration(200)
                 .EUt(120)
                 .save(provider);
 
@@ -457,8 +458,8 @@ public class Lanthanidetreatment {
                 .inputFluids(FluorosilicicAcid.getFluid(1000))
                 .outputFluids(HydrochloricAcid.getFluid(2000))
                 .outputFluids(SodiumFluorosilicate.getFluid(1000))
-                .duration(20 * 30)
-                .EUt(450)
+                .duration(300)
+                .EUt(480)
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder("diluted_fluoro_carbon_lanthanide_slurry51")
@@ -467,26 +468,26 @@ public class Lanthanidetreatment {
                 .inputFluids(Water.getFluid(10000))
                 .outputItems(dust, Stone, 1)
                 .outputFluids(DilutedFluoroCarbonLanthanideSlurry.getFluid(10000))
-                .duration(20 * 50)
+                .duration(160)
                 .EUt(1920)
                 .save(provider);
 
         SIFTER_RECIPES.recipeBuilder("filtered_fluoro_carbon_lanthanide_slurry52")
-                .inputItems(DilutedFluoroCarbonLanthanideSlurry.getFluid(1000))
+                .inputFluids(DilutedFluoroCarbonLanthanideSlurry.getFluid(1000))
                 .chancedOutput(dust, SiliconDioxide, 1, 9000, 0)
                 .chancedOutput(dust, Rutile, 1, 7500, 0)
                 .chancedOutput(dust, RedZirconPowder, 1, 1000, 0)
                 .chancedOutput(dust, Ilmenite, 1, 500, 0)
                 .outputFluids(FilteredFluoroCarbonLanthanideSlurry.getFluid(400))
-                .duration(20 * 20)
+                .duration(200)
                 .EUt(240)
                 .save(provider);
 
         BLAST_RECIPES.recipeBuilder("fluoro_carbon_lanthanide_cerium_oxide_powder53")
                 .inputFluids(FilteredFluoroCarbonLanthanideSlurry.getFluid(1000))
                 .outputItems(dust, FluoroCarbonLanthanideCeriumOxidePowder, 1)
-                .duration(20 * 25)
-                .EUt(600)
+                .duration(240)
+                .EUt(480)
                 .blastFurnaceTemp(1400)
                 .save(provider);
 
@@ -494,7 +495,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, FluoroCarbonLanthanideCeriumOxidePowder, 1)
                 .inputFluids(HydrochloricAcid.getFluid(500))
                 .outputItems(dust, AcidLeachedFluoroCarbonLanthanideCeriumOxidePowder, 1)
-                .duration(20 * 10)
+                .duration(200)
                 .EUt(30)
                 .save(provider);
 
@@ -503,7 +504,7 @@ public class Lanthanidetreatment {
                 .inputFluids(Oxygen.getFluid(1000))
                 .outputItems(dust, CalcinedRareEarthOxidePowder, 1)
                 .outputFluids(Fluorine.getFluid(13))
-                .duration(20 * 30)
+                .duration(240)
                 .EUt(120)
                 .blastFurnaceTemp(1200)
                 .save(provider);
@@ -512,7 +513,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, CalcinedRareEarthOxidePowder, 1)
                 .inputFluids(Water.getFluid(200))
                 .outputItems(dust, WetRareEarthOxidePowder, 1)
-                .duration(20 * 5)
+                .duration(100)
                 .EUt(30)
                 .save(provider);
 
@@ -521,7 +522,7 @@ public class Lanthanidetreatment {
                 .inputFluids(Fluorine.getFluid(4000))
                 .outputItems(dust, CeriumOxideRareEarthOxidePowder, 1)
                 .outputFluids(HydrofluoricAcid.getFluid(4000))
-                .duration(20 * 15)
+                .duration(300)
                 .EUt(480)
                 .save(provider);
 
@@ -529,7 +530,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, CeriumOxideRareEarthOxidePowder, 1)
                 .outputItems(dust, FluoroCarbonLanthanideCeriumRareEarthOxidePowder, 1)
                 .outputItems(dust, CeriumOxide, 1)
-                .duration(20 * 30)
+                .duration(320)
                 .EUt(480)
                 .save(provider);
 
@@ -537,7 +538,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, FluoroCarbonLanthanideCeriumRareEarthOxidePowder, 1)
                 .inputFluids(NitricAcid.getFluid(400))
                 .outputFluids(NitridedFluoroCarbonLanthanideCeriumRareEarthOxideSolution.getFluid(1000))
-                .duration(20 * 15)
+                .duration(150)
                 .EUt(480)
                 .save(provider);
 
@@ -545,7 +546,7 @@ public class Lanthanidetreatment {
                 .inputFluids(Acetone.getFluid(1000))
                 .inputFluids(NitridedFluoroCarbonLanthanideCeriumRareEarthOxideSolution.getFluid(1000))
                 .outputFluids(FluoroCarbonLanthanideCeriumRareEarthSuspension.getFluid(1000))
-                .duration(20 * 35)
+                .duration(350)
                 .EUt(480)
                 .save(provider);
 
@@ -554,15 +555,16 @@ public class Lanthanidetreatment {
                 .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 1, 8000, 0)
                 .chancedOutput(dust, SamariumRareEarthConcentratePowder, 1, 5000, 0)
                 .outputFluids(Acetone.getFluid(450))
-                .duration(20 * 45)
-                .EUt(480)
+                .duration(450)
+                .EUt(120)
                 .save(provider);
 
         LARGE_CHEMICAL_RECIPES.recipeBuilder("fluorinated_samarium_concentrate_powder62")
                 .inputItems(dust, SamariumRareEarthConcentratePowder, 1)
                 .inputFluids(HydrofluoricAcid.getFluid(2000))
+                .outputItems(dust, RareEarth, 4)
                 .outputItems(dust, FluorinatedSamariumConcentratePowder, 1)
-                .duration(20 * 15)
+                .duration(300)
                 .EUt(480)
                 .save(provider);
 
@@ -571,8 +573,8 @@ public class Lanthanidetreatment {
                 .inputItems(dust, Calcium, 4)
                 .outputItems(dust, Holmium, 1)
                 .outputItems(dust, SamariumTerbiumMixturePowder, 4)
-                .outputFluids(CalciumFluoride.getFluid(12000))
-                .duration(20 * 80)
+                .outputItems(dust, Fluorite, 12)
+                .duration(200)
                 .EUt(1920)
                 .blastFurnaceTemp(1200)
                 .save(provider);
@@ -581,7 +583,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, SamariumTerbiumMixturePowder, 1)
                 .inputItems(dust, AmmoniumChloride, 9)
                 .outputItems(dust, NitridedSamariumTerbiumMixturePowder, 1)
-                .duration(20 * 30)
+                .duration(300)
                 .EUt(480)
                 .save(provider);
 
@@ -590,7 +592,7 @@ public class Lanthanidetreatment {
                 .inputItems(dust, Copper, 1)
                 .outputItems(dust, TerbiumNitratePowder, 2)
                 .outputItems(dust, SamariumPrecipitatePowder, 2)
-                .duration(20 * 160)
+                .duration(320)
                 .EUt(1920)
                 .save(provider);
 
@@ -630,7 +632,6 @@ public class Lanthanidetreatment {
                 .outputItems(dustSmall, ScandiumOxide, 1)
                 .outputItems(dustSmall, YttriumOxide, 1)
                 .outputItems(dustSmall, PromethiumOxide, 1)
-                .duration(200)
                 .duration(20)
                 .EUt(491520)
                 .save(provider);
@@ -655,14 +656,12 @@ public class Lanthanidetreatment {
                 .outputItems(dustSmall, ScandiumOxide, 1)
                 .outputItems(dustSmall, YttriumOxide, 1)
                 .outputItems(dustSmall, PromethiumOxide, 1)
-                .duration(200)
                 .duration(20)
                 .EUt(491520)
                 .save(provider);
 
         RARE_EARTH_CENTRIFUGAL_RECIPES.recipeBuilder("samarium_chloride_concentrate_solution70")
                 .inputFluids(DilutedRareEarthChlorideSolution.getFluid(1000))
-                .outputFluids(RareEarthProcessingWastewater.getFluid(1000))
                 .outputItems(dustSmall, LanthanumOxide, 1)
                 .outputItems(dustSmall, PraseodymiumOxide, 1)
                 .outputItems(dustSmall, NeodymiumOxide, 1)
@@ -680,7 +679,6 @@ public class Lanthanidetreatment {
                 .outputItems(dustSmall, ScandiumOxide, 1)
                 .outputItems(dustSmall, YttriumOxide, 1)
                 .outputItems(dustSmall, PromethiumOxide, 1)
-                .duration(200)
                 .duration(20)
                 .EUt(491520)
                 .save(provider);

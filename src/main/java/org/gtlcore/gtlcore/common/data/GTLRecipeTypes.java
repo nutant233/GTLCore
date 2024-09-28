@@ -603,20 +603,6 @@ public class GTLRecipeTypes {
             })
             .setSound(GTSoundEntries.ARC);
 
-    /* 溶解 */
-    public static final GTRecipeType DISSOLUTION_TREATMENT = register("dissolution_treatment", MULTIBLOCK)
-            .setMaxIOSize(2, 3, 2, 1)
-            .setEUIO(IO.IN)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.ARC);
-
-    /* 煮解 */
-    public static final GTRecipeType DIGESTION_TREATMENT = register("digestion_treatment", MULTIBLOCK)
-            .setMaxIOSize(1, 1, 1, 1)
-            .setEUIO(IO.IN)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.ARC);
-
     private static String getGrindball(int tier) {
         if (tier == 2) {
             return I18n.get("material.gtceu.aluminium");
@@ -664,6 +650,41 @@ public class GTLRecipeTypes {
                         .map(coil -> new ItemStack(coil.getValue().get())).toList());
                 widgetGroup.addWidget(new SlotWidget(new CycleItemStackHandler(items), 0,
                         widgetGroup.getSize().width - 25, widgetGroup.getSize().height - 40, false, false));
+            });
+
+    public static final GTRecipeType DISSOLUTION_TREATMENT = register("dissolution_treatment", MULTIBLOCK)
+            .setMaxIOSize(2, 2, 2, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC);
+
+    public static final GTRecipeType DIGESTION_TREATMENT = register("digestion_treatment", MULTIBLOCK)
+            .setMaxIOSize(1, 1, 1, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC)
+            .addDataInfo(data -> {
+                int temp = data.getInt("ebf_temp");
+                return LocalizationUtils.format("gtceu.recipe.temperature", FormattingUtil.formatNumbers(temp));
+            })
+            .addDataInfo(data -> {
+                int temp = data.getInt("ebf_temp");
+                ICoilType requiredCoil = ICoilType.getMinRequiredType(temp);
+
+                if (requiredCoil != null && requiredCoil.getMaterial() != null) {
+                    return LocalizationUtils.format("gtceu.recipe.coil.tier",
+                            I18n.get(requiredCoil.getMaterial().getUnlocalizedName()));
+                }
+                return "";
+            })
+            .setUiBuilder((recipe, widgetGroup) -> {
+                int temp = recipe.data.getInt("ebf_temp");
+                List<List<ItemStack>> items = new ArrayList<>();
+                items.add(GTCEuAPI.HEATING_COILS.entrySet().stream()
+                        .filter(coil -> coil.getKey().getCoilTemperature() >= temp)
+                        .map(coil -> new ItemStack(coil.getValue().get())).toList());
+                widgetGroup.addWidget(new SlotWidget(new CycleItemStackHandler(items), 0,
+                        widgetGroup.getSize().width - 50, widgetGroup.getSize().height - 40, false, false));
             });
 
     public static void init() {

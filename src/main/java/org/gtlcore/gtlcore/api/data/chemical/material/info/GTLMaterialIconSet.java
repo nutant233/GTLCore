@@ -28,5 +28,5 @@ public class GTLMaterialIconSet extends com.gregtechceu.gtceu.api.data.chemical.
             false,
             () -> StereoscopicItemRenderer.INSTANCE);
 
-    public static final MaterialIconSet LIMPID = new MaterialIconSet("limpid", null, true);
+    public static final MaterialIconSet LIMPID = new MaterialIconSet("limpid", DULL);
 }

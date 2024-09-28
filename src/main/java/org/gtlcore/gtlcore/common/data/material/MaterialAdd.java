@@ -16,6 +16,8 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 public class MaterialAdd {
 
     public static void init() {
+        Monazite.addFlags(DISABLE_DECOMPOSITION);
+        Bastnasite.addFlags(DISABLE_DECOMPOSITION);
         PotassiumSulfate.setComponents(new MaterialStack(Potassium, 2), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4));
         AmmoniumChloride.setComponents(new MaterialStack(Nitrogen, 1), new MaterialStack(Hydrogen, 4), new MaterialStack(Chlorine, 1));
         Duranium.addFlags(GENERATE_FRAME);

@@ -4,12 +4,17 @@ import org.gtlcore.gtlcore.common.data.material.MaterialAdd;
 import org.gtlcore.gtlcore.common.data.material.MaterialBuilder;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 
 import com.lowdragmc.lowdraglib.Platform;
 
 import committee.nova.mods.avaritia.init.registry.ModBlocks;
 import committee.nova.mods.avaritia.init.registry.ModItems;
+
+import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.Bastnasite;
 
 public class GTLMaterials {
 
@@ -706,7 +711,6 @@ public class GTLMaterials {
     public static Material SamariumRefinedPowder;
     public static Material SamariumRrareEearthTurbidLiquid;
     public static Material MonaziteRareEarthTurbidLiquid;
-    public static Material HafniumOxideZirconiaMixedPowder;
     public static Material ThoritePowder;
     public static Material DilutedMonaziteSlurry;
     public static Material RedZirconPowder;
@@ -738,7 +742,6 @@ public class GTLMaterials {
     public static Material ConcentratedRareEarthChlorideSolution;
     public static Material EnrichedRareEarthChlorideSolution;
     public static Material DilutedRareEarthChlorideSolution;
-    public static Material RareEarthProcessingWastewater;
     public static Material SamariumRareEarthSlurry;
     public static Material NeodymiumRareEarthConcentratePowder;
     public static Material SamariumRareEarthDilutedSolution;
@@ -749,7 +752,6 @@ public class GTLMaterials {
     public static Material SamariumChlorideConcentrateSolution;
     public static Material LanthanumChloride;
     public static Material LanthanumChlorideWithImpurities;
-    public static Material MoltenSamarium;
     public static Material FluoroCarbonLanthanideCeriumSolution;
     public static Material SteamCrackedFluoroCarbonLanthanideSlurry;
     public static Material ModulatedFluoroCarbonLanthanideSlurry;
@@ -766,15 +768,32 @@ public class GTLMaterials {
     public static Material FluoroCarbonLanthanideCeriumRareEarthSuspension;
     public static Material SamariumRareEarthConcentratePowder;
     public static Material FluorinatedSamariumConcentratePowder;
-    public static Material CalciumFluoride;
     public static Material SamariumTerbiumMixturePowder;
     public static Material NitridedSamariumTerbiumMixturePowder;
     public static Material TerbiumNitratePowder;
     public static Material PromethiumOxide;
+    public static Material CarbonTetrachloride;
+    public static Material ActiniumOxalate;
 
     public static void init() {
         MaterialAdd.init();
         MaterialBuilder.init();
+
+        OreProperty oreProp = Bastnasite.getProperty(PropertyKey.ORE);
+        oreProp.getOreByProducts().clear();
+        oreProp.setOreByProducts(Neodymium, Monazite);
+
+        oreProp = Redstone.getProperty(PropertyKey.ORE);
+        oreProp.getOreByProducts().clear();
+        oreProp.setOreByProducts(Cinnabar, Ruby, Glowstone);
+
+        oreProp = Neodymium.getProperty(PropertyKey.ORE);
+        oreProp.getOreByProducts().clear();
+        oreProp.setOreByProducts(SamariumRefinedPowder);
+
+        oreProp = Monazite.getProperty(PropertyKey.ORE);
+        oreProp.getOreByProducts().clear();
+        oreProp.setOreByProducts(Thorium, Neodymium, Bastnasite);
 
         if (!Platform.isDevEnv()) {
             TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);

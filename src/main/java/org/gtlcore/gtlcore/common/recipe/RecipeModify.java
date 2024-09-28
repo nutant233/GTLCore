@@ -13,6 +13,7 @@ import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 public class RecipeModify {
 
     public static void init() {
+        GTRecipeTypes.SIFTER_RECIPES.setMaxIOSize(1, 6, 1, 1);
         GTRecipeTypes.ASSEMBLER_RECIPES.onRecipeBuild(GenerateDisassembly::generateDisassembly);
         GTRecipeTypes.ASSEMBLER_RECIPES.onRecipeBuild(GenerateDisassembly::generateDisassembly);
         GTRecipeTypes.PLASMA_GENERATOR_FUELS.onRecipeBuild((recipeBuilder, provider) -> {

@@ -95,7 +95,6 @@ public class GTLMachines {
     public static void init() {
         TootipsModify.init();
         GeneratorMachine.init();
-        LanthanideMachine.init();
         MultiBlockMachineA.init();
         AdvancedMultiBlockMachine.init();
     }
