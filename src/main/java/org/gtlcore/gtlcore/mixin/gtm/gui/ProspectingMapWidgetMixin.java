@@ -38,11 +38,16 @@ public abstract class ProspectingMapWidgetMixin extends WidgetGroup implements S
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
-                if (isMouseOverElement(mouseX, mouseY) && button == 1) {
-                    ((IProspectingTextureMixin) texture)
-                            .gTLCore$addWayPoint(gui.entityPlayer, mouseX - getPositionX() - 4, mouseY - getPositionY() - 4);
+                if (isMouseOverElement(mouseX, mouseY)) {
+                    if (button == 0) {
+                        ((IProspectingTextureMixin) texture)
+                                .gTLCore$teleportWayPoint(gui.entityPlayer, mouseX - getPositionX() - 4, mouseY - getPositionY() - 4);
+                    } else if (button == 1) {
+                        ((IProspectingTextureMixin) texture)
+                                .gTLCore$addWayPoint(gui.entityPlayer, mouseX - getPositionX() - 4, mouseY - getPositionY() - 4);
+                    }
                 }
-                return super.mouseClicked(mouseX, mouseY, button);
+                return false;
             }
         });
     }

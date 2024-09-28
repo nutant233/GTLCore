@@ -9,8 +9,10 @@ import com.lowdragmc.lowdraglib.LDLib;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
+import dev.ftb.mods.ftbchunks.net.TeleportFromMapPacket;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,6 +40,32 @@ public abstract class ProspectingTextureMixin extends AbstractTexture implements
         if (!LDLib.isModLoaded("ftbchunks")) {
             return;
         }
+
+        var mgr = FTBChunksAPI.clientApi().getWaypointManager(player.level().dimension()).orElse(null);
+        if (mgr == null) return;
+
+        BlockPos pos = this.gTLCore$getBlockPos(player, mouseX, mouseY);
+        AtomicInteger index = new AtomicInteger();
+        mgr.getAllWaypoints().forEach(waypoint -> {
+            if (waypoint.getName().startsWith("prospect_point")) {
+                int i = Integer.parseInt(waypoint.getName().replace("prospect_point", ""));
+                index.set(Math.max(i, index.get()));
+            }
+        });
+        mgr.addWaypointAt(pos, "prospect_point" + index.incrementAndGet()).setColor(200);
+    }
+
+    @Unique
+    @Override
+    public void gTLCore$teleportWayPoint(Player player, double mouseX, double mouseY) {
+        if (!LDLib.isModLoaded("ftbchunks")) return;
+        Level level = player.level();
+        BlockPos pos = gTLCore$getBlockPos(player, mouseX, mouseY);
+        new TeleportFromMapPacket(pos, true, level.dimension()).sendToServer();
+    }
+
+    @Unique
+    private BlockPos gTLCore$getBlockPos(Player player, double mouseX, double mouseY) {
         double x, z;
         if (playerXGui % 16 > 7 || playerXGui % 16 == 0) {
             x = mouseX - (playerXGui - 1);
@@ -49,16 +77,6 @@ public abstract class ProspectingTextureMixin extends AbstractTexture implements
         } else {
             z = mouseY - playerYGui;
         }
-        BlockPos pos = new BlockPos((int) (player.position().x + x), 0, (int) (player.position().z + z));
-
-        var mgr = FTBChunksAPI.clientApi().getWaypointManager(player.level().dimension()).get();
-        AtomicInteger index = new AtomicInteger();
-        mgr.getAllWaypoints().forEach(waypoint -> {
-            if (waypoint.getName().startsWith("prospect_point")) {
-                int i = Integer.parseInt(waypoint.getName().replace("prospect_point", ""));
-                index.set(Math.max(i, index.get()));
-            }
-        });
-        mgr.addWaypointAt(pos, "prospect_point" + index.incrementAndGet()).setColor(200);
+        return new BlockPos((int) (player.position().x + x), 0, (int) (player.position().z + z));
     }
 }
