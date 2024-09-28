@@ -165,31 +165,12 @@ public class GTLRecipeModifiers {
                 if (item.length < 2) {
                     return recipe;
                 }
-                int index = 0;
-                while (index < item.length && item[index].isEmpty()) {
-                    index++;
-                }
-                if (index == item.length) {
-                    return recipe;
-                }
-                items.add(item[index]);
-                while (index < item.length && item[index].isEmpty()) {
-                    index++;
-                }
-                if (index == item.length) {
-                    return recipe;
-                }
-                nums.add(Integer.parseInt(item[index]));
-                while (index < item.length && item[index].isEmpty()) {
-                    index++;
-                }
-                if (index == item.length) {
-                    return recipe;
-                }
+                items.add(item[0]);
+                nums.add(Integer.parseInt(item[1]));
                 if (j == 0) {
-                    weights.add(Integer.parseInt(item[index]));
+                    weights.add(Integer.parseInt(item[2]));
                 } else {
-                    weights.add(weights.get(j - 1) + Integer.parseInt(item[index]));
+                    weights.add(weights.get(j - 1) + Integer.parseInt(item[2]));
                 }
             }
             Random a = new Random();
@@ -198,7 +179,6 @@ public class GTLRecipeModifiers {
             if (index < 0) {
                 index = -index - 1;
             }
-
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(items.get(index)));
             ItemStack output = null;
             if (item != null) {

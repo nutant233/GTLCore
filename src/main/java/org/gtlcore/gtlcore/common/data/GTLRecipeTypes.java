@@ -22,9 +22,12 @@ import com.lowdragmc.lowdraglib.utils.CycleItemStackHandler;
 import com.lowdragmc.lowdraglib.utils.LocalizationUtils;
 
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -202,6 +205,46 @@ public class GTLRecipeTypes {
             .setMaxIOSize(1, 17, 0, 0)
             .setProgressBar(GuiTextures.CENTRIFUGE_OVERLAY, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.CENTRIFUGE);
+
+    public static final GTRecipeType PROBABILITY_RECIPE = register("probability_recipe", MULTIBLOCK)
+            .setEUIO(IO.IN)
+            .setMaxIOSize(1, 1, 0, 0)
+            .setProgressBar(GuiTextures.CENTRIFUGE_OVERLAY, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.CENTRIFUGE)
+            .setUiBuilder((recipe, widgetGroup) -> {
+                String pOutput = recipe.data.getString("probabilityOutput");
+                if (pOutput.isEmpty()) {
+                    return;
+                }
+                String[] lp = pOutput.split(";");
+                for (int i = 0; i < lp.length; i++) {
+                    List<List<ItemStack>> items = new ArrayList<>();
+                    List<ItemStack> temp = new ArrayList<>();
+                    String[] p = lp[i].split(",");
+                    List<String> itemStrings = new ArrayList<>();
+                    List<Integer> nums = new ArrayList<>();
+                    List<Integer> weights = new ArrayList<>();
+                    for (int j = 0; j < p.length; j++) {
+                        String[] item = p[j].split(" ");
+                        itemStrings.add(item[0]);
+                        nums.add(Integer.parseInt(item[1]));
+                        if (j == 0) {
+                            weights.add(Integer.parseInt(item[2]));
+                        } else {
+                            weights.add(weights.get(j - 1) + Integer.parseInt(item[2]));
+                        }
+                    }
+                    for (int j = 0; j < p.length; j++) {
+                        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemStrings.get(j)));
+                        if (item == null) {
+                            return;
+                        }
+                        temp.add(new ItemStack(item, nums.get(j)));
+                    }
+                    items.add(temp);
+                    widgetGroup.addWidget(new SlotWidget(new CycleItemStackHandler(items), 0, widgetGroup.getSize().width - 22 - 18 * i, widgetGroup.getSize().height - 32, false, false));
+                }
+            });
 
     public static final GTRecipeType MAGIC_MANUFACTURER_RECIPES = register("magic_manufacturer", MULTIBLOCK)
             .setEUIO(IO.IN)
