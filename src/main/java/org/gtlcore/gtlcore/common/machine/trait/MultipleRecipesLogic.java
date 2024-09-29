@@ -54,15 +54,16 @@ public class MultipleRecipesLogic extends RecipeLogic {
             match = parallelRecipe(match, parallel);
             GTRecipe input = buildEmptyRecipe();
             input.inputs.putAll(match.inputs);
-            input.handleRecipeIO(IO.IN, machine, getChanceCaches());
-            totalEu += match.duration * RecipeHelper.getInputEUt(match);
-            List<Content> item = match.outputs.get(ItemRecipeCapability.CAP);
-            if (item != null) {
-                recipe.outputs.get(ItemRecipeCapability.CAP).addAll(item);
-            }
-            List<Content> fluid = match.outputs.get(FluidRecipeCapability.CAP);
-            if (fluid != null) {
-                recipe.outputs.get(FluidRecipeCapability.CAP).addAll(fluid);
+            if (input.matchRecipe(machine).isSuccess() && input.handleRecipeIO(IO.IN, machine, getChanceCaches())) {
+                totalEu += match.duration * RecipeHelper.getInputEUt(match);
+                List<Content> item = match.outputs.get(ItemRecipeCapability.CAP);
+                if (item != null) {
+                    recipe.outputs.get(ItemRecipeCapability.CAP).addAll(item);
+                }
+                List<Content> fluid = match.outputs.get(FluidRecipeCapability.CAP);
+                if (fluid != null) {
+                    recipe.outputs.get(FluidRecipeCapability.CAP).addAll(fluid);
+                }
             }
             match = LookupRecipe();
             if (match == null) break;

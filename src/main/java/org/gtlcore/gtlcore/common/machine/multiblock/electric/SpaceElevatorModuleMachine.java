@@ -85,9 +85,9 @@ public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachin
             }
             GTRecipe recipe1 = GTLRecipeModifiers.reduction(machine, recipe, 1, Math.pow(0.8, spaceElevatorModuleMachine.SpaceElevatorTier - 1));
             if (recipe1 != null) {
-                return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, GTRecipeModifiers.accurateParallel(machine, recipe1, (int) Math.pow(4, spaceElevatorModuleMachine.ModuleTier - 1), false).getFirst(), spaceElevatorModuleMachine.getOverclockVoltage(), params, result);
+                recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe1, (int) Math.pow(4, spaceElevatorModuleMachine.ModuleTier - 1), false).getFirst();
+                if (recipe1 != null) return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, spaceElevatorModuleMachine.getOverclockVoltage(), params, result);
             }
-
         }
         return null;
     }

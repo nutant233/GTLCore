@@ -51,7 +51,8 @@ public class PCBFactoryMachine extends StorageMachine {
             pcbFactoryMachine.getPCBReduction();
             GTRecipe recipe1 = GTLRecipeModifiers.reduction(pcbFactoryMachine, recipe, pcbFactoryMachine.reductionEUt, pcbFactoryMachine.reductionDuration);
             if (recipe1 != null) {
-                return RecipeHelper.applyOverclock(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK, GTRecipeModifiers.hatchParallel(machine, recipe1, false, params, result), pcbFactoryMachine.getOverclockVoltage(), params, result);
+                recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe1, false, params, result);
+                if (recipe1 != null) return RecipeHelper.applyOverclock(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK, recipe1, pcbFactoryMachine.getOverclockVoltage(), params, result);
             }
         }
         return null;

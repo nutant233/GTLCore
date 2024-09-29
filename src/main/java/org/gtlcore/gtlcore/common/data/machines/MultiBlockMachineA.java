@@ -2940,10 +2940,14 @@ public class MultiBlockMachineA {
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof CoilWorkableElectricMultiblockMachine coilMachine && coilMachine.getRecipeType() == GTRecipeTypes.get("dehydrator")) {
-                    return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, GTRecipeModifiers.accurateParallel(coilMachine, recipe, (int) Math.min(2147483647, Math.pow(2, (coilMachine.getCoilType().getCoilTemperature() / 900))), false).getFirst(), coilMachine.getOverclockVoltage(), params, result);
+                    GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(coilMachine, recipe, (int) Math.min(2147483647, Math.pow(2, (coilMachine.getCoilType().getCoilTemperature() / 900))), false).getFirst();
+                    if (recipe1 != null) {
+                        return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, coilMachine.getOverclockVoltage(), params, result);
+                    }
                 } else {
                     return GTRecipeModifiers.ebfOverclock(machine, recipe, params, result);
                 }
+                return null;
             })
             .appearanceBlock(() -> Registries.getBlock("kubejs:red_steel_casing"))
             .pattern((definition) -> FactoryBlockPattern.start()

@@ -1,8 +1,9 @@
 package org.gtlcore.gtlcore.mixin.gtm.gui;
 
+import org.gtlcore.gtlcore.utils.NumberUtils;
+
 import com.gregtechceu.gtceu.integration.ae2.gui.widget.slot.AEFluidConfigSlotWidget;
 
-import appeng.api.stacks.AmountFormat;
 import appeng.api.stacks.GenericStack;
 import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +21,11 @@ public class AEFluidConfigSlotWidgetMixin {
                index = 1,
                remap = false)
     public String configFormat(String str, @Local(ordinal = 0) GenericStack stack) {
-        return stack.what().formatAmount(stack.amount(), AmountFormat.FULL);
+        long amount = stack.amount();
+        if (amount < 1000) {
+            return amount + "mB";
+        }
+        return NumberUtils.formatLong(amount / 1000) + "B";
     }
 
     @ModifyArg(method = "drawInBackground",
@@ -28,6 +33,10 @@ public class AEFluidConfigSlotWidgetMixin {
                index = 1,
                remap = false)
     public String stockFormat(String str, @Local(ordinal = 1) GenericStack stack) {
-        return stack.what().formatAmount(stack.amount(), AmountFormat.FULL);
+        long amount = stack.amount();
+        if (amount < 1000) {
+            return amount + "mB";
+        }
+        return NumberUtils.formatLong(amount / 1000) + "B";
     }
 }
