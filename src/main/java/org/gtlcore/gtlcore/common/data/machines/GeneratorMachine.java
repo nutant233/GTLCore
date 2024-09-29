@@ -14,6 +14,7 @@ import org.gtlcore.gtlcore.utils.Registries;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.RotationState;
+import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
@@ -223,12 +224,12 @@ public class GeneratorMachine {
                     .where("H", Predicates.blocks(GTLBlocks.HYPER_MECHANICAL_CASING.get()))
                     .where("J", Predicates.blocks(Registries.getBlock("kubejs:dyson_deployment_casing")))
                     .where("K", Predicates.blocks(Registries.getBlock("kubejs:adamantine_coil_block")))
-                    .where("L", Predicates.blocks(Registries.getBlock("gtceu:adamantium_frame")))
+                    .where("L", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Adamantine)))
                     .where("M", Predicates.blocks(GTLBlocks.HYPER_CORE.get()))
                     .where("N", Predicates.blocks(GTLBlocks.ECHO_CASING.get()))
                     .where("P", Predicates.blocks(Registries.getBlock("kubejs:dyson_deployment_magnet")))
                     .where("Q", Predicates.blocks(GTLBlocks.POWER_MODULE_5.get()))
-                    .where("R", Predicates.blocks(Registries.getBlock("gtceu:vibranium_frame")))
+                    .where("R", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Adamantium)))
                     .where("S", Predicates.blocks(Registries.getBlock("kubejs:containment_field_generator")))
                     .where("T", Predicates.blocks(Registries.getBlock("kubejs:dyson_deployment_core")))
                     .where(" ", Predicates.any())
@@ -261,7 +262,7 @@ public class GeneratorMachine {
                             .or(Predicates.abilities(PartAbility.OUTPUT_LASER).setMaxGlobalLimited(1)))
                     .where("c", Predicates.blocks(GTBlocks.CASING_POLYTETRAFLUOROETHYLENE_PIPE.get()))
                     .where("d", Predicates.blocks(GCyMBlocks.HEAT_VENT.get()))
-                    .where("e", Predicates.blocks(Registries.getBlock("gtceu:naquadria_frame")))
+                    .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Naquadria)))
                     .where("f", Predicates.blocks(Registries.getBlock("kubejs:neutronium_gearbox")))
                     .where(" ", Predicates.any())
                     .build())
@@ -312,7 +313,7 @@ public class GeneratorMachine {
                             .or(Predicates.abilities(PartAbility.OUTPUT_ENERGY).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.OUTPUT_LASER).setMaxGlobalLimited(1)))
                     .where("c", Predicates.blocks(GTLBlocks.HYPER_CORE.get()))
-                    .where("e", Predicates.blocks(Registries.getBlock("gtceu:naquadria_frame")))
+                    .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Naquadria)))
                     .where(" ", Predicates.any())
                     .where("-", Predicates.air())
                     .build())

@@ -10,6 +10,7 @@ import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -38,6 +39,30 @@ public class Misc {
                     .duration(200)
                     .save(provider);
         }
+
+        WOOD_DISTILLATION_RECIPES.recipeBuilder("wood_distillation_recipes")
+                .inputItems(ItemTags.LOGS, 16)
+                .inputFluids(Nitrogen.getFluid(1000))
+                .outputItems(dust, DarkAsh, 8)
+                .outputFluids(Water.getFluid(800))
+                .outputFluids(Carbon.getFluid(490))
+                .outputFluids(Methanol.getFluid(480))
+                .outputFluids(Benzene.getFluid(350))
+                .outputFluids(CarbonMonoxide.getFluid(340))
+                .outputFluids(Creosote.getFluid(300))
+                .outputFluids(Dimethylbenzene.getFluid(240))
+                .outputFluids(AceticAcid.getFluid(160))
+                .outputFluids(Methane.getFluid(130))
+                .outputFluids(Acetone.getFluid(80))
+                .outputFluids(Phenol.getFluid(75))
+                .outputFluids(Toluene.getFluid(75))
+                .outputFluids(Ethylene.getFluid(20))
+                .outputFluids(Hydrogen.getFluid(20))
+                .outputFluids(MethylAcetate.getFluid(16))
+                .outputFluids(Ethanol.getFluid(16))
+                .duration(200).EUt(VA[MV])
+                .save(provider);
+
         AUTOCLAVE_RECIPES.recipeBuilder("water_agar_mix").EUt(VA[HV]).duration(600)
                 .inputItems(dust, Gelatin)
                 .inputFluids(DistilledWater.getFluid(1000))

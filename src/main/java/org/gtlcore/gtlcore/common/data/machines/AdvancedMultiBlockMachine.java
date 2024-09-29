@@ -6,10 +6,7 @@ import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.client.renderer.machine.EyeOfHarmonyRenderer;
 import org.gtlcore.gtlcore.client.renderer.machine.SpaceElevatorRenderer;
 import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
-import org.gtlcore.gtlcore.common.data.GTLMachines;
-import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
-import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.HeatExchangerMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.NeutronActivatorMachine;
@@ -202,7 +199,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setMaxGlobalLimited(1)))
                     .where("c", Predicates.blocks(GCyMBlocks.HEAT_VENT.get()))
                     .where("d", Predicates.blocks(Registries.getBlock("kubejs:neutronium_pipe_casing")))
-                    .where("e", Predicates.blocks(Registries.getBlock("gtceu:black_titanium_frame")))
+                    .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Titanium)))
                     .where("f", Predicates.blocks(GTLBlocks.EXTREME_STRENGTH_TRITANIUM_CASING.get()))
                     .build())
             .beforeWorking((machine, recipe) -> {
@@ -552,12 +549,12 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("b", Predicates.blocks(GTBlocks.CASING_STAINLESS_CLEAN.get()))
-                    .where("c", Predicates.blocks(Registries.getBlock("gtceu:blue_steel_frame")))
+                    .where("c", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.BlueSteel)))
                     .where("d", Predicates.blocks(GTLBlocks.ANTIFREEZE_HEATPROOF_MACHINE_CASING.get()))
                     .where("e", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                     .where("g", Predicates.blocks(GTBlocks.CASING_POLYTETRAFLUOROETHYLENE_PIPE.get()))
-                    .where("h", Predicates.blocks(Registries.getBlock("gtceu:ultimet_frame")))
-                    .where("i", Predicates.blocks(Registries.getBlock("gtceu:hsla_steel_frame")))
+                    .where("h", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Ultimet)))
+                    .where("i", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.HSLASteel)))
                     .where("k", Predicates.blocks(GCyMBlocks.CASING_STRESS_PROOF.get()))
                     .where("l", Predicates.blocks(GTBlocks.CASING_STAINLESS_EVAPORATION.get()))
                     .where(" ", Predicates.any())
@@ -783,7 +780,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("a", Predicates.blocks(GTLBlocks.OXIDATION_RESISTANT_HASTELLOY_N_MECHANICAL_CASING.get()))
-                    .where("b", Predicates.blocks(Registries.getBlock("gtceu:hastelloy_x_frame")))
+                    .where("b", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.HastelloyX)))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TITANIUM_PIPE.get()))
                     .where("e", Predicates.blocks(GCyMBlocks.MOLYBDENUM_DISILICIDE_COIL_BLOCK.get()))
                     .where("f", Predicates.blocks(Registries.getBlock("kubejs:neutronium_gearbox")))
@@ -846,7 +843,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setMaxGlobalLimited(1)))
                     .where("b", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
-                    .where("c", Predicates.blocks(Registries.getBlock("gtceu:infinity_frame")))
+                    .where("c", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Infinity)))
                     .where("d", Predicates.blocks(GTLBlocks.CREATE_CASING.get()))
                     .where("e", Predicates.blocks(Registries.getBlock("kubejs:spacetime_compression_field_generator")))
                     .where("f", Predicates.blocks(Registries.getBlock("kubejs:create_aggregatione_core")))
@@ -1091,7 +1088,7 @@ public class AdvancedMultiBlockMachine {
                             .setMinGlobalLimited(14)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(Registries.getBlock("gtceu:stainless_steel_frame")))
+                    .where("c", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.StainlessSteel)))
                     .build())
             .beforeWorking((machine, recipe) -> {
                 boolean isrecipe = false;
@@ -1311,7 +1308,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER)))
-                    .where("C", Predicates.blocks(Registries.getBlock("gtceu:ruridit_frame")))
+                    .where("C", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Ruridit)))
                     .where(" ", Predicates.any())
                     .build())
             .additionalDisplay((controller, components) -> {
@@ -1360,7 +1357,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER)))
                     .where("B", Predicates.blocks(GTBlocks.CASING_ASSEMBLY_LINE.get()))
-                    .where("D", Predicates.blocks(Registries.getBlock("gtceu:ruridit_frame")))
+                    .where("D", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Ruridit)))
                     .where(" ", Predicates.any())
                     .build())
             .additionalDisplay((controller, components) -> {
@@ -1411,7 +1408,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER)))
                     .where("B", Predicates.blocks(GTLBlocks.ADVANCED_ASSEMBLY_LINE_UNIT.get()))
-                    .where("C", Predicates.blocks(Registries.getBlock("gtceu:ruridit_frame")))
+                    .where("C", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Ruridit)))
                     .where(" ", Predicates.any())
                     .build())
             .additionalDisplay((controller, components) -> {

@@ -358,18 +358,6 @@ public class GTLRecipeTypes {
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.MINER);
 
-    public static final GTRecipeType LARGE_INFUSER_RECIPES = register("large_infuser", MULTIBLOCK)
-            .setEUIO(IO.IN)
-            .setMaxIOSize(2, 1, 0, 0)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.COMPRESSOR);
-
-    public static final GTRecipeType LARGE_ROTARY_RECIPES = register("large_rotary", MULTIBLOCK)
-            .setEUIO(IO.IN)
-            .setMaxIOSize(1, 0, 0, 0)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_BATH, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.COOLING);
-
     public static final GTRecipeType BLOCK_CONVERSIONRECIPES = register("block_conversion", MULTIBLOCK)
             .setEUIO(IO.IN)
             .setMaxIOSize(1, 0, 0, 0)
@@ -495,12 +483,6 @@ public class GTLRecipeTypes {
             .setMaxIOSize(0, 0, 2, 12)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.COOLING);
-
-    public static final GTRecipeType DUNGEON_RECIPES = register("dungeon", MULTIBLOCK)
-            .setEUIO(IO.IN)
-            .setMaxIOSize(1, 0, 0, 0)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.SCIENCE);
 
     public static final GTRecipeType WEATHER_CONTROL_RECIPES = register("weather_control", MULTIBLOCK)
             .setEUIO(IO.IN)
@@ -686,6 +668,18 @@ public class GTLRecipeTypes {
                 widgetGroup.addWidget(new SlotWidget(new CycleItemStackHandler(items), 0,
                         widgetGroup.getSize().width - 50, widgetGroup.getSize().height - 40, false, false));
             });
+
+    public static final GTRecipeType WOOD_DISTILLATION_RECIPES = register("wood_distillation", MULTIBLOCK)
+            .setEUIO(IO.IN)
+            .setMaxIOSize(1, 1, 1, 16)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.BATH);
+
+    public static final GTRecipeType DESULFURIZER_RECIPES = register("desulfurizer", MULTIBLOCK)
+            .setEUIO(IO.IN)
+            .setMaxIOSize(0, 1, 1, 1)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.MIXER);
 
     public static void init() {
         RecipeModify.init();

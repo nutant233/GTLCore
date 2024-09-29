@@ -4,8 +4,7 @@ import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
-import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
-import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
+import org.gtlcore.gtlcore.common.data.machines.*;
 
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
@@ -33,7 +32,6 @@ import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.common.data.GTMachines.ROTOR_HOLDER;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
@@ -145,11 +143,11 @@ public class MachineRecipe {
                     'M', exportHatch.asStack(),
                     'P', new UnificationEntry(TagPrefix.pipeNonupleFluid, material));
         }
-        VanillaRecipeHelper.addShapedRecipe(provider, true, "rotor_holder_uhv", ROTOR_HOLDER[UHV].asStack(),
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "rotor_holder_uhv", GTMachines.ROTOR_HOLDER[UHV].asStack(),
                 "SGS", "GHG", "SGS", 'H', GTMachines.HULL[GTValues.UHV].asStack(), 'G',
                 new UnificationEntry(TagPrefix.gear, GTLMaterials.Orichalcum), 'S',
                 new UnificationEntry(TagPrefix.gearSmall, GTMaterials.Neutronium));
-        VanillaRecipeHelper.addShapedRecipe(provider, true, "rotor_holder_uev", ROTOR_HOLDER[UEV].asStack(),
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "rotor_holder_uev", GTMachines.ROTOR_HOLDER[UEV].asStack(),
                 "SGS", "GHG", "SGS", 'H', GTMachines.HULL[GTValues.UEV].asStack(), 'G',
                 new UnificationEntry(TagPrefix.gear, GTLMaterials.AstralTitanium), 'S',
                 new UnificationEntry(TagPrefix.gearSmall, GTLMaterials.Quantanium));
@@ -179,6 +177,20 @@ public class MachineRecipe {
                 .circuitMeta(2)
                 .outputItems(AdvancedMultiBlockMachine.FLUID_DRILLING_RIG[ZPM])
                 .duration(400).EUt(VA[UV]).save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder("wood_distillation")
+                .inputItems(MultiBlockMachineA.LARGE_PYROLYSE_OVEN, 2)
+                .inputItems(GCyMMachines.LARGE_DISTILLERY, 4)
+                .inputItems(CustomTags.LuV_CIRCUITS, 16)
+                .inputItems(GTItems.EMITTER_LuV, 4)
+                .inputItems(pipeHugeFluid, StainlessSteel, 8)
+                .inputItems(GTItems.ELECTRIC_PUMP_IV, 8)
+                .inputItems(WatertightSteel, 16)
+                .inputItems(plateDouble, StainlessSteel, 32)
+                .inputFluids(SolderingAlloy.getFluid(1296))
+                .outputItems(MultiBlockMachineB.WOOD_DISTILLATION)
+                .duration(400).EUt(VA[LuV])
+                .save(provider);
 
         VanillaRecipeHelper.addShapedRecipe(provider, true, "generator_array",
                 GeneratorMachine.GENERATOR_ARRAY.asStack(),
