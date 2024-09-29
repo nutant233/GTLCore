@@ -202,7 +202,7 @@ public class GTLRecipeTypes {
 
     public static final GTRecipeType RARE_EARTH_CENTRIFUGAL_RECIPES = register("rare_earth_centrifugal", MULTIBLOCK)
             .setEUIO(IO.IN)
-            .setMaxIOSize(1, 17, 0, 0)
+            .setMaxIOSize(1, 17, 1, 1)
             .setProgressBar(GuiTextures.CENTRIFUGE_OVERLAY, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.CENTRIFUGE);
 
@@ -644,6 +644,20 @@ public class GTLRecipeTypes {
                 widgetGroup.addWidget(new SlotWidget(new CycleItemStackHandler(items), 0,
                         widgetGroup.getSize().width - 25, widgetGroup.getSize().height - 40, false, false));
             })
+            .setSound(GTSoundEntries.ARC);
+
+    /* 溶解 */
+    public static final GTRecipeType DISSOLUTION_TREATMENT = register("dissolution_treatment", MULTIBLOCK)
+            .setMaxIOSize(2, 3, 2, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ARC);
+
+    /* 煮解 */
+    public static final GTRecipeType DIGESTION_TREATMENT = register("digestion_treatment", MULTIBLOCK)
+            .setMaxIOSize(1, 1, 1, 1)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.ARC);
 
     private static String getGrindball(int tier) {
