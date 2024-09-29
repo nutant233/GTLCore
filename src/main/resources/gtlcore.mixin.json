@@ -30,6 +30,7 @@
     "extendedae.ContainerPatternModifierMixin",
     "extendedae.PartExPatternProviderMixin",
     "extendedae.TileExPatternProviderMixin",
+    "gtm.CWURecipeCapabilityMixin",
     "gtm.FluidPipeTypeMixin",
     "gtm.OverclockingLogicMixin",
     "gtm.RockBreakerConditionMixin",
