@@ -36,6 +36,11 @@ loom {
 
 repositories {
     mavenLocal()
+    maven {
+        name 'Lss233Minecraft'
+        url 'http://lss233.littleservice.cn/repositories/minecraft'
+        allowInsecureProtocol = true // 允许使用HTTP协议
+    }
     flatDir {
         dir 'libs'
     }
