@@ -3,7 +3,6 @@ package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
-import com.gregtechceu.gtceu.common.data.GTBlocks;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -30,15 +29,28 @@ public class GreenhouseMachine extends WorkableElectricMultiblockMachine {
 
     private void getGreenhouseLight() {
         Level level = getLevel();
-        BlockPos pos = getPos();
         SkyLight = 15;
-        BlockPos[] coordinates = new BlockPos[] { pos.offset(1, 2, 0), pos.offset(1, 2, 1), pos.offset(1, 2, -1), pos.offset(0, 2, 1), pos.offset(0, 2, -1), pos.offset(-1, 2, 0), pos.offset(-1, 2, 1), pos.offset(-1, 2, -1), pos.offset(2, 2, 0), pos.offset(2, 2, -1), pos.offset(2, 2, 1), pos.offset(3, 2, 0), pos.offset(3, 2, -1), pos.offset(3, 2, 1), pos.offset(-2, 2, 0), pos.offset(-2, 2, -1), pos.offset(-2, 2, 1), pos.offset(-3, 2, 0), pos.offset(-3, 2, -1), pos.offset(-3, 2, 1), pos.offset(-1, 2, 2), pos.offset(0, 2, 2), pos.offset(1, 2, 2), pos.offset(-1, 2, 3), pos.offset(0, 2, 3), pos.offset(1, 2, 3), pos.offset(-1, 2, -2), pos.offset(0, 2, -2), pos.offset(1, 2, -2), pos.offset(-1, 2, -3), pos.offset(0, 2, -3), pos.offset(1, 2, -3) };
+        int x = 0, y = 3, z = 0;
+        switch (getFrontFacing()) {
+            case NORTH -> z = 1;
+            case SOUTH -> z = -1;
+            case WEST -> x = 1;
+            case EAST -> x = -1;
+        }
+        final BlockPos pos = getPos().offset(x, y, z);
+        BlockPos[] coordinates = new BlockPos[] { pos,
+                pos.offset(1, 0, 0),
+                pos.offset(1, 0, 1),
+                pos.offset(1, 0, -1),
+                pos.offset(0, 0, 1),
+                pos.offset(0, 0, -1),
+                pos.offset(-1, 0, 0),
+                pos.offset(-1, 0, 1),
+                pos.offset(-1, 0, -1) };
         for (BlockPos i : coordinates) {
-            if (level != null && level.getBlockState(i).getBlock() == GTBlocks.CASING_TEMPERED_GLASS.get()) {
-                int l = level.getBrightness(LightLayer.SKY, i.offset(0, 1, 0)) - level.getSkyDarken();
-                if (l < SkyLight) {
-                    SkyLight = l;
-                }
+            int l = level.getBrightness(LightLayer.SKY, i) - (level.dimension() == Level.OVERWORLD ? level.getSkyDarken() : 0);
+            if (l < SkyLight) {
+                SkyLight = l;
             }
         }
     }

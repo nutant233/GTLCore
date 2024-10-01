@@ -6,6 +6,7 @@ import org.gtlcore.gtlcore.utils.MachineIO;
 import com.gregtechceu.gtceu.api.machine.ConditionalSubscriptionHandler;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
@@ -36,7 +37,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class HarmonyMachine extends NoEnergyMultiblockMachine {
 
     public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            HarmonyMachine.class, NoEnergyMultiblockMachine.MANAGED_FIELD_HOLDER);
+            HarmonyMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     @Persisted
     private int oc = 0;

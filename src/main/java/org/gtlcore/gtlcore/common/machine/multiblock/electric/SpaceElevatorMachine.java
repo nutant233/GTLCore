@@ -28,44 +28,35 @@ public class SpaceElevatorMachine extends TierCasingMachine {
 
     private int mam = 0;
 
-    private BlockPos getPowerCore(BlockPos pos, Level level) {
-        BlockPos[] coordinates = new BlockPos[] { pos.offset(3, -2, 0),
-                pos.offset(-3, -2, 0),
-                pos.offset(0, -2, 3),
-                pos.offset(0, -2, -3) };
-        for (BlockPos blockPos : coordinates) {
-            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), "gtlcore:power_core")) {
-                return blockPos;
-            }
-        }
-        return null;
-    }
-
     private int getMAM() {
         if (getOffsetTimer() % 20 == 0) {
             final Level level = getLevel();
-            final BlockPos blockPos = getPowerCore(getPos(), level);
-            if (blockPos != null) {
-                BlockPos[] coordinatess = new BlockPos[] { blockPos.offset(8, 2, 3),
-                        blockPos.offset(8, 2, -3),
-                        blockPos.offset(-8, 2, 3),
-                        blockPos.offset(-8, 2, -3),
-                        blockPos.offset(3, 2, 8),
-                        blockPos.offset(-3, 2, 8),
-                        blockPos.offset(3, 2, -8),
-                        blockPos.offset(-3, 2, -8) };
-                mam = 0;
-                for (BlockPos blockPoss : coordinatess) {
-                    MetaMachine metaMachine = MetaMachine.getMachine(level, blockPoss);
-                    if (metaMachine instanceof WorkableElectricMultiblockMachine mbmachine &&
-                            mbmachine.isFormed()) {
-                        String bid = mbmachine.getBlockState().getBlock().kjs$getId();
-                        if (bid.equals("gtceu:assembler_module") || bid.equals("gtceu:resource_collection")) {
-                            mam++;
-                        }
+            int x = 0, y = -2, z = 0;
+            switch (getFrontFacing()) {
+                case NORTH -> z = 3;
+                case SOUTH -> z = -3;
+                case WEST -> x = 3;
+                case EAST -> x = -3;
+            }
+            final BlockPos blockPos = getPos().offset(x, y, z);
+            BlockPos[] coordinatess = new BlockPos[] { blockPos.offset(8, 2, 3),
+                    blockPos.offset(8, 2, -3),
+                    blockPos.offset(-8, 2, 3),
+                    blockPos.offset(-8, 2, -3),
+                    blockPos.offset(3, 2, 8),
+                    blockPos.offset(-3, 2, 8),
+                    blockPos.offset(3, 2, -8),
+                    blockPos.offset(-3, 2, -8) };
+            mam = 0;
+            for (BlockPos blockPoss : coordinatess) {
+                MetaMachine metaMachine = MetaMachine.getMachine(level, blockPoss);
+                if (metaMachine instanceof WorkableElectricMultiblockMachine mbmachine &&
+                        mbmachine.isFormed()) {
+                    String bid = mbmachine.getBlockState().getBlock().kjs$getId();
+                    if (bid.equals("gtceu:assembler_module") || bid.equals("gtceu:resource_collection")) {
+                        mam++;
                     }
                 }
-                return mam;
             }
         }
         return mam;

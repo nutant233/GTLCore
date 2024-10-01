@@ -7,6 +7,7 @@ import com.gregtechceu.gtceu.api.machine.ConditionalSubscriptionHandler;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
@@ -26,13 +27,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 public class DysonSphereMachine extends WorkableElectricMultiblockMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            DysonSphereMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
+            DysonSphereMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     @Persisted
     private int DysonSphereData;
@@ -88,22 +88,20 @@ public class DysonSphereMachine extends WorkableElectricMultiblockMachine {
 
     @Override
     public boolean beforeWorking(@Nullable GTRecipe recipe) {
-        final BlockPos pos = getPos();
         final Level level = getLevel();
-        BlockPos[] coordinates = new BlockPos[] {
-                pos.offset(4, 14, 0),
-                pos.offset(-4, 14, 0),
-                pos.offset(0, 14, 4),
-                pos.offset(0, 14, -4) };
-        for (BlockPos blockPos : coordinates) {
-            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), "kubejs:dyson_receiver_casing")) {
-                for (int i = -6; i < 7; i++) {
-                    for (int j = -6; j < 7; j++) {
-                        if (i != 0 && j != 0 && level.kjs$getBlock(blockPos.offset(i, 1, j)).getSkyLight() == 0) {
-                            getRecipeLogic().resetRecipeLogic();
-                            return false;
-                        }
-                    }
+        int x = 0, y = 14, z = 0;
+        switch (getFrontFacing()) {
+            case NORTH -> z = 4;
+            case SOUTH -> z = -4;
+            case WEST -> x = 4;
+            case EAST -> x = -4;
+        }
+        final BlockPos blockPos = getPos().offset(x, y, z);
+        for (int i = -6; i < 7; i++) {
+            for (int j = -6; j < 7; j++) {
+                if (i != 0 && j != 0 && level.kjs$getBlock(blockPos.offset(i, 1, j)).getSkyLight() == 0) {
+                    getRecipeLogic().resetRecipeLogic();
+                    return false;
                 }
             }
         }

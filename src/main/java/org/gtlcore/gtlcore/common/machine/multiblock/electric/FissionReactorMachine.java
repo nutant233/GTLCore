@@ -80,28 +80,27 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     @Override
     public void onStructureFormed() {
         super.onStructureFormed();
-        BlockPos pos = getPos();
         Level level = getLevel();
         int heatA = 0;
         int coolerA = 0;
-        BlockPos[] coordinates = new BlockPos[] { pos.offset(4, 0, 0),
-                pos.offset(-4, 0, 0),
-                pos.offset(0, 0, 4),
-                pos.offset(0, 0, -4) };
-        for (BlockPos blockPos : coordinates) {
-            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), "kubejs:fission_reactor_casing")) {
-                centrePos = blockPos.offset(0, 4, 0);
-                for (int i = -3; i < 4; i++) {
-                    for (int j = 0; j < 8; j++) {
-                        for (int k = -3; k < 4; k++) {
-                            BlockPos assemblyPos = blockPos.offset(i, j, k);
-                            if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:fission_fuel_assembly")) {
-                                heatA += adjacent(level, assemblyPos, "gtlcore:fission_fuel_assembly");
-                            }
-                            if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:cooler")) {
-                                coolerA += adjacent(level, assemblyPos, "gtlcore:cooler");
-                            }
-                        }
+        int x = 0, y = 0, z = 0;
+        switch (getFrontFacing()) {
+            case NORTH -> z = 4;
+            case SOUTH -> z = -4;
+            case WEST -> x = 4;
+            case EAST -> x = -4;
+        }
+        final BlockPos blockPos = getPos().offset(x, y, z);
+        centrePos = blockPos.offset(0, 4, 0);
+        for (int i = -3; i < 4; i++) {
+            for (int j = 0; j < 8; j++) {
+                for (int k = -3; k < 4; k++) {
+                    BlockPos assemblyPos = blockPos.offset(i, j, k);
+                    if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:fission_fuel_assembly")) {
+                        heatA += adjacent(level, assemblyPos, "gtlcore:fission_fuel_assembly");
+                    }
+                    if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:cooler")) {
+                        coolerA += adjacent(level, assemblyPos, "gtlcore:cooler");
                     }
                 }
             }

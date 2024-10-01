@@ -35,7 +35,6 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -90,39 +89,36 @@ public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
 
     @Override
     public void afterWorking() {
-        final BlockPos pos = getPos();
         final Level level = getLevel();
-        BlockPos[][] coordinates = new BlockPos[][] {
-                new BlockPos[] { pos.offset(1, 0, 0), pos.offset(3, 1, 0) },
-                new BlockPos[] { pos.offset(-1, 0, 0), pos.offset(-3, 1, 0) },
-                new BlockPos[] { pos.offset(0, 0, 1), pos.offset(0, 1, 3) },
-                new BlockPos[] { pos.offset(0, 0, -1), pos.offset(0, 1, -3) } };
-        for (BlockPos[] blockPos : coordinates) {
-            if (level instanceof ServerLevel serverLevel &&
-                    Objects.equals(serverLevel.kjs$getBlock(blockPos[0]).getId(), "gtceu:steel_gearbox")) {
-                BlockPos mobPos = blockPos[1];
-                final String[] mobList = MachineIO.notConsumableCircuit(this, 1) ? this.mobList1 : this.mobList2;
-                if (!this.isSpawn) {
-                    getItem(serverLevel, mobPos);
-                    for (int am = 0; am <= (getTier() - 2) * 8; am++) {
-                        int index = (int) (Math.random() * mobList.length);
-                        EntityType.byString("minecraft:" + mobList[index]).get()
-                                .spawn(serverLevel, mobPos, MobSpawnType.MOB_SUMMONED)
-                                .setYRot(serverLevel.getRandom().nextFloat() * 360F);
-                    }
-                } else {
-                    final LootParams lootparams = new LootParams.Builder(serverLevel)
-                            .create(LootContextParamSets.EMPTY);
-                    getItem(serverLevel, mobPos);
-                    for (int am = 0; am <= (getTier() - 2) * 8; am++) {
-                        int index = (int) (Math.random() * mobList.length);
-                        ObjectArrayList<ItemStack> loottable = serverLevel.getServer().getLootData()
-                                .getLootTable(new ResourceLocation("minecraft:entities/" + mobList[index]))
-                                .getRandomItems(lootparams);
-                        loottable.forEach(i -> MachineIO.outputItem(this, i));
-                    }
+        int x = 0, y = 1, z = 0;
+        switch (getFrontFacing()) {
+            case NORTH -> z = 3;
+            case SOUTH -> z = -3;
+            case WEST -> x = 3;
+            case EAST -> x = -3;
+        }
+        final BlockPos blockPos = getPos().offset(x, y, z);
+        if (level instanceof ServerLevel serverLevel) {
+            final String[] mobList = MachineIO.notConsumableCircuit(this, 1) ? this.mobList1 : this.mobList2;
+            if (!this.isSpawn) {
+                getItem(serverLevel, blockPos);
+                for (int am = 0; am <= (getTier() - 2) * 8; am++) {
+                    int index = (int) (Math.random() * mobList.length);
+                    EntityType.byString("minecraft:" + mobList[index]).get()
+                            .spawn(serverLevel, blockPos, MobSpawnType.MOB_SUMMONED)
+                            .setYRot(serverLevel.getRandom().nextFloat() * 360F);
                 }
-
+            } else {
+                final LootParams lootparams = new LootParams.Builder(serverLevel)
+                        .create(LootContextParamSets.EMPTY);
+                getItem(serverLevel, blockPos);
+                for (int am = 0; am <= (getTier() - 2) * 8; am++) {
+                    int index = (int) (Math.random() * mobList.length);
+                    ObjectArrayList<ItemStack> loottable = serverLevel.getServer().getLootData()
+                            .getLootTable(new ResourceLocation("minecraft:entities/" + mobList[index]))
+                            .getRandomItems(lootparams);
+                    loottable.forEach(i -> MachineIO.outputItem(this, i));
+                }
             }
         }
     }
