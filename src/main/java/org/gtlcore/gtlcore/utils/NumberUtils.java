@@ -9,13 +9,13 @@ import java.text.DecimalFormat;
 
 public class NumberUtils {
 
-    private static final String[] UNITS = { "", "K", "M", "G", "T", "P", "E", "B" };
+    public static final String[] UNITS = { "", "K", "M", "G", "T", "P", "E", "Y", "Z", "R", "Q", "S", "O", "N" };
 
     public static String formatLong(long number) {
         DecimalFormat df = new DecimalFormat("#.##");
         double temp = number;
         int unitIndex = 0;
-        while (temp >= 1000 && unitIndex < UNITS.length - 1) {
+        while (temp >= 1000) {
             temp /= 1000;
             unitIndex++;
         }

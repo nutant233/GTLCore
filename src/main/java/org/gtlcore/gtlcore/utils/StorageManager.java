@@ -70,14 +70,12 @@ public class StorageManager extends SavedData {
         return disks.get(uuid);
     }
 
-    public void modifyDisk(UUID diskID, ListTag stackKeys, long[] stackAmounts, long itemCount) {
+    public void modifyDisk(UUID diskID, ListTag stackKeys, long[] stackAmounts) {
         InfinityCellDataStorage diskToModify = getOrCreateDisk(diskID);
         if (stackKeys != null && stackAmounts != null) {
             diskToModify.stackKeys = stackKeys;
             diskToModify.stackAmounts = stackAmounts;
         }
-        diskToModify.itemCount = itemCount;
-
         updateDisk(diskID, diskToModify);
     }
 
