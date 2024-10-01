@@ -1,13 +1,17 @@
 package org.gtlcore.gtlcore.data.recipe.processing;
 
+import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+
+import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
 
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dust;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dustSmall;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
+import static org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix.*;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
@@ -683,5 +687,140 @@ public class Lanthanidetreatment {
                 .duration(20)
                 .EUt(491520)
                 .save(provider);
+
+        LARGE_CHEMICAL_RECIPES.recipeBuilder("make_p507_1")
+                .notConsumable(plate, Copper, 1)
+                .inputFluids(SeedOil.getFluid(3000))
+                .inputFluids(Hydrogen.getFluid(8000))
+                .outputFluids(EthylHexanol.getFluid(1000))
+                .duration(400)
+                .EUt(480)
+                .save(provider);
+
+        LARGE_CHEMICAL_RECIPES.recipeBuilder("make_p507_2")
+                .inputItems(dust, Sodium, 2)
+                .inputFluids(EthylHexanol.getFluid(2000))
+                .inputFluids(PhosphoricAcid.getFluid(2000))
+                .inputFluids(Ethanol.getFluid(2000))
+                .outputFluids(P507.getFluid(1000))
+                .duration(1200)
+                .EUt(1920)
+                .save(provider);
+
+        Material[] rareEarthElements = {
+                Lanthanum,
+                Cerium,
+                Praseodymium,
+                Neodymium,
+                Promethium,
+                Samarium,
+                Europium,
+                Gadolinium,
+                Terbium,
+                Dysprosium,
+                Holmium,
+                Erbium,
+                Thulium,
+                Ytterbium,
+                Lutetium,
+                Scandium,
+                Yttrium
+        };
+
+        FluidStack[] extractionNanoResins = {
+                LanthanumExtractionNanoResin.getFluid(1000),
+                CeriumExtractionNanoResin.getFluid(1000),
+                PraseodymiumExtractionNanoResin.getFluid(1000),
+                NeodymiumExtractionNanoResin.getFluid(1000),
+                PromethiumExtractionNanoResin.getFluid(1000),
+                SamariumExtractionNanoResin.getFluid(1000),
+                EuropiumExtractionNanoResin.getFluid(1000),
+                GadoliniumExtractionNanoResin.getFluid(1000),
+                TerbiumExtractionNanoResin.getFluid(1000),
+                DysprosiumExtractionNanoResin.getFluid(1000),
+                HolmiumExtractionNanoResin.getFluid(1000),
+                ErbiumExtractionNanoResin.getFluid(1000),
+                ThuliumExtractionNanoResin.getFluid(1000),
+                YtterbiumExtractionNanoResin.getFluid(1000),
+                LutetiumExtractionNanoResin.getFluid(1000),
+                ScandiumExtractionNanoResin.getFluid(1000),
+                YttriumExtractionNanoResin.getFluid(1000)
+        };
+
+        FluidStack[] extractedNanoResins = {
+                LanthanumExtractedNanoResin.getFluid(1000),
+                CeriumExtractedNanoResin.getFluid(1000),
+                PraseodymiumExtractedNanoResin.getFluid(1000),
+                NeodymiumExtractedNanoResin.getFluid(1000),
+                PromethiumExtractedNanoResin.getFluid(1000),
+                SamariumExtractedNanoResin.getFluid(1000),
+                EuropiumExtractedNanoResin.getFluid(1000),
+                GadoliniumExtractedNanoResin.getFluid(1000),
+                TerbiumExtractedNanoResin.getFluid(1000),
+                DysprosiumExtractedNanoResin.getFluid(1000),
+                HolmiumExtractedNanoResin.getFluid(1000),
+                ErbiumExtractedNanoResin.getFluid(1000),
+                ThuliumExtractedNanoResin.getFluid(1000),
+                YtterbiumExtractedNanoResin.getFluid(1000),
+                LutetiumExtractedNanoResin.getFluid(1000),
+                ScandiumExtractedNanoResin.getFluid(1000),
+                YttriumExtractedNanoResin.getFluid(1000)
+        };
+
+        for (int i = 0; i < rareEarthElements.length; i++) {
+            String recipeId0 = "make_extraction_nano_resin_" + i;
+            String recipeId1 = "1extraction_nano_resin_" + i;
+            String recipeId2 = "2extraction_nano_resin_" + i;
+            String recipeId3 = "3extraction_nano_resin_" + i;
+            String recipeId4 = "break_down_extracted_nano_resin_" + i;
+            Material inputitem = rareEarthElements[i];
+            FluidStack nanoResinFluid = extractionNanoResins[i];
+            FluidStack extractedNanoResinFluid = extractedNanoResins[i];
+
+            LARGE_CHEMICAL_RECIPES.recipeBuilder(recipeId0)
+                    .inputItems(lens, NetherStar, 1)
+                    .inputItems(dust, inputitem, 1)
+                    .inputItems(nanoswarm, Carbon, 1)
+                    .inputFluids(P507.getFluid(4000))
+                    .outputFluids(nanoResinFluid)
+                    .duration(1200)
+                    .EUt(1920)
+                    .save(provider);
+
+            LARGE_CHEMICAL_RECIPES.recipeBuilder(recipeId1)
+                    .inputFluids(nanoResinFluid)
+                    .inputFluids(ConcentratedRareEarthChlorideSolution.getFluid(1000))
+                    .outputFluids(EnrichedRareEarthChlorideSolution.getFluid(1000))
+                    .outputFluids(extractedNanoResinFluid)
+                    .duration(20)
+                    .EUt(491520)
+                    .save(provider);
+
+            LARGE_CHEMICAL_RECIPES.recipeBuilder(recipeId2)
+                    .inputFluids(nanoResinFluid)
+                    .inputFluids(EnrichedRareEarthChlorideSolution.getFluid(1000))
+                    .outputFluids(DilutedRareEarthChlorideSolution.getFluid(1000))
+                    .outputFluids(extractedNanoResinFluid)
+                    .duration(20)
+                    .EUt(491520)
+                    .save(provider);
+
+            LARGE_CHEMICAL_RECIPES.recipeBuilder(recipeId3)
+                    .inputFluids(nanoResinFluid)
+                    .inputFluids(DilutedRareEarthChlorideSolution.getFluid(1000))
+                    .outputFluids(extractedNanoResinFluid)
+                    .duration(20)
+                    .EUt(491520)
+                    .save(provider);
+
+            ELECTROLYZER_RECIPES.recipeBuilder(recipeId4)
+                    .inputFluids(extractedNanoResinFluid)
+                    .outputFluids(nanoResinFluid)
+                    .outputItems(dust, inputitem, 4)
+                    .outputFluids(Chlorine.getFluid(3000))
+                    .duration(100)
+                    .EUt(122880)
+                    .save(provider);
+        }
     }
 }
