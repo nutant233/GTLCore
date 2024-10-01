@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredIOPartMachine;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
+import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.common.item.IntCircuitBehaviour;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 
@@ -34,7 +35,7 @@ public class ItemBusPartMachineMixin extends TieredIOPartMachine {
 
     @Inject(method = "createInventory", at = @At("HEAD"), remap = false, cancellable = true)
     protected void createInventory(Object[] args, CallbackInfoReturnable<NotifiableItemStackHandler> cir) {
-        if (io == IO.IN) {
+        if (io == IO.IN && this.getDefinition() != GTMachines.STEAM_IMPORT_BUS) {
             cir.setReturnValue(new NotifiableItemStackHandler(this, getInventorySize(), IO.IN)
                     .setFilter((itemStack -> !IntCircuitBehaviour.isIntegratedCircuit(itemStack))));
         }

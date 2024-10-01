@@ -63,8 +63,11 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
     protected ConditionalSubscriptionHandler moderateSubs;
     protected ConditionalSubscriptionHandler absorptionSubs;
 
+    @Persisted
     private Set<NeutronSensorPartMachine> sensorMachines;
+    @Persisted
     private Set<ItemBusPartMachine> busMachines;
+    @Persisted
     private Set<NeutronAcceleratorPartMachine> acceleratorMachines;
 
     public NeutronActivatorMachine(IMachineBlockEntity holder, Object... args) {
@@ -135,6 +138,7 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
         return Math.pow(0.95, Math.max(height - 4, 0));
     }
 
+    @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe) {
         if (machine instanceof NeutronActivatorMachine nMachine &&
                 (nMachine.eV > recipe.data.getInt("ev_min") * 1000000 &&
