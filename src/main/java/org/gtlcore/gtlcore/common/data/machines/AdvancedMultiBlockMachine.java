@@ -1494,7 +1494,7 @@ public class AdvancedMultiBlockMachine {
             .appearanceBlock(GTBlocks.CASING_STAINLESS_CLEAN)
             .pattern(definition -> FactoryBlockPattern.start(RIGHT, BACK, UP)
                     .aisle("AAGAA", "ADDDA", "ADDDA", "ADDDA", "AAAAA")
-                    .aisle("B   B", " EEE ", " EFE ", " EEE ", "B   B").setRepeatable(4, 200)
+                    .aisle("B   B", " EEE ", " EFE ", " EEE ", "B   B").setRepeatable(4, 64)
                     .aisle("CCCCC", "CDDDC", "CDDDC", "CDDDC", "CCCCC")
                     .where('G', controller(blocks(definition.getBlock())))
                     .where('A', blocks(GTBlocks.CASING_STAINLESS_CLEAN.get())

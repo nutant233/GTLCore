@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
-import org.gtlcore.gtlcore.data.recipe.CraftingComponentAddition;
+import org.gtlcore.gtlcore.data.CraftingComponentAddition;
 
 import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
 

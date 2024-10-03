@@ -45,7 +45,6 @@ public class Misc {
                 .inputFluids(Nitrogen.getFluid(1000))
                 .outputItems(dust, DarkAsh, 8)
                 .outputFluids(Water.getFluid(800))
-                .outputFluids(Carbon.getFluid(490))
                 .outputFluids(Methanol.getFluid(480))
                 .outputFluids(Benzene.getFluid(350))
                 .outputFluids(CarbonMonoxide.getFluid(340))

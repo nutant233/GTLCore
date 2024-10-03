@@ -153,7 +153,10 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
 
     @Override
     public boolean beforeWorking(@Nullable GTRecipe recipe) {
-        return eV >= recipe.data.getInt("evt") * 1000 * Math.pow(getParallel(), 2);
+        if (recipe != null) {
+            return eV >= recipe.data.getInt("evt") * 1000 * getEVtMultiplier();
+        }
+        return false;
     }
 
     @Override
@@ -161,7 +164,7 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
         boolean value = super.onWorking();
         if (getRecipeLogic().getLastRecipe() != null) {
             int evt = (int) (getRecipeLogic().getLastRecipe().data.getInt("evt") *
-                    1000 * Math.max(1, Math.pow(getParallel(), 2) * getEfficiencyFactor()));
+                    1000 * getEVtMultiplier());
             if (eV < evt) {
                 getRecipeLogic().interruptRecipe();
                 return false;
@@ -172,7 +175,11 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
         return value;
     }
 
-    protected void neutronEnergyUpdate() {
+    private double getEVtMultiplier() {
+        return Math.max(1, Math.pow(getParallel(), 1.5) * getEfficiencyFactor());
+    }
+
+    private void neutronEnergyUpdate() {
         if (acceleratorMachines == null) return;
         boolean anyWorking = false;
         for (var accelerator : acceleratorMachines) {
@@ -187,7 +194,7 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
         if (!isWorking) neutronEnergySubs.unsubscribe();
     }
 
-    protected void moderateUpdate() {
+    private void moderateUpdate() {
         if (!isWorking && getOffsetTimer() % 20 == 0) {
             this.eV = Math.max(eV - 72 * 1000, 0);
         }
@@ -196,7 +203,7 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
         sensorMachines.forEach(sensor -> sensor.update(eV));
     }
 
-    protected void absorptionUpdate() {
+    private void absorptionUpdate() {
         if (busMachines == null || eV <= 0) return;
         boolean hasSlower = false;
         for (var bus : busMachines) {
@@ -234,13 +241,12 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine {
     public void addDisplayText(List<Component> textList) {
         super.addDisplayText(textList);
         if (isFormed()) {
-            int numParallels = getParallel();
             textList.add(Component.translatable("gtceu.multiblock.parallel",
-                    Component.literal(FormattingUtil.formatNumbers(numParallels)).withStyle(ChatFormatting.DARK_PURPLE))
+                    Component.literal(FormattingUtil.formatNumbers(getParallel())).withStyle(ChatFormatting.DARK_PURPLE))
                     .withStyle(ChatFormatting.GRAY));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.ev", processNumber(eV)));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.efficiency",
-                    FormattingUtil.formatNumbers(Math.max(1, Math.pow(numParallels, 2) * getEfficiencyFactor()))));
+                    FormattingUtil.formatNumbers(getEVtMultiplier())));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.height", height));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.time",
                     FormattingUtil.formatNumbers(getEfficiencyFactor() * 100)).append("%"));

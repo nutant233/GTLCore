@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.data.recipe;
+package org.gtlcore.gtlcore.data;
 
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
