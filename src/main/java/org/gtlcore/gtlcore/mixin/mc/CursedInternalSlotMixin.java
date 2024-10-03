@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.mixin.ae2;
+package org.gtlcore.gtlcore.mixin.mc;
 
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.integration.ae2.storage.InfinityCellDataStorage;

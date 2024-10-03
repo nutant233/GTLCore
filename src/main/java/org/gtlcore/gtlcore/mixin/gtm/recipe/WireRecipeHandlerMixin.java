@@ -55,7 +55,7 @@ public class WireRecipeHandlerMixin {
         }
 
         // Rubber Recipe (ULV-EV cables)
-        if (voltageTier <= EV) {
+        if (voltageTier < IV) {
             GTRecipeBuilder builder = ASSEMBLER_RECIPES
                     .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_rubber")
                     .EUt(VA[ULV]).duration(100)
@@ -67,54 +67,38 @@ public class WireRecipeHandlerMixin {
                 builder.inputItems(foil, PolyvinylChloride, insulationAmount);
             }
             builder.save(provider);
-        }
+        } else if (voltageTier < UHV) {
+            GTRecipeBuilder builder = ASSEMBLER_RECIPES
+                    .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_silicone")
+                    .EUt(VA[ULV]).duration(100)
+                    .inputItems(wirePrefix, material)
+                    .outputItems(cablePrefix, material);
 
-        // Silicone Rubber Recipe (all cables)
-        GTRecipeBuilder builder = ASSEMBLER_RECIPES
-                .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_silicone")
-                .EUt(VA[ULV]).duration(100)
-                .inputItems(wirePrefix, material)
-                .outputItems(cablePrefix, material);
+            if (voltageTier >= LuV) {
+                builder.inputItems(foil, PolyphenyleneSulfide, insulationAmount);
+            }
 
-        if (voltageTier > UEV) {
-            builder.inputItems(GTLItems.HIGHLY_INSULATING_FOIL.asStack(insulationAmount));
-        }
-
-        // Apply a Polyphenylene Sulfate Foil if LuV or above.
-        if (voltageTier >= LuV) {
-            builder.inputItems(foil, PolyphenyleneSulfide, insulationAmount);
-        }
-
-        // Apply a PVC Foil if EV or above.
-        if (voltageTier >= EV) {
             builder.inputItems(foil, PolyvinylChloride, insulationAmount);
-        }
 
-        builder.inputFluids(SiliconeRubber.getFluid(L * (long) insulationAmount / 2))
-                .save(provider);
+            builder.inputFluids(SiliconeRubber.getFluid(L * (long) insulationAmount))
+                    .save(provider);
+        } else {
+            GTRecipeBuilder builder = ASSEMBLER_RECIPES
+                    .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_styrene_butadiene")
+                    .EUt(VA[ULV]).duration(100)
+                    .inputItems(wirePrefix, material)
+                    .outputItems(cablePrefix, material);
 
-        // Styrene Butadiene Rubber Recipe (all cables)
-        builder = ASSEMBLER_RECIPES
-                .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_styrene_butadiene")
-                .EUt(VA[ULV]).duration(100)
-                .inputItems(wirePrefix, material)
-                .outputItems(cablePrefix, material);
+            if (voltageTier > UEV) {
+                builder.inputItems(GTLItems.HIGHLY_INSULATING_FOIL.asStack(insulationAmount));
+            }
 
-        if (voltageTier > UEV) {
-            builder.inputItems(GTLItems.HIGHLY_INSULATING_FOIL.asStack(insulationAmount));
-        }
-
-        // Apply a Polyphenylene Sulfate Foil if LuV or above.
-        if (voltageTier >= LuV) {
             builder.inputItems(foil, PolyphenyleneSulfide, insulationAmount);
-        }
 
-        // Apply a PVC Foil if EV or above.
-        if (voltageTier >= EV) {
             builder.inputItems(foil, PolyvinylChloride, insulationAmount);
-        }
 
-        builder.inputFluids(StyreneButadieneRubber.getFluid(L * (long) insulationAmount / 4))
-                .save(provider);
+            builder.inputFluids(StyreneButadieneRubber.getFluid(L * (long) insulationAmount))
+                    .save(provider);
+        }
     }
 }

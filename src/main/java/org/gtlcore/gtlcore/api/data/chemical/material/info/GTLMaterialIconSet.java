@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Getter
-public class GTLMaterialIconSet extends com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet {
+public class GTLMaterialIconSet extends MaterialIconSet {
 
     private final ICustomRenderer customRenderer;
 

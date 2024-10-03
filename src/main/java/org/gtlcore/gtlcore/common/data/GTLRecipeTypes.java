@@ -130,7 +130,8 @@ public class GTLRecipeTypes {
     public static final GTRecipeType SPACE_ELEVATOR_RECIPES = register("space_elevator", MULTIBLOCK)
             .setEUIO(IO.IN)
             .setMaxIOSize(1, 0, 0, 0)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT);
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setXEIVisible(false);
 
     public static String getSCTier(int tier) {
         return switch (tier) {
@@ -158,7 +159,8 @@ public class GTLRecipeTypes {
             .setEUIO(IO.IN)
             .setMaxIOSize(1, 0, 0, 0)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.MACERATOR);
+            .setSound(GTSoundEntries.MACERATOR)
+            .setXEIVisible(false);
 
     public static final GTRecipeType GREENHOUSE_RECIPES = register("greenhouse", MULTIBLOCK)
             .setEUIO(IO.IN)
@@ -362,7 +364,8 @@ public class GTLRecipeTypes {
             .setEUIO(IO.IN)
             .setMaxIOSize(1, 0, 0, 0)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.ARC);
+            .setSound(GTSoundEntries.ARC)
+            .setXEIVisible(false);
 
     public static final GTRecipeType INCUBATOR_RECIPES = register("incubator", MULTIBLOCK)
             .setEUIO(IO.IN)
@@ -444,7 +447,7 @@ public class GTLRecipeTypes {
             .setMaxTooltips(4)
             .setMaxIOSize(1, 0, 0, 0)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.COOLING);
+            .setXEIVisible(false);
 
     public static final GTRecipeType BEDROCK_DRILLING_RIG_RECIPES = register("bedrock_drilling_rig", MULTIBLOCK)
             .setEUIO(IO.IN)
@@ -456,7 +459,8 @@ public class GTLRecipeTypes {
             .setEUIO(IO.IN)
             .setMaxIOSize(1, 0, 0, 0)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.SCIENCE);
+            .setSound(GTSoundEntries.SCIENCE)
+            .setXEIVisible(false);
 
     public static final GTRecipeType GRAVITATION_SHOCKBURST_RECIPES = register("gravitation_shockburst", MULTIBLOCK)
             .setEUIO(IO.IN)
@@ -488,7 +492,8 @@ public class GTLRecipeTypes {
             .setEUIO(IO.IN)
             .setMaxIOSize(1, 0, 0, 0)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.SCIENCE);
+            .setSound(GTSoundEntries.SCIENCE)
+            .setXEIVisible(false);
 
     public static final GTRecipeType DISTORT_RECIPES = register("distort", MULTIBLOCK)
             .setMaxIOSize(9, 9, 9, 9)

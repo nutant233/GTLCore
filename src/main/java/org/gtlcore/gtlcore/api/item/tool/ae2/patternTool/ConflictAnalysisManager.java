@@ -16,7 +16,7 @@ public class ConflictAnalysisManager {
     public List<ConflictAnalysisObj> conflictAnalysisObjs;
 
     public ConflictAnalysisManager(List<GTRecipe> recipes) {
-        this.conflictAnalysisObjs = new ArrayList<ConflictAnalysisObj>();
+        this.conflictAnalysisObjs = new ArrayList<>();
         recipes.forEach(recipe -> conflictAnalysisObjs.add(new ConflictAnalysisObj(recipe)));
     }
 

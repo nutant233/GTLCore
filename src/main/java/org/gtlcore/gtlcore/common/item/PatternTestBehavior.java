@@ -196,8 +196,11 @@ public class PatternTestBehavior implements IItemUIFactory {
         List<ConflictAnalysisResult> conflictAnalysisResults = conflictAnalysisManager.useFindConflictForAll(CIRCUIT);
 
         // 对获得的冲突样板集 遍历输出
-        conflictAnalysisResults.forEach(ConflictAnalysisResult::exportToPrint);
-        GTLCore.LOGGER.info("可能被错误合成配方数量{} / 所有此电路配方数{}", conflictAnalysisResults.toArray().length, recipes.toArray().length);
+        StringBuilder sb = new StringBuilder();
+        for (ConflictAnalysisResult c : conflictAnalysisResults) {
+            sb = (c.exportToPrint(sb));
+        }
+        GTLCore.LOGGER.info("{}\n可能被错误合成配方数量{} / 所有此电路配方数{}", sb, conflictAnalysisResults.toArray().length, recipes.toArray().length);
     }
 
     @Override

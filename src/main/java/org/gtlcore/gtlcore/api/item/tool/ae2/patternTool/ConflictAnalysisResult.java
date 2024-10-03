@@ -1,7 +1,5 @@
 package org.gtlcore.gtlcore.api.item.tool.ae2.patternTool;
 
-import org.gtlcore.gtlcore.GTLCore;
-
 import lombok.Data;
 
 import java.util.List;
@@ -21,14 +19,13 @@ public class ConflictAnalysisResult {
         this.conflictAnalysisObj = conflictAnalysisObj; // 冲突配方的对象，可以通过这个获取原recipe
     }
 
-    public void exportToPrint() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n配方类型：").append(conflictAnalysisObj.recipe.getType()).append(" --------- 电路：").append(conflictAnalysisObj.CIRCUIT).append("\n>>材料：\n");
+    public StringBuilder exportToPrint(StringBuilder sb) {
+        sb.append("\n配方ID：").append(conflictAnalysisObj.recipe.id.toString()).append(" --------- 电路：").append(conflictAnalysisObj.CIRCUIT).append("\n>>材料：\n");
         RecipeStackHelper.getInputItemStacksFromRecipe(conflictAnalysisObj.recipe).forEach(itemStack -> sb.append("物品：").append(RecipeStackHelper.getItemTranslatedName(itemStack)));
         RecipeStackHelper.getInputFluidStacksFromRecipe(conflictAnalysisObj.recipe).forEach(fluidStack -> sb.append("流体：").append(RecipeStackHelper.getFluidTranslatedName(fluidStack)));
         sb.append("\n>>成品：\n");
         RecipeStackHelper.getOutputItemStacksFromRecipe(conflictAnalysisObj.recipe).forEach(itemStack -> sb.append("物品：").append(RecipeStackHelper.getItemTranslatedName(itemStack)));
         RecipeStackHelper.getOutputFluidStacksFromRecipe(conflictAnalysisObj.recipe).forEach(fluidStack -> sb.append("流体：").append(RecipeStackHelper.getFluidTranslatedName(fluidStack)));
-        GTLCore.LOGGER.info(sb);
+        return sb;
     }
 }

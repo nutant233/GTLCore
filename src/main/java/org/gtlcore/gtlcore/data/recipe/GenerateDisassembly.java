@@ -56,10 +56,7 @@ public class GenerateDisassembly {
                 .inputItems(output)
                 .duration(1)
                 .EUt(1);
-        if (DISASSEMBLY_RECORD.remove(id) && !cal) {
-            DISASSEMBLY_RECORD.add(id);
-        } else {
-            DISASSEMBLY_RECORD.add(id);
+        if (!DISASSEMBLY_RECORD.remove(id) || cal) {
             List<Content> itemList = r.input.getOrDefault(ItemRecipeCapability.CAP, null);
             List<Content> fluidList = r.input.getOrDefault(FluidRecipeCapability.CAP, null);
             if (itemList != null) {
@@ -85,6 +82,7 @@ public class GenerateDisassembly {
                 });
             }
         }
+        DISASSEMBLY_RECORD.add(id);
         builder.save(p);
     }
 }

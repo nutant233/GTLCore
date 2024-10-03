@@ -175,6 +175,7 @@ public class MaterialBuilder {
         BismuthTellurite = new Material.Builder(GTCEu.id("bismuth_tellurite"))
                 .dust()
                 .components(Bismuth, 2, Tellurium, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x004222)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
@@ -198,6 +199,7 @@ public class MaterialBuilder {
                 .gem()
                 .color(0xff97ff)
                 .components(Prasiolite, 3, BismuthTellurite, 6, CubicZirconia, 1, SteelMagnetic, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(MAGNETIC)
                 .buildAndRegister();
 
@@ -861,7 +863,7 @@ public class MaterialBuilder {
                         Palladium, 5, Germanium, 5, SiliconCarbide, 5)
                 .color(0x0d0d0d)
                 .iconSet(METALLIC)
-                .flags(GENERATE_FOIL)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_FOIL)
                 .buildAndRegister();
 
         FluxedElectrum = new Material.Builder(GTCEu.id("fluxed_electrum"))
@@ -872,7 +874,7 @@ public class MaterialBuilder {
                         RedSteel, 1, BlueSteel, 1, SterlingSilver, 1, RoseGold, 1)
                 .color(0xf8f8d6)
                 .iconSet(METALLIC)
-                .flags(GENERATE_FOIL)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_FOIL)
                 .buildAndRegister();
 
         Tanmolyium = new Material.Builder(GTCEu.id("tanmolyium"))
@@ -882,7 +884,7 @@ public class MaterialBuilder {
                 .components(Titanium, 5, Molybdenum, 5, Vanadium, 2, Chromium, 3, Aluminium, 1)
                 .color(0x97249a)
                 .iconSet(METALLIC)
-                .flags(GENERATE_PLATE)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_PLATE)
                 .buildAndRegister();
 
         Dalisenite = new Material.Builder(GTCEu.id("dalisenite"))
@@ -893,7 +895,7 @@ public class MaterialBuilder {
                         RhodiumPlatedPalladium, 14, Tanmolyium, 1)
                 .color(0xa4ac11)
                 .iconSet(METALLIC)
-                .flags(GENERATE_FOIL)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_FOIL)
                 .buildAndRegister();
 
         ArceusAlloy2B = new Material.Builder(GTCEu.id("arceusalloy2b"))
@@ -904,7 +906,7 @@ public class MaterialBuilder {
                         TungstenSteel, 2, Osmiridium, 1, Strontium, 2)
                 .color(0x79740e)
                 .iconSet(METALLIC)
-                .flags(GENERATE_FOIL)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_FOIL)
                 .buildAndRegister();
 
         TitanPrecisionSteel = new Material.Builder(GTCEu.id("titan_precision_steel"))
@@ -915,7 +917,7 @@ public class MaterialBuilder {
                         IgnisCrystal, 1)
                 .color(0x595137)
                 .iconSet(METALLIC)
-                .flags(GENERATE_FOIL)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_FOIL)
                 .buildAndRegister();
 
         Lumiium = new Material.Builder(GTCEu.id("lumiium"))
@@ -923,6 +925,7 @@ public class MaterialBuilder {
                 .fluid()
                 .blastTemp(5400, HIGH)
                 .components(SterlingSilver, 2, TinAlloy, 4, Luminessence, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xd9e222)
                 .iconSet(METALLIC)
                 .buildAndRegister();
@@ -934,7 +937,7 @@ public class MaterialBuilder {
                 .components(Lumiium, 18, Silver, 8, Sunnarium, 4)
                 .color(0xe2bede)
                 .iconSet(BRIGHT)
-                .flags(GENERATE_FOIL)
+                .flags(DISABLE_DECOMPOSITION, GENERATE_FOIL)
                 .buildAndRegister();
 
         SuperheavyLAlloy = new Material.Builder(GTCEu.id("superheavy_l_alloy"))
@@ -1268,6 +1271,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x562050)
                 .components(Carbon, 20, Hydrogen, 22, Nitrogen, 2, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1275,6 +1279,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x4a7454)
                 .components(Carbon, 8, Hydrogen, 6, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1325,6 +1330,7 @@ public class MaterialBuilder {
         Durene = new Material.Builder(GTCEu.id("durene"))
                 .dust()
                 .components(Carbon, 10, Hydrogen, 14)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x708090)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1332,6 +1338,7 @@ public class MaterialBuilder {
         PyromelliticDianhydride = new Material.Builder(GTCEu.id("pyromellitic_dianhydride"))
                 .dust()
                 .components(Carbon, 10, Hydrogen, 2, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x708090)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1351,6 +1358,7 @@ public class MaterialBuilder {
         CalciumCarbide = new Material.Builder(GTCEu.id("calcium_carbide"))
                 .dust()
                 .components(Calcium, 1, Carbon, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x47443e)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1358,6 +1366,7 @@ public class MaterialBuilder {
         Difluorobenzophenone = new Material.Builder(GTCEu.id("difluorobenzophenone"))
                 .dust()
                 .components(Fluorine, 2, Carbon, 13, Hydrogen, 8, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xcf51ae)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1372,6 +1381,7 @@ public class MaterialBuilder {
         SodiumSeaborgate = new Material.Builder(GTCEu.id("sodium_seaborgate"))
                 .dust()
                 .components(Sodium, 2, Seaborgium, 1, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x55bbd4)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1396,6 +1406,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xd4e982)
                 .components(Carbon, 8, Hydrogen, 12, Chlorine, 2, Platinum, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1403,6 +1414,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x000a42)
                 .components(Carbon, 12, Hydrogen, 8, Iodine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1426,6 +1438,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xc1c12d)
                 .components(Lithium, 2, Niobium, 1, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1433,6 +1446,7 @@ public class MaterialBuilder {
                 GTCEu.id("hexanitrohexaaxaisowurtzitane"))
                 .dust()
                 .components(Carbon, 6, Hydrogen, 6, Nitrogen, 12, Oxygen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x3d464b)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1448,6 +1462,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x19586d)
                 .components(Carbon, 6, Hydrogen, 6, Nitrogen, 12, Oxygen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1456,6 +1471,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x500449)
                 .components(Carbon, 14, Hydrogen, 18, Nitrogen, 8, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1464,6 +1480,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x3c3f40)
                 .components(Nitrogen, 1, Oxygen, 2, Boron, 1, Fluorine, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1480,6 +1497,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x64704d)
                 .components(Carbon, 28, Hydrogen, 32, Nitrogen, 6, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1487,6 +1505,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x64704d)
                 .components(Carbon, 6, Hydrogen, 7, Nitrogen, 1, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1495,6 +1514,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x64704d)
                 .components(Carbon, 48, Hydrogen, 48, Nitrogen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1509,6 +1529,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x401116)
                 .components(Carbon, 4, Hydrogen, 4, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1516,6 +1537,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x104e5c)
                 .components(Carbon, 4, Hydrogen, 6, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1523,6 +1545,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x5a6161)
                 .components(Carbon, 2, Hydrogen, 3, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1530,6 +1553,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x5a6261)
                 .components(Carbon, 6, Hydrogen, 12, Nitrogen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1574,6 +1598,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x96b4b4)
                 .components(Palladium, 1, Carbon, 73, Hydrogen, 15, Nitrogen, 1, Iron, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
 
@@ -1581,6 +1606,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x86c2b8)
                 .components(Carbon, 60)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1588,6 +1614,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x587f83)
                 .components(Carbon, 60, Hydrogen, 30)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1595,6 +1622,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x79260c)
                 .components(Carbon, 19, Hydrogen, 14)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1602,6 +1630,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x809324)
                 .components(Carbon, 3, Hydrogen, 7, Nitrogen, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1610,6 +1639,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x8e801c)
                 .components(Carbon, 15, Hydrogen, 10, Nitrogen, 2, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1617,6 +1647,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xacacac)
                 .components(Carbon, 5, Hydrogen, 12, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1718,8 +1749,9 @@ public class MaterialBuilder {
                 .buildAndRegister().setFormula("?");
 
         Tannic = new Material.Builder(GTCEu.id("tannic"))
-                .fluid()
+                .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .components(Carbon, 76, Hydrogen, 52, Oxygen, 46)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xffff66)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1736,6 +1768,7 @@ public class MaterialBuilder {
         Polyimide = new Material.Builder(GTCEu.id("polyimide"))
                 .fluid()
                 .components(Carbon, 22, Hydrogen, 12, Nitrogen, 2, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xff6730)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1750,6 +1783,7 @@ public class MaterialBuilder {
         Oxydianiline = new Material.Builder(GTCEu.id("oxydianiline"))
                 .fluid()
                 .components(Carbon, 12, Hydrogen, 12, Nitrogen, 2, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xffd700)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1757,6 +1791,7 @@ public class MaterialBuilder {
         BoricAcid = new Material.Builder(GTCEu.id("boric_acide"))
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .components(Hydrogen, 3, Boron, 1, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x8fbc8f)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1772,6 +1807,7 @@ public class MaterialBuilder {
                 GTCEu.id("benzenediazonium_tetrafluoroborate"))
                 .fluid()
                 .components(Carbon, 6, Hydrogen, 5, Boron, 1, Fluorine, 4, Nitrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x8fbc8f)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1786,6 +1822,7 @@ public class MaterialBuilder {
         Fluorotoluene = new Material.Builder(GTCEu.id("fluorotoluene"))
                 .fluid()
                 .components(Carbon, 7, Hydrogen, 7, Fluorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xdad386)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1813,6 +1850,7 @@ public class MaterialBuilder {
         SodiumNitrateSolution = new Material.Builder(GTCEu.id("sodium_nitrate_solution"))
                 .fluid()
                 .components(SodiumNitrate, 1, Water, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x2b387e)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1820,6 +1858,7 @@ public class MaterialBuilder {
         Acetylene = new Material.Builder(GTCEu.id("acetylene"))
                 .fluid()
                 .components(Carbon, 2, Hydrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x7f8552)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1834,6 +1873,7 @@ public class MaterialBuilder {
         GoldCyanide = new Material.Builder(GTCEu.id("gold_cyanide"))
                 .fluid()
                 .components(Gold, 1, Carbon, 1, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x736f50)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -1872,6 +1912,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x72685f)
                 .components(Tin, 1, Carbon, 3, Hydrogen, 9, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1879,6 +1920,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x76750f)
                 .components(Silver, 1, Boron, 1, Fluorine, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1900,6 +1942,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x555642)
                 .components(Carbon, 5, Hydrogen, 5, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1927,6 +1970,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x1b5d74)
                 .components(Carbon, 2, Hydrogen, 8, Nitrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1934,6 +1978,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x1b5d74)
                 .components(Carbon, 2, Hydrogen, 7, Nitrogen, 1, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1941,6 +1986,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x8eb7d8)
                 .components(Carbon, 2, Hydrogen, 4, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1956,6 +2002,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x433217)
                 .components(Hydrogen, 4, Nitrogen, 1, Oxygen, 1, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1963,6 +2010,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x321b90)
                 .components(Carbon, 4, Hydrogen, 2, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1970,6 +2018,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x5b6363)
                 .components(Carbon, 7, Hydrogen, 9, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1977,6 +2026,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xf0ed4d)
                 .components(Carbon, 2, Hydrogen, 2, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -1984,6 +2034,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x9ff6fb)
                 .components(Carbon, 7, Hydrogen, 7, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2012,6 +2063,7 @@ public class MaterialBuilder {
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .color(0x239791)
                 .components(Carbon, 18, Hydrogen, 36, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2025,6 +2077,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xe7d510)
                 .components(Carbon, 24, Hydrogen, 51, Phosphorus, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2033,6 +2086,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x776715)
                 .components(Iridium, 1, Chlorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2196,6 +2250,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x7373c9)
                 .components(Carbon, 10, Hydrogen, 10, Iron, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2305,7 +2360,8 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xe1ffff)
                 .components(Nitrogen, 2, Hydrogen, 4, Oxygen, 1)
-                .iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
 
         NaquadahSolution = new Material.Builder(GTCEu.id("naquadah_solution"))
@@ -2429,6 +2485,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xcdd681)
                 .components(Carbon, 3, Hydrogen, 7, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2437,6 +2494,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x6a784d)
                 .components(Carbon, 12, Hydrogen, 16, Nitrogen, 2, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2533,6 +2591,7 @@ public class MaterialBuilder {
         Dibromomethylbenzene = new Material.Builder(GTCEu.id("dibromomethylbenzene"))
                 .fluid()
                 .components(Carbon, 7, Hydrogen, 6, Bromine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x6b584)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2598,6 +2657,7 @@ public class MaterialBuilder {
         Phosgene = new Material.Builder(GTCEu.id("phosgene"))
                 .fluid()
                 .components(Carbon, 1, Oxygen, 1, Chlorine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x0e6c11)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2618,6 +2678,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xadadad)
                 .components(Carbon, 2, Hydrogen, 6, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2625,6 +2686,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x758a61)
                 .components(Carbon, 80, Hydrogen, 21, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2632,6 +2694,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x758a61)
                 .components(Carbon, 7, Hydrogen, 10, Nitrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2639,6 +2702,7 @@ public class MaterialBuilder {
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .color(0x4d3833)
                 .components(Carbon, 11, Hydrogen, 14, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2646,6 +2710,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x832663)
                 .components(Carbon, 1, Hydrogen, 2, Chlorine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2653,6 +2718,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xa02e06)
                 .components(Carbon, 2, Hydrogen, 6, Sulfur, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2675,6 +2741,7 @@ public class MaterialBuilder {
                 GTCEu.id("benzophenanthrenylacetonitrile"))
                 .dust()
                 .components(Carbon, 20, Hydrogen, 13, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x9222c7)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2682,6 +2749,7 @@ public class MaterialBuilder {
         BromoSuccinamide = new Material.Builder(GTCEu.id("bromo_succinimide"))
                 .dust()
                 .components(Carbon, 4, Hydrogen, 4, Bromine, 1, Nitrogen, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x546a21)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2696,6 +2764,7 @@ public class MaterialBuilder {
         Succinimide = new Material.Builder(GTCEu.id("succinimide"))
                 .dust()
                 .components(Carbon, 4, Hydrogen, 5, Nitrogen, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x21a7c5)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2710,6 +2779,7 @@ public class MaterialBuilder {
                 GTCEu.id("francium_caesium_cadmium_bromide"))
                 .dust()
                 .components(Francium, 1, Caesium, 1, Cadmium, 2, Bromine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xa34d1a)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
@@ -2718,6 +2788,7 @@ public class MaterialBuilder {
                 GTCEu.id("strontium_europium_aluminate"))
                 .dust()
                 .components(Strontium, 1, Europium, 1, Aluminium, 2, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xb62d78)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
@@ -2732,6 +2803,7 @@ public class MaterialBuilder {
         DibismuthHydroborate = new Material.Builder(GTCEu.id("dibismuthhydroborat"))
                 .dust()
                 .components(Bismuth, 2, Hydrogen, 1, Boron, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x007d32)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
@@ -2746,6 +2818,7 @@ public class MaterialBuilder {
         CaesiumIodide = new Material.Builder(GTCEu.id("caesium_iodide"))
                 .dust()
                 .components(Caesium, 1, Iodine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xeeeee2)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -2779,6 +2852,7 @@ public class MaterialBuilder {
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .color(0xb41558)
                 .components(Carbon, 3, Hydrogen, 4, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2786,6 +2860,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x947d15)
                 .components(Carbon, 5, Hydrogen, 8, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2793,6 +2868,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x42145d)
                 .components(Flerovium, 1, Chlorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2801,6 +2877,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x72cb00)
                 .components(Rhenium, 1, Carbon, 10, Hydrogen, 8, Sulfur, 4, Selenium, 4, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
 
@@ -2809,6 +2886,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x72cb00)
                 .components(Carbon, 10, Hydrogen, 8, Sulfur, 4, Selenium, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
 
@@ -2816,6 +2894,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x72cb00)
                 .components(Carbon, 4, Hydrogen, 4, Sulfur, 2, Lithium, 2, Selenium, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2824,6 +2903,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xb22db2)
                 .components(Carbon, 10, Hydrogen, 10, Chlorine, 2, Titanium, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(BRIGHT)
                 .buildAndRegister();
 
@@ -2831,6 +2911,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x9f6af6)
                 .components(Carbon, 4, Hydrogen, 9, Lithium, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2838,6 +2919,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x50c44d)
                 .components(Carbon, 4, Hydrogen, 4, Sulfur, 2, Bromine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2845,6 +2927,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x3e3e3e)
                 .components(Carbon, 2, Hydrogen, 2, Bromine, 2, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2852,6 +2935,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x145a9d)
                 .components(Sodium, 2, Sulfur, 2, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2874,6 +2958,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xff0c0c)
                 .components(Carbon, 4, Hydrogen, 9, Bromine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2881,6 +2966,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x323b0a)
                 .components(Carbon, 3, Hydrogen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2895,6 +2981,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x67e83c)
                 .components(Holmium, 1, Thulium, 1, Copernicium, 1, Flerovium, 1, Astatine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2902,6 +2989,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x797979)
                 .components(Francium, 4, Boron, 4, Carbon, 7)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2909,6 +2997,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x7e7e22)
                 .components(MixedAstatideSalts, 1, BoronFranciumCarbide, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2916,6 +3005,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xa1a1a1)
                 .components(Francium, 2, Carbon, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2923,6 +3013,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x1e1e1e)
                 .components(Boron, 4, Carbon, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2939,6 +3030,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xd3bfec)
                 .components(Lanthanum, 1, UnfoldedFullerene, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2946,6 +3038,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x286224)
                 .components(Californium, 1, Chlorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2960,6 +3053,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x78374a)
                 .components(Carbon, 15, Hydrogen, 15, Californium, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2967,6 +3061,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x2aa62a)
                 .components(Carbon, 5, Hydrogen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2974,6 +3069,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x7b4657)
                 .components(Lithium, 1, Carbon, 5, Hydrogen, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2981,6 +3077,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xbda90e)
                 .components(Carbon, 2, Hydrogen, 6, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2988,6 +3085,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x23a996)
                 .components(Carbon, 4, Hydrogen, 10, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -2996,6 +3094,7 @@ public class MaterialBuilder {
                 .color(0x73445b)
                 .components(Carbon, 149, Hydrogen, 97, Nitrogen, 10, Oxygen, 2, Titanium, 1,
                         Boron, 1, Fluorine, 20)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3003,6 +3102,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xededed)
                 .components(Silver, 1, Chlorine, 1, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3010,6 +3110,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x8d8d8d)
                 .components(Silver, 1, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3031,6 +3132,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x8c8c8c)
                 .components(Carbon, 8, Hydrogen, 4, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3053,6 +3155,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xcece00)
                 .components(Ethylanthraquinone, 1, Hydrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3060,6 +3163,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x929e92)
                 .components(Carbon, 14, Hydrogen, 10)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3067,6 +3171,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x2626ab)
                 .components(Carbon, 6, Hydrogen, 5, Sodium, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3074,6 +3179,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x2f7e8a)
                 .components(Carbon, 10, Hydrogen, 7, Fluorine, 2, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3081,6 +3187,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x348f3e)
                 .components(Carbon, 6, Hydrogen, 5, Fluorine, 2, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3088,6 +3195,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x63577d)
                 .components(Carbon, 4, Hydrogen, 6, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3095,6 +3203,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xc20cff)
                 .components(Carbon, 8, Hydrogen, 20, Nitrogen, 1, Bromine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3110,6 +3219,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x004141)
                 .components(Iodine, 1, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3117,6 +3227,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xde2da1)
                 .components(Carbon, 12, Hydrogen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3124,6 +3235,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xde2da1)
                 .components(Carbon, 18, Hydrogen, 13, Iodine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3131,6 +3243,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x724c50)
                 .components(Carbon, 9, Hydrogen, 12, Silicon, 1, Magnesium, 2, Bromine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3145,6 +3258,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x51b31f)
                 .components(Carbon, 3, Hydrogen, 8, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3153,6 +3267,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x302399)
                 .components(Carbon, 8, Chlorine, 2, Nitrogen, 2, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3161,6 +3276,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x302399)
                 .components(Carbon, 8, Chlorine, 2, Nitrogen, 2, Oxygen, 2, Hydrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3168,6 +3284,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x8f7718)
                 .components(Carbon, 18, Hydrogen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3175,6 +3292,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x8f7718)
                 .components(Carbon, 18, Hydrogen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3184,6 +3302,7 @@ public class MaterialBuilder {
                 .color(0x8f7718)
                 .components(Rhenium, 1, Hassium, 1, Thallium, 1, Carbon, 60, Phosphorus, 1,
                         Nitrogen, 12, Hydrogen, 84, Sulfur, 6, Oxygen, 12, Fluorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3191,6 +3310,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xcc5350)
                 .components(Thallium, 1, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3198,6 +3318,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x5828b2)
                 .components(Hassium, 1, Chlorine, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3205,6 +3326,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x392857)
                 .components(Rhenium, 1, Chlorine, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3212,6 +3334,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x76677e)
                 .components(Carbon, 18, Hydrogen, 26, Nitrogen, 4, Oxygen, 2, Sulfur, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3219,6 +3342,7 @@ public class MaterialBuilder {
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .color(0xd5d54b)
                 .components(Hydrogen, 1, Phosphorus, 1, Fluorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3226,6 +3350,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x23a687)
                 .components(Carbon, 5, Hydrogen, 12, Nitrogen, 2, Sulfur, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3233,6 +3358,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xf8f5e0)
                 .components(Sulfur, 1, Oxygen, 1, Chlorine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3241,6 +3367,7 @@ public class MaterialBuilder {
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .color(0x7c4456)
                 .components(Carbon, 10, Hydrogen, 10, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3248,6 +3375,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x7c4456)
                 .components(Sodium, 1, Sulfur, 1, Carbon, 1, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3255,6 +3383,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xd5d54b)
                 .components(Phosphorus, 1, Chlorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3262,6 +3391,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xd5d5bd)
                 .components(Antimony, 1, Fluorine, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3304,6 +3434,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x5a656d)
                 .components(Carbon, 2, Hydrogen, 5, Nitrogen, 1, Hydrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3311,6 +3442,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xacf4bf)
                 .components(Carbon, 9, Hydrogen, 6, Nitrogen, 2, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3318,6 +3450,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xacf4bf)
                 .components(Carbon, 17, Hydrogen, 16, Nitrogen, 2, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3342,6 +3475,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xcacace)
                 .components(Carbon, 6, Hydrogen, 12, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3357,6 +3491,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x535353)
                 .components(Carbon, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3364,6 +3499,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x535353)
                 .components(Carbon, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3371,6 +3507,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x202079)
                 .components(Carbon, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3387,6 +3524,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x807d72)
                 .components(Potassium, 1, Sulfur, 1, Hydrogen, 1, Oxygen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3395,6 +3533,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x4c6226)
                 .components(Potassium, 2, Nitrogen, 1, Hydrogen, 1, Sulfur, 2, Oxygen, 7)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3402,6 +3541,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x848075)
                 .components(Nitrogen, 2, Hydrogen, 8, Sulfur, 1, Oxygen, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3409,6 +3549,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xe9705f)
                 .components(Barium, 1, Chlorine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3416,6 +3557,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xa0c8fd)
                 .components(Hydrogen, 1, Nitrogen, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3423,6 +3565,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xb8c6f1)
                 .components(Actinium, 1, Hydrogen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3608,6 +3751,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xffffff)
                 .components(Nitrogen, 2, Hydrogen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3622,6 +3766,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xffffff)
                 .components(Carbon, 1, Hydrogen, 6, Nitrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3875,6 +4020,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xd0d0d0)
                 .components(Tellurium, 1, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(GLASS)
                 .buildAndRegister();
 
@@ -3889,6 +4035,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xcdad00)
                 .components(Carbon, 3, Hydrogen, 5, Sodium, 1, Oxygen, 1, Sulfur, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3896,6 +4043,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xcdc8b1)
                 .components(Carbon, 3, Hydrogen, 5, Potassium, 1, Oxygen, 1, Sulfur, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3903,6 +4051,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xcd661d)
                 .components(Carbon, 2, Hydrogen, 5, Oxygen, 1, Potassium, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3910,6 +4059,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xd0d0d0)
                 .components(Carbon, 5, Hydrogen, 9, Nitrogen, 1, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3917,6 +4067,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xcccca1)
                 .components(Carbon, 4, Hydrogen, 6, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3924,6 +4075,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xc4534c)
                 .components(Carbon, 4, Hydrogen, 10, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3931,6 +4083,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x45486f)
                 .components(Carbon, 1, Hydrogen, 5, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3945,6 +4098,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xcc9037)
                 .components(Carbon, 6, Hydrogen, 8, Nitrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3952,6 +4106,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xd6d6d6)
                 .components(Carbon, 8, Hydrogen, 6, Hydrogen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3959,6 +4114,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xd1d1d1)
                 .components(Carbon, 10, Hydrogen, 10, Hydrogen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -3966,6 +4122,7 @@ public class MaterialBuilder {
                 .dust()
                 .color(0x00e60b)
                 .components(Carbon, 8, Hydrogen, 4, Chlorine, 2, Nitrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(DULL)
                 .buildAndRegister();
 
@@ -4021,6 +4178,7 @@ public class MaterialBuilder {
         CadmiumSulfide = new Material.Builder(GTCEu.id("cadmium_sulfide"))
                 .dust()
                 .components(Cadmium, 1, Sulfur, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xd4ba19)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -4044,6 +4202,7 @@ public class MaterialBuilder {
         BismuthNitrateSolution = new Material.Builder(GTCEu.id("bismuth_nitrate_solution"))
                 .fluid()
                 .components(Water, 1, Bismuth, 1, Nitrogen, 3, Oxygen, 9)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xa4a7a8)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -4051,6 +4210,7 @@ public class MaterialBuilder {
         Paa = new Material.Builder(GTCEu.id("paa"))
                 .fluid()
                 .components(Carbon, 22, Hydrogen, 14, Nitrogen, 2, Oxygen, 7)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xead05e)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -4202,6 +4362,7 @@ public class MaterialBuilder {
         HydroiodicAcid = new Material.Builder(GTCEu.id("hydroiodic_acid"))
                 .fluid()
                 .components(Hydrogen, 1, Iodine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x0382e2)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4209,6 +4370,7 @@ public class MaterialBuilder {
         Acrylonitrile = new Material.Builder(GTCEu.id("acrylonitrile"))
                 .fluid()
                 .components(Carbon, 3, Hydrogen, 3, Nitrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xa4a4e1)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4248,6 +4410,7 @@ public class MaterialBuilder {
         DitertbutylDicarbonate = new Material.Builder(GTCEu.id("ditertbutyl_dicarbonate"))
                 .dust()
                 .components(Carbon, 10, Hydrogen, 18, Oxygen, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x7e96b5)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -4255,6 +4418,7 @@ public class MaterialBuilder {
         Tertbuthylcarbonylazide = new Material.Builder(GTCEu.id("tertbuthylcarbonylazide"))
                 .fluid()
                 .components(Carbon, 5, Hydrogen, 9, Nitrogen, 3, Oxygen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xacb500)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4262,6 +4426,7 @@ public class MaterialBuilder {
         SodiumToluenesulfonate = new Material.Builder(GTCEu.id("sodium_toluenesulfonate"))
                 .fluid()
                 .components(Carbon, 7, Hydrogen, 7, Sulfur, 3, Oxygen, 3, Sodium, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xb5b41d)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4269,6 +4434,7 @@ public class MaterialBuilder {
         SodiumAzide = new Material.Builder(GTCEu.id("sodium_azide"))
                 .dust()
                 .components(Sodium, 1, Nitrogen, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x1018f0)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -4276,6 +4442,7 @@ public class MaterialBuilder {
         SodiumAzanide = new Material.Builder(GTCEu.id("sodium_azanide"))
                 .dust()
                 .components(Sodium, 1, Nitrogen, 1, Hydrogen, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x2381b3)
                 .iconSet(DULL)
                 .buildAndRegister();
@@ -4283,6 +4450,7 @@ public class MaterialBuilder {
         NitrogenPentoxide = new Material.Builder(GTCEu.id("nitrogen_pentoxide"))
                 .fluid()
                 .components(Nitrogen, 2, Oxygen, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x162bb3)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4290,6 +4458,7 @@ public class MaterialBuilder {
         AminatedFullerene = new Material.Builder(GTCEu.id("aminated_fullerene"))
                 .fluid()
                 .components(Carbon, 60, Hydrogen, 12, Nitrogen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x3842f0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4297,6 +4466,7 @@ public class MaterialBuilder {
         Azafullerene = new Material.Builder(GTCEu.id("azafullerene"))
                 .fluid()
                 .components(Carbon, 60, Hydrogen, 12, Nitrogen, 12)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xb3a500)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -4318,6 +4488,7 @@ public class MaterialBuilder {
         PotassiumPyrosulfate = new Material.Builder(GTCEu.id("potassium_pyrosulfate"))
                 .dust()
                 .components(Potassium, 2, Sulfur, 2, Oxygen, 7)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xff9900).iconSet(METALLIC)
                 .buildAndRegister();
 
@@ -4399,6 +4570,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xf1939c).iconSet(ROUGH)
                 .components(Sodium, 1, Carbon, 1, Oxygen, 2, Hydrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         RhodiumSulfateGas = new Material.Builder(GTCEu.id("rhodium_sulfate_gas"))
@@ -4453,6 +4625,7 @@ public class MaterialBuilder {
                 .color(0xE8C478)
                 .iconSet(BRIGHT)
                 .components(Gold, 1, Fluorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         XenoauricFluoroantimonicAcid = new Material.Builder(GTCEu.id("xenoauric_fluoroantimonic_acid"))
@@ -4466,12 +4639,14 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xCCCC66)
                 .components(Gold, 2, Chlorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         BromineTrifluoride = new Material.Builder(GTCEu.id("bromine_trifluoride"))
                 .fluid()
                 .color(0xA88E57)
                 .components(Bromine, 1, Fluorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         HexafluorideNaquadriaSolution = new Material.Builder(GTCEu.id("hexafluoride_naquadria_solution"))
@@ -4485,6 +4660,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x8B7EFF)
                 .components(Radon, 1, Fluorine, 2)
+                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         RadonNaquadriaOctafluoride = new Material.Builder(GTCEu.id("radon_naquadria_octafluoride"))
@@ -4694,12 +4870,14 @@ public class MaterialBuilder {
         PotassiumFluoride = new Material.Builder(GTCEu.id("potassium_fluoride"))
                 .dust()
                 .components(Potassium, 1, Fluorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xB9B9B9).iconSet(BRIGHT)
                 .buildAndRegister();
 
         SodiumHydride = new Material.Builder(GTCEu.id("sodium_hydride"))
                 .dust()
                 .components(Sodium, 1, Hydrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x757475).iconSet(DULL)
                 .buildAndRegister();
 
@@ -4753,6 +4931,7 @@ public class MaterialBuilder {
         CaesiumHydroxide = new Material.Builder(GTCEu.id("caesium_hydroxide"))
                 .dust()
                 .components(Caesium, 1, Oxygen, 1, Hydrogen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xD7D7D7).iconSet(DULL)
                 .buildAndRegister();
 
@@ -4939,7 +5118,9 @@ public class MaterialBuilder {
         AcetylChloride = new Material.Builder(GTCEu.id("acetyl_chloride"))
                 .fluid()
                 .components(Carbon, 2, Hydrogen, 3, Oxygen, 1, Chlorine, 1)
-                .color(0xD1B117).iconSet(GTLMaterialIconSet.LIMPID)
+                .flags(DISABLE_DECOMPOSITION)
+                .color(0xD1B117)
+                .iconSet(GTLMaterialIconSet.LIMPID)
                 .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
@@ -4989,6 +5170,7 @@ public class MaterialBuilder {
         SodiumHexafluoroaluminate = new Material.Builder(GTCEu.id("sodium_hexafluoroaluminate"))
                 .fluid()
                 .components(Sodium, 3, Aluminium, 1, Fluorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xA47732).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
 
@@ -5005,6 +5187,7 @@ public class MaterialBuilder {
         FluorosilicicAcid = new Material.Builder(GTCEu.id("fluorosilicic_acid"))
                 .fluid()
                 .components(Hydrogen, 2, Silicon, 1, Fluorine, 6)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x49BF61).iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
 
@@ -5253,8 +5436,9 @@ public class MaterialBuilder {
                 .buildAndRegister();
 
         OxalicAcid = new Material.Builder(GTCEu.id("oxalic_acid"))
-                .fluid()
+                .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .components(Carbon, 2, Hydrogen, 2, Oxygen, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xA0FFA0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -5262,6 +5446,7 @@ public class MaterialBuilder {
         VanadiumPentoxidePowder = new Material.Builder(GTCEu.id("vanadium_pentoxide_powder"))
                 .dust()
                 .components(Vanadium, 2, Oxygen, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x8B0000)
                 .iconSet(SAND)
                 .buildAndRegister();
@@ -5277,6 +5462,7 @@ public class MaterialBuilder {
         ConcentratedCeriumChlorideSolution = new Material.Builder(GTCEu.id("concentrated_cerium_chloride_solution"))
                 .fluid()
                 .components(Cerium, 1, Chlorine, 3)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0x00FFFF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -5382,6 +5568,7 @@ public class MaterialBuilder {
         SamariumChlorideSodiumChlorideMixturePowder = new Material.Builder(GTCEu.id("samarium_chloride_sodium_chloride_mixture_powder"))
                 .dust()
                 .components(Samarium, 1, Chlorine, 3, Sodium, 1, Chlorine, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xC0C0C0)
                 .iconSet(SAND)
                 .buildAndRegister();
@@ -5397,6 +5584,7 @@ public class MaterialBuilder {
         SamariumChlorideConcentrateSolution = new Material.Builder(GTCEu.id("samarium_chloride_concentrate_solution"))
                 .fluid()
                 .components(Samarium, 1, Chlorine, 3, Water, 5)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xB0C4DE)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -5429,14 +5617,6 @@ public class MaterialBuilder {
         ModulatedFluoroCarbonLanthanideSlurry = new Material.Builder(GTCEu.id("modulated_fluoro_carbon_lanthanide_slurry"))
                 .fluid()
                 .color(0x5A5AFF)
-                .iconSet(GTLMaterialIconSet.LIMPID)
-                .buildAndRegister();
-
-        SodiumFluorosilicate = new Material.Builder(GTCEu.id("sodium_fluorosilicate"))
-                .dust()
-                .fluid()
-                .color(0x808080)
-                .iconSet(SAND)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
 
@@ -5545,6 +5725,7 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x0E9000)
                 .components(Carbon, 1, Chlorine, 4)
+                .flags(DISABLE_DECOMPOSITION)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
 
@@ -5557,6 +5738,7 @@ public class MaterialBuilder {
         EthylHexanol = new Material.Builder(GTCEu.id("ethyl_hexanol"))
                 .fluid()
                 .components(Carbon, 8, Hydrogen, 18, Oxygen, 1)
+                .flags(DISABLE_DECOMPOSITION)
                 .color(0xFFFFCC)
                 .iconSet(GTLMaterialIconSet.LIMPID)
                 .buildAndRegister();
@@ -5574,7 +5756,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x808080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         CeriumExtractionNanoResin = new Material.Builder(
@@ -5582,7 +5763,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x969696)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         PraseodymiumExtractionNanoResin = new Material.Builder(
@@ -5590,7 +5770,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xA0A0A0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         NeodymiumExtractionNanoResin = new Material.Builder(
@@ -5598,7 +5777,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xB0B0B0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         PromethiumExtractionNanoResin = new Material.Builder(
@@ -5606,7 +5784,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xC0C0C0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         SamariumExtractionNanoResin = new Material.Builder(
@@ -5614,7 +5791,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xD0D0D0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         EuropiumExtractionNanoResin = new Material.Builder(
@@ -5622,7 +5798,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xE0E0E0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         GadoliniumExtractionNanoResin = new Material.Builder(
@@ -5630,7 +5805,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xF0F0F0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         TerbiumExtractionNanoResin = new Material.Builder(
@@ -5638,7 +5812,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x0080FF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         DysprosiumExtractionNanoResin = new Material.Builder(
@@ -5646,7 +5819,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x00FFFF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         HolmiumExtractionNanoResin = new Material.Builder(
@@ -5662,7 +5834,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xFF00FF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         ThuliumExtractionNanoResin = new Material.Builder(
@@ -5670,7 +5841,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xFF0000)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         YtterbiumExtractionNanoResin = new Material.Builder(
@@ -5678,7 +5848,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xFFFF00)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         LutetiumExtractionNanoResin = new Material.Builder(
@@ -5686,7 +5855,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x800080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         ScandiumExtractionNanoResin = new Material.Builder(
@@ -5694,7 +5862,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x808000)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         YttriumExtractionNanoResin = new Material.Builder(
@@ -5702,7 +5869,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x008000)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         LanthanumExtractedNanoResin = new Material.Builder(
@@ -5710,7 +5876,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x808080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         CeriumExtractedNanoResin = new Material.Builder(
@@ -5718,7 +5883,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x969696)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         PraseodymiumExtractedNanoResin = new Material.Builder(
@@ -5726,7 +5890,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xA0A0A0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         NeodymiumExtractedNanoResin = new Material.Builder(
@@ -5734,7 +5897,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xB0B0B0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         PromethiumExtractedNanoResin = new Material.Builder(
@@ -5742,7 +5904,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xC0C0C0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         SamariumExtractedNanoResin = new Material.Builder(
@@ -5750,7 +5911,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xD0D0D0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         EuropiumExtractedNanoResin = new Material.Builder(
@@ -5758,7 +5918,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xE0E0E0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         GadoliniumExtractedNanoResin = new Material.Builder(
@@ -5766,7 +5925,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xF0F0F0)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         TerbiumExtractedNanoResin = new Material.Builder(
@@ -5774,7 +5932,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x0080FF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         DysprosiumExtractedNanoResin = new Material.Builder(
@@ -5782,7 +5939,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x00FFFF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         HolmiumExtractedNanoResin = new Material.Builder(
@@ -5790,7 +5946,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x00FF00)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         ErbiumExtractedNanoResin = new Material.Builder(
@@ -5798,7 +5953,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xFF00FF)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         ThuliumExtractedNanoResin = new Material.Builder(
@@ -5806,7 +5960,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xFF0000)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         YtterbiumExtractedNanoResin = new Material.Builder(
@@ -5814,7 +5967,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0xFFFF00)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         LutetiumExtractedNanoResin = new Material.Builder(
@@ -5822,7 +5974,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x800080)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         ScandiumExtractedNanoResin = new Material.Builder(
@@ -5830,7 +5981,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x808000)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
 
         YttriumExtractedNanoResin = new Material.Builder(
@@ -5838,7 +5988,6 @@ public class MaterialBuilder {
                 .fluid()
                 .color(0x008000)
                 .iconSet(GTLMaterialIconSet.LIMPID)
-                .flags(DISABLE_DECOMPOSITION)
                 .buildAndRegister();
     }
 }

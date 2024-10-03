@@ -10,7 +10,8 @@
     "gtm.gui.AEFluidConfigSlotWidgetMixin",
     "gtm.gui.PatternPreviewWidgetMixin",
     "gtm.gui.ProspectingMapWidgetMixin",
-    "gtm.gui.ProspectingTextureMixin"
+    "gtm.gui.ProspectingTextureMixin",
+    "mc.ClientRecipeBookMixin"
   ],
   "mixins": [
     "adastra.ModUtilsMixin",
@@ -18,7 +19,6 @@
     "adastra.VehicleItemMixin",
     "ae2.BasicCellInventoryMixin",
     "ae2.CPUSelectionListMixin",
-    "ae2.CursedInternalSlotMixin",
     "ae2.MixinCowMap",
     "ae2.MixinGenericSlotCapacities",
     "ae2.MixinGenericStackInv",
@@ -41,6 +41,7 @@
     "gtm.fix.GTUtilMixin",
     "gtm.fix.WorkableElectricMultiblockMachineMixin",
     "gtm.ftb.TeleportFromMapPacketMixin",
+    "gtm.gui.GTRecipeWidgetMixin",
     "gtm.gui.ProspectorScannerBehaviorMixin",
     "gtm.machine.BufferMachineMixin",
     "gtm.machine.DualHatchPartMachineMixin",
@@ -67,6 +68,10 @@
     "gtm.registry.GTRecipeTypeMixin",
     "gtmt.HugeBusPartMachineMixin",
     "gtmt.WirelessEnergyReceiveCoverMixin",
+    "mc.CursedInternalSlotMixin",
+    "mc.RecipeBookMixin",
+    "mc.ServerPlayerMixin",
+    "mc.ServerRecipeBookMixin",
     "travelanchors.EventListenerMixin"
   ],
   "injectors": {

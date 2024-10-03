@@ -456,15 +456,6 @@ public class Lanthanidetreatment {
                 .EUt(120)
                 .save(provider);
 
-        CHEMICAL_RECIPES.recipeBuilder("sodium_fluorosilicate50")
-                .inputItems(dust, Salt, 4)
-                .inputFluids(FluorosilicicAcid.getFluid(1000))
-                .outputFluids(HydrochloricAcid.getFluid(2000))
-                .outputFluids(SodiumFluorosilicate.getFluid(1000))
-                .duration(300)
-                .EUt(480)
-                .save(provider);
-
         DISSOLUTION_TREATMENT.recipeBuilder("diluted_fluoro_carbon_lanthanide_slurry51")
                 .inputItems(dust, Saltpeter, 1)
                 .inputFluids(ModulatedFluoroCarbonLanthanideSlurry.getFluid(1000))

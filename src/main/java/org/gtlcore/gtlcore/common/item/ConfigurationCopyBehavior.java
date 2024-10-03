@@ -3,6 +3,7 @@ package org.gtlcore.gtlcore.common.item;
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.item.component.IInteractionItem;
+import com.gregtechceu.gtceu.api.item.tool.ToolHelper;
 import com.gregtechceu.gtceu.api.item.tool.behavior.IToolBehavior;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.SimpleTieredMachine;
@@ -19,15 +20,13 @@ import net.minecraft.world.item.context.UseOnContext;
 
 import java.util.Objects;
 
-import static com.gregtechceu.gtceu.api.item.tool.ToolHelper.getBehaviorsTag;
-
 public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionItem {
 
     public static final ConfigurationCopyBehavior INSTANCE = new ConfigurationCopyBehavior();
 
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-        CompoundTag tags = getBehaviorsTag(stack);
+        CompoundTag tags = ToolHelper.getBehaviorsTag(stack);
         if (context.getLevel().getBlockEntity(context.getClickedPos()) instanceof MetaMachineBlockEntity machineBlock) {
             MetaMachine metaMachine = machineBlock.getMetaMachine();
             if (metaMachine instanceof SimpleTieredMachine simpleTieredMachine) {
@@ -67,9 +66,7 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
         NotifiableItemStackHandler circuitInventory = metaMachine.getCircuitInventory();
         if (circuitInventory.handlerIO.support(IO.IN)) {
             int c = IntCircuitBehaviour.getCircuitConfiguration(circuitInventory.getStackInSlot(0));
-            if (c > 0) {
-                tags.putInt("circuit", c);
-            }
+            tags.putInt("circuit", c);
         }
     }
 
@@ -100,9 +97,7 @@ public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionIte
         NotifiableItemStackHandler circuitInventory = metaMachine.getCircuitInventory();
         if (circuitInventory.handlerIO.support(IO.IN)) {
             int c = IntCircuitBehaviour.getCircuitConfiguration(circuitInventory.getStackInSlot(0));
-            if (c > 0) {
-                tags.putInt("circuit", c);
-            }
+            tags.putInt("circuit", c);
         }
     }
 

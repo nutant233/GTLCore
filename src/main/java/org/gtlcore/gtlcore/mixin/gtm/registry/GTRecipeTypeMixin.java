@@ -15,8 +15,10 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -33,93 +35,60 @@ public class GTRecipeTypeMixin {
     @Final
     public ResourceLocation registryName;
 
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite(remap = false)
-    public GTRecipeType onRecipeBuild(BiConsumer<GTRecipeBuilder, Consumer<FinishedRecipe>> onBuild) {
+    @Inject(method = "onRecipeBuild", at = @At("HEAD"), remap = false, cancellable = true)
+    public void onRecipeBuild(BiConsumer<GTRecipeBuilder, Consumer<FinishedRecipe>> onBuild, CallbackInfoReturnable<GTRecipeType> cir) {
         if (Objects.equals(registryName, GTCEu.id("cutter"))) {
             recipeBuilder.onSave((recipeBuilder, provider) -> {
                 if (recipeBuilder.input.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList()).isEmpty() &&
-                        recipeBuilder.tickInput.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList())
-                                .isEmpty()) {
-                    if (recipeBuilder.EUt() < 524288) {
-                        recipeBuilder
-                                .copy(new ResourceLocation(recipeBuilder.id.toString() + "_water"))
-                                .inputFluids(GTMaterials.Water.getFluid((int) Math.max(4,
-                                        Math.min(1000, recipeBuilder.duration * recipeBuilder.EUt() / 320))))
-                                .duration(recipeBuilder.duration * 2)
+                        recipeBuilder.tickInput.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList()).isEmpty()) {
+                    recipeBuilder.copy(recipeBuilder.id);
+                    if (recipeBuilder.EUt() < GTValues.VA[GTValues.MV]) {
+                        recipeBuilder.inputFluids(GTMaterials.Water.getFluid((int) Math.max(4,
+                                recipeBuilder.duration * recipeBuilder.EUt() / 80)))
                                 .save(provider);
-                        recipeBuilder
-                                .copy(new ResourceLocation(recipeBuilder.id.toString() + "_distilled_water"))
-                                .inputFluids(GTMaterials.DistilledWater.getFluid((int) Math.max(3,
-                                        Math.min(750, recipeBuilder.duration * recipeBuilder.EUt() / 426))))
-                                .duration((int) (recipeBuilder.duration * 1.5))
+                    } else if (recipeBuilder.EUt() < GTValues.VA[GTValues.IV]) {
+                        recipeBuilder.inputFluids(GTMaterials.DistilledWater.getFluid((int) Math.max(3,
+                                recipeBuilder.duration * recipeBuilder.EUt() / 640)))
                                 .save(provider);
-                        recipeBuilder
-                                .copy(new ResourceLocation(recipeBuilder.id.toString() + "_8_water"))
-                                .inputFluids(GTLMaterials.GradePurifiedWater8.getFluid((int) Math.max(1,
-                                        Math.min(500, recipeBuilder.duration * recipeBuilder.EUt() / 720))))
-                                .duration((int) (recipeBuilder.duration * 0.8))
+                    } else if (recipeBuilder.EUt() < GTValues.VA[GTValues.UHV]) {
+                        recipeBuilder.inputFluids(GTMaterials.Lubricant.getFluid((int) Math.max(1,
+                                recipeBuilder.duration * recipeBuilder.EUt() / 81920)))
                                 .save(provider);
-                        recipeBuilder
-                                .copy(new ResourceLocation(recipeBuilder.id.toString() + "_16_water"))
-                                .inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
-                                        Math.min(250, recipeBuilder.duration * recipeBuilder.EUt() / 960))))
-                                .duration((int) (recipeBuilder.duration * 0.5))
-                                .save(provider);
-                        recipeBuilder
-                                .inputFluids(GTMaterials.Lubricant.getFluid((int) Math.max(1,
-                                        Math.min(250, recipeBuilder.duration * recipeBuilder.EUt() / 1280))))
-                                .duration(Math.max(1, recipeBuilder.duration));
                     } else if (recipeBuilder.EUt() < GTValues.VA[GTValues.UEV]) {
-                        recipeBuilder
-                                .copy(new ResourceLocation(recipeBuilder.id.toString() + "_16_water"))
-                                .inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
-                                        Math.min(500, recipeBuilder.duration * recipeBuilder.EUt() / 640))))
-                                .duration((int) (recipeBuilder.duration * 0.5))
+                        recipeBuilder.inputFluids(GTLMaterials.GradePurifiedWater8.getFluid((int) Math.max(1,
+                                recipeBuilder.duration * recipeBuilder.EUt() / 1310720)))
                                 .save(provider);
-                        recipeBuilder
-                                .inputFluids(GTLMaterials.GradePurifiedWater8.getFluid((int) Math.max(1,
-                                        Math.min(1000, recipeBuilder.duration * recipeBuilder.EUt() / 320))))
-                                .duration(Math.max(1, recipeBuilder.duration));
                     } else {
-                        recipeBuilder
-                                .inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
-                                        Math.min(1000, recipeBuilder.duration * recipeBuilder.EUt() / 320))))
-                                .duration(Math.max(1, recipeBuilder.duration));
+                        recipeBuilder.inputFluids(GTLMaterials.GradePurifiedWater16.getFluid((int) Math.max(1,
+                                recipeBuilder.duration * recipeBuilder.EUt() / 5242880)))
+                                .save(provider);
                     }
                 }
             });
-            return recipeBuilder.recipeType;
+            cir.setReturnValue(recipeBuilder.recipeType);
         }
         if (Objects.equals(registryName, GTCEu.id("circuit_assembler"))) {
             recipeBuilder.onSave((recipeBuilder, provider) -> {
                 if (recipeBuilder.input.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList()).isEmpty() &&
                         recipeBuilder.tickInput.getOrDefault(FluidRecipeCapability.CAP, Collections.emptyList())
                                 .isEmpty()) {
-                    if (recipeBuilder.EUt() < 160000) {
-                        recipeBuilder.copy(new ResourceLocation(recipeBuilder.id.toString() + "_soldering_alloy"))
-                                .inputFluids(GTMaterials.SolderingAlloy
-                                        .getFluid(Math.max(1, 72 * recipeBuilder.getSolderMultiplier())))
+                    recipeBuilder.copy(recipeBuilder.id);
+                    if (recipeBuilder.EUt() < GTValues.VA[GTValues.EV]) {
+                        recipeBuilder.inputFluids(GTMaterials.Tin.getFluid(Math.max(1, 144 * recipeBuilder.getSolderMultiplier())))
                                 .save(provider);
-                        recipeBuilder.inputFluids(
-                                GTMaterials.Tin.getFluid(Math.max(1, 144 * recipeBuilder.getSolderMultiplier())));
+                    } else if (recipeBuilder.EUt() < GTValues.VA[GTValues.UV]) {
+                        recipeBuilder.inputFluids(GTMaterials.SolderingAlloy.getFluid(Math.max(1, 144 * recipeBuilder.getSolderMultiplier())))
+                                .save(provider);
+                    } else if (recipeBuilder.EUt() < GTValues.VA[GTValues.UIV]) {
+                        recipeBuilder.inputFluids(GTLMaterials.MutatedLivingSolder.getFluid(Math.max(1, 144 * (GTUtil.getFloorTierByVoltage(recipeBuilder.EUt()) - 6))))
+                                .save(provider);
                     } else {
-                        int am = GTUtil.getFloorTierByVoltage(recipeBuilder.EUt()) - 6;
-                        recipeBuilder.copy(new ResourceLocation(recipeBuilder.id.toString() + "_soldering_alloy"))
-                                .inputFluids(GTLMaterials.SuperMutatedLivingSolder
-                                        .getFluid(Math.max(1, 72 * am)))
+                        recipeBuilder.inputFluids(GTLMaterials.SuperMutatedLivingSolder.getFluid(Math.max(1, 144 * (GTUtil.getFloorTierByVoltage(recipeBuilder.EUt()) - 8))))
                                 .save(provider);
-                        recipeBuilder.inputFluids(
-                                GTLMaterials.MutatedLivingSolder.getFluid(Math.max(1, 144 * am)));
                     }
                 }
             });
-            return recipeBuilder.recipeType;
+            cir.setReturnValue(recipeBuilder.recipeType);
         }
-        recipeBuilder.onSave(onBuild);
-        return recipeBuilder.recipeType;
     }
 }

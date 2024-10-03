@@ -8,6 +8,7 @@ import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricParallelHatchMultipleRecipesMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.PrimitiveOreMachine;
 import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.utils.Registries;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.data.RotationState;
@@ -28,8 +29,6 @@ import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
-
-import committee.nova.mods.avaritia.init.registry.ModBlocks;
 
 import static com.gregtechceu.gtceu.api.pattern.Predicates.blocks;
 import static com.gregtechceu.gtceu.api.pattern.Predicates.controller;
@@ -67,7 +66,7 @@ public class MultiBlockMachineB {
                             .or(Predicates.abilities(PartAbility.OPTICAL_DATA_RECEPTION).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
                     .where("b", Predicates.blocks(GTLBlocks.INFINITY_GLASS.get()))
-                    .where("c", Predicates.blocks(ModBlocks.infinity.get()))
+                    .where("c", Predicates.blocks(Registries.getBlock("avaritia:infinity")))
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where(" ", Predicates.any())
                     .build())

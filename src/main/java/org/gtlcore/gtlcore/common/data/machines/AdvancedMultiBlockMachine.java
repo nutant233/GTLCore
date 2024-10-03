@@ -669,6 +669,7 @@ public class AdvancedMultiBlockMachine {
             .allowExtendedFacing(false)
             .allowFlip(false)
             .recipeType(GTLRecipeTypes.DOOR_OF_CREATE_RECIPES)
+            .tooltips(Component.translatable("gtceu.machine.door_of_create.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.door_of_create")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
@@ -805,6 +806,7 @@ public class AdvancedMultiBlockMachine {
             .allowExtendedFacing(false)
             .allowFlip(false)
             .recipeType(GTLRecipeTypes.CREATE_AGGREGATION_RECIPES)
+            .tooltips(Component.translatable("gtceu.machine.create_aggregation.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.create_aggregation")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
