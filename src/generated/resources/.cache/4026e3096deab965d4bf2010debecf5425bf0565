@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-27T19:17:54.527349	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.20.1	2024-10-04T19:42:29.71185	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 46f342ef8461a19d4ac40f284d9763fa45db0648 assets/gtlcore/blockstates/16m_storage.json
 7400be84a032519aa2d82750804ae8f04828fdae assets/gtlcore/blockstates/1m_storage.json
 5483bb31743b034345b5a059cc8bf43cfb875d7d assets/gtlcore/blockstates/256m_storage.json
@@ -78,8 +78,8 @@ ba75d75bb24da9bfafd569c2c2584cfb4d99c06b assets/gtlcore/blockstates/stellar_cont
 aa04d531b5ca53b5a56783ab2caf520d94f90d86 assets/gtlcore/blockstates/super_cooler_component.json
 4d118e87f6da1521094a5e52b2b8244310b2e703 assets/gtlcore/blockstates/supercritical_turbine_casing.json
 406dd8ad0f18b0d9592528acf2afa92e21c642a0 assets/gtlcore/blockstates/ultimate_stellar_containment_casing.json
-d28abaa9eb84f6fcce57154534c5ebe82a6023af assets/gtlcore/lang/en_ud.json
-9c39ea88d3d5938aae235794cc29da87594d075a assets/gtlcore/lang/en_us.json
+d3a81957098a91fbd1b9bfea5733b10a73abdaff assets/gtlcore/lang/en_ud.json
+2bfc1b16e4f54c2cf1b2b0ccc03177c0d3044403 assets/gtlcore/lang/en_us.json
 1e86cdc17231fb0b0c08fb79ac317c3978c918bf assets/gtlcore/models/block/advanced_stellar_containment_casing.json
 bf3d8755a8caf29f8d5e83eefc0f1af389f8e194 assets/gtlcore/models/block/aluminium_bronze_casing.json
 f562919f3479892c66f9299614d509d4b30384c1 assets/gtlcore/models/block/antifreeze_heatproof_machine_casing.json
@@ -259,6 +259,7 @@ b4b377d4b7f2e3dd47a7858bc0131b1388293375 assets/gtlcore/models/item/stellar_cont
 31644ea90f65ae89e2b0f0276dd3a656c7d5c9e1 assets/gtlcore/models/item/super_portable_fluid_storage_cell.json
 e17a879e7fc0d4817a77838a10a72d4c78f64916 assets/gtlcore/models/item/super_portable_item_storage_cell.json
 17d56d203124661ae270d3f56999c3c15f25fd39 assets/gtlcore/models/item/supercritical_turbine_casing.json
+412cc0b37b43e34e3403fd44d7e8e8d0fc6fc3cc assets/gtlcore/models/item/time_twister.json
 d638e3785ccdf65f06e8b15c7f6149a6aadc5d3c assets/gtlcore/models/item/transcendent_max_battery.json
 8fcadd95fca7eda0b24342fda1929bcdf0628c53 assets/gtlcore/models/item/uev_hermetic_casing.json
 25b2493f2165e2a11549908ba3bfe29fa9bb1980 assets/gtlcore/models/item/uiv_hermetic_casing.json

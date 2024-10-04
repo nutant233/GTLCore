@@ -73,7 +73,7 @@ public class MaterialRecipeHandlerMixin {
         }
 
         if (material.hasFlag(GENERATE_ROD)) {
-            if (mass < 240 && material.getBlastTemperature() < 5000)
+            if (mass < 240 && material.getBlastTemperature() < 4000)
                 VanillaRecipeHelper.addShapedRecipe(provider, String.format("stick_%s", material.getName()),
                         ChemicalHelper.get(rod, material),
                         "f ", " X",
@@ -147,7 +147,7 @@ public class MaterialRecipeHandlerMixin {
                             .outputItems(GTUtil.copyAmount(2, plateStack))
                             .EUt(16).duration(mass)
                             .save(provider);
-                    if (mass < 240 && material.getBlastTemperature() < 5000)
+                    if (mass < 240 && material.getBlastTemperature() < 4000)
                         VanillaRecipeHelper.addShapedRecipe(provider, String.format("plate_%s", material.getName()),
                                 plateStack, "h", "I", "I", 'I', new UnificationEntry(ingotPrefix, material));
                 }

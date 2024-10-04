@@ -252,6 +252,11 @@ public class GTLItems {
 
     public static ItemEntry<ComponentItem> WIRELESS_ENERGY_RECEIVE_COVER_MAX_4A = registerTieredCover(4);
 
+    public static final ItemEntry<ComponentItem> TIME_TWISTER = REGISTRATE
+            .item("time_twister", ComponentItem::create)
+            .onRegister(GTItems.attach(TimeTwister.INSTANCE))
+            .register();
+
     public static final ItemEntry<ComponentItem> DEBUG_STRUCTURE_WRITER = REGISTRATE
             .item("debug_structure_writer", ComponentItem::create)
             .onRegister(GTItems.attach(StructureWriteBehavior.INSTANCE))

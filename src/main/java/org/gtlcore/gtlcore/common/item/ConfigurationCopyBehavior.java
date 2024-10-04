@@ -4,7 +4,6 @@ import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.item.component.IInteractionItem;
 import com.gregtechceu.gtceu.api.item.tool.ToolHelper;
-import com.gregtechceu.gtceu.api.item.tool.behavior.IToolBehavior;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.SimpleTieredMachine;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
@@ -20,7 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 
 import java.util.Objects;
 
-public class ConfigurationCopyBehavior implements IToolBehavior, IInteractionItem {
+public class ConfigurationCopyBehavior implements IInteractionItem {
 
     public static final ConfigurationCopyBehavior INSTANCE = new ConfigurationCopyBehavior();
 
