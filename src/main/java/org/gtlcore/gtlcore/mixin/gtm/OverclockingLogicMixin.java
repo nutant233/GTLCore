@@ -6,11 +6,10 @@ import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.gregtechceu.gtceu.api.recipe.OverclockingLogic.*;
@@ -18,13 +17,8 @@ import static com.gregtechceu.gtceu.api.recipe.OverclockingLogic.*;
 @Mixin(OverclockingLogic.class)
 public class OverclockingLogicMixin {
 
-    /**
-     * @author mod_author
-     * @reason 原版的高炉太慢
-     */
-    @Overwrite(remap = false)
-    public static void heatingCoilOC(@NotNull OCParams params, @NotNull OCResult result, long maxVoltage,
-                                     int providedTemp, int requiredTemp) {
+    @Inject(method = "heatingCoilOC", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void heatingCoilOC(OCParams params, OCResult result, long maxVoltage, int providedTemp, int requiredTemp, CallbackInfo ci) {
         double duration = params.getDuration() * Math.max(0.5, (double) requiredTemp / providedTemp);
         double eut = params.getEut();
         int ocAmount = params.getOcAmount();
@@ -55,6 +49,7 @@ public class OverclockingLogicMixin {
 
         result.init((long) (eut / Math.pow(STD_VOLTAGE_FACTOR, parallelIterAmount)), (int) duration, (int) parallel,
                 (long) eut, ocLevel);
+        ci.cancel();
     }
 
     @Inject(method = "getOverclockForTier", at = @At("HEAD"), remap = false, cancellable = true)

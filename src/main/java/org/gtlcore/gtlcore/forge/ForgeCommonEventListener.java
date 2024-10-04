@@ -3,7 +3,7 @@ package org.gtlcore.gtlcore.forge;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +60,7 @@ public class ForgeCommonEventListener {
 
     @SubscribeEvent
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
-        if (ConfigHolder.INSTANCE.disableDrift && event.phase == TickEvent.Phase.END &&
+        if (GTLConfigHolder.INSTANCE.disableDrift && event.phase == TickEvent.Phase.END &&
                 event.side == LogicalSide.CLIENT && event.player.xxa == 0 && event.player.zza == 0) {
             event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(0.5, 1, 0.5));
         }

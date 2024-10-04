@@ -8,15 +8,15 @@ import dev.toma.configuration.config.Configurable;
 import dev.toma.configuration.config.format.ConfigFormats;
 
 @Config(id = GTLCore.MOD_ID)
-public class ConfigHolder {
+public class GTLConfigHolder {
 
-    public static ConfigHolder INSTANCE;
+    public static GTLConfigHolder INSTANCE;
     private static final Object LOCK = new Object();
 
     public static void init() {
         synchronized (LOCK) {
             if (INSTANCE == null) {
-                INSTANCE = Configuration.registerConfig(ConfigHolder.class, ConfigFormats.yaml()).getConfigInstance();
+                INSTANCE = Configuration.registerConfig(GTLConfigHolder.class, ConfigFormats.yaml()).getConfigInstance();
             }
         }
     }
@@ -26,16 +26,16 @@ public class ConfigHolder {
     @Configurable
     public boolean enablePrimitiveVoidOre = false;
     @Configurable
-    @Configurable.Range(min = 1)
+    @Configurable.Range(min = 1, max = 64)
     public int oreMultiplier = 4;
     @Configurable
-    @Configurable.Range(min = 1)
+    @Configurable.Range(min = 1, max = 256)
     public int cellType = 4;
     @Configurable
     @Configurable.Range(min = 1)
     public int spacetimePip = Integer.MAX_VALUE;
     @Configurable
-    @Configurable.Range(min = 0)
+    @Configurable.DecimalRange(min = 0.001)
     public double durationMultiplier = 1;
     @Configurable
     @Configurable.Range(min = 1)

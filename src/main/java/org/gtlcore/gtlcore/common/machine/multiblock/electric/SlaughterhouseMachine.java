@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 import org.gtlcore.gtlcore.utils.MachineIO;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
@@ -50,8 +50,8 @@ public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
     private boolean isSpawn;
     @Persisted
     private final UUID uuid;
-    private final String[] mobList1 = ConfigHolder.INSTANCE.mobList1;
-    private final String[] mobList2 = ConfigHolder.INSTANCE.mobList2;
+    private final String[] mobList1 = GTLConfigHolder.INSTANCE.mobList1;
+    private final String[] mobList2 = GTLConfigHolder.INSTANCE.mobList2;
 
     public SlaughterhouseMachine(IMachineBlockEntity holder) {
         super(holder);

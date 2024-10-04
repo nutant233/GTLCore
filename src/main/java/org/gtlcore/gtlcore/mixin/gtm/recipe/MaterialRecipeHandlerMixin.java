@@ -1,8 +1,11 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.*;
+import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTItems;
@@ -16,18 +19,20 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Consumer;
 
+import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.common.data.GTMaterials.DistilledWater;
-import static com.gregtechceu.gtceu.common.data.GTMaterials.Water;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES;
 
 @Mixin(MaterialRecipeHandler.class)
 public class MaterialRecipeHandlerMixin {
@@ -35,13 +40,145 @@ public class MaterialRecipeHandlerMixin {
     @Shadow(remap = false)
     private static void processEBFRecipe(Material material, BlastProperty property, ItemStack output, Consumer<FinishedRecipe> provider) {}
 
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite(remap = false)
-    public static void processDust(TagPrefix dustPrefix, Material mat, DustProperty property,
-                                   Consumer<FinishedRecipe> provider) {
+    @Shadow(remap = false)
+    private static int getVoltageMultiplier(Material material) {
+        return 0;
+    }
+
+    @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
+        ingot.executeHandler(provider, PropertyKey.INGOT, MaterialRecipeHandlerMixin::gTLCore$processIngot);
+        nugget.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandler::processNugget);
+
+        block.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandler::processBlock);
+        frameGt.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandler::processFrame);
+
+        dust.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandlerMixin::gTLCore$processDust);
+        dustSmall.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandlerMixin::gTLCore$processSmallDust);
+        dustTiny.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandlerMixin::gTLCore$processTinyDust);
+
+        for (TagPrefix orePrefix : Arrays.asList(gem, gemFlawless, gemExquisite)) {
+            orePrefix.executeHandler(provider, PropertyKey.GEM, MaterialRecipeHandler::processGemConversion);
+        }
+        ci.cancel();
+    }
+
+    @Unique
+    private static void gTLCore$processIngot(TagPrefix ingotPrefix, Material material, IngotProperty property,
+                                             Consumer<FinishedRecipe> provider) {
+        int mass = (int) material.getMass();
+        if (material.hasFlag(MORTAR_GRINDABLE)) {
+            VanillaRecipeHelper.addShapedRecipe(provider, String.format("mortar_grind_%s", material.getName()),
+                    ChemicalHelper.get(dust, material), "X", "m", 'X', new UnificationEntry(ingotPrefix, material));
+        }
+
+        if (material.hasFlag(GENERATE_ROD)) {
+            if (mass < 240 && material.getBlastTemperature() < 5000)
+                VanillaRecipeHelper.addShapedRecipe(provider, String.format("stick_%s", material.getName()),
+                        ChemicalHelper.get(rod, material),
+                        "f ", " X",
+                        'X', new UnificationEntry(ingotPrefix, material));
+
+            if (!material.hasFlag(NO_WORKING)) {
+                EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_to_rod")
+                        .inputItems(ingotPrefix, material)
+                        .notConsumable(GTItems.SHAPE_EXTRUDER_ROD)
+                        .outputItems(rod, material, 2)
+                        .duration(mass * 2)
+                        .EUt(6L * getVoltageMultiplier(material))
+                        .save(provider);
+            }
+        }
+
+        if (material.hasFluid()) {
+            FLUID_SOLIDFICATION_RECIPES.recipeBuilder("solidify_" + material.getName() + "_to_ingot")
+                    .notConsumable(GTItems.SHAPE_MOLD_INGOT)
+                    .inputFluids(material.getFluid(L))
+                    .outputItems(ingotPrefix, material)
+                    .duration(20).EUt(VA[ULV])
+                    .save(provider);
+        }
+
+        if (material.hasFlag(NO_SMASHING)) {
+            EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_to_ingot")
+                    .inputItems(dust, material)
+                    .notConsumable(GTItems.SHAPE_EXTRUDER_INGOT)
+                    .outputItems(ingot, material)
+                    .duration(10)
+                    .EUt(4L * getVoltageMultiplier(material))
+                    .save(provider);
+        }
+
+        ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_to_nugget")
+                .EUt(VA[ULV]).duration(mass)
+                .inputItems(ingot, material)
+                .notConsumable(GTItems.SHAPE_MOLD_NUGGET)
+                .outputItems(nugget, material, 9)
+                .save(provider);
+
+        if (!ChemicalHelper.get(block, material).isEmpty()) {
+            ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_to_ingot")
+                    .EUt(VA[ULV]).duration(mass * (int) (block.getMaterialAmount(material) / M))
+                    .inputItems(block, material)
+                    .notConsumable(GTItems.SHAPE_MOLD_INGOT)
+                    .outputItems(ingot, material, (int) (block.getMaterialAmount(material) / M))
+                    .save(provider);
+
+            COMPRESSOR_RECIPES.recipeBuilder("compress_" + material.getName() + "_to_block")
+                    .EUt(2).duration(300)
+                    .inputItems(ingot, material, (int) (block.getMaterialAmount(material) / M))
+                    .outputItems(block, material)
+                    .save(provider);
+        }
+
+        if (material.hasFlag(GENERATE_PLATE) && !material.hasFlag(NO_WORKING)) {
+
+            if (!material.hasFlag(NO_SMASHING)) {
+                ItemStack plateStack = ChemicalHelper.get(plate, material);
+                if (!plateStack.isEmpty()) {
+                    GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_to_plate")
+                            .inputItems(ingotPrefix, material)
+                            .outputItems(plateStack)
+                            .EUt(24).duration(mass)
+                            .save(provider);
+
+                    FORGE_HAMMER_RECIPES.recipeBuilder("hammer_" + material.getName() + "_to_plate")
+                            .inputItems(ingotPrefix, material, 3)
+                            .outputItems(GTUtil.copyAmount(2, plateStack))
+                            .EUt(16).duration(mass)
+                            .save(provider);
+                    if (mass < 240 && material.getBlastTemperature() < 5000)
+                        VanillaRecipeHelper.addShapedRecipe(provider, String.format("plate_%s", material.getName()),
+                                plateStack, "h", "I", "I", 'I', new UnificationEntry(ingotPrefix, material));
+                }
+            }
+
+            int voltageMultiplier = getVoltageMultiplier(material);
+            if (!ChemicalHelper.get(plate, material).isEmpty()) {
+                EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_to_plate")
+                        .inputItems(ingotPrefix, material)
+                        .notConsumable(GTItems.SHAPE_EXTRUDER_PLATE)
+                        .outputItems(plate, material)
+                        .duration(mass)
+                        .EUt(8L * voltageMultiplier)
+                        .save(provider);
+
+                if (material.hasFlag(NO_SMASHING)) {
+                    EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_dust_to_plate")
+                            .inputItems(dust, material)
+                            .notConsumable(GTItems.SHAPE_EXTRUDER_PLATE)
+                            .outputItems(plate, material)
+                            .duration(mass)
+                            .EUt(8L * voltageMultiplier)
+                            .save(provider);
+                }
+            }
+        }
+    }
+
+    @Unique
+    private static void gTLCore$processDust(TagPrefix dustPrefix, Material mat, DustProperty property,
+                                            Consumer<FinishedRecipe> provider) {
         String id = "%s_%s_".formatted(FormattingUtil.toLowerCaseUnder(dustPrefix.name),
                 mat.getName().toLowerCase(Locale.ROOT));
         ItemStack dustStack = ChemicalHelper.get(dustPrefix, mat);
@@ -52,14 +189,14 @@ public class MaterialRecipeHandlerMixin {
             if (mat.hasFlag(CRYSTALLIZABLE)) {
                 AUTOCLAVE_RECIPES.recipeBuilder("autoclave_" + id + "_water")
                         .inputItems(dustStack)
-                        .inputFluids(Water.getFluid(250))
+                        .inputFluids(GTMaterials.Water.getFluid(250))
                         .chancedOutput(gemStack, 7000, 1000)
                         .duration(1200).EUt(24)
                         .save(provider);
 
                 AUTOCLAVE_RECIPES.recipeBuilder("autoclave_" + id + "_distilled")
                         .inputItems(dustStack)
-                        .inputFluids(DistilledWater.getFluid(50))
+                        .inputFluids(GTMaterials.DistilledWater.getFluid(50))
                         .outputItems(gemStack)
                         .duration(600).EUt(24)
                         .save(provider);
@@ -94,7 +231,7 @@ public class MaterialRecipeHandlerMixin {
                         .explosivesType(new ItemStack(GTBlocks.INDUSTRIAL_TNT))
                         .save(provider);
 
-                ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES.recipeBuilder("electric_implode_" + id)
+                GTLRecipeTypes.ELECTRIC_IMPLOSION_COMPRESSOR_RECIPES.recipeBuilder("electric_implode_" + id)
                         .inputItems(GTUtil.copyAmount(4, dustStack))
                         .outputItems(GTUtil.copyAmount(3, gemStack))
                         .save(provider);
@@ -159,5 +296,33 @@ public class MaterialRecipeHandlerMixin {
                 }
             }
         }
+    }
+
+    @Unique
+    private static void gTLCore$processSmallDust(TagPrefix orePrefix, Material material, DustProperty property,
+                                                 Consumer<FinishedRecipe> provider) {
+        PACKER_RECIPES.recipeBuilder("package_" + material.getName() + "_small_dust")
+                .inputItems(orePrefix, material, 4)
+                .outputItems(ChemicalHelper.get(dust, material))
+                .save(provider);
+
+        GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder("unpackage_" + material.getName() + "_small_dust")
+                .inputItems(dust, material)
+                .outputItems(GTUtil.copyAmount(4, ChemicalHelper.get(orePrefix, material)))
+                .save(provider);
+    }
+
+    @Unique
+    private static void gTLCore$processTinyDust(TagPrefix orePrefix, Material material, DustProperty property,
+                                                Consumer<FinishedRecipe> provider) {
+        PACKER_RECIPES.recipeBuilder("package_" + material.getName() + "_tiny_dust")
+                .inputItems(orePrefix, material, 9)
+                .outputItems(ChemicalHelper.get(dust, material))
+                .save(provider);
+
+        GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder("unpackage_" + material.getName() + "_tiny_dust")
+                .inputItems(dust, material)
+                .outputItems(GTUtil.copyAmount(9, ChemicalHelper.get(orePrefix, material)))
+                .save(provider);
     }
 }

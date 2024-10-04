@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.utils.MachineIO;
 
 import com.gregtechceu.gtceu.api.machine.ConditionalSubscriptionHandler;
@@ -162,6 +163,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         }
     }
 
+    @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe) {
         if (machine instanceof FissionReactorMachine fissionReactorMachine) {
             Pair<GTRecipe, Integer> result = GTRecipeModifiers.accurateParallel(machine, recipe,
@@ -176,15 +178,15 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     private boolean inputWater(double amount) {
         boolean value = MachineIO.inputFluid(this, GTMaterials.DistilledWater.getFluid((long) (amount * 800)));
         double steamMultiplier = heat > 373 ? 160 : 160 / Math.pow(1.4, 373 - heat);
-        if (value) MachineIO.outputFluid(this, GTMaterials.Steam.getFluid((long) (amount * 800 * steamMultiplier)));
+        if (value) value = MachineIO.outputFluid(this, GTMaterials.Steam.getFluid((long) (amount * 800 * steamMultiplier)));
         return value;
     }
 
     private boolean inputSodiumPotassium(double amount) {
         boolean value = MachineIO.inputFluid(this, GTMaterials.SodiumPotassium.getFluid((long) (amount * 20)));
         if (heat > 825) {
-            if (value) MachineIO.outputFluid(this, GTMaterials.get("supercritical_sodium_potassium").getFluid((long) (amount * 20)));
-        } else if (value) MachineIO.outputFluid(this, GTMaterials.get("hot_sodium_potassium").getFluid((long) (amount * 20)));
+            if (value) value = MachineIO.outputFluid(this, GTLMaterials.SupercriticalSodiumPotassium.getFluid((long) (amount * 20)));
+        } else if (value) value = MachineIO.outputFluid(this, GTLMaterials.HotSodiumPotassium.getFluid((long) (amount * 20)));
         return value;
     }
 

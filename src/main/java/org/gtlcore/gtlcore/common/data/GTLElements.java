@@ -59,7 +59,7 @@ public class GTLElements {
     public static Element QUANTANIUM;
 
     public static void init() {
-        SPACETIME = GTElements.createAndRegister(0, 0, -1, null, "spacetime", "§7熔炼为流体的时空", false);
+        SPACETIME = GTElements.createAndRegister(0, 1000, -1, null, "spacetime", "§7熔炼为流体的时空", false);
         INFINITY = GTElements.createAndRegister(100000, 100000, -1, null, "infinity", "∞", false);
         ORICHALCUM = GTElements.createAndRegister(320, 320, -1, null, "orichalcum", "Or", false);
         ADAMANTIUM = GTElements.createAndRegister(380, 380, -1, null, "adamantium", "An", false);
@@ -88,28 +88,28 @@ public class GTLElements {
         YITTERBIUM178 = GTElements.createAndRegister(70, 108, -1, null, "ytterbium178", "Yb¹⁷⁸", true);
         COPPER76 = GTElements.createAndRegister(29, 47, -1, null, "copper76", "Cu⁷⁶", true);
         URUIUM = GTElements.createAndRegister(480, 480, -1, null, "uruium", "Ur", false);
-        STARLIGHT = GTElements.createAndRegister(0, 0, -1, null, "starlight", "§9Sl", false);
-        MANA = GTElements.createAndRegister(0, 0, -1, null, "mana", "§5§kemana", false);
+        STARLIGHT = GTElements.createAndRegister(1000, 0, -1, null, "starlight", "§9Sl", false);
+        MANA = GTElements.createAndRegister(100, 0, -1, null, "mana", "§5§kemana", false);
         ELECTRON = GTElements.createAndRegister(0, 0, -1, null, "electron", "§ke§re§ke", false);
-        ALPHA = GTElements.createAndRegister(0, 0, -1, null, "alpha", "§ke§rα§ke", false);
-        PROTON = GTElements.createAndRegister(0, 0, -1, null, "proton", "§ke§rp§ke", false);
-        GLUONS = GTElements.createAndRegister(0, 0, -1, null, "gluons", "§ke§rg§ke", false);
-        QUARK_GLUON = GTElements.createAndRegister(0, 0, -1, null, "quark_gluon", "§ke§r(u2);d(c2);s(t2);bg§ke", false);
-        HEAVY_QUARKS = GTElements.createAndRegister(0, 0, -1, null, "heavy_quarks", "§ke§r(u₂);d§ke", false);
-        LIGHT_QUARKS = GTElements.createAndRegister(0, 0, -1, null, "light_quarks", "§ke§r(c₂);(t₂);b§ke", false);
-        HEAVY_LEPTON_MIXTURE = GTElements.createAndRegister(0, 0, -1, null, "heavy_lepton_mixture", "§ke§r(t₂);u§ke", false);
-        HEAVY_QUARK_ENRICHED_MIXTURE = GTElements.createAndRegister(0, 0, -1, null, "heavy_quark_enriched_mixture", "§ke§r(u₂);d(c₂);s(t₂);b§ke", false);
-        DENSE_NEUTRON = GTElements.createAndRegister(0, 0, -1, null, "dense_neutron", "§ke§rn§ke", false);
-        HIGH_ENERGY_QUARK_GLUON = GTElements.createAndRegister(0, 0, -1, null, "high_energy_quark_gluon", "§ke§r(u₂);d(c₂);s(t₂);bg§ke", false);
-        TIME = GTElements.createAndRegister(0, 0, -1, null, "time", "§ketime", false);
+        ALPHA = GTElements.createAndRegister(2, 2, -1, null, "alpha", "§ke§rα§ke", false);
+        PROTON = GTElements.createAndRegister(1, 0, -1, null, "proton", "§ke§rp§ke", false);
+        GLUONS = GTElements.createAndRegister(10, 10, -1, null, "gluons", "§ke§rg§ke", false);
+        QUARK_GLUON = GTElements.createAndRegister(10, 10, -1, null, "quark_gluon", "§ke§r(u2);d(c2);s(t2);bg§ke", false);
+        HEAVY_QUARKS = GTElements.createAndRegister(10, 10, -1, null, "heavy_quarks", "§ke§r(u₂);d§ke", false);
+        LIGHT_QUARKS = GTElements.createAndRegister(10, 10, -1, null, "light_quarks", "§ke§r(c₂);(t₂);b§ke", false);
+        HEAVY_LEPTON_MIXTURE = GTElements.createAndRegister(10, 10, -1, null, "heavy_lepton_mixture", "§ke§r(t₂);u§ke", false);
+        HEAVY_QUARK_ENRICHED_MIXTURE = GTElements.createAndRegister(100, 100, -1, null, "heavy_quark_enriched_mixture", "§ke§r(u₂);d(c₂);s(t₂);b§ke", false);
+        DENSE_NEUTRON = GTElements.createAndRegister(1000, 1000, -1, null, "dense_neutron", "§ke§rn§ke", false);
+        HIGH_ENERGY_QUARK_GLUON = GTElements.createAndRegister(1000, 1000, -1, null, "high_energy_quark_gluon", "§ke§r(u₂);d(c₂);s(t₂);bg§ke", false);
+        TIME = GTElements.createAndRegister(1000, 1000, -1, null, "time", "§ketime", false);
         STAR_MATTER = GTElements.createAndRegister(10000, 10000, -1, null, "star_matter", "§kestar_matter", true);
         RAW_STAR_MATTER = GTElements.createAndRegister(10000, 10000, -1, null, "raw_star_matter", "§6§kestar_matter", true);
         RHUGNOR = GTElements.createAndRegister(100000, 100000, -1, null, "rhugnor", "Fs⚶", true);
         HYPogen = GTElements.createAndRegister(100000, 100000, -1, null, "hypogen", "Hy⚶", true);
         SHIRABON = GTElements.createAndRegister(5000, 5000, -1, null, "shirabon", "Sh⏧", false);
-        MAGMATTER = GTElements.createAndRegister(0, 0, -1, null, "magmatter", "M⎋", false);
-        ASTRALTITANIUM = GTElements.createAndRegister(0, 0, -1, null, "astraltitanium", "✧◇✧", false);
-        CELESTIALTUNGSTEN = GTElements.createAndRegister(0, 0, -1, null, "celestialtungsten", "✦◆✦", false);
+        MAGMATTER = GTElements.createAndRegister(100000, 100000, -1, null, "magmatter", "M⎋", false);
+        ASTRALTITANIUM = GTElements.createAndRegister(1000, 1000, -1, null, "astraltitanium", "✧◇✧", false);
+        CELESTIALTUNGSTEN = GTElements.createAndRegister(10000, 10000, -1, null, "celestialtungsten", "✦◆✦", false);
         QUANTANIUM = GTElements.createAndRegister(800, 800, -1, null, "quantanium", "Qt", false);
     }
 }

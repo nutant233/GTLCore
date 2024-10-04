@@ -21,6 +21,7 @@ import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraftforge.common.Tags;
 
 import com.hepdd.gtmthings.GTMThings;
 import com.hepdd.gtmthings.data.CustomItems;
@@ -167,6 +168,28 @@ public class MachineRecipe {
                 CIRCUIT, 'W', WIRE_QUAD, 'R', ROBOT_ARM, 'A', CABLE_QUAD);
         registerMachineRecipe(provider, GTLMachines.LIGHTNING_PROCESSOR, "WEW", "AMA", "WSW", 'M', HULL, 'E',
                 EMITTER, 'W', WIRE_HEX, 'S', SENSOR, 'A', CABLE_TIER_UP);
+        registerMachineRecipe(provider, GTLMachines.UNPACKER, "BCB", "VMR", "WCW", 'M', HULL, 'R', ROBOT_ARM, 'V',
+                CONVEYOR, 'C', CIRCUIT, 'W', CABLE, 'B', Tags.Items.CHESTS_WOODEN);
+        registerMachineRecipe(provider, GTLMachines.CLUSTER, "MMM", "CHC", "MMM", 'H', HULL, 'M', MOTOR, 'C', CIRCUIT);
+        registerMachineRecipe(provider, GTLMachines.ROLLING, "EWE", "CMC", "PWP", 'M', HULL, 'E', MOTOR, 'P', PISTON, 'C',
+                CIRCUIT, 'W', CABLE);
+        registerMachineRecipe(provider, GTLMachines.LAMINATOR, "WPW", "CMC", "GGG", 'M', HULL, 'P', PUMP, 'C', CIRCUIT, 'W',
+                CABLE, 'G', CONVEYOR);
+        registerMachineRecipe(provider, GTLMachines.LOOM, "CWC", "EME", "EWE", 'M', HULL, 'E', MOTOR, 'C', CIRCUIT,
+                'W', CABLE);
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "ulv_packer", GTLMachines.ULV_PACKER.asStack(),
+                "BCB", "RMV", "WCW", 'M', GTBlocks.MACHINE_CASING_ULV.asStack(), 'R', GTItems.RESISTOR.asStack(), 'V',
+                new UnificationEntry(rod, IronMagnetic), 'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(wireGtSingle, GTMaterials.Lead), 'B', GTLItems.PRIMITIVE_ROBOT_ARM.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "ulv_unpacker", GTLMachines.ULV_UNPACKER.asStack(),
+                "BCB", "VMR", "WCW", 'M', GTBlocks.MACHINE_CASING_ULV.asStack(), 'R', GTItems.RESISTOR.asStack(), 'V',
+                new UnificationEntry(rod, IronMagnetic), 'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(wireGtSingle, GTMaterials.Lead), 'B', GTLItems.PRIMITIVE_ROBOT_ARM.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "large_bender_and_forming", MultiBlockMachineB.LARGE_BENDER_AND_FORMING.asStack(),
+                "PKP", "BZB", "FKH", 'Z', CustomTags.IV_CIRCUITS, 'B', GTLMachines.ROLLING[IV].asStack(), 'P',
+                GTItems.ELECTRIC_PISTON_IV.asStack(), 'H', GTMachines.BENDER[IV].asStack(),
+                'F', GTLMachines.CLUSTER[IV].asStack(), 'K', new UnificationEntry(cableGtSingle, Platinum));
 
         ASSEMBLER_RECIPES.recipeBuilder("zpm_fluid_drilling_rig")
                 .inputItems(GTMachines.HULL[UV])

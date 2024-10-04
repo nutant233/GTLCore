@@ -114,11 +114,14 @@ public class GTLRecipeModifiers {
                 }
             }
             if (b == 0) return null;
-            GTRecipe recipe1 = RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, GTRecipeModifiers.hatchParallel(machine, recipe, false, params, result), workableElectricMultiblockMachine.getOverclockVoltage(), params, result);
-            if (a / b != fluidStack1.getAmount() / fluidStack2.getAmount()) {
-                recipe1.outputs.clear();
+            GTRecipe recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe, false, params, result);
+            if (recipe1 != null) {
+                GTRecipe recipe2 = RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, workableElectricMultiblockMachine.getOverclockVoltage(), params, result);
+                if (a / b != fluidStack1.getAmount() / fluidStack2.getAmount()) {
+                    recipe2.outputs.clear();
+                }
+                return recipe2;
             }
-            return recipe1;
         }
         return null;
     }

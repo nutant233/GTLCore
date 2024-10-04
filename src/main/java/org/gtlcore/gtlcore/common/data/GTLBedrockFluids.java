@@ -12,7 +12,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -313,7 +312,7 @@ public class GTLBedrockFluids {
 
     public static BedrockFluidDefinition UNKNOWWATER = create(GTCEu.id("unknowwater"),
             builder -> builder
-                    .fluid(Objects.requireNonNull(GTMaterials.get("unknowwater"))::getFluid)
+                    .fluid(GTLMaterials.UnknowWater::getFluid)
                     .weight(20)
                     .yield(40, 60)
                     .depletionAmount(1)

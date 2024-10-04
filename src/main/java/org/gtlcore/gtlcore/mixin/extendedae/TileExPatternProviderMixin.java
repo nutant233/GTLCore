@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.mixin.extendedae;
 
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import com.glodblock.github.extendedae.common.tileentities.TileExPatternProvider;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +12,6 @@ public class TileExPatternProviderMixin {
 
     @ModifyConstant(method = "createLogic", remap = false, constant = @Constant(intValue = 36))
     private int modifyContainer(int constant) {
-        return ConfigHolder.INSTANCE.exPatternProvider;
+        return GTLConfigHolder.INSTANCE.exPatternProvider;
     }
 }

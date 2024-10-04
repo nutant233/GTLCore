@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import org.gtlcore.gtlcore.common.data.GTLRecipes;
+import org.gtlcore.gtlcore.data.recipe.*;
+
 import com.gregtechceu.gtceu.data.recipe.misc.GCyMRecipes;
 
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -21,6 +24,7 @@ public class GCyMRecipesMixin {
 
     @Inject(method = "registerPartsRecipes", at = @At("HEAD"), remap = false, cancellable = true)
     private static void registerPartsRecipes(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
+        GTLRecipes.recipeAddition(provider);
         ci.cancel();
     }
 }

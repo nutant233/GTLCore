@@ -25,7 +25,7 @@ public class GenerateDisassembly {
     private static final String[] inputItem = { "suprachronal_", "_circuit", "_processor", "_assembly",
             "_computer", "_mainframe", "circuit_resonatic_" };
 
-    private static final String[] outputItem = { "_cable", "_frame", "_fence", "_electric_motor",
+    private static final String[] outputItem = { "_frame", "_fence", "_electric_motor",
             "_electric_pump", "_conveyor_module", "_electric_piston", "_robot_arm", "_field_generator",
             "_emitter", "_sensor", "smd_", "_lamp", "_crate", "_drum", "_machine_casing",
             "ae2:blank_pattern", "gtceu:carbon_nanoswarm" };

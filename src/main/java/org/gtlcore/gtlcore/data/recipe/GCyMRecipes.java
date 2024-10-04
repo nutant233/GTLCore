@@ -93,9 +93,8 @@ public class GCyMRecipes {
                 new UnificationEntry(plateDouble, HSLASteel), 'B', ELECTRIC_PUMP_IV.asStack(), 'K',
                 new UnificationEntry(cableGtSingle, Platinum));
         VanillaRecipeHelper.addShapedRecipe(provider, true, "large_material_press", LARGE_MATERIAL_PRESS.asStack(),
-                "PKP", "BZG", "FKH", 'Z', CustomTags.IV_CIRCUITS, 'B', BENDER[IV].asStack(), 'P',
-                ELECTRIC_PISTON_IV.asStack(), 'G', COMPRESSOR[IV].asStack(), 'F', FORMING_PRESS[IV].asStack(), 'H',
-                FORGE_HAMMER[IV].asStack(), 'K', new UnificationEntry(cableGtSingle, Platinum));
+                "PKP", "GZG", "FKH", 'Z', CustomTags.IV_CIRCUITS, 'P', ELECTRIC_PISTON_IV.asStack(), 'G', COMPRESSOR[IV].asStack(),
+                'F', FORMING_PRESS[IV].asStack(), 'H', FORGE_HAMMER[IV].asStack(), 'K', new UnificationEntry(cableGtSingle, Platinum));
         VanillaRecipeHelper.addShapedRecipe(provider, true, "large_brewer", LARGE_BREWER.asStack(), "SZS", "FBH", "EKE",
                 'Z', CustomTags.IV_CIRCUITS, 'S', new UnificationEntry(spring, MolybdenumDisilicide), 'F',
                 FERMENTER[IV].asStack(), 'E', ELECTRIC_PUMP_IV.asStack(), 'B', BREWERY[IV].asStack(), 'H',

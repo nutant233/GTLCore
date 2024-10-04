@@ -1,28 +1,34 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
 import org.gtlcore.gtlcore.common.data.GTLItems;
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
+import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.WireProperties;
+import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
+import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.gregtechceu.gtceu.data.recipe.generated.WireRecipeHandler;
 import com.gregtechceu.gtceu.utils.GTUtil;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.foil;
+import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 
 @Mixin(WireRecipeHandler.class)
 public class WireRecipeHandlerMixin {
@@ -32,16 +38,44 @@ public class WireRecipeHandlerMixin {
     private static Map<TagPrefix, Integer> INSULATION_AMOUNT;
 
     @Shadow(remap = false)
-    private static void generateManualRecipe(TagPrefix wirePrefix, Material material, TagPrefix cablePrefix, int cableAmount, Consumer<FinishedRecipe> provider) {}
+    private static int getVoltageMultiplier(Material material) {
+        return 0;
+    }
 
-    /**
-     * @author mod_author
-     * @reason Need more
-     */
-    @Overwrite(remap = false)
-    public static void generateCableCovering(TagPrefix wirePrefix, Material material, WireProperties property,
+    @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
+        wireGtSingle.executeHandler(provider, PropertyKey.WIRE, WireRecipeHandlerMixin::gTLCore$processWires);
+
+        wireGtSingle.executeHandler(provider, PropertyKey.WIRE, WireRecipeHandlerMixin::gTLCore$generateCableCovering);
+        wireGtDouble.executeHandler(provider, PropertyKey.WIRE, WireRecipeHandlerMixin::gTLCore$generateCableCovering);
+        wireGtQuadruple.executeHandler(provider, PropertyKey.WIRE, WireRecipeHandlerMixin::gTLCore$generateCableCovering);
+        wireGtOctal.executeHandler(provider, PropertyKey.WIRE, WireRecipeHandlerMixin::gTLCore$generateCableCovering);
+        wireGtHex.executeHandler(provider, PropertyKey.WIRE, WireRecipeHandlerMixin::gTLCore$generateCableCovering);
+        ci.cancel();
+    }
+
+    @Unique
+    private static void gTLCore$processWires(TagPrefix wirePrefix, Material material, WireProperties property,
                                              Consumer<FinishedRecipe> provider) {
-        // Superconductors have no Cables, so exit early
+        TagPrefix prefix = material.hasProperty(PropertyKey.INGOT) ? ingot :
+                material.hasProperty(PropertyKey.GEM) ? gem : dust;
+        int mass = (int) material.getMass();
+        GTRecipeTypes.WIREMILL_RECIPES.recipeBuilder("mill_" + material.getName() + "_wire")
+                .inputItems(prefix, material)
+                .outputItems(wireGtSingle, material, 2)
+                .duration(mass)
+                .EUt(getVoltageMultiplier(material))
+                .save(provider);
+
+        if (!material.hasFlag(MaterialFlags.NO_WORKING) && material.hasFlag(MaterialFlags.GENERATE_PLATE) && mass < 240 && material.getBlastTemperature() < 5000) {
+            VanillaRecipeHelper.addShapedRecipe(provider, String.format("%s_wire_single", material.getName()),
+                    ChemicalHelper.get(wireGtSingle, material), "Xx",
+                    'X', new UnificationEntry(plate, material));
+        }
+    }
+
+    @Unique
+    private static void gTLCore$generateCableCovering(TagPrefix wirePrefix, Material material, WireProperties property, Consumer<FinishedRecipe> provider) {
         if (property.isSuperconductor()) return;
 
         int cableAmount = (int) (wirePrefix.getMaterialAmount(material) * 2 / M);
@@ -49,14 +83,12 @@ public class WireRecipeHandlerMixin {
         int voltageTier = GTUtil.getTierByVoltage(property.getVoltage());
         int insulationAmount = INSULATION_AMOUNT.get(cablePrefix);
 
-        // Generate hand-crafting recipes for ULV and LV cables
         if (voltageTier <= LV) {
-            generateManualRecipe(wirePrefix, material, cablePrefix, cableAmount, provider);
+            gTLCore$generateManualRecipe(wirePrefix, material, cablePrefix, cableAmount, provider);
         }
 
-        // Rubber Recipe (ULV-EV cables)
         if (voltageTier < IV) {
-            GTRecipeBuilder builder = ASSEMBLER_RECIPES
+            GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
                     .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_rubber")
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
@@ -68,7 +100,7 @@ public class WireRecipeHandlerMixin {
             }
             builder.save(provider);
         } else if (voltageTier < UHV) {
-            GTRecipeBuilder builder = ASSEMBLER_RECIPES
+            GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
                     .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_silicone")
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
@@ -83,7 +115,7 @@ public class WireRecipeHandlerMixin {
             builder.inputFluids(SiliconeRubber.getFluid(L * (long) insulationAmount))
                     .save(provider);
         } else {
-            GTRecipeBuilder builder = ASSEMBLER_RECIPES
+            GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
                     .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_styrene_butadiene")
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
@@ -95,10 +127,19 @@ public class WireRecipeHandlerMixin {
 
             builder.inputItems(foil, PolyphenyleneSulfide, insulationAmount);
 
-            builder.inputItems(foil, PolyvinylChloride, insulationAmount);
-
             builder.inputFluids(StyreneButadieneRubber.getFluid(L * (long) insulationAmount))
                     .save(provider);
         }
+    }
+
+    @Unique
+    private static void gTLCore$generateManualRecipe(TagPrefix wirePrefix, Material material, TagPrefix cablePrefix,
+                                                     int cableAmount, Consumer<FinishedRecipe> provider) {
+        GTRecipeTypes.PACKER_RECIPES.recipeBuilder("cover_" + material.getName() + "_" + wirePrefix)
+                .inputItems(wirePrefix, material)
+                .inputItems(plate, Rubber, INSULATION_AMOUNT.get(cablePrefix))
+                .outputItems(cablePrefix, material)
+                .duration(100).EUt(VA[ULV])
+                .save(provider);
     }
 }

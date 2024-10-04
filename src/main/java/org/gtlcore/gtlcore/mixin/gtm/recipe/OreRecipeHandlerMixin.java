@@ -1,8 +1,9 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
+
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
-import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.MaterialStack;
@@ -21,8 +22,11 @@ import net.minecraft.world.item.ItemStack;
 
 import com.mojang.datafixers.util.Pair;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -38,12 +42,13 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.INTEGRATED_ORE_PROC
 @Mixin(OreRecipeHandler.class)
 public class OreRecipeHandlerMixin {
 
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite(remap = false)
-    public static void init(Consumer<FinishedRecipe> provider) {
+    @Shadow(remap = false)
+    private static boolean doesMaterialUseNormalFurnace(Material material) {
+        return false;
+    }
+
+    @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
         for (TagPrefix ore : ORES.keySet()) {
             Supplier<Material> material = ORES.get(ore).material();
             if (material != null && material.get() == GTMaterials.Stone) {
@@ -59,13 +64,14 @@ public class OreRecipeHandlerMixin {
         crushedRefined.executeHandler(provider, PropertyKey.ORE, OreRecipeHandler::processCrushedCentrifuged);
         dustImpure.executeHandler(provider, PropertyKey.ORE, OreRecipeHandler::processDirtyDust);
         dustPure.executeHandler(provider, PropertyKey.ORE, OreRecipeHandler::processPureDust);
+        ci.cancel();
     }
 
     @Unique
     private static void gtlcore$processOreForgeHammer(TagPrefix orePrefix, Material material, OreProperty property, Consumer<FinishedRecipe> provider) {
         ItemStack crushedStack = ChemicalHelper.get(crushed, material);
         int amountOfCrushedOre = property.getOreMultiplier();
-        int oreTypeMultiplier = org.gtlcore.gtlcore.config.ConfigHolder.INSTANCE.oreMultiplier;
+        int oreTypeMultiplier = GTLConfigHolder.INSTANCE.oreMultiplier;
         crushedStack.setCount(crushedStack.getCount() * property.getOreMultiplier());
 
         GTRecipeBuilder builder = FORGE_HAMMER_RECIPES
@@ -99,7 +105,7 @@ public class OreRecipeHandlerMixin {
         } else {
             ingotStack = ChemicalHelper.get(dust, smeltingMaterial);
         }
-        int oreTypeMultiplier = org.gtlcore.gtlcore.config.ConfigHolder.INSTANCE.oreMultiplier;
+        int oreTypeMultiplier = GTLConfigHolder.INSTANCE.oreMultiplier;
         ingotStack.setCount(ingotStack.getCount() * property.getOreMultiplier() * oreTypeMultiplier);
         crushedStack.setCount(crushedStack.getCount() * property.getOreMultiplier());
 
@@ -371,7 +377,7 @@ public class OreRecipeHandlerMixin {
         }
 
         // do not try to add smelting recipes for materials which require blast furnace
-        if (!ingotStack.isEmpty() && gtlcore$doesMaterialUseNormalFurnace(smeltingMaterial) && !orePrefix.isIgnored(material)) {
+        if (!ingotStack.isEmpty() && doesMaterialUseNormalFurnace(smeltingMaterial) && !orePrefix.isIgnored(material)) {
             float xp = Math.round(((1 + oreTypeMultiplier * 0.5f) * 0.5f - 0.05f) * 10f) / 10f;
             VanillaRecipeHelper.addSmeltingRecipe(provider,
                     "smelt_" + material.getName() + "_ore_to_ingot", tag, ingotStack, xp);
@@ -383,7 +389,7 @@ public class OreRecipeHandlerMixin {
     @Unique
     private static void gtlcore$processRawOre(TagPrefix orePrefix, Material material, OreProperty property, Consumer<FinishedRecipe> provider) {
         ItemStack crushedStack = ChemicalHelper.get(crushed, material,
-                material.getProperty(PropertyKey.ORE).getOreMultiplier() * org.gtlcore.gtlcore.config.ConfigHolder.INSTANCE.oreMultiplier / 2);
+                material.getProperty(PropertyKey.ORE).getOreMultiplier() * GTLConfigHolder.INSTANCE.oreMultiplier / 2);
         ItemStack ingotStack;
         Material smeltingMaterial = property.getDirectSmeltResult() == null ? material :
                 property.getDirectSmeltResult();
@@ -636,7 +642,7 @@ public class OreRecipeHandlerMixin {
 
         // do not try to add smelting recipes for materials which require blast furnace, or don't have smelting recipes
         // at all.
-        if (!ingotStack.isEmpty() && gtlcore$doesMaterialUseNormalFurnace(smeltingMaterial) && !orePrefix.isIgnored(material)) {
+        if (!ingotStack.isEmpty() && doesMaterialUseNormalFurnace(smeltingMaterial) && !orePrefix.isIgnored(material)) {
             float xp = Math.round(((1 + property.getOreMultiplier() * 0.33f) / 3) * 10f) / 10f;
             VanillaRecipeHelper.addSmeltingRecipe(provider,
                     "smelt_" + orePrefix.name + "_" + material.getName() + "_ore_to_ingot",
@@ -667,10 +673,5 @@ public class OreRecipeHandlerMixin {
                 .outputItems(rawOre, material, 9)
                 .circuitMeta(2)
                 .duration(300).EUt(2).save(provider);
-    }
-
-    @Unique
-    private static boolean gtlcore$doesMaterialUseNormalFurnace(Material material) {
-        return !material.hasProperty(PropertyKey.BLAST) && !material.hasFlag(MaterialFlags.NO_ORE_SMELTING);
     }
 }

@@ -12,12 +12,14 @@ import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
+import com.gregtechceu.gtceu.api.machine.SimpleTieredMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
+import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.client.renderer.machine.MaintenanceHatchPartRenderer;
 import com.gregtechceu.gtceu.client.renderer.machine.SimpleGeneratorMachineRenderer;
 import com.gregtechceu.gtceu.client.util.TooltipHelper;
@@ -38,6 +40,8 @@ import com.hepdd.gtmthings.data.WirelessMachines;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.gregtechceu.gtceu.api.GTValues.VLVH;
+import static com.gregtechceu.gtceu.api.GTValues.VLVT;
 import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 
 public class GTLMachines {
@@ -156,17 +160,41 @@ public class GTLMachines {
     public static final MachineDefinition[] DEHYDRATOR = GTMachines.registerSimpleMachines("dehydrator",
             GTLRecipeTypes.DEHYDRATOR_RECIPES, GTMachines.defaultTankSizeFunction);
 
+    public static final MachineDefinition[] UNPACKER = GTMachines.registerSimpleMachines("unpacker", GTLRecipeTypes.UNPACKER_RECIPES);
+
+    public static final MachineDefinition[] CLUSTER = GTMachines.registerSimpleMachines("cluster", GTLRecipeTypes.CLUSTER_RECIPES);
+
+    public static final MachineDefinition[] ROLLING = GTMachines.registerSimpleMachines("rolling", GTLRecipeTypes.ROLLING_RECIPES);
+
+    public static final MachineDefinition[] LAMINATOR = GTMachines.registerSimpleMachines("laminator", GTLRecipeTypes.LAMINATOR_RECIPES);
+
+    public static final MachineDefinition[] LOOM = GTMachines.registerSimpleMachines("loom", GTLRecipeTypes.LOOM_RECIPES);
+
     public static final MachineDefinition[] WORLD_DATA_SCANNER = GTMachines.registerSimpleMachines("world_data_scanner",
             GTLRecipeTypes.WORLD_DATA_SCANNER_RECIPES, tier -> 64000);
 
     public static final MachineDefinition[] NEUTRON_COMPRESSOR = GTMachines.registerSimpleMachines("neutron_compressor",
             GTLRecipeTypes.NEUTRON_COMPRESSOR_RECIPES, GTMachines.defaultTankSizeFunction, false, GTValues.MAX);
 
+    public static final MachineDefinition ULV_PACKER = registerULVMachines("packer", GTRecipeTypes.PACKER_RECIPES);
+    public static final MachineDefinition ULV_UNPACKER = registerULVMachines("unpacker", GTLRecipeTypes.UNPACKER_RECIPES);
+
+    private static MachineDefinition registerULVMachines(String name, GTRecipeType recipeType) {
+        return REGISTRATE.machine("ulv_" + name, holder -> new SimpleTieredMachine(holder, 0, tier -> 8000))
+                .editableUI(SimpleTieredMachine.EDITABLE_UI_CREATOR.apply(GTCEu.id(name), recipeType))
+                .rotationState(RotationState.NON_Y_AXIS)
+                .recipeType(recipeType)
+                .workableTieredHullRenderer(GTCEu.id("block/machines/" + name))
+                .tooltips(GTMachines.workableTiered(0, GTValues.V[0], GTValues.V[0] * 64, recipeType,
+                        8000, true))
+                .register();
+    }
+
     public static final MachineDefinition[] LIGHTNING_ROD = GTMachines.registerTieredMachines(
             "lightning_rod",
             LightningRodMachine::new,
             (tier, builder) -> builder
-                    .langValue("%s Lightning Rod %s".formatted(GTValues.VLVH[tier], GTValues.VLVT[tier]))
+                    .langValue("%s Lightning Rod %s".formatted(VLVH[tier], VLVT[tier]))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .renderer(() -> new SimpleGeneratorMachineRenderer(tier,
                             GTCEu.id("block/generators/lightning_rod")))
@@ -186,7 +214,7 @@ public class GTLMachines {
             "primitive_magic_energy",
             MagicEnergyMachine::new,
             (tier, builder) -> builder
-                    .langValue("%s Primitive Magic Energy %s".formatted(GTValues.VLVH[tier], GTValues.VLVT[tier]))
+                    .langValue("%s Primitive Magic Energy %s".formatted(VLVH[tier], VLVT[tier]))
                     .rotationState(RotationState.NON_Y_AXIS)
                     .renderer(() -> new SimpleGeneratorMachineRenderer(tier,
                             GTCEu.id("block/generators/primitive_magic_energy")))

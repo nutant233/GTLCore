@@ -3,7 +3,7 @@ package org.gtlcore.gtlcore.common;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 import org.gtlcore.gtlcore.integration.ae2.InfinityCellGuiHandler;
 import org.gtlcore.gtlcore.integration.ae2.storage.InfinityCellHandler;
 
@@ -44,7 +44,7 @@ public class CommonProxy {
 
     public static void init() {
         GTLCreativeModeTabs.init();
-        ConfigHolder.init();
+        GTLConfigHolder.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

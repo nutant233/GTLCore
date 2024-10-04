@@ -150,24 +150,24 @@ public class ElementCopying {
     public static void init(Consumer<FinishedRecipe> provider) {
         for (Material e : fes) {
             Element element = Objects.requireNonNullElse(e.getElement(), GTElements.Nt);
-            long atomic = element.protons() + element.neutrons();
+            long mass = element.mass();
             ELEMENT_COPYING_RECIPES.recipeBuilder(e.getName())
                     .notConsumableFluid(e.getFluid(1000))
-                    .inputFluids(GTMaterials.UUMatter.getFluid(atomic))
+                    .inputFluids(GTMaterials.UUMatter.getFluid(mass))
                     .outputFluids(e.getFluid(1000))
-                    .duration((int) atomic)
+                    .duration((int) mass)
                     .EUt(GTValues.V[GTValues.UXV])
                     .save(provider);
         }
 
         for (Material e : ies) {
             Element element = Objects.requireNonNullElse(e.getElement(), GTElements.Nt);
-            long atomic = element.protons() + element.neutrons();
+            long mass = element.mass();
             ELEMENT_COPYING_RECIPES.recipeBuilder(e.getName())
                     .notConsumable(TagPrefix.dust, e)
-                    .inputFluids(GTMaterials.UUMatter.getFluid(atomic))
+                    .inputFluids(GTMaterials.UUMatter.getFluid(mass))
                     .outputItems(TagPrefix.dust, e)
-                    .duration((int) atomic)
+                    .duration((int) mass)
                     .EUt(GTValues.V[GTValues.UXV])
                     .save(provider);
         }

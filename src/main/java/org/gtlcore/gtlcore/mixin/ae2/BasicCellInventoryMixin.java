@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.mixin.ae2;
 
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import net.minecraft.world.item.ItemStack;
 
@@ -31,7 +31,7 @@ public class BasicCellInventoryMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"), remap = false)
     private void BasicCellInventory(IBasicCellItem cellType, ItemStack o, ISaveProvider container, CallbackInfo ci) {
-        this.maxItemTypes = this.cellType.getTotalTypes(this.i) * ConfigHolder.INSTANCE.cellType;
+        this.maxItemTypes = this.cellType.getTotalTypes(this.i) * GTLConfigHolder.INSTANCE.cellType;
     }
 
     @Inject(method = "getBytesPerType", at = @At("HEAD"), remap = false, cancellable = true)

@@ -12,8 +12,10 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Comparator;
 import java.util.List;
@@ -39,28 +41,16 @@ public abstract class RecyclingRecipesMixin {
     @Shadow(remap = false)
     private static void registerExtractorRecycling(Consumer<FinishedRecipe> provider, ItemStack input, List<MaterialStack> materials, int multiplier, @Nullable TagPrefix prefix) {}
 
-    /**
-     * @author mod_author
-     * @reason more use arc
-     */
-    @Overwrite(remap = false)
-    public static void registerRecyclingRecipes(Consumer<FinishedRecipe> provider, ItemStack input,
-                                                List<MaterialStack> components, boolean ignoreArcSmelting,
-                                                @Nullable TagPrefix prefix) {
-        // Gather the valid Materials for use in recycling recipes.
-        // - Filter out Materials that cannot create a Dust
-        // - Filter out Materials that do not equate to at least 1 Nugget worth of Material.
-        // - Sort Materials on a descending material amount
+    @Inject(method = "registerRecyclingRecipes", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void registerRecyclingRecipes(Consumer<FinishedRecipe> provider, ItemStack input, List<MaterialStack> components, boolean ignoreArcSmelting, @Nullable TagPrefix prefix, CallbackInfo ci) {
         List<MaterialStack> materials = components.stream()
                 .filter(stack -> stack.material().hasProperty(PropertyKey.DUST))
                 .filter(stack -> stack.amount() >= M / 9)
                 .sorted(Comparator.comparingLong(ms -> -ms.amount()))
                 .toList();
 
-        // Exit if no Materials matching the above requirements exist.
         if (materials.isEmpty()) return;
 
-        // Calculate the voltage multiplier based on if a Material has a Blast Property
         int voltageMultiplier = calculateVoltageMultiplier(components);
 
         if (prefix == TagPrefix.ingot || prefix == TagPrefix.gem) {
@@ -74,23 +64,20 @@ public abstract class RecyclingRecipesMixin {
         if (components.size() == 1) {
             Material m = components.get(0).material();
 
-            // skip non-ingot materials
             if (!m.hasProperty(PropertyKey.INGOT)) {
                 return;
             }
 
-            // Skip Ingot -> Ingot Arc Recipes
             if (ChemicalHelper.getPrefix(input.getItem()) == TagPrefix.ingot &&
                     m.getProperty(PropertyKey.INGOT).getArcSmeltingInto() == m) {
                 return;
             }
 
-            // Prevent Magnetic dust -> Regular Ingot Arc Furnacing, avoiding the EBF recipe
-            // "I will rework magnetic materials soon" - DStrand1
             if (prefix == TagPrefix.dust && m.hasFlag(IS_MAGNETIC)) {
                 return;
             }
         }
         registerArcRecycling(provider, input, components, prefix);
+        ci.cancel();
     }
 }

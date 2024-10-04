@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.common.recipe.RecipeModify;
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 import org.gtlcore.gtlcore.data.recipe.GenerateDisassembly;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
@@ -34,7 +34,7 @@ import static com.lowdragmc.lowdraglib.gui.texture.ProgressTexture.FillDirection
 
 public class GTLRecipeTypes {
 
-    public static final GTRecipeType PRIMITIVE_VOID_ORE_RECIPES = ConfigHolder.INSTANCE.enablePrimitiveVoidOre ?
+    public static final GTRecipeType PRIMITIVE_VOID_ORE_RECIPES = GTLConfigHolder.INSTANCE.enablePrimitiveVoidOre ?
             register("primitive_void_ore", MULTIBLOCK)
                     .setMaxIOSize(0, 0, 1, 0)
                     .setMaxTooltips(1)
@@ -113,6 +113,40 @@ public class GTLRecipeTypes {
             .setEUIO(IO.IN)
             .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.ARC);
+
+    public final static GTRecipeType UNPACKER_RECIPES = register("unpacker", ELECTRIC)
+            .setMaxIOSize(1, 2, 0, 0)
+            .setEUIO(IO.IN)
+            .prepareBuilder(recipeBuilder -> recipeBuilder.EUt(12).duration(10))
+            .setSlotOverlay(false, false, true, GuiTextures.BOX_OVERLAY)
+            .setSlotOverlay(true, false, GuiTextures.BOXED_OVERLAY)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_UNPACKER, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.ASSEMBLER);
+
+    public final static GTRecipeType CLUSTER_RECIPES = register("cluster", ELECTRIC)
+            .setMaxIOSize(1, 1, 0, 0)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.MOTOR);
+
+    public final static GTRecipeType ROLLING_RECIPES = register("rolling", ELECTRIC)
+            .setMaxIOSize(1, 1, 0, 0)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_BENDING, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.MOTOR);
+
+    public final static GTRecipeType LAMINATOR_RECIPES = register("laminator", ELECTRIC)
+            .setMaxIOSize(3, 1, 1, 0)
+            .setEUIO(IO.IN)
+            .setSlotOverlay(false, false, GuiTextures.CIRCUIT_OVERLAY)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_CIRCUIT, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.BATH);
+
+    public final static GTRecipeType LOOM_RECIPES = register("loom", ELECTRIC)
+            .setMaxIOSize(2, 1, 0, 0)
+            .setEUIO(IO.IN)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_WIREMILL, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.MOTOR);
 
     public static final GTRecipeType INTEGRATED_ORE_PROCESSOR = register("integrated_ore_processor", MULTIBLOCK)
             .setEUIO(IO.IN)

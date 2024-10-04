@@ -6,7 +6,10 @@ import com.gregtechceu.gtceu.common.machine.multiblock.part.DualHatchPartMachine
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DualHatchPartMachine.class)
 public class DualHatchPartMachineMixin extends ItemBusPartMachine {
@@ -15,39 +18,24 @@ public class DualHatchPartMachineMixin extends ItemBusPartMachine {
         super(holder, tier, io, args);
     }
 
-    /**
-     * @author mod_author
-     * @reason 原版太小了
-     */
-    @Overwrite(remap = false)
-    public static long getTankCapacity(long initialCapacity, int tier) {
-        return initialCapacity * (1L << tier);
+    @Inject(method = "getTankCapacity", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void getTankCapacity(long initialCapacity, int tier, CallbackInfoReturnable<Long> cir) {
+        cir.setReturnValue(initialCapacity * (1L << tier));
     }
 
-    /**
-     * @author mod_author
-     * @reason 如上
-     */
-    @Overwrite(remap = false)
-    public int getInventorySize() {
-        return super.getInventorySize();
+    @Inject(method = "getInventorySize", at = @At("HEAD"), remap = false, cancellable = true)
+    public void getInventorySize(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(super.getInventorySize());
     }
 
-    /**
-     * @author mod_author
-     * @reason 不需要
-     */
-    @Overwrite(remap = false)
-    public boolean isDistinct() {
-        return super.isDistinct();
+    @Inject(method = "isDistinct", at = @At("HEAD"), remap = false, cancellable = true)
+    public void isDistinct(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(super.isDistinct());
     }
 
-    /**
-     * @author mod_author
-     * @reason 不需要
-     */
-    @Overwrite(remap = false)
-    public void setDistinct(boolean isDistinct) {
+    @Inject(method = "setDistinct", at = @At("HEAD"), remap = false, cancellable = true)
+    public void setDistinct(boolean isDistinct, CallbackInfo ci) {
         super.setDistinct(isDistinct);
+        ci.cancel();
     }
 }

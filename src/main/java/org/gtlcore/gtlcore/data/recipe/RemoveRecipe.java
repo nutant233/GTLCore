@@ -23,6 +23,27 @@ public class RemoveRecipe {
         consumer.accept(GTCEu.id("research_station/1_x_gtceu_uv_energy_input_hatch"));
         consumer.accept(GTCEu.id("research_station/1_x_gtceu_uv_energy_output_hatch"));
         consumer.accept(GTCEu.id("mixer/ender_pearl_dust"));
+        consumer.accept(GTCEu.id("assembler/wool_from_string"));
+        consumer.accept(GTCEu.id("packer/unpackage_lv_cadmium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_lv_lithium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_lv_sodium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_mv_cadmium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_mv_lithium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_mv_sodium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_hv_cadmium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_hv_lithium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_hv_sodium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_ev_vanadium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_iv_vanadium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_luv_vanadium_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_zpm_naquadria_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_uv_naquadria_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_ev_lapotronic_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_iv_lapotronic_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_luv_lapotronic_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_zpm_lapotronic_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_uv_lapotronic_battery"));
+        consumer.accept(GTCEu.id("packer/unpackage_uhv_ultimate_battery"));
 
         Material[] fluidMap = new Material[] { GTMaterials.Glue, GTMaterials.Polyethylene,
                 GTMaterials.Polytetrafluoroethylene, GTMaterials.Polybenzimidazole };

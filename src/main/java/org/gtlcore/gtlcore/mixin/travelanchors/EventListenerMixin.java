@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.mixin.travelanchors;
 
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import de.castcrafter.travelanchors.EventListener;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +12,6 @@ public class EventListenerMixin {
 
     @ModifyConstant(method = "onRightClick", remap = false, constant = @Constant(intValue = 30))
     private int modifyConsume1(int constant) {
-        return ConfigHolder.INSTANCE.travelStaffCD;
+        return GTLConfigHolder.INSTANCE.travelStaffCD;
     }
 }

@@ -11,7 +11,7 @@ import com.gregtechceu.gtceu.common.item.IntCircuitBehaviour;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -23,14 +23,15 @@ public class ItemBusPartMachineMixin extends TieredIOPartMachine {
         super(holder, tier, io);
     }
 
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite(remap = false)
+    @Shadow(remap = false)
     protected int getInventorySize() {
+        return 0;
+    }
+
+    @Inject(method = "getInventorySize", at = @At("HEAD"), remap = false, cancellable = true)
+    protected void inventorySize(CallbackInfoReturnable<Integer> cir) {
         int sizeRoot = 1 + getTier();
-        return sizeRoot * sizeRoot;
+        cir.setReturnValue(sizeRoot * sizeRoot);
     }
 
     @Inject(method = "createInventory", at = @At("HEAD"), remap = false, cancellable = true)

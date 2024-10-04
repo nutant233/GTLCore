@@ -8,7 +8,9 @@ import com.gregtechceu.gtceu.data.recipe.serialized.chemistry.PlatGroupMetalsRec
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
@@ -22,15 +24,8 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.DEHYDRATOR_RECIPES;
 @Mixin(PlatGroupMetalsRecipes.class)
 public class PlatGroupMetalsRecipesMixin {
 
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite(remap = false)
-    public static void init(Consumer<FinishedRecipe> provider) {
-        // Primary Chain
-
-        // Platinum Group Sludge Production
+    @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
         CHEMICAL_RECIPES.recipeBuilder("pgs_from_chalcocite").duration(50).EUt(VA[LV])
                 .inputItems(crushedPurified, Chalcocite)
                 .inputFluids(NitricAcid.getFluid(100))
@@ -292,5 +287,6 @@ public class PlatGroupMetalsRecipesMixin {
                 .outputItems(TagPrefix.dust, GTMaterials.Iridium)
                 .outputFluids(GTMaterials.HydrochloricAcid.getFluid(3000L))
                 .save(provider);
+        ci.cancel();
     }
 }

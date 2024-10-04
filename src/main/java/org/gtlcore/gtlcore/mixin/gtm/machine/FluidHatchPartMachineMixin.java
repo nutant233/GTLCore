@@ -9,7 +9,6 @@ import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.FluidHatchPartMachine;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -21,13 +20,9 @@ public class FluidHatchPartMachineMixin extends TieredIOPartMachine {
         super(holder, tier, io);
     }
 
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite(remap = false)
-    public static long getTankCapacity(long initialCapacity, int tier) {
-        return initialCapacity * (1L << tier);
+    @Inject(method = "getTankCapacity", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void getTankCapacity(long initialCapacity, int tier, CallbackInfoReturnable<Long> cir) {
+        cir.setReturnValue(initialCapacity * (1L << tier));
     }
 
     @Inject(method = "createCircuitItemHandler", at = @At("HEAD"), remap = false, cancellable = true)

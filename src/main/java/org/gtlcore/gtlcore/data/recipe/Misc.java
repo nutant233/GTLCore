@@ -1,16 +1,18 @@
 package org.gtlcore.gtlcore.data.recipe;
 
 import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
+import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -28,7 +30,7 @@ import static org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineB.PRIMIT
 public class Misc {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-        if (ConfigHolder.INSTANCE.enablePrimitiveVoidOre) {
+        if (GTLConfigHolder.INSTANCE.enablePrimitiveVoidOre) {
             VanillaRecipeHelper.addShapedRecipe(provider, true, "primitive_void_ore_recipes",
                     PRIMITIVE_VOID_ORE.asStack(), "DCD", "CGC", "DCD",
                     'D', Blocks.DIRT.asItem(),
@@ -136,5 +138,80 @@ public class Misc {
                 .circuitMeta(1)
                 .outputItems(dust, EnderPearl, 10)
                 .save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_lv_cadmium_battery").inputItems(BATTERY_LV_CADMIUM)
+                .outputItems(BATTERY_HULL_LV).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_lv_lithium_battery").inputItems(BATTERY_LV_LITHIUM)
+                .outputItems(BATTERY_HULL_LV).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_lv_sodium_battery").inputItems(BATTERY_LV_SODIUM)
+                .outputItems(BATTERY_HULL_LV).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_mv_cadmium_battery").inputItems(BATTERY_MV_CADMIUM)
+                .outputItems(BATTERY_HULL_MV).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_mv_lithium_battery").inputItems(BATTERY_MV_LITHIUM)
+                .outputItems(BATTERY_HULL_MV).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_mv_sodium_battery").inputItems(BATTERY_MV_SODIUM)
+                .outputItems(BATTERY_HULL_MV).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_hv_cadmium_battery").inputItems(BATTERY_HV_CADMIUM)
+                .outputItems(BATTERY_HULL_HV).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_hv_lithium_battery").inputItems(BATTERY_HV_LITHIUM)
+                .outputItems(BATTERY_HULL_HV).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_hv_sodium_battery").inputItems(BATTERY_HV_SODIUM)
+                .outputItems(BATTERY_HULL_HV).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_ev_vanadium_battery").inputItems(BATTERY_EV_VANADIUM)
+                .outputItems(BATTERY_HULL_SMALL_VANADIUM).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_iv_vanadium_battery").inputItems(BATTERY_IV_VANADIUM)
+                .outputItems(BATTERY_HULL_MEDIUM_VANADIUM).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_luv_vanadium_battery").inputItems(BATTERY_LUV_VANADIUM)
+                .outputItems(BATTERY_HULL_LARGE_VANADIUM).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_zpm_naquadria_battery").inputItems(BATTERY_ZPM_NAQUADRIA)
+                .outputItems(BATTERY_HULL_MEDIUM_NAQUADRIA).save(provider);
+        UNPACKER_RECIPES.recipeBuilder("unpackage_uv_naquadria_battery").inputItems(BATTERY_UV_NAQUADRIA)
+                .outputItems(BATTERY_HULL_LARGE_NAQUADRIA).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_ev_lapotronic_battery")
+                .inputItems(GTBlocks.BATTERY_LAPOTRONIC_EV.asStack(1))
+                .outputItems(GTBlocks.BATTERY_EMPTY_TIER_I.asStack(1))
+                .outputItems(LAPOTRON_CRYSTAL)
+                .duration(200).EUt(VA[LV]).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_iv_lapotronic_battery")
+                .inputItems(GTBlocks.BATTERY_LAPOTRONIC_IV.asStack(1))
+                .outputItems(GTBlocks.BATTERY_EMPTY_TIER_I)
+                .outputItems(ENERGY_LAPOTRONIC_ORB)
+                .duration(200).EUt(VA[LV]).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_luv_lapotronic_battery")
+                .inputItems(GTBlocks.BATTERY_LAPOTRONIC_LuV.asStack(1))
+                .outputItems(GTBlocks.BATTERY_EMPTY_TIER_II)
+                .outputItems(ENERGY_LAPOTRONIC_ORB_CLUSTER)
+                .duration(200).EUt(VA[LV]).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_zpm_lapotronic_battery")
+                .inputItems(GTBlocks.BATTERY_LAPOTRONIC_ZPM.asStack(1))
+                .outputItems(GTBlocks.BATTERY_EMPTY_TIER_II)
+                .outputItems(ENERGY_MODULE)
+                .duration(200).EUt(VA[LV]).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_uv_lapotronic_battery")
+                .inputItems(GTBlocks.BATTERY_LAPOTRONIC_UV.asStack(1))
+                .outputItems(GTBlocks.BATTERY_EMPTY_TIER_III)
+                .outputItems(ENERGY_CLUSTER)
+                .duration(200).EUt(VA[LV]).save(provider);
+
+        UNPACKER_RECIPES.recipeBuilder("unpackage_uhv_ultimate_battery")
+                .inputItems(GTBlocks.BATTERY_ULTIMATE_UHV.asStack(1))
+                .outputItems(GTBlocks.BATTERY_EMPTY_TIER_III)
+                .outputItems(ULTIMATE_BATTERY)
+                .duration(200).EUt(VA[LV]).save(provider);
+
+        LOOM_RECIPES.recipeBuilder("wool_from_string")
+                .inputItems(new ItemStack(Items.STRING, 4))
+                .circuitMeta(4)
+                .outputItems(new ItemStack(Blocks.WHITE_WOOL))
+                .duration(100).EUt(4).save(provider);
     }
 }

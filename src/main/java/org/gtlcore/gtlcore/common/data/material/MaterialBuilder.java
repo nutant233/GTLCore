@@ -4,7 +4,7 @@ import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialFlags;
 import org.gtlcore.gtlcore.api.data.chemical.material.info.GTLMaterialIconSet;
 import org.gtlcore.gtlcore.api.item.tool.GTLToolType;
 import org.gtlcore.gtlcore.common.data.GTLElements;
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -4751,7 +4751,7 @@ public class MaterialBuilder {
         SpaceTime = new Material.Builder(GTCEu.id("spacetime"))
                 .ingot()
                 .liquid(new FluidBuilder().temperature(1).customStill())
-                .fluidPipeProperties(2147483647, ConfigHolder.INSTANCE.spacetimePip, true, true, true, true)
+                .fluidPipeProperties(2147483647, GTLConfigHolder.INSTANCE.spacetimePip, true, true, true, true)
                 .element(GTLElements.SPACETIME)
                 .iconSet(new MaterialIconSet("spacetime"))
                 .flags(GTLMaterialFlags.GENERATE_NANOSWARM, NO_UNIFICATION)

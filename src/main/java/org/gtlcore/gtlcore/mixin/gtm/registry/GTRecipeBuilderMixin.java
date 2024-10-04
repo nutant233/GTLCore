@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.registry;
 
-import org.gtlcore.gtlcore.config.ConfigHolder;
+import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
@@ -41,7 +41,7 @@ public class GTRecipeBuilderMixin {
 
     @Unique
     private int gTLCore$getDuration() {
-        if (ConfigHolder.INSTANCE.durationMultiplier == 1 || gTLCore$eut < 0 ||
+        if (GTLConfigHolder.INSTANCE.durationMultiplier == 1 || gTLCore$eut < 0 ||
                 recipeType == GTRecipeTypes.get("primitive_void_ore") ||
                 recipeType == GTRecipeTypes.get("large_boiler") ||
                 recipeType == GTRecipeTypes.get("steam_boiler") ||
@@ -51,7 +51,7 @@ public class GTRecipeBuilderMixin {
                 recipeType == GTRecipeTypes.get("annihilate_generator")) {
             return Math.abs(duration);
         }
-        return (int) Math.min(Integer.MAX_VALUE, Math.max(1, Math.abs(duration * ConfigHolder.INSTANCE.durationMultiplier)));
+        return (int) Math.min(Integer.MAX_VALUE, Math.max(1, Math.abs(duration * GTLConfigHolder.INSTANCE.durationMultiplier)));
     }
 
     @Inject(method = "toJson", at = @At("TAIL"), remap = false)

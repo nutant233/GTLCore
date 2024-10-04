@@ -2298,15 +2298,15 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTCEu.id("block/casings/gcym/secure_maceration_casing"), GTCEu.id("block/machines/rock_crusher"))
             .register();
 
-    public final static MultiblockMachineDefinition FIELD_EXTRUDER_FACTORY = REGISTRATE.multiblock("field_extruder_factory", (holder) -> new WorkableElectricParallelHatchMultipleRecipesMachine(holder))
+    public final static MultiblockMachineDefinition FIELD_EXTRUDER_FACTORY = REGISTRATE.multiblock("field_extruder_factory", WorkableElectricParallelHatchMultipleRecipesMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.EXTRUDER_RECIPES)
-            .recipeType(GTRecipeTypes.COMPRESSOR_RECIPES)
+            .recipeType(GTRecipeTypes.FORMING_PRESS_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
-                    Component.translatable("gtceu.extruder"), Component.translatable("gtceu.compressor")))
+                    Component.translatable("gtceu.extruder"), Component.translatable("gtceu.forming_press")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .appearanceBlock(GTLBlocks.IRIDIUM_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
@@ -2392,7 +2392,7 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTLCore.id("block/casings/iridium_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition CHEMICAL_DISTORT = REGISTRATE.multiblock("chemical_distort", (holder) -> new CoilWorkableElectricMultiblockMachine(holder))
+    public final static MultiblockMachineDefinition CHEMICAL_DISTORT = REGISTRATE.multiblock("chemical_distort", CoilWorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.DISTORT_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.chemical_distort.tooltip.0"))
@@ -2564,14 +2564,15 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTCEu.id("block/casings/gcym/laser_safe_engraving_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition MEGA_WIREMILL = REGISTRATE.multiblock("mega_wiremill", (holder) -> new CoilWorkableElectricMultipleRecipesMultiblockMachine(holder))
+    public final static MultiblockMachineDefinition MEGA_WIREMILL = REGISTRATE.multiblock("mega_wiremill", CoilWorkableElectricMultipleRecipesMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.WIREMILL_RECIPES)
+            .recipeType(GTLRecipeTypes.LOOM_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
-                    Component.translatable("gtceu.wiremill")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
+                    Component.translatable("gtceu.wiremill"), Component.translatable("gtceu.loom")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .appearanceBlock(GTLBlocks.OXIDATION_RESISTANT_HASTELLOY_N_MECHANICAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
@@ -2623,16 +2624,18 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTLCore.id("block/casings/oxidation_resistant_hastelloy_n_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_wiremill"))
             .register();
 
-    public final static MultiblockMachineDefinition MEGA_PRESSER = REGISTRATE.multiblock("mega_presser", (holder) -> new CoilWorkableElectricMultipleRecipesMultiblockMachine(holder))
+    public final static MultiblockMachineDefinition MEGA_PRESSER = REGISTRATE.multiblock("mega_presser", CoilWorkableElectricMultipleRecipesMultiblockMachine::new)
             .rotationState(RotationState.ALL)
-            .recipeType(GTRecipeTypes.BENDER_RECIPES)
+            .recipeType(GTRecipeTypes.COMPRESSOR_RECIPES)
             .recipeType(GTRecipeTypes.FORGE_HAMMER_RECIPES)
-            .recipeType(GTRecipeTypes.FORMING_PRESS_RECIPES)
+            .recipeType(GTRecipeTypes.BENDER_RECIPES)
+            .recipeType(GTLRecipeTypes.CLUSTER_RECIPES)
+            .recipeType(GTLRecipeTypes.ROLLING_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.multiple_recipes.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_3.tooltip",
-                    Component.translatable("gtceu.bender"), Component.translatable("gtceu.forge_hammer"), Component.translatable("gtceu.forming_press")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_5.tooltip",
+                    Component.translatable("gtceu.compressor"), Component.translatable("gtceu.forge_hammer"), Component.translatable("gtceu.bender"), Component.translatable("gtceu.rolling"), Component.translatable("gtceu.cluster")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .appearanceBlock(GTLBlocks.MOLECULAR_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
@@ -2680,7 +2683,7 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTLCore.id("block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition MEGA_EXTRACTOR = REGISTRATE.multiblock("mega_extractor", (holder) -> new CoilWorkableElectricMultipleRecipesMultiblockMachine(holder))
+    public final static MultiblockMachineDefinition MEGA_EXTRACTOR = REGISTRATE.multiblock("mega_extractor", CoilWorkableElectricMultipleRecipesMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.EXTRACTOR_RECIPES)
             .recipeType(GTRecipeTypes.FLUID_SOLIDFICATION_RECIPES)
@@ -2723,7 +2726,7 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTLCore.id("block/casings/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_extractor"))
             .register();
 
-    public final static MultiblockMachineDefinition MEGA_CANNER = REGISTRATE.multiblock("mega_canner", (holder) -> new WorkableElectricParallelHatchMultipleRecipesMachine(holder))
+    public final static MultiblockMachineDefinition MEGA_CANNER = REGISTRATE.multiblock("mega_canner", WorkableElectricParallelHatchMultipleRecipesMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.CANNER_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
@@ -2937,7 +2940,7 @@ public class MultiBlockMachineA {
             .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof CoilWorkableElectricMultiblockMachine coilMachine && coilMachine.getRecipeType() == GTRecipeTypes.get("dehydrator")) {
-                    GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(coilMachine, recipe, (int) Math.min(2147483647, Math.pow(2, (coilMachine.getCoilType().getCoilTemperature() / 900))), false).getFirst();
+                    GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(coilMachine, recipe, Math.min(2147483647, (int) Math.pow(2, (coilMachine.getCoilType().getCoilTemperature() / 900))), false).getFirst();
                     if (recipe1 != null) {
                         return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, coilMachine.getOverclockVoltage(), params, result);
                     }

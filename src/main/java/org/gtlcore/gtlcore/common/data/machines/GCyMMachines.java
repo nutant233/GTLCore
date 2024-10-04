@@ -275,11 +275,12 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
-                    Component.translatable("gtceu.packer")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
+                    Component.translatable("gtceu.packer"), Component.translatable("gtceu.unpacker")))
             .tooltipBuilder(GTLMachines.GTL_MODIFY)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.PACKER_RECIPES)
+            .recipeType(GTLRecipeTypes.UNPACKER_RECIPES)
             .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_TUNGSTENSTEEL_ROBUST)
@@ -308,11 +309,12 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
-                    Component.translatable("gtceu.assembler")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
+                    Component.translatable("gtceu.assembler"), Component.translatable("gtceu.laminator")))
             .tooltipBuilder(GTLMachines.GTL_MODIFY)
             .rotationState(RotationState.ALL)
             .recipeType(ASSEMBLER_RECIPES)
+            .recipeType(GTLRecipeTypes.LAMINATOR_RECIPES)
             .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_LARGE_SCALE_ASSEMBLING)
@@ -586,12 +588,11 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_4.tooltip",
-                    Component.translatable("gtceu.bender"), Component.translatable("gtceu.compressor"),
-                    Component.translatable("gtceu.forge_hammer"), Component.translatable("gtceu.forming_press")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_3.tooltip",
+                    Component.translatable("gtceu.compressor"), Component.translatable("gtceu.forge_hammer"), Component.translatable("gtceu.forming_press")))
             .tooltipBuilder(GTLMachines.GTL_MODIFY)
             .rotationState(RotationState.ALL)
-            .recipeTypes(BENDER_RECIPES, COMPRESSOR_RECIPES, FORGE_HAMMER_RECIPES, FORMING_PRESS_RECIPES)
+            .recipeTypes(COMPRESSOR_RECIPES, FORGE_HAMMER_RECIPES, FORMING_PRESS_RECIPES)
             .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_STRESS_PROOF)
@@ -700,7 +701,6 @@ public class GCyMMachines {
             .appearanceBlock(CASING_WATERTIGHT)
             .pattern(definition -> {
                 TraceabilityPredicate casingPredicate = blocks(CASING_WATERTIGHT.get()).setMinGlobalLimited(40);
-
                 return FactoryBlockPattern.start(RIGHT, BACK, UP)
                         .aisle("#YYY#", "YYYYY", "YYYYY", "YYYYY", "#YYY#")
                         .aisle("#YSY#", "YAAAY", "YAAAY", "YAAAY", "#YYY#")
@@ -834,11 +834,12 @@ public class GCyMMachines {
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
-                    Component.translatable("gtceu.wiremill")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
+                    Component.translatable("gtceu.wiremill"), Component.translatable("gtceu.loom")))
             .tooltipBuilder(GTLMachines.GTL_MODIFY)
             .rotationState(RotationState.ALL)
             .recipeType(WIREMILL_RECIPES)
+            .recipeType(GTLRecipeTypes.LOOM_RECIPES)
             .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH,
                     GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(CASING_STRESS_PROOF)
