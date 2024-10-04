@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.data;
+package org.gtlcore.gtlcore.common.block;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 
@@ -8,7 +8,7 @@ import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-public enum GTLCleanroomFilterType implements IFilterType {
+public enum CleanroomFilterType implements IFilterType {
 
     FILTER_CASING_LAW("law_filter_casing", GTLCleanroomType.LAW_CLEANROOM);
 
@@ -16,7 +16,7 @@ public enum GTLCleanroomFilterType implements IFilterType {
     @Getter
     private final CleanroomType cleanroomType;
 
-    GTLCleanroomFilterType(String name, CleanroomType cleanroomType) {
+    CleanroomFilterType(String name, CleanroomType cleanroomType) {
         this.name = name;
         this.cleanroomType = cleanroomType;
     }
