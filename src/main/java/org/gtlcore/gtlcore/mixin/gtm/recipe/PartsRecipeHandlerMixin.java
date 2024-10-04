@@ -1,5 +1,8 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
+import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
@@ -66,6 +69,7 @@ public class PartsRecipeHandlerMixin {
         springSmall.executeHandler(provider, PropertyKey.INGOT, PartsRecipeHandlerMixin::gTLCore$processSpringSmall);
         spring.executeHandler(provider, PropertyKey.INGOT, PartsRecipeHandlerMixin::gTLCore$processSpring);
         round.executeHandler(provider, PropertyKey.INGOT, PartsRecipeHandlerMixin::gTLCore$processRound);
+        GTLTagPrefix.contaminableManoswarm.executeHandler(provider, PropertyKey.DUST, PartsRecipeHandlerMixin::gTLCore$processManoswarm);
         ci.cancel();
     }
 
@@ -524,6 +528,19 @@ public class PartsRecipeHandlerMixin {
                 .EUt(VA[ULV]).duration(100)
                 .inputItems(nugget, material)
                 .outputItems(round, material)
+                .save(provider);
+    }
+
+    @Unique
+    private static void gTLCore$processManoswarm(TagPrefix roundPrefix, Material material, DustProperty property,
+                                                 Consumer<FinishedRecipe> provider) {
+        CHEMICAL_BATH_RECIPES.recipeBuilder(material.getName() + "_nano_bath")
+                .inputFluids(GTLMaterials.PiranhaSolution.getFluid((long) (10000 * Math.sqrt((double) material.getMass() / GTLMaterials.Eternity.getMass()))))
+                .inputItems(GTLTagPrefix.contaminableManoswarm, material)
+                .outputItems(GTLTagPrefix.nanoswarm, material)
+                .duration((int) material.getMass() * 16)
+                .EUt(480)
+                .cleanroom(CleanroomType.CLEANROOM)
                 .save(provider);
     }
 }
