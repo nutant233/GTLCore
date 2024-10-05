@@ -56,11 +56,12 @@ public class GenerateDisassembly {
                 .inputItems(output)
                 .duration(1)
                 .EUt(1);
+        boolean hasOutput = false;
         if (!DISASSEMBLY_RECORD.remove(id) || cal) {
             List<Content> itemList = r.input.getOrDefault(ItemRecipeCapability.CAP, null);
             List<Content> fluidList = r.input.getOrDefault(FluidRecipeCapability.CAP, null);
             if (itemList != null) {
-                itemList.forEach(content -> {
+                for (Content content : itemList) {
                     ItemStack[] items = ItemRecipeCapability.CAP
                             .of(content.getContent()).getItems();
                     if (items.length == 0) return;
@@ -68,21 +69,23 @@ public class GenerateDisassembly {
                     if (content.chance == ChanceLogic.getMaxChancedValue() && !item.isEmpty() && !item.hasTag()) {
                         if (cal || !isExcludeItems(item.kjs$getId(), inputItem)) {
                             builder.outputItems(item);
+                            hasOutput = true;
                         }
                     }
-                });
+                }
             }
             if (fluidList != null) {
-                fluidList.forEach(content -> {
+                for (Content content : fluidList) {
                     FluidIngredient fluid = FluidRecipeCapability.CAP
                             .of(content.getContent());
                     if (content.chance == ChanceLogic.getMaxChancedValue() && !fluid.isEmpty()) {
                         builder.outputFluids(fluid);
+                        hasOutput = true;
                     }
-                });
+                }
             }
         }
         DISASSEMBLY_RECORD.add(id);
-        builder.save(p);
+        if (hasOutput) builder.save(p);
     }
 }

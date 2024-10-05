@@ -74,7 +74,6 @@
     "gtm.registry.GTDimensionMarkersMixin",
     "gtm.registry.GTMachinesMixin",
     "gtm.registry.GTRecipeBuilderMixin",
-    "gtm.registry.GTRecipeTypeMixin",
     "gtmt.HugeBusPartMachineMixin",
     "gtmt.WirelessEnergyReceiveCoverMixin",
     "mc.CursedInternalSlotMixin",

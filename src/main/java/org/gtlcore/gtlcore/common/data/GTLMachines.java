@@ -149,8 +149,12 @@ public class GTLMachines {
             GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS, GTMachines.genericGeneratorTankSizeFunction, 0.1f, GTValues.LV, GTValues.MV,
             GTValues.HV);
 
+    public static final MachineDefinition[] THERMAL_GENERATOR = GTMachines.registerSimpleGenerator("thermal_generator",
+            GTLRecipeTypes.THERMAL_GENERATOR_FUELS, tier -> 8000, 0.1f, GTValues.ULV);
+
     public static final MachineDefinition[] ROCKET_ENGINE_GENERATOR = GTMachines.registerSimpleGenerator("rocket_engine", GTRecipeTypes.get("rocket_engine"),
             GTMachines.genericGeneratorTankSizeFunction, 0.1f, GTValues.EV, GTValues.IV, GTValues.LuV);
+
     public static final MachineDefinition[] NAQUADAH_REACTOR_GENERATOR = GTMachines.registerSimpleGenerator("naquadah_reactor", GTRecipeTypes.get("naquadah_reactor"),
             GTMachines.genericGeneratorTankSizeFunction, 0.1f, GTValues.IV, GTValues.LuV, GTValues.ZPM);
 

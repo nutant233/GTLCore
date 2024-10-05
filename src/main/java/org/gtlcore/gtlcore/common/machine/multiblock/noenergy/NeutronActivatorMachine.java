@@ -170,13 +170,13 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
 
     private void absorptionUpdate() {
         if (busMachines == null || eV <= 0 && getOffsetTimer() % 10 != 0) return;
+        var dustBeryllium = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Beryllium).getItem();
+        var dustGraphite = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Graphite).getItem();
         for (var bus : busMachines) {
             var inv = bus.getInventory();
             var io = inv.getHandlerIO();
             if (io == IO.IN || io == IO.BOTH) {
                 for (int i = 0; i < inv.getSlots(); i++) {
-                    var dustBeryllium = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Beryllium).getItem();
-                    var dustGraphite = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Graphite).getItem();
                     var stack = inv.getStackInSlot(i);
                     if (stack.is(dustBeryllium) || stack.is(dustGraphite)) {
                         int consume = Math.min(Math.max(eV / (10 * 1000000), 1), stack.getCount());

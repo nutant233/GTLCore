@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
-import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
@@ -12,6 +11,7 @@ import com.gregtechceu.gtceu.api.data.chemical.material.properties.IngotProperty
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.item.TurbineRotorBehaviour;
@@ -81,7 +81,7 @@ public class PartsRecipeHandlerMixin {
         LATHE_RECIPES.recipeBuilder("lathe_" + material.getName() + "_bolt_to_screw")
                 .inputItems(bolt, material)
                 .outputItems(screwStack)
-                .duration(Math.min(1, mass / 8))
+                .duration(Math.max(1, mass / 8))
                 .EUt(4)
                 .save(provider);
 
@@ -311,7 +311,7 @@ public class PartsRecipeHandlerMixin {
                     " s ", "fRx", 'R', new UnificationEntry(rod, material));
 
         BENDER_RECIPES.recipeBuilder("bend_" + material.getName() + "_rod_to_small_spring")
-                .duration(Math.min(1, mass / 2)).EUt(VA[ULV])
+                .duration(Math.max(1, mass / 2)).EUt(VA[ULV])
                 .inputItems(rod, material)
                 .outputItems(springSmall, material, 2)
                 .circuitMeta(1)

@@ -42,6 +42,12 @@ public class GTLRecipeTypes {
                     .setSound(GTSoundEntries.MINER) :
             null;
 
+    public final static GTRecipeType THERMAL_GENERATOR_FUELS = register("thermal_generator", GENERATOR)
+            .setMaxIOSize(1, 0, 1, 0).setEUIO(IO.OUT)
+            .setSlotOverlay(false, true, true, GuiTextures.FURNACE_OVERLAY_2)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.COMBUSTION);
+
     public final static GTRecipeType SEMI_FLUID_GENERATOR_FUELS = register("semi_fluid_generator", GENERATOR)
             .setMaxIOSize(0, 0, 1, 0).setEUIO(IO.OUT)
             .setSlotOverlay(false, true, true, GuiTextures.FURNACE_OVERLAY_2)

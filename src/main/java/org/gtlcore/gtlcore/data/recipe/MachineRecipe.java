@@ -178,6 +178,10 @@ public class MachineRecipe {
         registerMachineRecipe(provider, GTLMachines.LOOM, "CWC", "EME", "EWE", 'M', HULL, 'E', MOTOR, 'C', CIRCUIT,
                 'W', CABLE);
 
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "thermal_generator", GTLMachines.THERMAL_GENERATOR[0].asStack(),
+                "PVP", "CMC", "WBW", 'M', GTBlocks.MACHINE_CASING_ULV.asStack(), 'P', new UnificationEntry(plate, Steel), 'V',
+                new UnificationEntry(rotor, Tin), 'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(wireGtSingle, RedAlloy), 'B', GTMachines.STEAM_SOLID_BOILER.first().asStack());
+
         VanillaRecipeHelper.addShapedRecipe(provider, true, "ulv_packer", GTLMachines.ULV_PACKER.asStack(),
                 "BCB", "RMV", "WCW", 'M', GTBlocks.MACHINE_CASING_ULV.asStack(), 'R', GTItems.RESISTOR.asStack(), 'V',
                 new UnificationEntry(rod, IronMagnetic), 'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(wireGtSingle, GTMaterials.Lead), 'B', GTLItems.PRIMITIVE_ROBOT_ARM.asStack());

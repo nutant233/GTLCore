@@ -6,12 +6,9 @@ import com.gregtechceu.gtceu.common.machine.multiblock.part.FluidHatchPartMachin
 import com.gregtechceu.gtceu.integration.ae2.machine.MEHatchPartMachine;
 import com.gregtechceu.gtceu.integration.ae2.machine.feature.IGridConnectedMachine;
 
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
-
 import net.minecraft.core.Direction;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.EnumSet;
 
@@ -22,15 +19,10 @@ public abstract class MEHatchPartMachineMixin extends FluidHatchPartMachine impl
         super(holder, tier, io, initialCapacity, slots, args);
     }
 
-    @Unique
-    @Persisted
-    public boolean gTLCore$isAllFacing;
-
-    @Unique
     @Override
     public void onLoad() {
         super.onLoad();
-        if (gTLCore$isAllFacing) {
+        if (holder.self().getPersistentData().getBoolean("isAllFacing")) {
             getMainNode().setExposedOnSides(EnumSet.allOf(Direction.class));
         }
     }

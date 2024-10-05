@@ -225,6 +225,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
     }
 
     public static int getAmperage(int tier) {
+        if (tier == 0) return 1;
         if (tier > GTValues.HV) {
             return 16 - (2 * tier);
         }

@@ -35,9 +35,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -52,6 +54,7 @@ public class LargeSteamParallelMultiblockMachine extends WorkableMultiblockMachi
 
     private final int max_parallels;
 
+    @Persisted
     private boolean isOC;
 
     @Persisted
@@ -85,27 +88,24 @@ public class LargeSteamParallelMultiblockMachine extends WorkableMultiblockMachi
                     if (!capabilitiesProxy.contains(IO.IN, EURecipeCapability.CAP)) {
                         capabilitiesProxy.put(IO.IN, EURecipeCapability.CAP, new ArrayList<>());
                     }
-                    capabilitiesProxy.get(IO.IN, EURecipeCapability.CAP)
-                            .add(new SteamEnergyRecipeHandler(tank, CONVERSION_RATE * (this.isOC ? Math.pow(3, this.amountOC) : 1)));
+                    Objects.requireNonNull(capabilitiesProxy.get(IO.IN, EURecipeCapability.CAP)).add(new SteamEnergyRecipeHandler(tank, CONVERSION_RATE * (this.isOC ? Math.pow(3, this.amountOC) : 1)));
                     return;
                 }
             }
         }
     }
 
+    @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe,
                                           double reductionDuration) {
-        if (machine instanceof LargeSteamParallelMultiblockMachine steamMachine) {
-            if (RecipeHelper.getInputEUt(recipe) > (steamMachine.isOC ? 128 : 32)) {
-                return null;
-            }
-            var result = GTRecipeModifiers.accurateParallel(machine, recipe, steamMachine.max_parallels, false)
+        if (machine instanceof LargeSteamParallelMultiblockMachine steamMachine && RecipeHelper.getInputEUt(recipe) < (steamMachine.isOC ? 128 : 32)) {
+            GTRecipe result = GTRecipeModifiers.accurateParallel(machine, recipe, steamMachine.max_parallels, false)
                     .getFirst();
-            recipe = result == recipe ? result.copy() : result;
-            recipe.duration = (int) Math.max(1, recipe.duration * reductionDuration /
+            result.duration = (int) Math.max(1, recipe.duration * reductionDuration /
                     (steamMachine.isOC ? Math.pow(2, steamMachine.amountOC) : 1));
+            return result;
         }
-        return recipe;
+        return null;
     }
 
     @Override
@@ -151,6 +151,7 @@ public class LargeSteamParallelMultiblockMachine extends WorkableMultiblockMachi
         }
     }
 
+    @Override
     public void handleDisplayClick(String componentData, ClickData clickData) {
         if (!clickData.isRemote && this.isOC) {
             this.amountOC = Mth.clamp(this.amountOC + (componentData.equals("ocAdd") ? 1 : -1), 0, 4);

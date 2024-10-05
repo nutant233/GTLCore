@@ -6,6 +6,7 @@ import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.steam.largeSteamCircuitAssemblerMachine;
 import org.gtlcore.gtlcore.utils.Registries;
 
 import com.gregtechceu.gtceu.GTCEu;
@@ -1799,13 +1800,13 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"), GTCEu.id("block/multiblock/steam_grinder"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_STEAM_CIRCUIT_ASSEMBLER = REGISTRATE.multiblock("large_steam_circuit_assembler", (holder) -> new LargeSteamParallelMultiblockMachine(holder, 64))
+    public final static MultiblockMachineDefinition LARGE_STEAM_CIRCUIT_ASSEMBLER = REGISTRATE.multiblock("large_steam_circuit_assembler", largeSteamCircuitAssemblerMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.CIRCUIT_ASSEMBLER_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.circuit_assembler")))
             .tooltipBuilder(GTLMachines.GTL_ADD)
-            .recipeModifier(GTLRecipeModifiers.LARGE_STEAM_OC)
+            .recipeModifier(largeSteamCircuitAssemblerMachine::recipeModifier)
             .appearanceBlock(GTBlocks.CASING_BRONZE_BRICKS)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("AAA", "AAA", "DDD", " D ")
@@ -1826,7 +1827,7 @@ public class MultiBlockMachineA {
                     .where("D", Predicates.blocks(GTBlocks.CASING_BRONZE_BRICKS.get())
                             .or(Predicates.abilities(PartAbility.STEAM_IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.STEAM_EXPORT_ITEMS).setMaxGlobalLimited(1))
-                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(2))
+                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setMaxGlobalLimited(1)))
                     .where(" ", Predicates.any())
