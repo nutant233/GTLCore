@@ -52,21 +52,22 @@ import java.util.function.Supplier;
 import static com.gregtechceu.gtceu.common.data.GTBlocks.ALL_FUSION_CASINGS;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
+@SuppressWarnings("unused")
 public class GTLBlocks {
 
     public static Map<Integer, Supplier<Block>> scmap = new HashMap<>();
     public static Map<Integer, Supplier<ActiveBlock>> sepmmap = new HashMap<>();
     public static Map<Integer, Supplier<Block>> calmap = new HashMap<>();
 
+    static {
+        REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
+    }
+
     public static void init() {
         for (int i = 1; i < 15; i++) {
             GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(),
                     GTLCore.id("block/casings/component_assembly_line/component_assembly_line_casing_" + GTValues.VN[i].toLowerCase()), calmap, i);
         }
-    }
-
-    static {
-        REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
     }
 
     private static BlockEntry<CraftingUnitBlock> registerCraftingUnitBlock(int tier, CraftingUnitType Type) {
@@ -157,7 +158,6 @@ public class GTLBlocks {
                 .item(BlockItem::new)
                 .build()
                 .register();
-        REGISTRATE.setCreativeTab(Block, GTLCreativeModeTabs.GTL_CORE);
         map.put(tier, Block);
         return Block;
     }
@@ -181,7 +181,6 @@ public class GTLBlocks {
                 .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), GTLCore.id(baseModelPath)))
                 .build()
                 .register();
-        REGISTRATE.setCreativeTab(Block, GTLCreativeModeTabs.GTL_CORE);
         map.put(tier, Block);
         return Block;
     }

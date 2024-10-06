@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-04T19:42:29.71185	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.20.1	2024-10-06T21:00:00.341189	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 46f342ef8461a19d4ac40f284d9763fa45db0648 assets/gtlcore/blockstates/16m_storage.json
 7400be84a032519aa2d82750804ae8f04828fdae assets/gtlcore/blockstates/1m_storage.json
 5483bb31743b034345b5a059cc8bf43cfb875d7d assets/gtlcore/blockstates/256m_storage.json
@@ -78,8 +78,8 @@ ba75d75bb24da9bfafd569c2c2584cfb4d99c06b assets/gtlcore/blockstates/stellar_cont
 aa04d531b5ca53b5a56783ab2caf520d94f90d86 assets/gtlcore/blockstates/super_cooler_component.json
 4d118e87f6da1521094a5e52b2b8244310b2e703 assets/gtlcore/blockstates/supercritical_turbine_casing.json
 406dd8ad0f18b0d9592528acf2afa92e21c642a0 assets/gtlcore/blockstates/ultimate_stellar_containment_casing.json
-d3a81957098a91fbd1b9bfea5733b10a73abdaff assets/gtlcore/lang/en_ud.json
-2bfc1b16e4f54c2cf1b2b0ccc03177c0d3044403 assets/gtlcore/lang/en_us.json
+6fe29a1ab73d97962f44efb83325af2ae243e384 assets/gtlcore/lang/en_ud.json
+7a7e4b1cc5de5210556721a020fda4d22050da4d assets/gtlcore/lang/en_us.json
 1e86cdc17231fb0b0c08fb79ac317c3978c918bf assets/gtlcore/models/block/advanced_stellar_containment_casing.json
 bf3d8755a8caf29f8d5e83eefc0f1af389f8e194 assets/gtlcore/models/block/aluminium_bronze_casing.json
 f562919f3479892c66f9299614d509d4b30384c1 assets/gtlcore/models/block/antifreeze_heatproof_machine_casing.json
@@ -216,6 +216,7 @@ f27f35d4eb50f59f708c4c2e4ad692eac272df7b assets/gtlcore/models/item/item_storage
 c64a5c4bb0d30e9f90f8f5bbf6059bb3ba3c7ad7 assets/gtlcore/models/item/lafium_mechanical_casing.json
 24b349582ba64b7fcbc5a1174285f84fb43b53cb assets/gtlcore/models/item/law_filter_casing.json
 c3ff54a61fe860fe05f5beacf9f1bf2031d3c2d1 assets/gtlcore/models/item/manipulator.json
+4aa501594f16b24738bb15b127dbd293f52e12b2 assets/gtlcore/models/item/max_4a_wireless_energy_receive_cover.json
 2fde87e1e7df59f480972e7f68edb254303d46ef assets/gtlcore/models/item/max_conveyor_module.json
 ac09dcf1f690a03e8cf9d23f15c47f676826fdd0 assets/gtlcore/models/item/max_electric_motor.json
 456b91385614438c0f3c1db25005644bb8c6c03d assets/gtlcore/models/item/max_electric_piston.json
@@ -225,6 +226,7 @@ d641398d8a9a05b7fe4dba8cdb63938dae712b3e assets/gtlcore/models/item/max_field_ge
 9c85f2a549ba5e6f3ac6a82549800e9f51b30757 assets/gtlcore/models/item/max_robot_arm.json
 583697c5281be1e79dfa9337d0d1a7fae4913014 assets/gtlcore/models/item/max_sensor.json
 cebe0a237ab78132914a71e579948915e49830fd assets/gtlcore/models/item/max_storage.json
+a636ca0b70a0458229d902425a293c1f6bf343fc assets/gtlcore/models/item/max_wireless_energy_receive_cover.json
 18a745facd19e2bbdd0db140d2db350236755aa8 assets/gtlcore/models/item/mega_max_battery.json
 577f231efbaa1e515e2e38c1857977b2cb80e638 assets/gtlcore/models/item/microfocus_x_ray_tube.json
 a949af4f3444b2c90cf54cdfbbc6d4b3b11ac3be assets/gtlcore/models/item/molecular_casing.json

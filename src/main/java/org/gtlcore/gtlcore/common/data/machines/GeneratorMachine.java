@@ -29,24 +29,22 @@ import com.gregtechceu.gtceu.utils.FormattingUtil;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
-import static com.gregtechceu.gtceu.api.pattern.Predicates.*;
-import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
+import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 @SuppressWarnings("unused")
 public class GeneratorMachine {
 
     public static void init() {}
 
-    public static final MultiblockMachineDefinition LARGE_SEMI_FLUID_GENERATOR = GTMachines.registerLargeCombustionEngine(
-            "large_semi_fluid_generator", GTValues.EV,
+    public static final MultiblockMachineDefinition LARGE_SEMI_FLUID_GENERATOR = GTLMachines.registerLargeCombustionEngine(REGISTRATE,
+            "large_semi_fluid_generator", GTValues.EV, GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS,
             GTBlocks.CASING_TITANIUM_STABLE, GTBlocks.CASING_STEEL_GEARBOX, GTBlocks.CASING_ENGINE_INTAKE,
             GTCEu.id("block/casings/solid/machine_casing_stable_titanium"),
-            GTCEu.id("block/multiblock/generator/large_combustion_engine"));
+            GTCEu.id("block/multiblock/generator/large_combustion_engine"), false);
 
     public final static MultiblockMachineDefinition CHEMICAL_ENERGY_DEVOURER = REGISTRATE
             .multiblock("chemical_energy_devourer", ChemicalEnergyDevourerMachine::new)
@@ -54,15 +52,10 @@ public class GeneratorMachine {
             .recipeTypes(GTRecipeTypes.COMBUSTION_GENERATOR_FUELS, GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS,
                     GTRecipeTypes.GAS_TURBINE_FUELS, GTLRecipeTypes.ROCKET_ENGINE_FUELS)
             .generator(true)
-            .tooltips(Component.translatable(
-                    "gtceu.universal.tooltip.base_production_eut", 2 * GTValues.V[GTValues.ZPM]),
-                    Component.translatable(
-                            "gtceu.universal.tooltip.uses_per_hour_lubricant", 2000),
-                    Component.literal(
-                            "提供§f120mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
-                    Component.literal(
-                            "再额外提供§f80mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
+            .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", 2 * GTValues.V[GTValues.ZPM]),
+                    Component.translatable("gtceu.universal.tooltip.uses_per_hour_lubricant", 2000),
+                    Component.literal("提供§f120mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
+                    Component.literal("再额外提供§f80mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
             .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
@@ -76,22 +69,20 @@ public class GeneratorMachine {
                     .aisle("BBBBBBB", "BDDDDDB", "BEHHHEB", "CGHEHGC", "BEHHHEB", "BDDDDDB", "BBIBIBB")
                     .aisle("BBBBBBB", "BDDDDDB", "BEHHHEB", "BGHEHGB", "BEHHHEB", "BDDDDDB", "BBBBBBB")
                     .aisle("AAAAAAA", "AAAAAAA", "AABBBAA", "AABSBAA", "AABBBAA", "AAAAAAA", "AAAAAAA")
-                    .where("S", controller(blocks(definition.get())))
-                    .where("A", blocks(GTBlocks.CASING_EXTREME_ENGINE_INTAKE.get()))
-                    .where("B", blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get()))
-                    .where("F", blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
-                            .or(abilities(PartAbility.MAINTENANCE).setExactLimit(1))
-                            .or(abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(4)))
-                    .where("C", blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
-                    .where("G", blocks(GCyMBlocks.ELECTROLYTIC_CELL.get()))
-                    .where("D", blocks(GTBlocks.FIREBOX_TITANIUM.get()))
-                    .where("E", blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
-                    .where("H", blocks(GTBlocks.CASING_TITANIUM_GEARBOX.get()))
-                    .where("P", abilities(PartAbility.OUTPUT_ENERGY))
-                    .where("I", abilities(PartAbility.MUFFLER))
+                    .where("S", Predicates.controller(Predicates.blocks(definition.get())))
+                    .where("A", Predicates.blocks(GTBlocks.CASING_EXTREME_ENGINE_INTAKE.get()))
+                    .where("B", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get()))
+                    .where("F", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST.get())
+                            .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
+                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(4)))
+                    .where("C", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
+                    .where("G", Predicates.blocks(GCyMBlocks.ELECTROLYTIC_CELL.get()))
+                    .where("D", Predicates.blocks(GTBlocks.FIREBOX_TITANIUM.get()))
+                    .where("E", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
+                    .where("H", Predicates.blocks(GTBlocks.CASING_TITANIUM_GEARBOX.get()))
+                    .where("P", Predicates.abilities(PartAbility.OUTPUT_ENERGY))
+                    .where("I", Predicates.abilities(PartAbility.MUFFLER))
                     .build())
-            .recoveryItems(
-                    () -> new ItemLike[] { GTItems.MATERIAL_ITEMS.get(TagPrefix.dustTiny, GTMaterials.Ash).get() })
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_robust_tungstensteel"),
                     GTCEu.id("block/multiblock/generator/extreme_combustion_engine"), false)
             .register();
@@ -106,7 +97,6 @@ public class GeneratorMachine {
                 .tooltips(Component.literal("可使用变电动力仓"))
                 .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", FormattingUtil.formatNumbers(GTValues.V[tier] * value)))
                 .tooltips(Component.translatable("gtceu.multiblock.turbine.efficiency_tooltip", GTValues.VNF[tier]))
-                .tooltipBuilder(GTLMachines.GTL_ADD)
                 .recipeModifier(MegaTurbineMachine::recipeModifier)
                 .appearanceBlock(casing)
                 .pattern(definition -> FactoryBlockPattern.start()
@@ -133,17 +123,19 @@ public class GeneratorMachine {
                 .register();
     }
 
-    public final static MultiblockMachineDefinition ROCKET_LARGE_TURBINE = GTMachines.registerLargeTurbine("rocket_large_turbine", GTValues.EV,
+    public final static MultiblockMachineDefinition ROCKET_LARGE_TURBINE = GTLMachines.registerLargeTurbine(REGISTRATE,
+            "rocket_large_turbine", GTValues.EV, 12,
             GTLRecipeTypes.ROCKET_ENGINE_FUELS,
             GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_TITANIUM_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_titanium"),
-            GTCEu.id("block/multiblock/generator/large_gas_turbine"));
+            GTCEu.id("block/multiblock/generator/large_gas_turbine"), false);
 
-    public final static MultiblockMachineDefinition SUPERCRITICAL_STEAM_TURBINE = GTMachines.registerLargeTurbine("supercritical_steam_turbine", GTValues.IV,
+    public final static MultiblockMachineDefinition SUPERCRITICAL_STEAM_TURBINE = GTLMachines.registerLargeTurbine(REGISTRATE,
+            "supercritical_steam_turbine", GTValues.IV, 16,
             GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS,
             GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTLCore.id("block/supercritical_turbine_casing"),
-            GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
+            GTCEu.id("block/multiblock/generator/large_plasma_turbine"), false);
 
     public final static MultiblockMachineDefinition STEAM_MEGA_TURBINE = registerMegaTurbine("steam_mega_turbine", GTValues.EV, 32, GTRecipeTypes.STEAM_TURBINE_FUELS, GTBlocks.CASING_STEEL_TURBINE, GTBlocks.CASING_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_steel"), GTCEu.id("block/multiblock/generator/large_steam_turbine"));
@@ -169,7 +161,6 @@ public class GeneratorMachine {
             .tooltips(Component.translatable("gtceu.machine.dyson_sphere.tooltip.6"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.dyson_sphere")))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier((machine, recipe, params, result) -> DysonSphereMachine.recipeModifier(machine, recipe))
             .appearanceBlock(() -> Registries.getBlock("kubejs:dyson_receiver_casing"))
             .pattern((definition) -> FactoryBlockPattern.start()
@@ -244,7 +235,6 @@ public class GeneratorMachine {
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.large_naquadah_reactor")))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
             .generator(true)
             .recipeModifier((machine, recipe, params, result) -> GTLRecipeModifiers.standardOverclocking((WorkableElectricMultiblockMachine) machine, recipe))
             .appearanceBlock(GTLBlocks.HYPER_MECHANICAL_CASING)
@@ -278,7 +268,6 @@ public class GeneratorMachine {
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.advanced_hyper_reactor")))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
             .generator(true)
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
@@ -329,7 +318,6 @@ public class GeneratorMachine {
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.hyper_reactor")))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
             .generator(true)
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
@@ -390,19 +378,18 @@ public class GeneratorMachine {
                     Component.translatable("gtceu.semi_fluid_generator"),
                     Component.translatable("gtceu.rocket_engine"),
                     Component.translatable("gtceu.naquadah_reactor")))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
             .recipeModifier(GeneratorArrayMachine::recipeModifier, true)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("XXX", "CCC", "XXX")
                     .aisle("XXX", "C#C", "XXX")
                     .aisle("XSX", "CCC", "XXX")
-                    .where('S', Predicates.controller(blocks(definition.getBlock())))
-                    .where('X', blocks(GTBlocks.CASING_STEEL_SOLID.get())
+                    .where('S', Predicates.controller(Predicates.blocks(definition.getBlock())))
+                    .where('X', Predicates.blocks(GTBlocks.CASING_STEEL_SOLID.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.OUTPUT_ENERGY).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1)))
-                    .where('C', blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
+                    .where('C', Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
                     .where('#', Predicates.air())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/processing_array"))
@@ -414,7 +401,6 @@ public class GeneratorMachine {
             .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.annihilate_generator")))
-            .tooltipBuilder(GTLMachines.GTL_ADD)
             .generator(true)
             .recipeModifier((machine, recipe, params, result) -> GTLRecipeModifiers.standardOverclocking((WorkableElectricMultiblockMachine) machine, recipe))
             .appearanceBlock(GTBlocks.HIGH_POWER_CASING)

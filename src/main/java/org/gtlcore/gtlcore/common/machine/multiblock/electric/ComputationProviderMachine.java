@@ -39,14 +39,13 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
     public int allocatedCWUt = 0;
     @Persisted
     public long totalCWU = 0;
-    public Boolean canBridge = true;
     public int maxCWUt = 0;
     @Nullable
     protected TickableSubscription tickSubs;
 
-    String lastAllocatedCWUt = "";
-    boolean canProvideCWUt = true;
-    private boolean inf = false;
+    private int lastAllocatedCWUt = 0;
+    private boolean canProvideCWUt = true;
+    private final boolean inf;
 
     public ComputationProviderMachine(IMachineBlockEntity holder, boolean inf, Object... args) {
         super(holder, args);
@@ -110,7 +109,7 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
 
     public void tick() {
         totalCWU -= allocatedCWUt;
-        lastAllocatedCWUt = String.valueOf(allocatedCWUt);
+        lastAllocatedCWUt = allocatedCWUt;
         if (getRecipeLogic().isSuspend()) {
             allocatedCWUt = 0;
             canProvideCWUt = false;

@@ -125,7 +125,6 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
     }
 
     @Override
-    @NotNull
     public GTRecipeType[] getRecipeTypes() {
         if (recipeTypeCache == null) {
             var definition = getMachineDefinition();

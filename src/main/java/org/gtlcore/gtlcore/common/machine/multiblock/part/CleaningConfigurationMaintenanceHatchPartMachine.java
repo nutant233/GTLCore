@@ -7,7 +7,6 @@ import com.gregtechceu.gtceu.api.capability.ICleanroomReceiver;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.ICleanroomProvider;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
-import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.api.machine.multiblock.DummyCleanroom;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -24,14 +23,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class CleaningConfigurationMaintenanceHatchPartMachine extends AutoConfigurationMaintenanceHatchPartMachine {
 
-    protected static final Set<CleanroomType> CLEANROOM = new ObjectOpenHashSet<>();
-    protected static final Set<CleanroomType> STERILE_CLEANROOM = new ObjectOpenHashSet<>();
-    protected static final Set<CleanroomType> LAW_CLEANROOM = new ObjectOpenHashSet<>();
+    protected static final Set<com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType> CLEANROOM = new ObjectOpenHashSet<>();
+    protected static final Set<com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType> STERILE_CLEANROOM = new ObjectOpenHashSet<>();
+    protected static final Set<com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType> LAW_CLEANROOM = new ObjectOpenHashSet<>();
 
     static {
-        CLEANROOM.add(CleanroomType.CLEANROOM);
+        CLEANROOM.add(com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType.CLEANROOM);
         STERILE_CLEANROOM.addAll(CLEANROOM);
-        STERILE_CLEANROOM.add(CleanroomType.STERILE_CLEANROOM);
+        STERILE_CLEANROOM.add(com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType.STERILE_CLEANROOM);
         LAW_CLEANROOM.addAll(STERILE_CLEANROOM);
         LAW_CLEANROOM.add(GTLCleanroomType.LAW_CLEANROOM);
     }
@@ -85,20 +84,22 @@ public class CleaningConfigurationMaintenanceHatchPartMachine extends AutoConfig
     }
 
     /**
-     * Add an {@link CleanroomType} that is provided to multiblocks with this hatch
+     * Add an {@link com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType} that is provided to multiblocks with
+     * this hatch
      *
      * @param type the type to add
      */
     @SuppressWarnings("unused")
-    public static void addCleanroomType(@NotNull CleanroomType type) {
+    public static void addCleanroomType(@NotNull com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType type) {
         CLEANROOM.add(type);
     }
 
     /**
-     * @return the {@link CleanroomType}s this hatch provides to multiblocks
+     * @return the {@link com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType}s this hatch provides to
+     *         multiblocks
      */
     @SuppressWarnings("unused")
-    public static ImmutableSet<CleanroomType> getCleanroomTypes(ICleanroomProvider p) {
+    public static ImmutableSet<com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType> getCleanroomTypes(ICleanroomProvider p) {
         return ImmutableSet.copyOf(p.getTypes());
     }
 }

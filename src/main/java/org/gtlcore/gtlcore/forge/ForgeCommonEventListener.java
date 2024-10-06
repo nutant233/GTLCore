@@ -1,12 +1,8 @@
 package org.gtlcore.gtlcore.forge;
 
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
-import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Shulker;
@@ -19,9 +15,6 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.MissingMappingsEvent;
-
-import dev.latvian.mods.kubejs.KubeJS;
 
 import java.util.Objects;
 
@@ -64,109 +57,5 @@ public class ForgeCommonEventListener {
                 event.side == LogicalSide.CLIENT && event.player.xxa == 0 && event.player.zza == 0) {
             event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(0.5, 1, 0.5));
         }
-    }
-
-    @SubscribeEvent
-    public static void remapIds(MissingMappingsEvent event) {
-        event.getMappings(Registries.BLOCK, KubeJS.MOD_ID).forEach(mapping -> {
-            if (mapping.getKey().equals(KubeJS.id("multi_functional_casing"))) {
-                mapping.remap(GTLBlocks.MULTI_FUNCTIONAL_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("create_casing"))) {
-                mapping.remap(GTLBlocks.CREATE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("space_elevator_mechanical_casing"))) {
-                mapping.remap(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("manipulator"))) {
-                mapping.remap(GTLBlocks.MANIPULATOR.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("blaze_blast_furnace_casing"))) {
-                mapping.remap(GTLBlocks.BLAZE_BLAST_FURNACE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("cold_ice_casing"))) {
-                mapping.remap(GTLBlocks.COLD_ICE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("dimension_connection_casing"))) {
-                mapping.remap(GTLBlocks.DIMENSION_CONNECTION_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("molecular_casing"))) {
-                mapping.remap(GTLBlocks.MOLECULAR_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("dimension_injection_casing"))) {
-                mapping.remap(GTLBlocks.DIMENSION_INJECTION_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("dimensionally_transcendent_casing"))) {
-                mapping.remap(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("echo_casing"))) {
-                mapping.remap(GTLBlocks.ECHO_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("dragon_strength_tritanium_casing"))) {
-                mapping.remap(GTLBlocks.DRAGON_STRENGTH_TRITANIUM_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("aluminium_bronze_casing"))) {
-                mapping.remap(GTLBlocks.ALUMINIUM_BRONZE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("antifreeze_heatproof_machine_casing"))) {
-                mapping.remap(GTLBlocks.ANTIFREEZE_HEATPROOF_MACHINE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("enhance_hyper_mechanical_casing"))) {
-                mapping.remap(GTLBlocks.ENHANCE_HYPER_MECHANICAL_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("extreme_strength_tritanium_casing"))) {
-                mapping.remap(GTLBlocks.EXTREME_STRENGTH_TRITANIUM_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("graviton_field_constraint_casing"))) {
-                mapping.remap(GTLBlocks.GRAVITON_FIELD_CONSTRAINT_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("hyper_mechanical_casing"))) {
-                mapping.remap(GTLBlocks.HYPER_MECHANICAL_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("iridium_casing"))) {
-                mapping.remap(GTLBlocks.IRIDIUM_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("lafium_mechanical_casing"))) {
-                mapping.remap(GTLBlocks.LAFIUM_MECHANICAL_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("oxidation_resistant_hastelloy_n_mechanical_casing"))) {
-                mapping.remap(GTLBlocks.OXIDATION_RESISTANT_HASTELLOY_N_MECHANICAL_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("pikyonium_machine_casing"))) {
-                mapping.remap(GTLBlocks.PIKYONIUM_MACHINE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("sps_casing"))) {
-                mapping.remap(GTLBlocks.SPS_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("naquadah_alloy_casing"))) {
-                mapping.remap(GTLBlocks.NAQUADAH_ALLOY_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("process_machine_casing"))) {
-                mapping.remap(GTLBlocks.PROCESS_MACHINE_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("fission_reactor_casing"))) {
-                mapping.remap(GTLBlocks.FISSION_REACTOR_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("degenerate_rhenium_constrained_casing"))) {
-                mapping.remap(GTLBlocks.DEGENERATE_RHENIUM_CONSTRAINED_CASING.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("infinity_glass"))) {
-                mapping.remap(GTLBlocks.INFINITY_GLASS.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("rhenium_reinforced_energy_glass"))) {
-                mapping.remap(GTLBlocks.RHENIUM_REINFORCED_ENERGY_GLASS.get());
-            }
-            if (mapping.getKey().equals(KubeJS.id("hsss_reinforced_borosilicate_glass"))) {
-                mapping.remap(GTLBlocks.HSSS_REINFORCED_BOROSILICATE_GLASS.get());
-            }
-        });
-        event.getMappings(Registries.ITEM, "infinitycells").forEach(mapping -> {
-            if (mapping.getKey().equals(new ResourceLocation("infinitycells:infinity_cell"))) {
-                mapping.remap(GTLItems.ITEM_INFINITY_CELL.get());
-            }
-            if (mapping.getKey().equals(new ResourceLocation("infinitycells:infinity_fluid_cell"))) {
-                mapping.remap(GTLItems.FLUID_INFINITY_CELL.get());
-            }
-        });
     }
 }

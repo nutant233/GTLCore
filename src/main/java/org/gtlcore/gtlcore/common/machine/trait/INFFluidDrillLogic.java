@@ -8,7 +8,6 @@ import com.gregtechceu.gtceu.api.data.worldgen.bedrockfluid.BedrockFluidVeinSave
 import com.gregtechceu.gtceu.api.data.worldgen.bedrockfluid.FluidVeinWorldEntry;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
-import com.gregtechceu.gtceu.api.recipe.content.ContentModifier;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
@@ -55,8 +54,7 @@ public class INFFluidDrillLogic extends RecipeLogic {
             }
             var match = getFluidDrillRecipe();
             if (match != null) {
-                var copied = match.copy(new ContentModifier(match.duration, 0));
-                if (match.matchRecipe(this.machine).isSuccess() && copied.matchTickRecipe(this.machine).isSuccess()) {
+                if (match.matchRecipe(this.machine).isSuccess() && match.matchTickRecipe(this.machine).isSuccess()) {
                     setupRecipe(match);
                 }
             }
@@ -97,7 +95,7 @@ public class INFFluidDrillLogic extends RecipeLogic {
 
             int produced = Math.max(depletedYield,
                     regularYield * remainingOperations / BedrockFluidVeinSavedData.MAXIMUM_VEIN_OPERATIONS);
-            produced *= INFFluidDrillMachine.getRigMultiplier(getMachine().getTier());
+            produced *= 256;
 
             // Overclocks produce 50% more fluid
             if (isOverclocked()) {
@@ -118,8 +116,7 @@ public class INFFluidDrillLogic extends RecipeLogic {
         // try it again
         var match = getFluidDrillRecipe();
         if (match != null) {
-            var copied = match.copy(new ContentModifier(match.duration, 0));
-            if (match.matchRecipe(this.machine).isSuccess() && copied.matchTickRecipe(this.machine).isSuccess()) {
+            if (match.matchRecipe(this.machine).isSuccess() && match.matchTickRecipe(this.machine).isSuccess()) {
                 setupRecipe(match);
                 return;
             }

@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.trait;
 
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.WorkableElectricMultipleRecipesMachine;
+import org.gtlcore.gtlcore.api.machine.multiblock.WorkableElectricMultipleRecipesMachine;
 
 import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;

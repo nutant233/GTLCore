@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine.multiblock.electric;
+package org.gtlcore.gtlcore.api.machine.multiblock;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 

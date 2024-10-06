@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"overlay_hatch": "gtceu:block/overlay/machine/overlay_na"
+		"overlay_hatch": "gtlcore:block/overlay/machine/overlay_na"
 	},
 	"elements": [
 		{

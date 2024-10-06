@@ -26,7 +26,6 @@ import appeng.items.storage.BasicStorageCell;
 import appeng.items.storage.StorageTier;
 import appeng.items.tools.powered.PortableCellItem;
 import appeng.menu.me.common.MEStorageMenu;
-import com.hepdd.gtmthings.data.CreativeModeTabs;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 
@@ -34,16 +33,16 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.gregtechceu.gtceu.common.data.GTItems.*;
-import static com.hepdd.gtmthings.common.registry.GTMTRegistration.GTMTHINGS_REGISTRATE;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
+@SuppressWarnings("unused")
 public class GTLItems {
-
-    public static void init() {}
 
     static {
         REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
     }
+
+    public static void init() {}
 
     private static ItemEntry<StorageComponentItem> registerStorageComponentItem(int tier) {
         return REGISTRATE
@@ -233,7 +232,7 @@ public class GTLItems {
             .register();
 
     private static ItemEntry<ComponentItem> registerTieredCover(int amperage) {
-        ItemEntry<ComponentItem> cover = GTMTHINGS_REGISTRATE
+        return REGISTRATE
                 .item(GTValues.VN[GTValues.MAX].toLowerCase(Locale.ROOT) + "_" +
                         (amperage == 1 ? "" : amperage + "a_") + "wireless_energy_receive_cover", ComponentItem::create)
                 .onRegister(attach(new TooltipBehavior(lines -> {
@@ -244,8 +243,6 @@ public class GTLItems {
                 }), new CoverPlaceBehavior(amperage == 1 ? GTLCovers.MAX_WIRELESS_ENERGY_RECEIVE :
                         GTLCovers.MAX_WIRELESS_ENERGY_RECEIVE_4A)))
                 .register();
-        GTMTHINGS_REGISTRATE.setCreativeTab(cover, CreativeModeTabs.WIRELESS_TAB);
-        return cover;
     }
 
     public static ItemEntry<ComponentItem> WIRELESS_ENERGY_RECEIVE_COVER_MAX = registerTieredCover(1);

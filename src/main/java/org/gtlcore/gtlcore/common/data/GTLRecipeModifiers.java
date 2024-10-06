@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.common.data;
 
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.StorageMachine;
+import org.gtlcore.gtlcore.api.machine.multiblock.StorageMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
 
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;

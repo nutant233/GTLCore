@@ -34,6 +34,12 @@ import static com.lowdragmc.lowdraglib.gui.texture.ProgressTexture.FillDirection
 
 public class GTLRecipeTypes {
 
+    public static final GTRecipeType RADIATION_HATCH_RECIPES = register("radiation_hatch", MULTIBLOCK)
+            .setMaxIOSize(1, 0, 0, 0)
+            .setEUIO(IO.NONE)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, LEFT_TO_RIGHT)
+            .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.radioactivity", data.getInt("radioactivity")));
+
     public static final GTRecipeType PRIMITIVE_VOID_ORE_RECIPES = GTLConfigHolder.INSTANCE.enablePrimitiveVoidOre ?
             register("primitive_void_ore", MULTIBLOCK)
                     .setMaxIOSize(0, 0, 1, 0)
@@ -407,11 +413,23 @@ public class GTLRecipeTypes {
             .setSound(GTSoundEntries.ARC)
             .setXEIVisible(false);
 
+    private static String getFilterCasing(int tier) {
+        if (tier == 3) {
+            return "T3：" + I18n.get("block.gtlcore.law_filter_casing");
+        }
+        if (tier == 2) {
+            return "T2：" + I18n.get("block.gtceu.sterilizing_filter_casing");
+        }
+        return "T1：" + I18n.get("block.gtceu.filter_casing");
+    }
+
     public static final GTRecipeType INCUBATOR_RECIPES = register("incubator", MULTIBLOCK)
             .setEUIO(IO.IN)
             .setMaxIOSize(6, 1, 2, 1)
             .setProgressBar(GuiTextures.PROGRESS_BAR_BATH, LEFT_TO_RIGHT)
-            .setSound(GTSoundEntries.COOLING);
+            .setSound(GTSoundEntries.COOLING)
+            .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.cleanroom", getFilterCasing(data.getInt("filter_casing"))))
+            .addDataInfo(data -> LocalizationUtils.format("gtceu.recipe.radioactivity", data.getInt("radioactivity")));
 
     public static final GTRecipeType PCB_FACTORY_RECIPES = register("pcb_factory", MULTIBLOCK)
             .setEUIO(IO.IN)

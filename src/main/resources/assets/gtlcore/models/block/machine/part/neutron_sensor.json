@@ -3,8 +3,8 @@
   "parent": "block/block",
   "textures": {
     "particle": "gtceu:block/overlay/machine/overlay_hatch",
-    "overlay_hatch": "gtceu:block/overlay/machine/overlay_neutron_sensor",
-    "overlay_hatch_emissive": "gtceu:block/overlay/machine/overlay_neutron_sensor_emissive"
+    "overlay_hatch": "gtlcore:block/overlay/machine/overlay_neutron_sensor",
+    "overlay_hatch_emissive": "gtlcore:block/overlay/machine/overlay_neutron_sensor_emissive"
   },
   "elements": [
     {

@@ -3,7 +3,6 @@ package org.gtlcore.gtlcore.common.block;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 
 import com.gregtechceu.gtceu.api.block.IFilterType;
-import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -14,9 +13,9 @@ public enum CleanroomFilterType implements IFilterType {
 
     private final String name;
     @Getter
-    private final CleanroomType cleanroomType;
+    private final com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType cleanroomType;
 
-    CleanroomFilterType(String name, CleanroomType cleanroomType) {
+    CleanroomFilterType(String name, com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType cleanroomType) {
         this.name = name;
         this.cleanroomType = cleanroomType;
     }

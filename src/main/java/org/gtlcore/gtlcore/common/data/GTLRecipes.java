@@ -24,5 +24,6 @@ public class GTLRecipes {
         Lanthanidetreatment.init(provider);
         CircuitRecipes.init(provider);
         MixerRecipes.init(provider);
+        RadiationHatchRecipes.init(provider);
     }
 }

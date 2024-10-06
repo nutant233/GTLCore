@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.StorageMachine;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;

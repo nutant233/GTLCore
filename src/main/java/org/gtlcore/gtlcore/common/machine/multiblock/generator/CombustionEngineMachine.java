@@ -40,11 +40,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 /**
  * @author KilaBash
  * @date 2023/7/9
- * @implNote GTLLargeCombustionEngineMachine
+ * @implNote LargeCombustionEngineMachine
  */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class GTLLargeCombustionEngineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
+public class CombustionEngineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
 
     private static final FluidStack OXYGEN_STACK = GTMaterials.Oxygen.getFluid(20);
     private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID, 80);
@@ -55,7 +55,7 @@ public class GTLLargeCombustionEngineMachine extends WorkableElectricMultiblockM
     // runtime
     private boolean isOxygenBoosted = false;
 
-    public GTLLargeCombustionEngineMachine(IMachineBlockEntity holder, int tier) {
+    public CombustionEngineMachine(IMachineBlockEntity holder, int tier) {
         super(holder);
         this.tier = tier;
     }
@@ -109,7 +109,7 @@ public class GTLLargeCombustionEngineMachine extends WorkableElectricMultiblockM
     @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                           @NotNull OCResult result) {
-        if (machine instanceof GTLLargeCombustionEngineMachine engineMachine) {
+        if (machine instanceof CombustionEngineMachine engineMachine) {
             var EUt = RecipeHelper.getOutputEUt(recipe);
             if (EUt > 0 && engineMachine.getLubricantRecipe().matchRecipe(engineMachine).isSuccess() &&
                     !engineMachine.isIntakesObstructed()) {

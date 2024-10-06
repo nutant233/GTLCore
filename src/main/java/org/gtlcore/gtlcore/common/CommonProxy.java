@@ -2,7 +2,6 @@ package org.gtlcore.gtlcore.common;
 
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 import org.gtlcore.gtlcore.integration.ae2.InfinityCellGuiHandler;
 import org.gtlcore.gtlcore.integration.ae2.storage.InfinityCellHandler;
@@ -87,6 +86,5 @@ public class CommonProxy {
 
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
         GTLMachines.init();
-        GeneratorMachine.LARGE_SEMI_FLUID_GENERATOR.setRecipeTypes(new GTRecipeType[] { GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS });
     }
 }

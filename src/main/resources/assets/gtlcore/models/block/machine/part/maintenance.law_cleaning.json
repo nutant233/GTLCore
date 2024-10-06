@@ -4,7 +4,7 @@
 	"textures": {
 		"particle": "gtceu:block/overlay/machine/overlay_maintenance_cleaning",
 		"overlay_maintenance": "gtceu:block/overlay/machine/overlay_maintenance_cleaning",
-		"overlay_maintenance_emissive": "gtceu:block/overlay/machine/overlay_law_maintenance_cleaning_emissive"
+		"overlay_maintenance_emissive": "gtlcore:block/overlay/machine/overlay_law_maintenance_cleaning_emissive"
 	},
 	"elements": [
 		{

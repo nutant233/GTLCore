@@ -85,9 +85,7 @@ public class GTLGTAddon implements IGTAddon {
         ConfigHolder.INSTANCE.machines.enableWorldAccelerators = true;
         ConfigHolder.INSTANCE.machines.ghostCircuit = true;
         ConfigHolder.INSTANCE.machines.doBedrockOres = false;
-        ConfigHolder.INSTANCE.machines.doProcessingArray = false;
-        ConfigHolder.INSTANCE.machines.orderedAssemblyLineItems = false;
-        ConfigHolder.INSTANCE.machines.orderedAssemblyLineFluids = false;
+        ConfigHolder.INSTANCE.machines.orderedAssemblyLineFluids = true;
         ConfigHolder.INSTANCE.machines.enableMoreDualHatchAbility = false;
 
         ConfigHolder.INSTANCE.machines.smallBoilers.solidBoilerBaseOutput = 240;
@@ -107,6 +105,7 @@ public class GTLGTAddon implements IGTAddon {
         ConfigHolder.INSTANCE.gameplay.environmentalHazards = false;
 
         ConfigHolder.INSTANCE.compat.energy.nativeEUToPlatformNative = true;
+        ConfigHolder.INSTANCE.compat.energy.enablePlatformConverters = true;
         ConfigHolder.INSTANCE.compat.energy.platformToEuRatio = 16;
         ConfigHolder.INSTANCE.compat.energy.euToPlatformRatio = 1;
         ConfigHolder.INSTANCE.compat.ae2.meHatchEnergyUsage = 1920;

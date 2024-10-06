@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
-import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.machine.trait.INFFluidDrillLogic;
 
 import com.gregtechceu.gtceu.api.GTValues;
@@ -20,7 +19,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 import lombok.Getter;
@@ -97,13 +95,5 @@ public class INFFluidDrillMachine extends WorkableElectricMultiblockMachine impl
                     .withStyle(Style.EMPTY.withColor(ChatFormatting.RED)
                             .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tooltip))));
         }
-    }
-
-    public static int getRigMultiplier(int tier) {
-        return 256;
-    }
-
-    public static Block getCasingState(int tier) {
-        return GTLBlocks.IRIDIUM_CASING.get();
     }
 }
