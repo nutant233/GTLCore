@@ -16,7 +16,6 @@ public class GTLRecipes {
 
     public static void recipeAddition(Consumer<FinishedRecipe> provider) {
         GCyMRecipes.init(provider);
-        FuelRecipes.init(provider);
         MachineRecipe.init(provider);
         Misc.init(provider);
         ElementCopying.init(provider);

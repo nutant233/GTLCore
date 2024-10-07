@@ -2,11 +2,7 @@ package org.gtlcore.gtlcore.api.machine.multiblock;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
-import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
-
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
-import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
@@ -23,13 +19,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class TierCasingMachine extends WorkableElectricMultiblockMachine {
 
-    public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            TierCasingMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
-
     private final String tierType;
 
     @Getter
-    @Persisted
     private int casingTier = 0;
 
     public TierCasingMachine(IMachineBlockEntity holder, String tierType, Object... args) {
@@ -63,10 +55,5 @@ public class TierCasingMachine extends WorkableElectricMultiblockMachine {
         super.addDisplayText(textList);
         if (!this.isFormed) return;
         textList.add(Component.translatable("gtceu.casings.tier", casingTier));
-    }
-
-    @Override
-    public @NotNull ManagedFieldHolder getFieldHolder() {
-        return MANAGED_FIELD_HOLDER;
     }
 }

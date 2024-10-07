@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-06T21:00:00.341189	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.20.1	2024-10-07T19:06:11.417598	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 46f342ef8461a19d4ac40f284d9763fa45db0648 assets/gtlcore/blockstates/16m_storage.json
 7400be84a032519aa2d82750804ae8f04828fdae assets/gtlcore/blockstates/1m_storage.json
 5483bb31743b034345b5a059cc8bf43cfb875d7d assets/gtlcore/blockstates/256m_storage.json
@@ -78,8 +78,8 @@ ba75d75bb24da9bfafd569c2c2584cfb4d99c06b assets/gtlcore/blockstates/stellar_cont
 aa04d531b5ca53b5a56783ab2caf520d94f90d86 assets/gtlcore/blockstates/super_cooler_component.json
 4d118e87f6da1521094a5e52b2b8244310b2e703 assets/gtlcore/blockstates/supercritical_turbine_casing.json
 406dd8ad0f18b0d9592528acf2afa92e21c642a0 assets/gtlcore/blockstates/ultimate_stellar_containment_casing.json
-6fe29a1ab73d97962f44efb83325af2ae243e384 assets/gtlcore/lang/en_ud.json
-7a7e4b1cc5de5210556721a020fda4d22050da4d assets/gtlcore/lang/en_us.json
+d9cec2473f6bfa6ce7c3ffb3586ba5c1acdffe4b assets/gtlcore/lang/en_ud.json
+f6813dc7c1cfe186df9c5e8aaa01dc57e57beb70 assets/gtlcore/lang/en_us.json
 1e86cdc17231fb0b0c08fb79ac317c3978c918bf assets/gtlcore/models/block/advanced_stellar_containment_casing.json
 bf3d8755a8caf29f8d5e83eefc0f1af389f8e194 assets/gtlcore/models/block/aluminium_bronze_casing.json
 f562919f3479892c66f9299614d509d4b30384c1 assets/gtlcore/models/block/antifreeze_heatproof_machine_casing.json

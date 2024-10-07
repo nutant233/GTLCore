@@ -249,14 +249,10 @@ public class MultiBlockMachineB {
                             .aisle("XXX", "XAX", "XXX")
                             .aisle("XXX", "XSX", "XXX")
                             .where('S', Predicates.controller(Predicates.blocks(definition.get())))
-                            .where('X',
-                                    Predicates.blocks(Blocks.DIRT)
-                                            .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
-                                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
+                            .where('X', Predicates.blocks(Blocks.DIRT).or(Predicates.abilities(PartAbility.EXPORT_ITEMS)).or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
                             .where('A', Predicates.air())
                             .build())
-                    .workableCasingRenderer(new ResourceLocation("minecraft:block/dirt"),
-                            GTCEu.id("block/multiblock/gcym/large_extractor"))
+                    .workableCasingRenderer(new ResourceLocation("minecraft:block/dirt"), GTCEu.id("block/multiblock/gcym/large_extractor"))
                     .register() :
             null;
 }

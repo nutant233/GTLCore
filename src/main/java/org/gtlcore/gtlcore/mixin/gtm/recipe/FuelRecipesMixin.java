@@ -1,23 +1,118 @@
-package org.gtlcore.gtlcore.data.recipe;
+package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 
+import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+import com.gregtechceu.gtceu.data.recipe.misc.FuelRecipes;
+import com.gregtechceu.gtceu.utils.GTUtil;
 
+import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
+
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import net.minecraft.world.level.material.Fluids;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.COMBUSTION_GENERATOR_FUELS;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.GAS_TURBINE_FUELS;
+import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 
-public class FuelRecipes {
+@Mixin(FuelRecipes.class)
+public class FuelRecipesMixin {
 
-    public static void init(Consumer<FinishedRecipe> provider) {
+    @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
+    private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
+        Set<Item> addedItems = new HashSet<>();
+        for (var fuelEntry : FurnaceBlockEntity.getFuel().entrySet()) {
+            addedItems.add(fuelEntry.getKey());
+            var resLoc = BuiltInRegistries.ITEM.getKey(fuelEntry.getKey());
+            STEAM_BOILER_RECIPES.recipeBuilder(GTCEu.id(resLoc.getNamespace() + "_" + resLoc.getPath()))
+                    .inputItems(fuelEntry.getKey())
+                    .duration((int) Math.min(Integer.MAX_VALUE, fuelEntry.getValue() * 12L))
+                    .save(provider);
+
+            LARGE_BOILER_RECIPES.recipeBuilder(GTCEu.id(resLoc.getNamespace() + "_" + resLoc.getPath()))
+                    .inputItems(fuelEntry.getKey())
+                    .duration(fuelEntry.getValue() / 80)
+                    .save(provider);
+        }
+
+        for (Item item : BuiltInRegistries.ITEM) {
+            int burnTime = GTUtil.getItemBurnTime(item);
+            if (burnTime > 0 && !addedItems.contains(item)) {
+                var resLoc = BuiltInRegistries.ITEM.getKey(item);
+                STEAM_BOILER_RECIPES.recipeBuilder(GTCEu.id(resLoc.getNamespace() + "_" + resLoc.getPath()))
+                        .inputItems(item)
+                        .duration((int) Math.min(Integer.MAX_VALUE, burnTime * 12L))
+                        .save(provider);
+
+                LARGE_BOILER_RECIPES.recipeBuilder(GTCEu.id(resLoc.getNamespace() + "_" + resLoc.getPath()))
+                        .inputItems(item)
+                        .duration(burnTime / 80)
+                        .save(provider);
+            }
+        }
+
+        STEAM_BOILER_RECIPES.recipeBuilder("lava")
+                .inputFluids(FluidStack.create(Fluids.LAVA, 100))
+                .duration(600 * 12)
+                .save(provider);
+
+        STEAM_BOILER_RECIPES.recipeBuilder("creosote")
+                .inputFluids(Creosote.getFluid(250))
+                .duration(600 * 12)
+                .save(provider);
+
+        // semi-fluid fuels, like creosote
+        LARGE_BOILER_RECIPES.recipeBuilder("creosote")
+                .inputFluids(Creosote.getFluid(160))
+                .duration(10)
+                .save(provider);
+
+        LARGE_BOILER_RECIPES.recipeBuilder("biomass")
+                .inputFluids(Biomass.getFluid(40))
+                .duration(10)
+                .save(provider);
+
+        LARGE_BOILER_RECIPES.recipeBuilder("oil")
+                .inputFluids(Oil.getFluid(200))
+                .duration(10)
+                .save(provider);
+
+        LARGE_BOILER_RECIPES.recipeBuilder("oil_heavy")
+                .inputFluids(OilHeavy.getFluid(32))
+                .duration(10)
+                .save(provider);
+
+        LARGE_BOILER_RECIPES.recipeBuilder("sulfuric_heavy_fuel")
+                .inputFluids(SulfuricHeavyFuel.getFluid(32))
+                .duration(10)
+                .save(provider);
+
+        LARGE_BOILER_RECIPES.recipeBuilder("heavy_fuel")
+                .inputFluids(HeavyFuel.getFluid(16))
+                .duration(30)
+                .save(provider);
+
+        LARGE_BOILER_RECIPES.recipeBuilder("fish_oil")
+                .inputFluids(FishOil.getFluid(160))
+                .duration(10)
+                .save(provider);
+
+        // diesel generator fuels
         COMBUSTION_GENERATOR_FUELS.recipeBuilder("naphtha")
                 .inputFluids(Naphtha.getFluid(1))
                 .duration(20)
@@ -108,6 +203,15 @@ public class FuelRecipes {
                 .EUt(-V[LV])
                 .save(provider);
 
+        // steam generator fuels
+        STEAM_TURBINE_FUELS.recipeBuilder("steam")
+                .inputFluids(Steam.getFluid(640))
+                .outputFluids(DistilledWater.getFluid(4))
+                .duration(10)
+                .EUt(-V[LV])
+                .save(provider);
+
+        // gas turbine fuels
         GAS_TURBINE_FUELS.recipeBuilder("natural_gas")
                 .inputFluids(NaturalGas.getFluid(8))
                 .duration(10)
@@ -214,6 +318,63 @@ public class FuelRecipes {
                 .inputFluids(Nitrobenzene.getFluid(1))
                 .duration(80)
                 .EUt(-V[LV])
+                .save(provider);
+
+        // plasma turbine
+        PLASMA_GENERATOR_FUELS.recipeBuilder("helium")
+                .inputFluids(Helium.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(Helium.getFluid(1))
+                .duration(40)
+                .EUt(-V[EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("oxygen")
+                .inputFluids(Oxygen.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(Oxygen.getFluid(1))
+                .duration(48)
+                .EUt(-V[EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("nitrogen")
+                .inputFluids(Nitrogen.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(Nitrogen.getFluid(1))
+                .duration(64)
+                .EUt(-V[EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("iron")
+                .inputFluids(Iron.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(Iron.getFluid(1))
+                .duration(96)
+                .EUt(-V[EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("nickel")
+                .inputFluids(Nickel.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(Nickel.getFluid(1))
+                .duration(192)
+                .EUt(-V[EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("orichalcum")
+                .inputFluids(GTLMaterials.Orichalcum.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(GTLMaterials.Orichalcum.getFluid(1))
+                .duration(384)
+                .EUt(-GTValues.V[GTValues.EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("mithril")
+                .inputFluids(GTLMaterials.Mithril.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(GTLMaterials.Mithril.getFluid(1))
+                .duration(422)
+                .EUt(-GTValues.V[GTValues.EV])
+                .save(provider);
+
+        PLASMA_GENERATOR_FUELS.recipeBuilder("silver")
+                .inputFluids(Silver.getFluid(FluidStorageKeys.PLASMA, 1))
+                .outputFluids(Silver.getFluid(1))
+                .duration(256)
+                .EUt(-GTValues.V[GTValues.EV])
                 .save(provider);
 
         SUPERCRITICAL_STEAM_TURBINE_FUELS.recipeBuilder("supercritical_steam")
@@ -428,5 +589,6 @@ public class FuelRecipes {
                 .duration(200)
                 .EUt(-16 * GTValues.V[GTValues.MAX])
                 .save(provider);
+        ci.cancel();
     }
 }

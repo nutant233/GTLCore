@@ -1,10 +1,9 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.part;
 
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.gui.widget.ToggleButtonWidget;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredPartMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.part.MultiblockPartMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.utils.RedstoneUtil;
 
@@ -33,10 +32,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class NeutronSensorPartMachine extends TieredPartMachine {
+public class NeutronSensorPartMachine extends MultiblockPartMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            NeutronSensorPartMachine.class, TieredPartMachine.MANAGED_FIELD_HOLDER);
+            NeutronSensorPartMachine.class, MultiblockPartMachine.MANAGED_FIELD_HOLDER);
 
     @Setter
     @Persisted
@@ -53,7 +52,7 @@ public class NeutronSensorPartMachine extends TieredPartMachine {
     protected int redstoneSignalOutput = 0;
 
     public NeutronSensorPartMachine(IMachineBlockEntity holder) {
-        super(holder, GTValues.IV);
+        super(holder);
     }
 
     @Override

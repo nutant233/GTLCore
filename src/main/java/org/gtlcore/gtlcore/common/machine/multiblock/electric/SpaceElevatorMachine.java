@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.TierCasingMachine;
+import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
@@ -13,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 
 import earth.terrarium.adastra.common.menus.base.PlanetsMenuProvider;
@@ -51,11 +53,14 @@ public class SpaceElevatorMachine extends TierCasingMachine {
                     blockPos.offset(-3, 2, -8) };
             mam = 0;
             for (BlockPos blockPoss : coordinatess) {
-                MetaMachine metaMachine = MetaMachine.getMachine(level, blockPoss);
+                MetaMachine metaMachine = null;
+                if (level != null) {
+                    metaMachine = MetaMachine.getMachine(level, blockPoss);
+                }
                 if (metaMachine instanceof WorkableElectricMultiblockMachine mbmachine &&
                         mbmachine.isFormed()) {
-                    String bid = mbmachine.getBlockState().getBlock().kjs$getId();
-                    if (bid.equals("gtceu:assembler_module") || bid.equals("gtceu:resource_collection")) {
+                    Block block = mbmachine.getBlockState().getBlock();
+                    if (block == AdvancedMultiBlockMachine.ASSEMBLER_MODULE.getBlock() || block == AdvancedMultiBlockMachine.RESOURCE_COLLECTION.getBlock()) {
                         mam++;
                     }
                 }

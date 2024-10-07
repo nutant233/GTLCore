@@ -4,7 +4,6 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.*;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.largeSteamCircuitAssemblerMachine;
 import org.gtlcore.gtlcore.utils.Registries;
@@ -2809,7 +2808,7 @@ public class MultiBlockMachineA {
                     Component.translatable("gtceu.vacuum_drying"), Component.translatable("gtceu.dehydrator")))
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof CoilWorkableElectricMultiblockMachine coilMachine && coilMachine.getRecipeType() == GTRecipeTypes.get("dehydrator")) {
-                    GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(coilMachine, recipe, Math.min(2147483647, (int) Math.pow(2, (coilMachine.getCoilType().getCoilTemperature() / 900))), false).getFirst();
+                    GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(coilMachine, recipe, Math.min(2147483647, (int) Math.pow(2, coilMachine.getCoilType().getCoilTemperature() / 900)), false).getFirst();
                     if (recipe1 != null) {
                         return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, coilMachine.getOverclockVoltage(), params, result);
                     }
@@ -2838,7 +2837,7 @@ public class MultiBlockMachineA {
             .additionalDisplay((controller, components) -> {
                 if (controller instanceof CoilWorkableElectricMultiblockMachine coilMachine && controller.isFormed()) {
                     if (coilMachine.getRecipeType() == GTLRecipeTypes.DEHYDRATOR_RECIPES) {
-                        components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.min(2147483647, (int) Math.pow(2, ((double) coilMachine.getCoilType().getCoilTemperature() / 900))))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                        components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.min(2147483647, (int) Math.pow(2, coilMachine.getCoilType().getCoilTemperature() / 900)))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
                     }
                     components.add(Component.translatable("gtceu.multiblock.blast_furnace.max_temperature",
                             Component.translatable(FormattingUtil.formatNumbers(coilMachine.getCoilType().getCoilTemperature() + 100L * Math.max(0, coilMachine.getTier() - GTValues.MV)) + "K")

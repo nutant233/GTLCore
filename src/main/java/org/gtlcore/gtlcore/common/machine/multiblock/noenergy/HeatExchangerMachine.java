@@ -54,5 +54,6 @@ public class HeatExchangerMachine extends NoEnergyMultiblockMachine {
                     .getFluid(count));
         }
         count = 0;
+        super.afterWorking();
     }
 }

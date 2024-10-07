@@ -222,6 +222,6 @@ public class GTMachinesMixin {
 
     @Inject(method = "registerLargeTurbine", at = @At(value = "HEAD"), remap = false, cancellable = true)
     private static void registerLargeTurbine(String name, int tier, GTRecipeType recipeType, Supplier<? extends Block> casing, Supplier<? extends Block> gear, ResourceLocation casingTexture, ResourceLocation overlayModel, CallbackInfoReturnable<MultiblockMachineDefinition> cir) {
-        cir.setReturnValue(GTLMachines.registerLargeTurbine(REGISTRATE, name, tier, 8, recipeType, casing, gear, casingTexture, overlayModel, true));
+        cir.setReturnValue(GTLMachines.registerLargeTurbine(REGISTRATE, name, tier, false, recipeType, casing, gear, casingTexture, overlayModel, true));
     }
 }

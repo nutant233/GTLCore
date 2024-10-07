@@ -121,6 +121,7 @@ public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
                 }
             }
         }
+        super.afterWorking();
     }
 
     @Override

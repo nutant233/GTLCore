@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.utils.MachineIO;
 
@@ -22,13 +23,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import com.mojang.datafixers.util.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -47,7 +48,6 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     private int damaged = 0;
     @Persisted
     private int parallel = 0;
-    @Persisted
     private int fuel = 0, cooler = 0, heatAdjacent = 1, coolerAdjacent = 0;
 
     protected ConditionalSubscriptionHandler HeatSubs;
@@ -62,7 +62,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         return MANAGED_FIELD_HOLDER;
     }
 
-    public static int adjacent(Level level, BlockPos pos, String id) {
+    public static int adjacent(Level level, BlockPos pos, Block block) {
         int a = 0;
         BlockPos[] coordinates = new BlockPos[] { pos.offset(1, 0, 0),
                 pos.offset(-1, 0, 0),
@@ -71,7 +71,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
                 pos.offset(0, 0, 1),
                 pos.offset(0, 0, -1) };
         for (BlockPos blockPos : coordinates) {
-            if (Objects.equals(level.kjs$getBlock(blockPos).getId(), id)) {
+            if (level.getBlockState(blockPos).getBlock() == block) {
                 a++;
             }
         }
@@ -81,6 +81,8 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     @Override
     public void onStructureFormed() {
         super.onStructureFormed();
+        heatAdjacent = 0;
+        cooler = 0;
         Level level = getLevel();
         int heatA = 0;
         int coolerA = 0;
@@ -97,11 +99,11 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
             for (int j = 0; j < 8; j++) {
                 for (int k = -3; k < 4; k++) {
                     BlockPos assemblyPos = blockPos.offset(i, j, k);
-                    if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:fission_fuel_assembly")) {
-                        heatA += adjacent(level, assemblyPos, "gtlcore:fission_fuel_assembly");
+                    if (level != null && level.getBlockState(assemblyPos).getBlock() == GTLBlocks.FISSION_FUEL_ASSEMBLY.get()) {
+                        heatA += adjacent(level, assemblyPos, GTLBlocks.FISSION_FUEL_ASSEMBLY.get());
                     }
-                    if (Objects.equals(level.kjs$getBlock(assemblyPos).getId(), "gtlcore:cooler")) {
-                        coolerA += adjacent(level, assemblyPos, "gtlcore:cooler");
+                    if (level != null && level.getBlockState(assemblyPos).getBlock() == GTLBlocks.COOLER.get()) {
+                        coolerA += adjacent(level, assemblyPos, GTLBlocks.COOLER.get());
                     }
                 }
             }
@@ -122,17 +124,9 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     }
 
     @Override
-    public void onStructureInvalid() {
-        super.onStructureInvalid();
-        fuel = 0;
-        cooler = 0;
-        heatAdjacent = 1;
-        coolerAdjacent = 0;
-    }
-
-    @Override
     public void afterWorking() {
         parallel = 0;
+        super.afterWorking();
     }
 
     @Override

@@ -41,9 +41,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
 
-    private static final FluidStack DINITROGEN_TETROXIDE_STACK = GTMaterials.DinitrogenTetroxide.getFluid(80);
-    private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID, 120);
-    private static final FluidStack LUBRICANT_STACK = GTMaterials.Lubricant.getFluid(2);
+    private static final FluidStack DINITROGEN_TETROXIDE_STACK = GTMaterials.DinitrogenTetroxide.getFluid(480);
+    private static final FluidStack LIQUID_OXYGEN_STACK = GTMaterials.Oxygen.getFluid(FluidStorageKeys.LIQUID, 320);
+    private static final FluidStack LUBRICANT_STACK = GTMaterials.Lubricant.getFluid(10);
 
     @Getter
     private final int tier = 5;

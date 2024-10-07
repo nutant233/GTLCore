@@ -63,7 +63,6 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.gregtechceu.gtceu.api.GTValues.VNF;
-import static com.gregtechceu.gtceu.api.GTValues.tiersBetween;
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
 @SuppressWarnings("unused")
@@ -412,8 +411,8 @@ public class GTLMachines {
         return builder.register();
     }
 
-    public static MultiblockMachineDefinition registerLargeTurbine(GTRegistrate registrate, String name, int tier, int finalAm, GTRecipeType recipeType, Supplier<? extends Block> casing, Supplier<? extends Block> gear, ResourceLocation casingTexture, ResourceLocation overlayModel, boolean isGTM) {
-        MultiblockMachineBuilder builder = registrate.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, finalAm))
+    public static MultiblockMachineDefinition registerLargeTurbine(GTRegistrate registrate, String name, int tier, boolean special, GTRecipeType recipeType, Supplier<? extends Block> casing, Supplier<? extends Block> gear, ResourceLocation casingTexture, ResourceLocation overlayModel, boolean isGTM) {
+        MultiblockMachineBuilder builder = registrate.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, special, false))
                 .rotationState(RotationState.ALL)
                 .recipeType(recipeType)
                 .generator(true)
@@ -430,7 +429,7 @@ public class GTLMachines {
                         .where('H', Predicates.blocks(casing.get()).or(Predicates.autoAbilities(definition.getRecipeTypes(), false, false, true, true, true, true).or(Predicates.autoAbilities(true, true, false))))
                         .build())
                 .workableCasingRenderer(casingTexture, overlayModel)
-                .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", GTValues.V[tier] * finalAm), Component.translatable("gtceu.multiblock.turbine.efficiency_tooltip", GTValues.VNF[tier]));
+                .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", GTValues.V[tier] * (special ? 3 : 2)), Component.translatable("gtceu.multiblock.turbine.efficiency_tooltip", GTValues.VNF[tier]));
         if (isGTM) builder.tooltipBuilder(GTLMachines.GTL_MODIFY);
         return builder.register();
     }
@@ -680,5 +679,13 @@ public class GTLMachines {
             .recipeType(GTLRecipeTypes.RADIATION_HATCH_RECIPES)
             .rotationState(RotationState.ALL)
             .overlayTieredHullRenderer("radiation_hatch")
+            .register();
+
+    public static final MachineDefinition ROTOR_HATCH = REGISTRATE
+            .machine("rotor_hatch", RotorHatchPartMachine::new)
+            .langValue("Rotor Hatch")
+            .tier(GTValues.EV)
+            .rotationState(RotationState.ALL)
+            .overlayTieredHullRenderer("rotor_hatch")
             .register();
 }

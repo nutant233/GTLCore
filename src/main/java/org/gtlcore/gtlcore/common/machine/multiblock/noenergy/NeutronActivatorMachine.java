@@ -4,6 +4,7 @@ import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronSensorPartMachine;
+import org.gtlcore.gtlcore.utils.NumberUtils;
 
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
@@ -28,6 +29,7 @@ import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +46,14 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
     public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
             NeutronActivatorMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
 
-    @Persisted
+    @Override
+    public ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
+    }
+
+    private static final Item dustBeryllium = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Beryllium).getItem();
+    private static final Item dustGraphite = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Graphite).getItem();
+
     private int height = 0;
 
     @Getter
@@ -54,11 +63,10 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
 
     protected ConditionalSubscriptionHandler neutronEnergySubs;
 
-    @Persisted
     private Set<NeutronSensorPartMachine> sensorMachines;
-    @Persisted
+
     private Set<ItemBusPartMachine> busMachines;
-    @Persisted
+
     private Set<NeutronAcceleratorPartMachine> acceleratorMachines;
 
     public NeutronActivatorMachine(IMachineBlockEntity holder, Object... args) {
@@ -170,8 +178,6 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
 
     private void absorptionUpdate() {
         if (busMachines == null || eV <= 0 && getOffsetTimer() % 10 != 0) return;
-        var dustBeryllium = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Beryllium).getItem();
-        var dustGraphite = ChemicalHelper.get(TagPrefix.dust, GTMaterials.Graphite).getItem();
         for (var bus : busMachines) {
             var inv = bus.getInventory();
             var io = inv.getHandlerIO();
@@ -206,25 +212,12 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
             textList.add(Component.translatable("gtceu.multiblock.parallel",
                     Component.literal(FormattingUtil.formatNumbers(getParallel())).withStyle(ChatFormatting.DARK_PURPLE))
                     .withStyle(ChatFormatting.GRAY));
-            textList.add(Component.translatable("gtceu.machine.neutron_activator.ev", processNumber(eV)));
+            textList.add(Component.translatable("gtceu.machine.neutron_activator.ev", NumberUtils.formatLong(eV)));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.efficiency",
                     FormattingUtil.formatNumbers(getEVtMultiplier())));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.height", height));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.time",
                     FormattingUtil.formatNumbers(getEfficiencyFactor() * 100)).append("%"));
         }
-    }
-
-    private String processNumber(int num) {
-        float num2;
-        num2 = ((float) num) / 1000F;
-        if (num2 <= 0) {
-            return String.format("%d", num);
-        }
-        if (num2 < 1000.0) {
-            return String.format("%.1fK", num2);
-        }
-        num2 /= 1000F;
-        return String.format("%.1fM", num2);
     }
 }

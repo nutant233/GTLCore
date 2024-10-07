@@ -106,15 +106,9 @@ public class RecipeModify {
             }
         });
 
-        GTRecipeTypes.STEAM_BOILER_RECIPES.onRecipeBuild((builder, provider) -> {
-            var duration = (builder.duration / 12 / 80);
-            if (duration > 0) {
-                GTRecipeTypes.LARGE_BOILER_RECIPES.copyFrom(builder).duration(duration).save(provider);
-                GTLRecipeTypes.THERMAL_GENERATOR_FUELS.copyFrom(builder)
-                        .EUt(-8)
-                        .duration((int) (16 * Math.sqrt(duration)))
-                        .save(provider);
-            }
-        });
+        GTRecipeTypes.STEAM_BOILER_RECIPES.onRecipeBuild((builder, provider) -> GTLRecipeTypes.THERMAL_GENERATOR_FUELS.copyFrom(builder)
+                .EUt(-8)
+                .duration((int) Math.sqrt(builder.duration))
+                .save(provider));
     }
 }

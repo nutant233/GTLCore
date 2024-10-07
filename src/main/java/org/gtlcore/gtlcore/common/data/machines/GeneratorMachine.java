@@ -25,7 +25,6 @@ import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.common.data.*;
-import com.gregtechceu.gtceu.utils.FormattingUtil;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -53,9 +52,9 @@ public class GeneratorMachine {
                     GTRecipeTypes.GAS_TURBINE_FUELS, GTLRecipeTypes.ROCKET_ENGINE_FUELS)
             .generator(true)
             .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", 2 * GTValues.V[GTValues.ZPM]),
-                    Component.translatable("gtceu.universal.tooltip.uses_per_hour_lubricant", 2000),
-                    Component.literal("提供§f120mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
-                    Component.literal("再额外提供§f80mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
+                    Component.translatable("gtceu.universal.tooltip.uses_per_hour_lubricant", 10000),
+                    Component.literal("提供§f320mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
+                    Component.literal("再额外提供§f480mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
             .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()
@@ -87,15 +86,17 @@ public class GeneratorMachine {
                     GTCEu.id("block/multiblock/generator/extreme_combustion_engine"), false)
             .register();
 
-    public static MultiblockMachineDefinition registerMegaTurbine(String name, int tier, int value, GTRecipeType recipeType,
+    public static MultiblockMachineDefinition registerMegaTurbine(String name, int tier, boolean special, GTRecipeType recipeType,
                                                                   Supplier<Block> casing, Supplier<Block> gear, ResourceLocation baseCasing,
                                                                   ResourceLocation overlayModel) {
-        return REGISTRATE.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, value))
+        return REGISTRATE.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, special, true))
                 .rotationState(RotationState.ALL)
                 .recipeType(recipeType)
                 .generator(true)
-                .tooltips(Component.literal("可使用变电动力仓"))
-                .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", FormattingUtil.formatNumbers(GTValues.V[tier] * value)))
+                .tooltips(Component.translatable("gtceu.machine.mega_turbine.tooltip.0"))
+                .tooltips(Component.translatable("gtceu.machine.mega_turbine.tooltip.1"))
+                .tooltips(Component.translatable("gtceu.machine.mega_turbine.tooltip.2"))
+                .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", GTValues.V[tier] * (special ? 12 : 8)))
                 .tooltips(Component.translatable("gtceu.multiblock.turbine.efficiency_tooltip", GTValues.VNF[tier]))
                 .recipeModifier(MegaTurbineMachine::recipeModifier)
                 .appearanceBlock(casing)
@@ -108,13 +109,14 @@ public class GeneratorMachine {
                         .aisle("AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA")
                         .aisle("AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA")
                         .aisle("AAAAAAA", "BDDDDDB", "AAAAAAA", "AAAAAAA", "AAAAAAA", "BDDDDDB", "AAAAAAA")
-                        .aisle("AAAAAAA", "AAAAAAA", "AAAAAAA", "AAASAAA", "AAAAAAA", "AAAAAAA", "AAAAAAA")
+                        .aisle("AAAAAAA", "AAAAAAA", "AAACAAA", "AACSCAA", "AAACAAA", "AAAAAAA", "AAAAAAA")
                         .where("S", Predicates.controller(Predicates.blocks(definition.get())))
                         .where("A", Predicates.blocks(casing.get())
                                 .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                                 .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(8))
                                 .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setMaxGlobalLimited(2)))
                         .where("B", GTLPredicates.RotorBlock())
+                        .where("C", Predicates.blocks(casing.get()).or(Predicates.blocks(GTLMachines.ROTOR_HATCH.getBlock()).setMaxGlobalLimited(1)))
                         .where("D", Predicates.blocks(gear.get()))
                         .where("E", Predicates.abilities(PartAbility.OUTPUT_ENERGY).or(Predicates.abilities(PartAbility.SUBSTATION_OUTPUT_ENERGY)))
                         .where("M", Predicates.abilities(PartAbility.MUFFLER))
@@ -124,28 +126,28 @@ public class GeneratorMachine {
     }
 
     public final static MultiblockMachineDefinition ROCKET_LARGE_TURBINE = GTLMachines.registerLargeTurbine(REGISTRATE,
-            "rocket_large_turbine", GTValues.EV, 12,
+            "rocket_large_turbine", GTValues.EV, true,
             GTLRecipeTypes.ROCKET_ENGINE_FUELS,
             GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_TITANIUM_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_titanium"),
             GTCEu.id("block/multiblock/generator/large_gas_turbine"), false);
 
     public final static MultiblockMachineDefinition SUPERCRITICAL_STEAM_TURBINE = GTLMachines.registerLargeTurbine(REGISTRATE,
-            "supercritical_steam_turbine", GTValues.IV, 16,
+            "supercritical_steam_turbine", GTValues.IV, true,
             GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS,
             GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTLCore.id("block/supercritical_turbine_casing"),
             GTCEu.id("block/multiblock/generator/large_plasma_turbine"), false);
 
-    public final static MultiblockMachineDefinition STEAM_MEGA_TURBINE = registerMegaTurbine("steam_mega_turbine", GTValues.EV, 32, GTRecipeTypes.STEAM_TURBINE_FUELS, GTBlocks.CASING_STEEL_TURBINE, GTBlocks.CASING_STEEL_GEARBOX,
+    public final static MultiblockMachineDefinition STEAM_MEGA_TURBINE = registerMegaTurbine("steam_mega_turbine", GTValues.EV, false, GTRecipeTypes.STEAM_TURBINE_FUELS, GTBlocks.CASING_STEEL_TURBINE, GTBlocks.CASING_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_steel"), GTCEu.id("block/multiblock/generator/large_steam_turbine"));
-    public final static MultiblockMachineDefinition GAS_MEGA_TURBINE = registerMegaTurbine("gas_mega_turbine", GTValues.IV, 32, GTRecipeTypes.GAS_TURBINE_FUELS, GTBlocks.CASING_STAINLESS_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
+    public final static MultiblockMachineDefinition GAS_MEGA_TURBINE = registerMegaTurbine("gas_mega_turbine", GTValues.IV, false, GTRecipeTypes.GAS_TURBINE_FUELS, GTBlocks.CASING_STAINLESS_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_stainless_steel"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
-    public final static MultiblockMachineDefinition ROCKET_MEGA_TURBINE = registerMegaTurbine("rocket_mega_turbine", GTValues.IV, 48, GTLRecipeTypes.ROCKET_ENGINE_FUELS, GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
+    public final static MultiblockMachineDefinition ROCKET_MEGA_TURBINE = registerMegaTurbine("rocket_mega_turbine", GTValues.IV, true, GTLRecipeTypes.ROCKET_ENGINE_FUELS, GTBlocks.CASING_TITANIUM_TURBINE, GTBlocks.CASING_STAINLESS_STEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_titanium"), GTCEu.id("block/multiblock/generator/large_gas_turbine"));
-    public final static MultiblockMachineDefinition PLASMA_MEGA_TURBINE = registerMegaTurbine("plasma_mega_turbine", GTValues.LuV, 64, GTRecipeTypes.PLASMA_GENERATOR_FUELS, GTBlocks.CASING_TUNGSTENSTEEL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
+    public final static MultiblockMachineDefinition PLASMA_MEGA_TURBINE = registerMegaTurbine("plasma_mega_turbine", GTValues.LuV, false, GTRecipeTypes.PLASMA_GENERATOR_FUELS, GTBlocks.CASING_TUNGSTENSTEEL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTCEu.id("block/casings/mechanic/machine_casing_turbine_tungstensteel"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
-    public final static MultiblockMachineDefinition SUPERCRITICAL_MEGA_STEAM_TURBINE = registerMegaTurbine("supercritical_mega_steam_turbine", GTValues.LuV, 128, GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS, GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
+    public final static MultiblockMachineDefinition SUPERCRITICAL_MEGA_STEAM_TURBINE = registerMegaTurbine("supercritical_mega_steam_turbine", GTValues.LuV, true, GTLRecipeTypes.SUPERCRITICAL_STEAM_TURBINE_FUELS, GTLBlocks.CASING_SUPERCRITICAL_TURBINE, GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX,
             GTLCore.id("block/supercritical_turbine_casing"), GTCEu.id("block/multiblock/generator/large_plasma_turbine"));
 
     public final static MultiblockMachineDefinition DYSON_SPHERE = REGISTRATE.multiblock("dyson_sphere", DysonSphereMachine::new)
@@ -220,7 +222,7 @@ public class GeneratorMachine {
                     .where("N", Predicates.blocks(GTLBlocks.ECHO_CASING.get()))
                     .where("P", Predicates.blocks(Registries.getBlock("kubejs:dyson_deployment_magnet")))
                     .where("Q", Predicates.blocks(GTLBlocks.POWER_MODULE_5.get()))
-                    .where("R", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Adamantium)))
+                    .where("R", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Vibranium)))
                     .where("S", Predicates.blocks(Registries.getBlock("kubejs:containment_field_generator")))
                     .where("T", Predicates.blocks(Registries.getBlock("kubejs:dyson_deployment_core")))
                     .where(" ", Predicates.any())

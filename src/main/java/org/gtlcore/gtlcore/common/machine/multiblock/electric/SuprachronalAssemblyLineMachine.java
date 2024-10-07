@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
+import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
@@ -18,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -47,7 +47,7 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
                     pos.offset(0, 0, -3) };
             for (BlockPos i : coordinates) {
                 MetaMachine metaMachine = MetaMachine.getMachine(level, i);
-                if (metaMachine != null && Objects.equals(metaMachine.getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line_module") && ((WorkableElectricMultiblockMachine) metaMachine).isFormed()) {
+                if (metaMachine != null && metaMachine.getBlockState().getBlock() == AdvancedMultiBlockMachine.SUPRACHRONAL_ASSEMBLY_LINE_MODULE.getBlock() && ((WorkableElectricMultiblockMachine) metaMachine).isFormed()) {
                     module++;
                 }
             }
@@ -64,7 +64,7 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
                     pos.offset(0, 0, -3) };
             for (BlockPos i : coordinates) {
                 MetaMachine metaMachine = MetaMachine.getMachine(level, i);
-                if (metaMachine != null && Objects.equals(metaMachine.getBlockState().getBlock().kjs$getId(), "gtceu:suprachronal_assembly_line") && ((WorkableElectricMultiblockMachine) metaMachine).isFormed()) {
+                if (metaMachine != null && metaMachine.getBlockState().getBlock() == AdvancedMultiBlockMachine.SUPRACHRONAL_ASSEMBLY_LINE.getBlock() && ((WorkableElectricMultiblockMachine) metaMachine).isFormed()) {
                     machine = (WorkableElectricMultiblockMachine) metaMachine;
                 }
             }

@@ -1144,7 +1144,7 @@ public class AdvancedMultiBlockMachine {
                     } else if (recipeType.equals(GTRecipeTypes.EXTRACTOR_RECIPES)) {
                         isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_extractor");
                     } else if (recipeType.equals(GTLRecipeTypes.DEHYDRATOR_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_dehydrator");
+                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtlcore:" + GTValues.VN[tier].toLowerCase() + "_dehydrator");
                     }
                     if (!isrecipe) {
                         machine.getRecipeLogic().interruptRecipe();

@@ -6,9 +6,11 @@ import com.gregtechceu.gtceu.api.block.IFilterType;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
@@ -26,13 +28,20 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class IncubatorMachine extends WorkableElectricMultiblockMachine {
 
+    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
+            IncubatorMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
+
+    @Override
+    public ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
+    }
+
     @Persisted
     private int recipeRadioactivity = 0;
 
-    @Persisted
-    private Set<RadiationHatchPartMachine> radiationHatchPartMachines;
-    @Persisted
     private int cleanroomTier = 1;
+
+    private Set<RadiationHatchPartMachine> radiationHatchPartMachines;
 
     public IncubatorMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, args);

@@ -1,14 +1,19 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.generator;
 
+import org.gtlcore.gtlcore.common.machine.multiblock.part.RotorHatchPartMachine;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
+import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+import com.gregtechceu.gtceu.api.machine.ConditionalSubscriptionHandler;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.ITieredMachine;
+import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMaintenanceMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
-import com.gregtechceu.gtceu.api.machine.feature.multiblock.IRotorHolderMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.chance.logic.ChanceLogic;
@@ -16,70 +21,169 @@ import com.gregtechceu.gtceu.api.recipe.content.Content;
 import com.gregtechceu.gtceu.api.recipe.logic.OCParams;
 import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
+import com.gregtechceu.gtceu.common.item.TurbineRotorBehaviour;
+import com.gregtechceu.gtceu.common.machine.multiblock.part.RotorHolderPartMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.gregtechceu.gtceu.utils.GTUtil;
+
+import com.lowdragmc.lowdraglib.gui.util.ClickData;
+import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
+import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
 
+import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-/**
- * @author KilaBash
- * @date 2023/7/9
- * @implNote LargeCombustionEngineMachine
- */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
 
+    public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
+            MegaTurbineMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
+
+    @Override
+    public ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
+    }
+
     public static final int MIN_DURABILITY_TO_WARN = 10;
 
-    private final int BASE_EU_OUTPUT;
+    private final int baseEUOutput;
+
     @Getter
     private final int tier;
-    private int excessVoltage;
+    private final boolean mega;
 
-    public MegaTurbineMachine(IMachineBlockEntity holder, int tier, int am) {
+    private long energyPerTick = 0;
+
+    @Persisted
+    private boolean highSpeedMode = false;
+
+    private Set<RotorHolderPartMachine> rotorHolderMachines;
+
+    private RotorHatchPartMachine rotorHatchPartMachine = null;
+
+    protected ConditionalSubscriptionHandler rotorSubs;
+
+    public MegaTurbineMachine(IMachineBlockEntity holder, int tier, boolean special, boolean mega) {
         super(holder);
+        this.mega = mega;
         this.tier = tier;
-        this.BASE_EU_OUTPUT = (int) GTValues.V[tier] * am;
+        this.baseEUOutput = (int) GTValues.V[tier] * (mega ? 4 : 1) * (special ? 3 : 2);
+        this.rotorSubs = new ConditionalSubscriptionHandler(this, this::rotorUpdate, this::isFormed);
+    }
+
+    private void rotorUpdate() {
+        if (rotorHatchPartMachine != null && getOffsetTimer() % 20 == 0) {
+            if (rotorHatchPartMachine.getInventory().isEmpty()) return;
+            NotifiableItemStackHandler inv = rotorHatchPartMachine.getInventory();
+            ItemStack stack = inv.storage.getStackInSlot(0);
+            for (RotorHolderPartMachine part : rotorHolderMachines) {
+                if (!part.hasRotor()) {
+                    part.setRotorStack(stack);
+                    inv.extractItemInternal(0, 1, false);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onStructureFormed() {
+        super.onStructureFormed();
+        for (IMultiPart part : getParts()) {
+            if (part instanceof RotorHolderPartMachine rotorHolderMachine) {
+                rotorHolderMachines = Objects.requireNonNullElseGet(rotorHolderMachines, HashSet::new);
+                rotorHolderMachines.add(rotorHolderMachine);
+            }
+            if (part instanceof RotorHatchPartMachine rotorHatchPart) {
+                rotorHatchPartMachine = rotorHatchPart;
+            }
+        }
+        if (mega) rotorSubs.initialize(getLevel());
+    }
+
+    @Override
+    public void onStructureInvalid() {
+        super.onStructureInvalid();
+        rotorHolderMachines = null;
+        rotorHatchPartMachine = null;
+    }
+
+    @Override
+    public boolean onWorking() {
+        if (highSpeedMode && getOffsetTimer() % 20 == 0) {
+            for (RotorHolderPartMachine part : rotorHolderMachines) {
+                part.damageRotor(11);
+            }
+        }
+        return super.onWorking();
+    }
+
+    @Override
+    public void afterWorking() {
+        energyPerTick = 0;
+        for (IMultiPart part : getParts()) {
+            if (highSpeedMode && part instanceof IMaintenanceMachine maintenanceMachine) {
+                maintenanceMachine.calculateMaintenance(maintenanceMachine, 12 * getRecipeLogic().getProgress());
+                if (maintenanceMachine.hasMaintenanceProblems()) {
+                    getRecipeLogic().markLastRecipeDirty();
+                }
+                continue;
+            }
+            part.afterWorking(this);
+        }
     }
 
     @Nullable
-    private IRotorHolderMachine getRotorHolder() {
-        for (IMultiPart part : getParts()) {
-            if (part instanceof IRotorHolderMachine rotorHolder) {
-                return rotorHolder;
+    private RotorHolderPartMachine getRotorHolder() {
+        if (rotorHolderMachines != null) {
+            for (RotorHolderPartMachine part : rotorHolderMachines) {
+                return part;
             }
         }
         return null;
     }
 
-    @Override
-    public long getOverclockVoltage() {
-        var rotorHolder = getRotorHolder();
-        if (rotorHolder != null && rotorHolder.hasRotor())
-            return (long) BASE_EU_OUTPUT * rotorHolder.getTotalPower() / 100;
+    private int getRotorSpeed() {
+        if (mega) {
+            Set<Material> material = new HashSet<>();
+            int speed = 0;
+            for (RotorHolderPartMachine part : rotorHolderMachines) {
+                ItemStack stack = part.getRotorStack();
+                TurbineRotorBehaviour rotorBehaviour = TurbineRotorBehaviour.getBehaviour(stack);
+                if (rotorBehaviour == null) return -1;
+                material.add(rotorBehaviour.getPartMaterial(stack));
+                speed += part.getRotorSpeed();
+            }
+            return material.size() == 1 ? speed / 12 : -1;
+        }
+        RotorHolderPartMachine rotor = getRotorHolder();
+        if (rotor != null) {
+            return rotor.getRotorSpeed();
+        }
         return 0;
     }
 
-    protected long boostProduction(long production) {
+    @Override
+    public long getOverclockVoltage() {
         var rotorHolder = getRotorHolder();
         if (rotorHolder != null && rotorHolder.hasRotor()) {
-            int maxSpeed = rotorHolder.getMaxRotorHolderSpeed();
-            int currentSpeed = rotorHolder.getRotorSpeed();
-            if (currentSpeed >= maxSpeed)
-                return production;
-            return (long) (production * Math.pow(1.0 * currentSpeed / maxSpeed, 2));
+            return (long) (baseEUOutput * rotorHolder.getRotorPower() * Math.pow(2, rotorHolder.getTier() - 3) * (highSpeedMode ? 3 : 1) / 100);
         }
         return 0;
     }
@@ -90,36 +194,28 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
     @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                           @NotNull OCResult result) {
-        if (!(machine instanceof MegaTurbineMachine turbineMachine))
-            return null;
+        if (machine instanceof MegaTurbineMachine turbineMachine) {
+            RotorHolderPartMachine rotorHolder = turbineMachine.getRotorHolder();
+            long EUt = RecipeHelper.getOutputEUt(recipe);
+            if (rotorHolder == null || EUt <= 0) return null;
 
-        var rotorHolder = turbineMachine.getRotorHolder();
-        var EUt = RecipeHelper.getOutputEUt(recipe);
+            int rotorSpeed = turbineMachine.getRotorSpeed();
+            if (rotorSpeed == -1) return null;
+            int maxSpeed = rotorHolder.getMaxRotorHolderSpeed();
 
-        if (rotorHolder == null || EUt <= 0)
-            return null;
+            long turbineMaxVoltage = (long) (turbineMachine.getOverclockVoltage() * Math.pow((double) Math.min(maxSpeed, rotorSpeed) / maxSpeed, 2));
 
-        var turbineMaxVoltage = (int) turbineMachine.getOverclockVoltage();
-        if (turbineMachine.excessVoltage >= turbineMaxVoltage) {
-            turbineMachine.excessVoltage -= turbineMaxVoltage;
-            return null;
+            Pair<GTRecipe, Integer> parallelResult = GTRecipeModifiers.fastParallel(turbineMachine, recipe, (int) (turbineMaxVoltage / EUt), false);
+
+            long eut = Math.min(turbineMaxVoltage, parallelResult.getSecond() * EUt);
+            turbineMachine.energyPerTick = eut;
+
+            GTRecipe recipe1 = parallelResult.getFirst();
+            recipe1.duration = recipe1.duration * rotorHolder.getTotalEfficiency() / 100;
+            recipe1.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut, ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
+            return recipe1;
         }
-
-        double holderEfficiency = rotorHolder.getTotalEfficiency() / 100.0;
-
-        // get the amount of parallel required to match the desired output voltage
-        var maxParallel = (int) ((turbineMaxVoltage - turbineMachine.excessVoltage) / (EUt * holderEfficiency));
-
-        // this is necessary to prevent over-consumption of fuel
-        turbineMachine.excessVoltage += (int) (maxParallel * EUt * holderEfficiency - turbineMaxVoltage);
-        var parallelResult = GTRecipeModifiers.fastParallel(turbineMachine, recipe, Math.max(1, maxParallel), false);
-        recipe = parallelResult.getFirst() == recipe ? recipe.copy() : parallelResult.getFirst();
-
-        long eut = turbineMachine.boostProduction((long) (EUt * holderEfficiency * parallelResult.getSecond()));
-        recipe.tickOutputs.put(EURecipeCapability.CAP, List.of(new Content(eut,
-                ChanceLogic.getMaxChancedValue(), ChanceLogic.getMaxChancedValue(), 0, null, null)));
-
-        return recipe;
+        return null;
     }
 
     @Override
@@ -137,33 +233,39 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
     //////////////////////////////////////
 
     @Override
+    public void handleDisplayClick(String componentData, ClickData clickData) {
+        if (mega && !clickData.isRemote && !isActive() && getRotorHolder() != null && getRotorSpeed() == 0) {
+            if (componentData.equals("highSpeedMode")) {
+                this.highSpeedMode = !this.highSpeedMode;
+            }
+        }
+    }
+
+    @Override
     public void addDisplayText(List<Component> textList) {
         super.addDisplayText(textList);
         if (isFormed()) {
+            if (mega) textList.add(Component.translatable("gtceu.machine.mega_turbine.high_speed_mode").append(ComponentPanelWidget.withButton(Component.literal("[").append(this.highSpeedMode ? Component.translatable("gtceu.machine.on") : Component.translatable("gtceu.machine.off")).append(Component.literal("]")), "highSpeedMode")));
             var rotorHolder = getRotorHolder();
 
             if (rotorHolder != null && rotorHolder.getRotorEfficiency() > 0) {
-                textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_speed",
-                        FormattingUtil.formatNumbers(rotorHolder.getRotorSpeed()),
-                        FormattingUtil.formatNumbers(rotorHolder.getMaxRotorHolderSpeed())));
-                textList.add(Component.translatable("gtceu.multiblock.turbine.efficiency",
-                        rotorHolder.getTotalEfficiency()));
-
-                long maxProduction = getOverclockVoltage();
-                long currentProduction = isActive() ? boostProduction((int) maxProduction) : 0;
-                String voltageName = GTValues.VNF[GTUtil.getTierByVoltage(currentProduction)];
+                textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_speed", FormattingUtil.formatNumbers(getRotorSpeed() * (highSpeedMode ? 3 : 1)), FormattingUtil.formatNumbers(rotorHolder.getMaxRotorHolderSpeed() * (highSpeedMode ? 3 : 1))));
+                textList.add(Component.translatable("gtceu.multiblock.turbine.efficiency", rotorHolder.getTotalEfficiency()));
 
                 if (isActive()) {
+                    String voltageName = GTValues.VNF[GTUtil.getTierByVoltage(energyPerTick)];
                     textList.add(3, Component.translatable("gtceu.multiblock.turbine.energy_per_tick",
-                            FormattingUtil.formatNumbers(currentProduction), voltageName));
+                            FormattingUtil.formatNumbers(energyPerTick), voltageName));
                 }
 
-                int rotorDurability = rotorHolder.getRotorDurabilityPercent();
-                if (rotorDurability > MIN_DURABILITY_TO_WARN) {
-                    textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_durability", rotorDurability));
-                } else {
-                    textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_durability", rotorDurability)
-                            .setStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
+                if (!mega) {
+                    int rotorDurability = rotorHolder.getRotorDurabilityPercent();
+                    if (rotorDurability > MIN_DURABILITY_TO_WARN) {
+                        textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_durability", rotorDurability));
+                    } else {
+                        textList.add(Component.translatable("gtceu.multiblock.turbine.rotor_durability", rotorDurability)
+                                .setStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
+                    }
                 }
             }
         }

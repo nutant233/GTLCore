@@ -11,8 +11,6 @@ import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockDisplayText;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
@@ -37,7 +35,6 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
                                         implements IOpticalComputationProvider, IControllable {
 
     public int allocatedCWUt = 0;
-    @Persisted
     public long totalCWU = 0;
     public int maxCWUt = 0;
     @Nullable

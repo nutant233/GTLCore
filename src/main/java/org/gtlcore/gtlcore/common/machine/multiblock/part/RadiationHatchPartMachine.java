@@ -1,12 +1,11 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.part;
 
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.TickableSubscription;
 import com.gregtechceu.gtceu.api.machine.feature.IMachineModifyDrops;
-import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredPartMachine;
+import com.gregtechceu.gtceu.api.machine.multiblock.part.MultiblockPartMachine;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
@@ -33,10 +32,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class RadiationHatchPartMachine extends TieredPartMachine implements IMachineModifyDrops, IRecipeCapabilityHolder {
+public class RadiationHatchPartMachine extends MultiblockPartMachine implements IMachineModifyDrops, IRecipeCapabilityHolder {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            RadiationHatchPartMachine.class, TieredPartMachine.MANAGED_FIELD_HOLDER);
+            RadiationHatchPartMachine.class, MultiblockPartMachine.MANAGED_FIELD_HOLDER);
 
     @Override
     public ManagedFieldHolder getFieldHolder() {
@@ -67,7 +66,7 @@ public class RadiationHatchPartMachine extends TieredPartMachine implements IMac
     protected TickableSubscription radiationSubs;
 
     public RadiationHatchPartMachine(IMachineBlockEntity holder) {
-        super(holder, GTValues.ZPM);
+        super(holder);
         this.inventory = new NotifiableItemStackHandler(this, 1, IO.IN, IO.BOTH);
         this.capabilitiesProxy = Tables.newCustomTable(new EnumMap<>(IO.class), HashMap::new);
         capabilitiesProxy.put(IO.IN, ItemRecipeCapability.CAP, List.of(inventory));
