@@ -195,7 +195,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setMaxGlobalLimited(1)))
                     .where("c", Predicates.blocks(GCyMBlocks.HEAT_VENT.get()))
                     .where("d", Predicates.blocks(Registries.getBlock("kubejs:neutronium_pipe_casing")))
-                    .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Titanium)))
+                    .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.BlackTitanium)))
                     .where("f", Predicates.blocks(GTLBlocks.EXTREME_STRENGTH_TRITANIUM_CASING.get()))
                     .build())
             .beforeWorking((machine, recipe) -> {
@@ -203,7 +203,7 @@ public class AdvancedMultiBlockMachine {
                 BlockPos pos = machine.self().getPos();
                 BlockPos[] coordinates = new BlockPos[] { pos.offset(4, 8, 0), pos.offset(-4, 8, 0), pos.offset(0, 8, 4), pos.offset(0, 8, -4) };
                 for (BlockPos a : coordinates) {
-                    if (level != null && Objects.equals(level.getBlockState(a).getBlock().kjs$getId(), "gtceu:black_titanium_frame")) {
+                    if (level != null && level.getBlockState(a).getBlock() == ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.BlackTitanium)) {
                         for (int i = -6; i < 7; i++) {
                             for (int j = -6; j < 7; j++) {
                                 if (level.getBrightness(LightLayer.SKY, a.offset(0, 1, 0)) == 0) {
@@ -980,8 +980,8 @@ public class AdvancedMultiBlockMachine {
             .recipeType(GTRecipeTypes.WIREMILL_RECIPES)
             .recipeType(GTRecipeTypes.FORMING_PRESS_RECIPES)
             .recipeType(GTRecipeTypes.POLARIZER_RECIPES)
-            .recipeType(GTRecipeTypes.LASER_ENGRAVER_RECIPES)
-            .recipeType(GTRecipeTypes.FLUID_SOLIDFICATION_RECIPES)
+            .recipeType(GTLRecipeTypes.CLUSTER_RECIPES)
+            .recipeType(GTLRecipeTypes.ROLLING_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.9))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.0"))
@@ -996,8 +996,8 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.wiremill"),
                     Component.translatable("gtceu.forming_press"),
                     Component.translatable("gtceu.polarizer"),
-                    Component.translatable("gtceu.laser_engraver"),
-                    Component.translatable("gtceu.fluid_solidifier")))
+                    Component.translatable("gtceu.cluster"),
+                    Component.translatable("gtceu.rolling")))
             .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
             .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
@@ -1034,10 +1034,10 @@ public class AdvancedMultiBlockMachine {
                         isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_forming_press");
                     } else if (recipeType.equals(GTRecipeTypes.POLARIZER_RECIPES)) {
                         isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_polarizer");
-                    } else if (recipeType.equals(GTRecipeTypes.FLUID_SOLIDFICATION_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_fluid_solidifier");
-                    } else if (recipeType.equals(GTRecipeTypes.LASER_ENGRAVER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_laser_engraver");
+                    } else if (recipeType.equals(GTLRecipeTypes.CLUSTER_RECIPES)) {
+                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtlcore:" + GTValues.VN[tier].toLowerCase() + "_cluster");
+                    } else if (recipeType.equals(GTLRecipeTypes.ROLLING_RECIPES)) {
+                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtlcore:" + GTValues.VN[tier].toLowerCase() + "_rolling");
                     }
                     if (!isrecipe) {
                         machine.getRecipeLogic().interruptRecipe();

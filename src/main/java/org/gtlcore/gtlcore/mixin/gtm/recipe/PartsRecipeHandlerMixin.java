@@ -254,12 +254,21 @@ public class PartsRecipeHandlerMixin {
     @Unique
     private static void gTLCore$processPlateDense(TagPrefix tagPrefix, Material material, DustProperty property,
                                                   Consumer<FinishedRecipe> provider) {
-        GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_dense_plate")
-                .inputItems(block, material)
-                .outputItems(tagPrefix, material)
-                .duration((int) Math.max(material.getMass() * 9L, 1L))
-                .EUt(96)
-                .save(provider);
+        if (material.hasProperty(PropertyKey.INGOT)) {
+            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_block_to_dense_plate")
+                    .inputItems(block, material)
+                    .outputItems(tagPrefix, material)
+                    .duration((int) Math.max(material.getMass() * 9L, 1L))
+                    .EUt(96)
+                    .save(provider);
+        } else {
+            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_dense_plate")
+                    .inputItems(plate, material, 9)
+                    .outputItems(tagPrefix, material)
+                    .duration((int) Math.max(material.getMass() * 9L, 1L))
+                    .EUt(96)
+                    .save(provider);
+        }
     }
 
     @Unique

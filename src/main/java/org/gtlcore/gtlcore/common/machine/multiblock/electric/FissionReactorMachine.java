@@ -133,9 +133,11 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     public void doExplosion(BlockPos pos, float explosionPower) {
         var machine = this.self();
         var level = machine.getLevel();
-        level.removeBlock(machine.getPos(), false);
-        level.explode(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                explosionPower, Level.ExplosionInteraction.BLOCK);
+        if (level != null) {
+            level.removeBlock(machine.getPos(), false);
+            level.explode(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                    explosionPower, Level.ExplosionInteraction.BLOCK);
+        }
     }
 
     protected void HeatUpdate() {
@@ -200,39 +202,41 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         boolean value = super.onWorking();
         if (getOffsetTimer() % 20 == 0) {
             GTRecipe recipe = getRecipeLogic().getLastRecipe();
-            int h = recipe.data.getInt("FRheat");
-            double required = (double) (h * parallel * heat) / 1500;
-            double surplus = ((cooler - ((double) coolerAdjacent / 3)) * 8) - required;
-            if (surplus >= 0) {
-                if (inputWater(required)) {
-                    while (surplus >= required && getProgress() < getMaxProgress()) {
-                        if (inputWater(required)) {
-                            surplus = surplus - required;
-                            getRecipeLogic().setProgress(getProgress() + 20);
-                        } else {
-                            break;
+            if (recipe != null) {
+                int h = recipe.data.getInt("FRheat");
+                double required = (double) (h * parallel * heat) / 1500;
+                double surplus = ((cooler - ((double) coolerAdjacent / 3)) * 8) - required;
+                if (surplus >= 0) {
+                    if (inputWater(required)) {
+                        while (surplus >= required && getProgress() < getMaxProgress()) {
+                            if (inputWater(required)) {
+                                surplus = surplus - required;
+                                getRecipeLogic().setProgress(getProgress() + 20);
+                            } else {
+                                break;
+                            }
                         }
-                    }
-                    if (heat > 298 && surplus >= required && inputWater(required)) {
-                        heat--;
-                    }
-                    return value;
-                } else if (inputSodiumPotassium(required)) {
-                    while (surplus >= required && getProgress() < getMaxProgress()) {
-                        if (inputSodiumPotassium(required)) {
-                            surplus = surplus - required;
-                            getRecipeLogic().setProgress(getProgress() + 20);
-                        } else {
-                            break;
+                        if (heat > 298 && surplus >= required && inputWater(required)) {
+                            heat--;
                         }
+                        return value;
+                    } else if (inputSodiumPotassium(required)) {
+                        while (surplus >= required && getProgress() < getMaxProgress()) {
+                            if (inputSodiumPotassium(required)) {
+                                surplus = surplus - required;
+                                getRecipeLogic().setProgress(getProgress() + 20);
+                            } else {
+                                break;
+                            }
+                        }
+                        if (heat > 298 && surplus >= required && inputSodiumPotassium(required)) {
+                            heat--;
+                        }
+                        return value;
                     }
-                    if (heat > 298 && surplus >= required && inputSodiumPotassium(required)) {
-                        heat--;
-                    }
-                    return value;
                 }
+                heat += h * heatAdjacent;
             }
-            heat += h * heatAdjacent;
         }
         return value;
     }

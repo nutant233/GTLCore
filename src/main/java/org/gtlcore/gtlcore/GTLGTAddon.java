@@ -110,6 +110,7 @@ public class GTLGTAddon implements IGTAddon {
         ConfigHolder.INSTANCE.compat.energy.euToPlatformRatio = 1;
         ConfigHolder.INSTANCE.compat.ae2.meHatchEnergyUsage = 1920;
         ConfigHolder.INSTANCE.compat.showDimensionTier = true;
+        ConfigHolder.INSTANCE.compat.hideOreProcessingDiagrams = true;
 
         GTLElements.init();
     }

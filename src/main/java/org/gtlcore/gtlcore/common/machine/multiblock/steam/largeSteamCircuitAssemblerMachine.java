@@ -20,9 +20,9 @@ import com.lowdragmc.lowdraglib.gui.util.ClickData;
 import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+import com.lowdragmc.lowdraglib.utils.LocalizationUtils;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -73,7 +73,7 @@ public class largeSteamCircuitAssemblerMachine extends LargeSteamParallelMultibl
         super.addDisplayText(textList);
         if (isFormed()) {
             textList.add(ComponentPanelWidget.withButton(Component.literal("铭刻电路"), "engraveCircuit"));
-            textList.add(Component.literal("已铭刻电路：" + (item == null ? "空" : I18n.get(item.getDescriptionId()))));
+            textList.add(Component.literal("已铭刻电路：" + (item == null ? "空" : LocalizationUtils.format(item.getDescriptionId()))));
         }
     }
 

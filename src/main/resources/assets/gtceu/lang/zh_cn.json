@@ -336,6 +336,7 @@
     "gtceu.precision_laser_engraver": "精密激光蚀刻",
     "gtceu.primitive_void_ore": "原始虚空采矿",
     "gtceu.qft": "量子操纵者",
+    "gtceu.radiation_hatch": "放射仓材料",
     "gtceu.random_ore": "随机矿石模式",
     "gtceu.rare_earth_centrifugal": "稀土离心",
     "gtceu.recipe.ca_tier": "外壳等级：%s",

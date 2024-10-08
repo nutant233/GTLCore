@@ -343,7 +343,7 @@ public class GTLMachines {
         return registerTieredMachines(amperage + "a_wireless_energy_" + name + "_hatch",
                 (holder, tier) -> new WirelessEnergyHatchPartMachine(holder, tier, io, amperage),
                 (tier, builder) -> builder
-                        .langValue(VNF[tier] + (io == IO.IN ? " Energy Hatch" : " Dynamo Hatch"))
+                        .langValue(VNF[tier] + " " + amperage + "A Wireless" + (io == IO.IN ? " Energy Hatch" : " Dynamo Hatch"))
                         .rotationState(RotationState.ALL)
                         .abilities(ability)
                         .tooltips(Component.translatable("gtmthings.machine.energy_hatch." + name + ".tooltip"), (Component.translatable("gtmthings.machine.wireless_energy_hatch." + name + ".tooltip")))

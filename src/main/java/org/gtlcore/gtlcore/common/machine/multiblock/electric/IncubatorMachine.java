@@ -87,10 +87,11 @@ public class IncubatorMachine extends WorkableElectricMultiblockMachine {
 
     @Override
     public boolean beforeWorking(@Nullable GTRecipe recipe) {
-        if (recipe != null && recipe.data.contains("radioactivity")) {
-            if (recipe.data.contains("filter_casing") && recipe.data.getInt("filter_casing") > cleanroomTier) {
-                return false;
-            }
+        if (recipe == null) return false;
+        if (recipe.data.contains("filter_casing") && recipe.data.getInt("filter_casing") > cleanroomTier) {
+            return false;
+        }
+        if (recipe.data.contains("radioactivity")) {
             recipeRadioactivity = recipe.data.getInt("radioactivity");
             if (outside()) {
                 return false;
@@ -108,6 +109,12 @@ public class IncubatorMachine extends WorkableElectricMultiblockMachine {
             }
         }
         return value;
+    }
+
+    @Override
+    public void afterWorking() {
+        recipeRadioactivity = 0;
+        super.afterWorking();
     }
 
     private int getRecipeRadioactivity() {
