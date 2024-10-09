@@ -20,6 +20,7 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+import com.gregtechceu.gtceu.utils.GTUtil;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -38,20 +39,43 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class ProcessingPlantMachine extends StorageMachine {
 
-    private static final Set<GTRecipeType> RECIPETYPES = Set.of(GTRecipeTypes.BENDER_RECIPES,
-            GTRecipeTypes.COMPRESSOR_RECIPES, GTRecipeTypes.FORGE_HAMMER_RECIPES, GTRecipeTypes.CUTTER_RECIPES, GTRecipeTypes.LASER_ENGRAVER_RECIPES,
-            GTRecipeTypes.EXTRUDER_RECIPES, GTRecipeTypes.LATHE_RECIPES, GTRecipeTypes.WIREMILL_RECIPES, GTRecipeTypes.FORMING_PRESS_RECIPES,
-            GTRecipeTypes.POLARIZER_RECIPES, GTLRecipeTypes.CLUSTER_RECIPES, GTLRecipeTypes.ROLLING_RECIPES, GTRecipeTypes.ASSEMBLER_RECIPES,
-            GTRecipeTypes.CIRCUIT_ASSEMBLER_RECIPES, GTRecipeTypes.CENTRIFUGE_RECIPES, GTRecipeTypes.THERMAL_CENTRIFUGE_RECIPES, GTRecipeTypes.ELECTROLYZER_RECIPES,
-            GTRecipeTypes.SIFTER_RECIPES, GTRecipeTypes.MACERATOR_RECIPES, GTRecipeTypes.EXTRACTOR_RECIPES, GTLRecipeTypes.DEHYDRATOR_RECIPES,
-            GTRecipeTypes.CHEMICAL_RECIPES, GTRecipeTypes.MIXER_RECIPES, GTRecipeTypes.CHEMICAL_BATH_RECIPES, GTRecipeTypes.ORE_WASHER_RECIPES);
+    private static final Set<GTRecipeType> RECIPE_TYPES = Set.of(
+            GTRecipeTypes.BENDER_RECIPES,
+            GTRecipeTypes.COMPRESSOR_RECIPES,
+            GTRecipeTypes.FORGE_HAMMER_RECIPES,
+            GTRecipeTypes.CUTTER_RECIPES,
+            GTRecipeTypes.LASER_ENGRAVER_RECIPES,
+            GTRecipeTypes.EXTRUDER_RECIPES,
+            GTRecipeTypes.LATHE_RECIPES,
+            GTRecipeTypes.WIREMILL_RECIPES,
+            GTRecipeTypes.FORMING_PRESS_RECIPES,
+            GTRecipeTypes.DISTILLERY_RECIPES,
+            GTRecipeTypes.POLARIZER_RECIPES,
+            GTLRecipeTypes.CLUSTER_RECIPES,
+            GTLRecipeTypes.ROLLING_RECIPES,
+            GTRecipeTypes.ASSEMBLER_RECIPES,
+            GTRecipeTypes.CIRCUIT_ASSEMBLER_RECIPES,
+            GTRecipeTypes.CENTRIFUGE_RECIPES,
+            GTRecipeTypes.THERMAL_CENTRIFUGE_RECIPES,
+            GTRecipeTypes.ELECTROLYZER_RECIPES,
+            GTRecipeTypes.SIFTER_RECIPES,
+            GTRecipeTypes.MACERATOR_RECIPES,
+            GTRecipeTypes.EXTRACTOR_RECIPES,
+            GTLRecipeTypes.DEHYDRATOR_RECIPES,
+            GTRecipeTypes.MIXER_RECIPES,
+            GTRecipeTypes.CHEMICAL_BATH_RECIPES,
+            GTRecipeTypes.ORE_WASHER_RECIPES,
+            GTLRecipeTypes.LOOM_RECIPES,
+            GTLRecipeTypes.LAMINATOR_RECIPES);
 
     @Nullable
     private GTRecipeType[] recipeTypeCache = new GTRecipeType[] { GTRecipeTypes.DUMMY_RECIPES };
 
     private int machineTier = 0;
 
-    public ProcessingPlantMachine(IMachineBlockEntity holder, Object... args) {
+    private boolean mismatched = false;
+
+    public ProcessingPlantMachine(IMachineBlockEntity holder) {
         super(holder, 1);
     }
 
@@ -63,7 +87,7 @@ public class ProcessingPlantMachine extends StorageMachine {
                 return false;
             }
             GTRecipeType recipeType = definition.getRecipeTypes()[0];
-            return RECIPETYPES.contains(recipeType);
+            return RECIPE_TYPES.contains(recipeType);
         }
         return false;
     }
@@ -130,11 +154,13 @@ public class ProcessingPlantMachine extends StorageMachine {
         super.addDisplayText(textList);
         if (!this.isFormed) return;
         textList.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(getTier() == 0 ? 0 : 4 * (getTier() - 1))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+        if (mismatched) textList.add(Component.literal("配方等级与小机器等级不匹配").withStyle(ChatFormatting.RED));
     }
 
     protected void onMachineChanged() {
         recipeTypeCache = new GTRecipeType[] { GTRecipeTypes.DUMMY_RECIPES };
         machineTier = 0;
+        mismatched = false;
         if (isFormed) {
             if (getRecipeLogic().getLastRecipe() != null) {
                 getRecipeLogic().markLastRecipeDirty();
@@ -142,7 +168,11 @@ public class ProcessingPlantMachine extends StorageMachine {
             getRecipeLogic().updateTickSubscription();
             MachineDefinition definition = getMachineDefinition();
             if (definition != null) {
-                machineTier = definition.getTier();
+                if (GTUtil.getFloorTierByVoltage(super.getMaxVoltage()) == definition.getTier()) {
+                    machineTier = definition.getTier();
+                } else {
+                    mismatched = true;
+                }
                 recipeTypeCache = definition.getRecipeTypes();
             }
         }

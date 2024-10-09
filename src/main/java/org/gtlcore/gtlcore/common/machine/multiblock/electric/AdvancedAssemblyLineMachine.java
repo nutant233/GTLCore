@@ -17,6 +17,7 @@ import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 import com.lowdragmc.lowdraglib.misc.ItemStackTransfer;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -39,21 +40,22 @@ public class AdvancedAssemblyLineMachine extends WorkableElectricMultiblockMachi
             if (lineMachine.itemStackTransfers.size() < recipeInputs.size()) return null;
             for (int i = 0; i < recipeInputs.size(); i++) {
                 ItemStackTransfer storage = lineMachine.itemStackTransfers.get(i);
+                Set<Item> itemSet = new HashSet<>();
                 Set<ItemStack> itemStackSet = new HashSet<>();
                 for (int j = 0; j < storage.getSlots(); j++) {
-                    ItemStack stack = storage.getStackInSlot(j);
-                    if (stack.isEmpty()) break;
-                    itemStackSet.add(stack);
+                    ItemStack item = storage.getStackInSlot(j);
+                    if (!item.isEmpty()) {
+                        itemSet.add(item.getItem());
+                        itemStackSet.add(item);
+                    }
                 }
-                if (itemStackSet.size() != 1) return null;
+                if (itemSet.size() != 1) return null;
                 Ingredient recipeStack = ItemRecipeCapability.CAP.of(recipeInputs.get(i).content);
-                if (!recipeStack.test(itemStackSet.iterator().next())) {
-                    return null;
-                }
+                if (!recipeStack.test(itemStackSet.iterator().next())) return null;
             }
-            GTRecipe recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe, true, params, result);
+            GTRecipe recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe, false, params, result);
             if (recipe1 == null) return null;
-            return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK,
+            return RecipeHelper.applyOverclock(new OverclockingLogic(0.625, 4, false),
                     recipe1, lineMachine.getOverclockVoltage(), params, result);
         }
         return null;

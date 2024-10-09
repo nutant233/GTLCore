@@ -968,41 +968,41 @@ public class AdvancedMultiBlockMachine {
             .workableCasingRenderer(GTLCore.id("block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition PROCESSING_PLANT = REGISTRATE.multiblock("processing_plant", (holder) -> new ProcessingPlantMachine(holder))
+    public final static MultiblockMachineDefinition PROCESSING_PLANT = REGISTRATE.multiblock("processing_plant", ProcessingPlantMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.DUMMY_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.9))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.1"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_7.tooltip",
-                    Component.translatable("gtceu.centrifuge"),
-                    Component.translatable("gtceu.thermal_centrifuge"),
-                    Component.translatable("gtceu.electrolyzer"),
-                    Component.translatable("gtceu.sifter"),
-                    Component.translatable("gtceu.macerator"),
-                    Component.translatable("gtceu.extractor"),
-                    Component.translatable("gtceu.dehydrator")))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_4.tooltip",
-                    Component.translatable("gtceu.chemical_reactor"),
-                    Component.translatable("gtceu.mixer"),
-                    Component.translatable("gtceu.chemical_bath"),
-                    Component.translatable("gtceu.ore_washer")))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_3.tooltip",
-                    Component.translatable("gtceu.laser_engraver"),
-                    Component.translatable("gtceu.assembler"), Component.translatable("gtceu.circuit_assembler")))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_11.tooltip",
-                    Component.translatable("gtceu.bender"),
-                    Component.translatable("gtceu.compressor"),
-                    Component.translatable("gtceu.forge_hammer"),
-                    Component.translatable("gtceu.cutter"),
-                    Component.translatable("gtceu.extruder"),
-                    Component.translatable("gtceu.lathe"),
-                    Component.translatable("gtceu.wiremill"),
-                    Component.translatable("gtceu.forming_press"),
-                    Component.translatable("gtceu.polarizer"),
-                    Component.translatable("gtceu.cluster"),
-                    Component.translatable("gtceu.rolling")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.bender")
+                            .append("，").append(Component.translatable("gtceu.compressor"))
+                            .append("，").append(Component.translatable("gtceu.forge_hammer"))
+                            .append("，").append(Component.translatable("gtceu.cutter"))
+                            .append("，").append(Component.translatable("gtceu.extruder"))
+                            .append("，").append(Component.translatable("gtceu.lathe"))
+                            .append("，").append(Component.translatable("gtceu.wiremill"))
+                            .append("，").append(Component.translatable("gtceu.loom"))
+                            .append("，").append(Component.translatable("gtceu.forming_press"))
+                            .append("，").append(Component.translatable("gtceu.polarizer"))
+                            .append("，").append(Component.translatable("gtceu.cluster"))
+                            .append("，").append(Component.translatable("gtceu.rolling"))
+                            .append("，").append(Component.translatable("gtceu.centrifuge"))
+                            .append("，").append(Component.translatable("gtceu.thermal_centrifuge"))
+                            .append("，").append(Component.translatable("gtceu.electrolyzer"))
+                            .append("，").append(Component.translatable("gtceu.sifter"))
+                            .append("，").append(Component.translatable("gtceu.macerator"))
+                            .append("，").append(Component.translatable("gtceu.extractor"))
+                            .append("，").append(Component.translatable("gtceu.dehydrator"))
+                            .append("，").append(Component.translatable("gtceu.mixer"))
+                            .append("，").append(Component.translatable("gtceu.chemical_bath"))
+                            .append("，").append(Component.translatable("gtceu.laminator"))
+                            .append("，").append(Component.translatable("gtceu.ore_washer"))
+                            .append("，").append(Component.translatable("gtceu.distillery"))
+                            .append("，").append(Component.translatable("gtceu.laser_engraver"))
+                            .append("，").append(Component.translatable("gtceu.assembler"))
+                            .append("，").append(Component.translatable("gtceu.circuit_assembler"))))
             .recipeModifiers(ProcessingPlantMachine::processingPlantOverclock)
             .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
