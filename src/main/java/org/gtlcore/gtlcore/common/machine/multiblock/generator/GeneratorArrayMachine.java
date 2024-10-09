@@ -128,10 +128,7 @@ public class GeneratorArrayMachine extends WorkableElectricMultiblockMachine imp
     public GTRecipeType[] getRecipeTypes() {
         if (recipeTypeCache == null) {
             var definition = getMachineDefinition();
-            recipeTypeCache = definition == null ? null : definition.getRecipeTypes();
-        }
-        if (recipeTypeCache == null) {
-            recipeTypeCache = new GTRecipeType[] { GTRecipeTypes.DUMMY_RECIPES };
+            recipeTypeCache = definition == null ? new GTRecipeType[] { GTRecipeTypes.DUMMY_RECIPES } : definition.getRecipeTypes();
         }
         return recipeTypeCache;
     }

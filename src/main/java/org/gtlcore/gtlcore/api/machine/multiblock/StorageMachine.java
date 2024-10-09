@@ -39,7 +39,7 @@ public class StorageMachine extends WorkableElectricMultiblockMachine implements
     }
 
     protected NotifiableItemStackHandler createMachineStorage(int value) {
-        return new NotifiableItemStackHandler(
+        NotifiableItemStackHandler storage = new NotifiableItemStackHandler(
                 this, 1, IO.NONE, IO.BOTH, slots -> new ItemStackTransfer(1) {
 
                     @Override
@@ -47,6 +47,12 @@ public class StorageMachine extends WorkableElectricMultiblockMachine implements
                         return value;
                     }
                 });
+        storage.setFilter(this::filter);
+        return storage;
+    }
+
+    protected boolean filter(ItemStack itemStack) {
+        return true;
     }
 
     @Override

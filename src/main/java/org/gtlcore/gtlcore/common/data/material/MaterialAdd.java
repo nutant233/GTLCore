@@ -24,7 +24,7 @@ public class MaterialAdd {
         Naquadria.addFlags(GENERATE_FRAME);
         Trinium.addFlags(GENERATE_FRAME);
         Silver.getProperty(PropertyKey.FLUID).enqueueRegistration(FluidStorageKeys.PLASMA, (new FluidBuilder()).state(FluidState.PLASMA));
-        Europium.getProperty(PropertyKey.BLAST).setBlastTemperature(9600);
+        Europium.getProperty(PropertyKey.BLAST).setBlastTemperature(9602);
         Neutronium.addFlags(GENERATE_ROTOR, GENERATE_SPRING, GENERATE_GEAR, GENERATE_SMALL_GEAR, GENERATE_SPRING_SMALL);
         Neutronium.setProperty(PropertyKey.WIRE, new WireProperties((int) GTValues.V[GTValues.UIV], 2, 64));
         Mendelevium.setProperty(PropertyKey.WIRE, new WireProperties((int) GTValues.V[GTValues.UHV], 4, 16));

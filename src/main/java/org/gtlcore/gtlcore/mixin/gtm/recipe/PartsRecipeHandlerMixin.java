@@ -113,7 +113,7 @@ public class PartsRecipeHandlerMixin {
                     .notConsumable(GTItems.SHAPE_EXTRUDER_FOIL)
                     .outputItems(foilPrefix, material, 4)
                     .duration(mass)
-                    .EUt(24)
+                    .EUt(96)
                     .save(provider);
         }
     }

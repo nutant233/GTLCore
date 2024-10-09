@@ -136,10 +136,11 @@ public class MaterialRecipeHandlerMixin {
             if (!material.hasFlag(NO_SMASHING)) {
                 ItemStack plateStack = ChemicalHelper.get(plate, material);
                 if (!plateStack.isEmpty()) {
-                    GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_to_plate")
+                    BENDER_RECIPES.recipeBuilder("bend_" + material.getName() + "_to_plate")
                             .inputItems(ingotPrefix, material)
                             .outputItems(plateStack)
                             .EUt(24).duration(mass)
+                            .circuitMeta(1)
                             .save(provider);
 
                     FORGE_HAMMER_RECIPES.recipeBuilder("hammer_" + material.getName() + "_to_plate")

@@ -55,19 +55,6 @@ public class GTLRecipeModifiers {
         return null;
     }
 
-    public static GTRecipe processingPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
-                                                    @NotNull OCResult result) {
-        if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-            GTRecipe recipe1 = reduction(machine, recipe, 0.9, 0.6);
-            if (recipe1 != null) {
-                recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe1, 4 * (workableElectricMultiblockMachine).getTier() - 1, false).getFirst();
-                if (recipe1 != null) return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1,
-                        workableElectricMultiblockMachine.getOverclockVoltage(), params, result);
-            }
-        }
-        return null;
-    }
-
     public static GTRecipe nanoForgeOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                               @NotNull OCResult result, int tier) {
         if (machine instanceof StorageMachine storageMachine) {
@@ -98,7 +85,7 @@ public class GTLRecipeModifiers {
             FluidStack fluidStack2 = FluidRecipeCapability.CAP.of(fluidList.get(1).getContent()).getStacks()[0];
             long a = 0, b = 0;
             for (IMultiPart part : workableElectricMultiblockMachine.getParts()) {
-                for (IRecipeHandlerTrait handler : part.getRecipeHandlers()) {
+                for (IRecipeHandlerTrait<?> handler : part.getRecipeHandlers()) {
                     if (handler.getHandlerIO() == IO.IN) {
                         for (Object contents : handler.getContents()) {
                             if (contents instanceof FluidStack fluidStack) {

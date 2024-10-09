@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
@@ -9,6 +10,7 @@ import org.gtlcore.gtlcore.common.data.machines.*;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMachines;
@@ -49,49 +51,49 @@ public class MachineRecipe {
         VanillaRecipeHelper.addShapedRecipe(provider, true, "casing_max", GTBlocks.MACHINE_CASING_MAX.asStack(),
                 "PPP",
                 "PwP", "PPP", 'P', new UnificationEntry(TagPrefix.plate, GTLMaterials.Chaos));
-        ASSEMBLER_RECIPES.recipeBuilder("casing_uev").EUt(16).inputItems(plate, GTLMaterials.Quantanium, 8)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("casing_uev")).EUt(16).inputItems(plate, GTLMaterials.Quantanium, 8)
                 .outputItems(GTBlocks.MACHINE_CASING_UEV.asStack()).circuitMeta(8).duration(50)
                 .save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("casing_uiv").EUt(16).inputItems(plate, GTLMaterials.Adamantium, 8)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("casing_uiv")).EUt(16).inputItems(plate, GTLMaterials.Adamantium, 8)
                 .outputItems(GTBlocks.MACHINE_CASING_UIV.asStack()).circuitMeta(8).duration(50)
                 .save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("casing_uxv").EUt(16).inputItems(plate, GTLMaterials.Vibranium, 8)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("casing_uxv")).EUt(16).inputItems(plate, GTLMaterials.Vibranium, 8)
                 .outputItems(GTBlocks.MACHINE_CASING_UXV.asStack()).circuitMeta(8).duration(50)
                 .save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("casing_opv").EUt(16).inputItems(plate, GTLMaterials.Draconium, 8)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("casing_opv")).EUt(16).inputItems(plate, GTLMaterials.Draconium, 8)
                 .outputItems(GTBlocks.MACHINE_CASING_OpV.asStack()).circuitMeta(8).duration(50)
                 .save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("casing_max").EUt(16).inputItems(plate, GTLMaterials.Chaos, 8)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("casing_max")).EUt(16).inputItems(plate, GTLMaterials.Chaos, 8)
                 .outputItems(GTBlocks.MACHINE_CASING_MAX.asStack()).circuitMeta(8).duration(50)
                 .save(provider);
 
-        ASSEMBLER_RECIPES.recipeBuilder("hull_uhv").duration(50).EUt(16)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("hull_uhv")).duration(50).EUt(16)
                 .inputItems(GTBlocks.MACHINE_CASING_UHV.asStack())
                 .inputItems(cableGtSingle, Europium, 2)
                 .inputFluids(GTLMaterials.Polyetheretherketone.getFluid(L * 2))
                 .outputItems(GTMachines.HULL[9]).save(provider);
 
-        ASSEMBLER_RECIPES.recipeBuilder("hull_uev").duration(50).EUt(16)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("hull_uev")).duration(50).EUt(16)
                 .inputItems(GTBlocks.MACHINE_CASING_UEV.asStack())
                 .inputItems(cableGtSingle, GTLMaterials.Mithril, 2)
                 .inputFluids(GTLMaterials.Polyetheretherketone.getFluid(L * 2))
                 .outputItems(GTMachines.HULL[10]).save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("hull_uiv").duration(50).EUt(16)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("hull_uiv")).duration(50).EUt(16)
                 .inputItems(GTBlocks.MACHINE_CASING_UIV.asStack())
                 .inputItems(cableGtSingle, GTMaterials.Neutronium, 2)
                 .inputFluids(GTLMaterials.Zylon.getFluid(L * 2))
                 .outputItems(GTMachines.HULL[11]).save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("hull_uxv").duration(50).EUt(16)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("hull_uxv")).duration(50).EUt(16)
                 .inputItems(GTBlocks.MACHINE_CASING_UXV.asStack())
                 .inputItems(cableGtSingle, GTLMaterials.Taranium, 2)
                 .inputFluids(GTLMaterials.Zylon.getFluid(L * 2))
                 .outputItems(GTMachines.HULL[12]).save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("hull_opv").duration(50).EUt(16)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("hull_opv")).duration(50).EUt(16)
                 .inputItems(GTBlocks.MACHINE_CASING_OpV.asStack())
                 .inputItems(cableGtSingle, GTLMaterials.Crystalmatrix, 2)
                 .inputFluids(GTLMaterials.FullerenePolymerMatrixPulp.getFluid(L * 2))
                 .outputItems(GTMachines.HULL[13]).save(provider);
-        ASSEMBLER_RECIPES.recipeBuilder("hull_max").duration(50).EUt(16)
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("hull_max")).duration(50).EUt(16)
                 .inputItems(GTBlocks.MACHINE_CASING_MAX.asStack())
                 .inputItems(cableGtSingle, GTLMaterials.CosmicNeutronium, 2)
                 .inputFluids(GTLMaterials.Radox.getFluid(L * 2))
@@ -235,7 +237,7 @@ public class MachineRecipe {
                 'S', GTItems.SENSOR_ZPM.asStack(), 'E', GTItems.EMITTER_ZPM.asStack(), 'H',
                 AdvancedMultiBlockMachine.BLOCK_CONVERSION_ROOM.asStack());
 
-        ASSEMBLER_RECIPES.recipeBuilder("zpm_fluid_drilling_rig")
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("zpm_fluid_drilling_rig"))
                 .inputItems(GTMachines.HULL[UV])
                 .inputItems(frameGt, Ruridit, 4)
                 .inputItems(CustomTags.UV_CIRCUITS, 4)
@@ -246,7 +248,7 @@ public class MachineRecipe {
                 .outputItems(AdvancedMultiBlockMachine.FLUID_DRILLING_RIG[ZPM])
                 .duration(400).EUt(VA[UV]).save(provider);
 
-        ASSEMBLER_RECIPES.recipeBuilder("wood_distillation")
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("wood_distillation"))
                 .inputItems(MultiBlockMachineA.LARGE_PYROLYSE_OVEN, 2)
                 .inputItems(GCyMMachines.LARGE_DISTILLERY, 4)
                 .inputItems(CustomTags.LuV_CIRCUITS, 16)
@@ -259,5 +261,56 @@ public class MachineRecipe {
                 .outputItems(MultiBlockMachineB.WOOD_DISTILLATION)
                 .duration(400).EUt(VA[LuV])
                 .save(provider);
+
+        for (int tier = 1; tier < 4; tier++) {
+            var hatch = GTLMachines.ENERGY_INPUT_HATCH_4A[tier];
+
+            ASSEMBLER_RECIPES.recipeBuilder("energy_hatch_4a_" + GTValues.VN[tier].toLowerCase())
+                    .inputItems(GTMachines.ENERGY_INPUT_HATCH[tier])
+                    .inputItems(WIRE_QUAD.getIngredient(tier), 2)
+                    .inputItems(PLATE.getIngredient(tier), 2)
+                    .outputItems(hatch)
+                    .duration(100).EUt(VA[tier]).save(provider);
+        }
+
+        for (int tier = 1; tier < 4; tier++) {
+            MachineDefinition hatch = GTLMachines.ENERGY_INPUT_HATCH_16A[tier];
+            MachineDefinition transformer;
+            transformer = GTMachines.TRANSFORMER[tier];
+            ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("energy_hatch_16a_" + GTValues.VN[tier].toLowerCase()))
+                    .inputItems(transformer)
+                    .inputItems(GTLMachines.ENERGY_INPUT_HATCH_4A[tier])
+                    .inputItems(WIRE_OCT.getIngredient(tier), 2)
+                    .inputItems(PLATE.getIngredient(tier), 4)
+                    .outputItems(hatch)
+                    .duration(200).EUt(VA[tier]).save(provider);
+        }
+
+        for (int tier = 1; tier < 4; tier++) {
+            var hatch = GTLMachines.ENERGY_OUTPUT_HATCH_4A[tier];
+            ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("dynamo_hatch_4a_" + GTValues.VN[tier].toLowerCase()))
+                    .inputItems(GTMachines.ENERGY_OUTPUT_HATCH[tier])
+                    .inputItems(WIRE_QUAD.getIngredient(tier), 2)
+                    .inputItems(PLATE.getIngredient(tier), 2)
+                    .outputItems(hatch)
+                    .duration(100)
+                    .EUt(VA[tier])
+                    .save(provider);
+        }
+
+        for (int tier = 1; tier < 4; tier++) {
+            MachineDefinition hatch = GTLMachines.ENERGY_OUTPUT_HATCH_16A[tier];
+
+            MachineDefinition transformer;
+            transformer = GTMachines.TRANSFORMER[tier];
+
+            ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("dynamo_hatch_16a_" + GTValues.VN[tier].toLowerCase()))
+                    .inputItems(transformer)
+                    .inputItems(GTLMachines.ENERGY_OUTPUT_HATCH_4A[tier])
+                    .inputItems(WIRE_OCT.getIngredient(tier), 2)
+                    .inputItems(PLATE.getIngredient(tier), 4)
+                    .outputItems(hatch)
+                    .duration(200).EUt(VA[tier]).save(provider);
+        }
     }
 }

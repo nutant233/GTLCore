@@ -75,8 +75,8 @@ public class GTLMachines {
     public static final BiConsumer<IMultiController, List<Component>> CHEMICAL_PLANT_DISPLAY = (controller, components) -> {
         if (controller.isFormed()) {
             double value = 1 - ((CoilWorkableElectricMultiblockMachine) controller).getCoilTier() * 0.05;
-            components.add(Component.translatable("gtceu.machine.eut_multiplier.tooltip", value * 0.8));
-            components.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", value * 0.6));
+            components.add(Component.translatable("gtceu.machine.eut_multiplier.tooltip", FormattingUtil.formatNumbers(value * 0.8)));
+            components.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", FormattingUtil.formatNumbers(value * 0.6)));
         }
     };
 
@@ -108,18 +108,12 @@ public class GTLMachines {
         }
     };
 
-    public static final BiConsumer<IMultiController, List<Component>> PROCESSING_PLANT_PARALLEL = (controller, components) -> {
-        if (controller.isFormed() && controller instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-            components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(4 * (workableElectricMultiblockMachine.getTier() - 1))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
-        }
-    };
-
     static {
         REGISTRATE.creativeModeTab(() -> GTLCreativeModeTabs.GTL_CORE);
     }
 
     public static void init() {
-        TootipsModify.init();
+        MachineModify.init();
         GeneratorMachine.init();
         MultiBlockMachineA.init();
         AdvancedMultiBlockMachine.init();

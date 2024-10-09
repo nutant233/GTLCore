@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.registry;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 import org.gtlcore.gtlcore.common.data.machines.GCyMMachines;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
@@ -76,8 +77,8 @@ public class GTMachinesMixin {
                                 .langValue(VNF[tier] + " Input Bus")
                                 .rotationState(RotationState.ALL)
                                 .abilities(
-                                        tier == 0 ? new PartAbility[] { PartAbility.IMPORT_ITEMS, PartAbility.STEAM_IMPORT_ITEMS } :
-                                                new PartAbility[] { PartAbility.IMPORT_ITEMS })
+                                        tier == 0 ? new PartAbility[] { PartAbility.IMPORT_ITEMS, PartAbility.STEAM_IMPORT_ITEMS, GTLPartAbility.ITEMS_INPUT } :
+                                                new PartAbility[] { PartAbility.IMPORT_ITEMS, GTLPartAbility.ITEMS_INPUT })
                                 .overlayTieredHullRenderer("item_bus.import")
                                 .tooltips(Component.translatable("gtceu.machine.item_bus.import.tooltip"),
                                         Component.translatable("gtceu.universal.tooltip.item_storage_capacity",
@@ -92,8 +93,8 @@ public class GTMachinesMixin {
                                 .langValue(VNF[tier] + " Output Bus")
                                 .rotationState(RotationState.ALL)
                                 .abilities(
-                                        tier == 0 ? new PartAbility[] { PartAbility.EXPORT_ITEMS, PartAbility.STEAM_EXPORT_ITEMS } :
-                                                new PartAbility[] { PartAbility.EXPORT_ITEMS })
+                                        tier == 0 ? new PartAbility[] { PartAbility.EXPORT_ITEMS, PartAbility.STEAM_EXPORT_ITEMS, GTLPartAbility.ITEMS_OUTPUT } :
+                                                new PartAbility[] { PartAbility.EXPORT_ITEMS, GTLPartAbility.ITEMS_OUTPUT })
                                 .overlayTieredHullRenderer("item_bus.export")
                                 .tooltips(Component.translatable("gtceu.machine.item_bus.export.tooltip"),
                                         Component.translatable("gtceu.universal.tooltip.item_storage_capacity",

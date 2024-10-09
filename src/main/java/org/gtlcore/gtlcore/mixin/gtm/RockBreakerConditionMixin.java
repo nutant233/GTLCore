@@ -35,12 +35,12 @@ public abstract class RockBreakerConditionMixin extends RecipeCondition {
         boolean hasFluidA = false, hasFluidB = false;
         if (recipeLogic.machine instanceof WorkableElectricMultiblockMachine MMachine) {
             List<IRecipeHandler<?>> handlers = MMachine.getCapabilitiesProxy().get(IO.IN, FluidRecipeCapability.CAP);
-            if (handlers == null) cir.setReturnValue(false);
-            for (com.gregtechceu.gtceu.api.capability.recipe.IRecipeHandler<?> handler : handlers) {
-                if (handler instanceof NotifiableFluidTank tank) {
-                    if (tank.getFluidInTank(0).getFluid() == fluidA) hasFluidA = true;
-                    if (tank.getFluidInTank(0).getFluid() == fluidB) hasFluidB = true;
-                    if (hasFluidA && hasFluidB) cir.setReturnValue(true);
+            if (handlers != null) {
+                for (com.gregtechceu.gtceu.api.capability.recipe.IRecipeHandler<?> handler : handlers) {
+                    if (handler instanceof NotifiableFluidTank tank) {
+                        if (tank.getFluidInTank(0).getFluid() == fluidA) hasFluidA = true;
+                        if (tank.getFluidInTank(0).getFluid() == fluidB) hasFluidB = true;
+                    }
                 }
             }
         } else {
@@ -51,10 +51,9 @@ public abstract class RockBreakerConditionMixin extends RecipeCondition {
                     var fluid = level.getFluidState(pos.relative(side));
                     if (fluid.getType() == fluidA) hasFluidA = true;
                     if (fluid.getType() == fluidB) hasFluidB = true;
-                    if (hasFluidA && hasFluidB) cir.setReturnValue(true);
                 }
             }
         }
-        cir.setReturnValue(false);
+        cir.setReturnValue((hasFluidA && hasFluidB));
     }
 }

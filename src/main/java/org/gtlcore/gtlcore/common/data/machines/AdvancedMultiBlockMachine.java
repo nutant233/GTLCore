@@ -30,7 +30,6 @@ import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
-import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.client.renderer.machine.FusionReactorRenderer;
@@ -969,138 +968,9 @@ public class AdvancedMultiBlockMachine {
             .workableCasingRenderer(GTLCore.id("block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition PROCESSING_PLANT = REGISTRATE.multiblock("processing_plant", (holder) -> new StorageMachine(holder, 1))
+    public final static MultiblockMachineDefinition PROCESSING_PLANT = REGISTRATE.multiblock("processing_plant", (holder) -> new ProcessingPlantMachine(holder))
             .rotationState(RotationState.ALL)
-            .recipeType(GTRecipeTypes.BENDER_RECIPES)
-            .recipeType(GTRecipeTypes.COMPRESSOR_RECIPES)
-            .recipeType(GTRecipeTypes.FORGE_HAMMER_RECIPES)
-            .recipeType(GTRecipeTypes.CUTTER_RECIPES)
-            .recipeType(GTRecipeTypes.EXTRUDER_RECIPES)
-            .recipeType(GTRecipeTypes.LATHE_RECIPES)
-            .recipeType(GTRecipeTypes.WIREMILL_RECIPES)
-            .recipeType(GTRecipeTypes.FORMING_PRESS_RECIPES)
-            .recipeType(GTRecipeTypes.POLARIZER_RECIPES)
-            .recipeType(GTLRecipeTypes.CLUSTER_RECIPES)
-            .recipeType(GTLRecipeTypes.ROLLING_RECIPES)
-            .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.9))
-            .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
-            .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.1"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_11.tooltip",
-                    Component.translatable("gtceu.bender"),
-                    Component.translatable("gtceu.compressor"),
-                    Component.translatable("gtceu.forge_hammer"),
-                    Component.translatable("gtceu.cutter"),
-                    Component.translatable("gtceu.extruder"),
-                    Component.translatable("gtceu.lathe"),
-                    Component.translatable("gtceu.wiremill"),
-                    Component.translatable("gtceu.forming_press"),
-                    Component.translatable("gtceu.polarizer"),
-                    Component.translatable("gtceu.cluster"),
-                    Component.translatable("gtceu.rolling")))
-            .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
-            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
-            .pattern((definition) -> FactoryBlockPattern.start()
-                    .aisle("bbb", "bbb", "bbb")
-                    .aisle("bbb", "bcb", "bbb")
-                    .aisle("bbb", "bab", "bbb")
-                    .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
-                            .setMinGlobalLimited(14)
-                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
-                            .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(GTBlocks.CASING_BRONZE_GEARBOX.get()))
-                    .build())
-            .beforeWorking((machine, recipe) -> {
-                boolean isrecipe = false;
-                if (machine instanceof StorageMachine storageMachine) {
-                    int tier = storageMachine.getTier();
-                    GTRecipeType recipeType = storageMachine.getRecipeType();
-                    if (recipeType.equals(GTRecipeTypes.BENDER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_bender");
-                    } else if (recipeType.equals(GTRecipeTypes.COMPRESSOR_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_compressor");
-                    } else if (recipeType.equals(GTRecipeTypes.FORGE_HAMMER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_forge_hammer");
-                    } else if (recipeType.equals(GTRecipeTypes.CUTTER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_cutter");
-                    } else if (recipeType.equals(GTRecipeTypes.EXTRUDER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_extruder");
-                    } else if (recipeType.equals(GTRecipeTypes.LATHE_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_lathe");
-                    } else if (recipeType.equals(GTRecipeTypes.WIREMILL_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_wiremill");
-                    } else if (recipeType.equals(GTRecipeTypes.FORMING_PRESS_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_forming_press");
-                    } else if (recipeType.equals(GTRecipeTypes.POLARIZER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_polarizer");
-                    } else if (recipeType.equals(GTLRecipeTypes.CLUSTER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtlcore:" + GTValues.VN[tier].toLowerCase() + "_cluster");
-                    } else if (recipeType.equals(GTLRecipeTypes.ROLLING_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtlcore:" + GTValues.VN[tier].toLowerCase() + "_rolling");
-                    }
-                    if (!isrecipe) {
-                        machine.getRecipeLogic().interruptRecipe();
-                    }
-                }
-                return isrecipe;
-            })
-            .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
-            .register();
-
-    public final static MultiblockMachineDefinition ASSEMBLE_PLANT = REGISTRATE.multiblock("assemble_plant", (holder) -> new StorageMachine(holder, 1))
-            .rotationState(RotationState.ALL)
-            .recipeType(GTRecipeTypes.ASSEMBLER_RECIPES)
-            .recipeType(GTRecipeTypes.CIRCUIT_ASSEMBLER_RECIPES)
-            .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.9))
-            .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
-            .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.1"))
-            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
-                    Component.translatable("gtceu.assembler"), Component.translatable("gtceu.circuit_assembler")))
-            .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
-            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
-            .pattern((definition) -> FactoryBlockPattern.start()
-                    .aisle("bbb", "bbb", "bbb")
-                    .aisle("bbb", "bcb", "bbb")
-                    .aisle("bbb", "bab", "bbb")
-                    .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
-                            .setMinGlobalLimited(14)
-                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
-                            .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.StainlessSteel)))
-                    .build())
-            .beforeWorking((machine, recipe) -> {
-                boolean isrecipe = false;
-                if (machine instanceof StorageMachine storageMachine) {
-                    int tier = storageMachine.getTier();
-                    GTRecipeType recipeType = storageMachine.getRecipeType();
-                    if (recipeType.equals(GTRecipeTypes.ASSEMBLER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_assembler");
-                    } else if (recipeType.equals(GTRecipeTypes.CIRCUIT_ASSEMBLER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_circuit_assembler");
-                    }
-                    if (!isrecipe) {
-                        machine.getRecipeLogic().interruptRecipe();
-                    }
-                }
-                return isrecipe;
-            })
-            .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
-            .register();
-
-    public final static MultiblockMachineDefinition SEPARATED_PLANT = REGISTRATE.multiblock("separated_plant", (holder) -> new StorageMachine(holder, 1))
-            .rotationState(RotationState.ALL)
-            .recipeType(GTRecipeTypes.CENTRIFUGE_RECIPES)
-            .recipeType(GTRecipeTypes.THERMAL_CENTRIFUGE_RECIPES)
-            .recipeType(GTRecipeTypes.ELECTROLYZER_RECIPES)
-            .recipeType(GTRecipeTypes.SIFTER_RECIPES)
-            .recipeType(GTRecipeTypes.MACERATOR_RECIPES)
-            .recipeType(GTRecipeTypes.EXTRACTOR_RECIPES)
-            .recipeType(GTLRecipeTypes.DEHYDRATOR_RECIPES)
+            .recipeType(GTRecipeTypes.DUMMY_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.9))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
             .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.0"))
@@ -1113,65 +983,27 @@ public class AdvancedMultiBlockMachine {
                     Component.translatable("gtceu.macerator"),
                     Component.translatable("gtceu.extractor"),
                     Component.translatable("gtceu.dehydrator")))
-            .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
-            .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
-            .pattern((definition) -> FactoryBlockPattern.start()
-                    .aisle("bbb", "bbb", "bbb")
-                    .aisle("bbb", "bcb", "bbb")
-                    .aisle("bbb", "bab", "bbb")
-                    .where("a", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
-                            .setMinGlobalLimited(14)
-                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
-                            .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(GTBlocks.CASING_BRONZE_PIPE.get()))
-                    .build())
-            .beforeWorking((machine, recipe) -> {
-                boolean isrecipe = false;
-                if (machine instanceof StorageMachine storageMachine) {
-                    int tier = storageMachine.getTier();
-                    GTRecipeType recipeType = storageMachine.getRecipeType();
-                    if (recipeType.equals(GTRecipeTypes.CENTRIFUGE_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_centrifuge");
-                    } else if (recipeType.equals(GTRecipeTypes.THERMAL_CENTRIFUGE_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_thermal_centrifuge");
-                    } else if (recipeType.equals(GTRecipeTypes.ELECTROLYZER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_electrolyzer");
-                    } else if (recipeType.equals(GTRecipeTypes.SIFTER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_sifter");
-                    } else if (recipeType.equals(GTRecipeTypes.MACERATOR_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_macerator");
-                    } else if (recipeType.equals(GTRecipeTypes.EXTRACTOR_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_extractor");
-                    } else if (recipeType.equals(GTLRecipeTypes.DEHYDRATOR_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtlcore:" + GTValues.VN[tier].toLowerCase() + "_dehydrator");
-                    }
-                    if (!isrecipe) {
-                        machine.getRecipeLogic().interruptRecipe();
-                    }
-                }
-                return isrecipe;
-            })
-            .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
-            .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
-            .register();
-
-    public final static MultiblockMachineDefinition MIXED_PLANT = REGISTRATE.multiblock("mixed_plant", (holder) -> new StorageMachine(holder, 1))
-            .rotationState(RotationState.ALL)
-            .recipeType(GTRecipeTypes.CHEMICAL_RECIPES)
-            .recipeType(GTRecipeTypes.MIXER_RECIPES)
-            .recipeType(GTRecipeTypes.CHEMICAL_BATH_RECIPES)
-            .recipeType(GTRecipeTypes.ORE_WASHER_RECIPES)
-            .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.9))
-            .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
-            .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.processing_plant.tooltip.1"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_4.tooltip",
                     Component.translatable("gtceu.chemical_reactor"),
                     Component.translatable("gtceu.mixer"),
                     Component.translatable("gtceu.chemical_bath"),
                     Component.translatable("gtceu.ore_washer")))
-            .recipeModifiers(GTLRecipeModifiers::processingPlantOverclock)
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_3.tooltip",
+                    Component.translatable("gtceu.laser_engraver"),
+                    Component.translatable("gtceu.assembler"), Component.translatable("gtceu.circuit_assembler")))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_11.tooltip",
+                    Component.translatable("gtceu.bender"),
+                    Component.translatable("gtceu.compressor"),
+                    Component.translatable("gtceu.forge_hammer"),
+                    Component.translatable("gtceu.cutter"),
+                    Component.translatable("gtceu.extruder"),
+                    Component.translatable("gtceu.lathe"),
+                    Component.translatable("gtceu.wiremill"),
+                    Component.translatable("gtceu.forming_press"),
+                    Component.translatable("gtceu.polarizer"),
+                    Component.translatable("gtceu.cluster"),
+                    Component.translatable("gtceu.rolling")))
+            .recipeModifiers(ProcessingPlantMachine::processingPlantOverclock)
             .appearanceBlock(GTLBlocks.MULTI_FUNCTIONAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bbb")
@@ -1180,31 +1012,14 @@ public class AdvancedMultiBlockMachine {
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("b", Predicates.blocks(GTLBlocks.MULTI_FUNCTIONAL_CASING.get())
                             .setMinGlobalLimited(14)
-                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
+                            .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
+                            .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
+                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
+                            .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS))
+                            .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(GTBlocks.CASING_STEEL_PIPE.get()))
+                    .where("c", Predicates.blocks(GTBlocks.CASING_BRONZE_GEARBOX.get()))
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                boolean isrecipe = false;
-                if (machine instanceof StorageMachine storageMachine) {
-                    int tier = storageMachine.getTier();
-                    GTRecipeType recipeType = storageMachine.getRecipeType();
-                    if (recipeType.equals(GTRecipeTypes.CHEMICAL_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_chemical_reactor");
-                    } else if (recipeType.equals(GTRecipeTypes.MIXER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_mixer");
-                    } else if (recipeType.equals(GTRecipeTypes.CHEMICAL_BATH_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_chemical_bath");
-                    } else if (recipeType.equals(GTRecipeTypes.ORE_WASHER_RECIPES)) {
-                        isrecipe = Objects.equals(storageMachine.getMachineStorageItem().kjs$getId(), "gtceu:" + GTValues.VN[tier].toLowerCase() + "_ore_washer");
-                    }
-                    if (!isrecipe) {
-                        machine.getRecipeLogic().interruptRecipe();
-                    }
-                }
-                return isrecipe;
-            })
-            .additionalDisplay(GTLMachines.PROCESSING_PLANT_PARALLEL)
             .workableCasingRenderer(GTLCore.id("block/multi_functional_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
@@ -1541,7 +1356,7 @@ public class AdvancedMultiBlockMachine {
             .recipeType(GTRecipeTypes.ASSEMBLY_LINE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.advanced_assembly_line.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.advanced_assembly_line.tooltip.1"))
-            .tooltips(Component.translatable("gtceu.machine.assembly_line.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.assembly_line")))
@@ -1549,7 +1364,7 @@ public class AdvancedMultiBlockMachine {
             .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
             .pattern(definition -> FactoryBlockPattern.start(RelativeDirection.BACK, RelativeDirection.UP, RelativeDirection.RIGHT)
                     .aisle("FIF", "RTR", "SAG", "#Y#")
-                    .aisle("FIF", "RTR", "DAG", "#Y#").setRepeatable(7, 63)
+                    .aisle("FIF", "RTR", "DAG", "#Y#").setRepeatable(3, 15)
                     .aisle("FOF", "RTR", "DAG", "#Y#")
                     .where("S", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("F", Predicates.blocks(GTBlocks.CASING_STEEL_SOLID.get())
@@ -1557,14 +1372,14 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1)))
                     .where("O", Predicates.abilities(PartAbility.EXPORT_ITEMS).addTooltips(Component.translatable("gtceu.multiblock.pattern.location_end")))
                     .where("Y", Predicates.blocks(GTBlocks.CASING_STEEL_SOLID.get())
-                            .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2)))
-                    .where("I", Predicates.blocks(GTMachines.ITEM_IMPORT_BUS[0].get()).or(Predicates.blocks(CustomMachines.HUGE_ITEM_IMPORT_BUS[0].get())))
+                            .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2)).or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
+                    .where("I", Predicates.abilities(GTLPartAbility.ITEMS_INPUT))
                     .where("G", Predicates.blocks(GTBlocks.CASING_GRATE.get()))
                     .where("D", Predicates.blocks(GTBlocks.CASING_GRATE.get())
                             .or(Predicates.abilities(PartAbility.OPTICAL_DATA_RECEPTION).setExactLimit(1)))
                     .where("A", Predicates.blocks(GTBlocks.CASING_ASSEMBLY_CONTROL.get()))
                     .where("R", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
-                    .where("T", GTLPredicates.countBlock("Unit", GTLBlocks.ADVANCED_ASSEMBLY_LINE_UNIT.get()))
+                    .where("T", Predicates.blocks(GTLBlocks.ADVANCED_ASSEMBLY_LINE_UNIT.get()))
                     .where("#", Predicates.any())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/assembly_line"))
