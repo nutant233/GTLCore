@@ -7,7 +7,7 @@ import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.ChemicalEnergyDevourerMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.DysonSphereMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.MegaTurbineMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.TurbineMachine;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.Registries;
 
@@ -89,7 +89,7 @@ public class GeneratorMachine {
     public static MultiblockMachineDefinition registerMegaTurbine(String name, int tier, boolean special, GTRecipeType recipeType,
                                                                   Supplier<Block> casing, Supplier<Block> gear, ResourceLocation baseCasing,
                                                                   ResourceLocation overlayModel) {
-        return REGISTRATE.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, special, true))
+        return REGISTRATE.multiblock(name, holder -> new TurbineMachine(holder, tier, special, true))
                 .rotationState(RotationState.ALL)
                 .recipeType(recipeType)
                 .generator(true)
@@ -98,7 +98,7 @@ public class GeneratorMachine {
                 .tooltips(Component.translatable("gtceu.machine.mega_turbine.tooltip.2"))
                 .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", GTValues.V[tier] * (special ? 12 : 8)))
                 .tooltips(Component.translatable("gtceu.multiblock.turbine.efficiency_tooltip", GTValues.VNF[tier]))
-                .recipeModifier(MegaTurbineMachine::recipeModifier)
+                .recipeModifier(TurbineMachine::recipeModifier)
                 .appearanceBlock(casing)
                 .pattern(definition -> FactoryBlockPattern.start()
                         .aisle("AAAAAAA", "AAAAAAA", "AAEAEAA", "AAAAAAA", "AAEAEAA", "AAAAAAA", "AAAAAAA")

@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-09T19:05:04.664671	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.20.1	2024-10-11T12:41:31.184299	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 46f342ef8461a19d4ac40f284d9763fa45db0648 assets/gtlcore/blockstates/16m_storage.json
 7400be84a032519aa2d82750804ae8f04828fdae assets/gtlcore/blockstates/1m_storage.json
 5483bb31743b034345b5a059cc8bf43cfb875d7d assets/gtlcore/blockstates/256m_storage.json
@@ -78,8 +78,8 @@ ba75d75bb24da9bfafd569c2c2584cfb4d99c06b assets/gtlcore/blockstates/stellar_cont
 aa04d531b5ca53b5a56783ab2caf520d94f90d86 assets/gtlcore/blockstates/super_cooler_component.json
 4d118e87f6da1521094a5e52b2b8244310b2e703 assets/gtlcore/blockstates/supercritical_turbine_casing.json
 406dd8ad0f18b0d9592528acf2afa92e21c642a0 assets/gtlcore/blockstates/ultimate_stellar_containment_casing.json
-e85c66ec8fd2920b0ebbad79be071b3f0cf2aba8 assets/gtlcore/lang/en_ud.json
-c39597b8a8bb42e7459ba7418ca16d5f1254ebff assets/gtlcore/lang/en_us.json
+59dad77f30f4e3159fe53f2f92d1796387ef11f8 assets/gtlcore/lang/en_ud.json
+a0687c772bc84e994f0bff907f90c944d10a30a5 assets/gtlcore/lang/en_us.json
 1e86cdc17231fb0b0c08fb79ac317c3978c918bf assets/gtlcore/models/block/advanced_stellar_containment_casing.json
 bf3d8755a8caf29f8d5e83eefc0f1af389f8e194 assets/gtlcore/models/block/aluminium_bronze_casing.json
 f562919f3479892c66f9299614d509d4b30384c1 assets/gtlcore/models/block/antifreeze_heatproof_machine_casing.json
@@ -152,6 +152,7 @@ fca37274d48c881cfd6611e1962104e2a8c1e818 assets/gtlcore/models/item/advanced_fus
 fbe9601f647ef3026737122c901f8eac8acd074c assets/gtlcore/models/item/aluminium_bronze_casing.json
 6ac5697b25f6bd61fa01e6eab295a585acfa6c42 assets/gtlcore/models/item/antifreeze_heatproof_machine_casing.json
 b49865f8e2887be0287392745edfe10967620802 assets/gtlcore/models/item/blaze_blast_furnace_casing.json
+aa4c9c846bb784dec32ede04f6b1d55a763dbc40 assets/gtlcore/models/item/carbon_rotor.json
 f2c956f6352ed6dd72dd29bf538f528bac875517 assets/gtlcore/models/item/cell_component_16m.json
 e383f6b6fa751e5739d639cedc71e9d8e53924f3 assets/gtlcore/models/item/cell_component_1m.json
 485f04487163d03eb7c4abec2a3cc447f86f62bc assets/gtlcore/models/item/cell_component_256m.json
@@ -207,6 +208,7 @@ f039fd5a7b80834f592322a4fd01aa00e1aff523 assets/gtlcore/models/item/improved_sup
 ac3dcaea8f528b7d0d578aed99e0c83a39487083 assets/gtlcore/models/item/infinity_glass.json
 f9c6e13b925f30e4d8f7244d5f16116036aea46d assets/gtlcore/models/item/insanely_max_battery.json
 ad3c5e017784734e1abd5d26ed4462a872cf9e4a assets/gtlcore/models/item/iridium_casing.json
+c39d76317308279defba0953b08a5755b91f200d assets/gtlcore/models/item/iron_rotor.json
 12811f5e111c2cca0561fb27d0f906486b04b402 assets/gtlcore/models/item/item_infinity_cell.json
 f57a48f5f2a1a381167c35adc8a7892e3de01bcd assets/gtlcore/models/item/item_storage_cell_16m.json
 d5596a866549096089ca77ad295f435ca7a38fdb assets/gtlcore/models/item/item_storage_cell_1m.json
@@ -255,6 +257,7 @@ bfa49d761d4b20751e4e4f25d92f09d1bba00f66 assets/gtlcore/models/item/space_elevat
 582ddb0811541124cb7661c0190fe94b0cc88773 assets/gtlcore/models/item/spacetimebendingcore.json
 938a2c87a1df967c4ff63de6337cc2e4fc822f45 assets/gtlcore/models/item/spacetimecontinuumripper.json
 6b6e64255073e76f22f11a524985ef8f7e5c758a assets/gtlcore/models/item/sps_casing.json
+64fed1d7c6ea67685c807a298c89785b3e321715 assets/gtlcore/models/item/steel_rotor.json
 b4b377d4b7f2e3dd47a7858bc0131b1388293375 assets/gtlcore/models/item/stellar_containment_casing.json
 056a86011ac7866f05fd832314ec9ade48080a5a assets/gtlcore/models/item/super_computation_component.json
 5752c3c59fe12651bcd6fb804dc0fcd1baf1b2dc assets/gtlcore/models/item/super_cooler_component.json
@@ -267,6 +270,7 @@ d638e3785ccdf65f06e8b15c7f6149a6aadc5d3c assets/gtlcore/models/item/transcendent
 25b2493f2165e2a11549908ba3bfe29fa9bb1980 assets/gtlcore/models/item/uiv_hermetic_casing.json
 0aca219ecd74885ede9cfcb628f1b9fb0c8923ab assets/gtlcore/models/item/ultimate_stellar_containment_casing.json
 db455fd02ceac880820fe263d6f53f9d6c58785f assets/gtlcore/models/item/uxv_hermetic_casing.json
+b70a1c1462d7033f1bfcc0fe8cd0e701e18186a3 assets/gtlcore/models/item/wood_rotor.json
 39876985664bf7d479aed23d3977473f537c026b data/forge/tags/blocks/mineable/wrench.json
 b7eeee52cfa5dc6cac5ab5dfb1a795f08da7e0a9 data/gtlcore/loot_tables/blocks/16m_storage.json
 b196f8b561f527e5803f51a63adabe309eb622ef data/gtlcore/loot_tables/blocks/1m_storage.json

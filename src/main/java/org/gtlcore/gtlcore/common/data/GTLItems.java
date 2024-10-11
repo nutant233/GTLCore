@@ -278,9 +278,18 @@ public class GTLItems {
             .model(NonNullBiConsumer.noop())
             .register();
 
+    private static ItemEntry<KineticRotorItem> registerRotor(String id, int durability, int min, int max, int material) {
+        return REGISTRATE.item(id, p -> new KineticRotorItem(p, durability, min, max, material)).register();
+    }
+
     private static ItemEntry<Item> register(String id, boolean defaultModel) {
         return defaultModel ? REGISTRATE.item(id, Item::new).register() : REGISTRATE.item(id, Item::new).model(NonNullBiConsumer.noop()).register();
     }
+
+    public static ItemEntry<KineticRotorItem> WOOD_ROTOR = registerRotor("wood_rotor", 1200, 4, 10, 0);
+    public static ItemEntry<KineticRotorItem> IRON_ROTOR = registerRotor("iron_rotor", 6000, 10, 20, 1);
+    public static ItemEntry<KineticRotorItem> STEEL_ROTOR = registerRotor("steel_rotor", 8000, 10, 30, 1);
+    public static ItemEntry<KineticRotorItem> CARBON_ROTOR = registerRotor("carbon_rotor", 12000, 2, 40, 2);
 
     public static ItemEntry<Item> INFINITE_CELL_COMPONENT = register("infinite_cell_component", true);
     public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = register("protonated_fullerene_sieving_matrix", true);

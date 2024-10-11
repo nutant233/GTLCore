@@ -52,10 +52,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
+public class TurbineMachine extends WorkableElectricMultiblockMachine implements ITieredMachine {
 
     public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            MegaTurbineMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
+            TurbineMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     @Override
     public ManagedFieldHolder getFieldHolder() {
@@ -81,7 +81,7 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
 
     protected ConditionalSubscriptionHandler rotorSubs;
 
-    public MegaTurbineMachine(IMachineBlockEntity holder, int tier, boolean special, boolean mega) {
+    public TurbineMachine(IMachineBlockEntity holder, int tier, boolean special, boolean mega) {
         super(holder);
         this.mega = mega;
         this.tier = tier;
@@ -194,7 +194,7 @@ public class MegaTurbineMachine extends WorkableElectricMultiblockMachine implem
     @Nullable
     public static GTRecipe recipeModifier(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                           @NotNull OCResult result) {
-        if (machine instanceof MegaTurbineMachine turbineMachine) {
+        if (machine instanceof TurbineMachine turbineMachine) {
             RotorHolderPartMachine rotorHolder = turbineMachine.getRotorHolder();
             long EUt = RecipeHelper.getOutputEUt(recipe);
             if (rotorHolder == null || EUt <= 0) return null;
