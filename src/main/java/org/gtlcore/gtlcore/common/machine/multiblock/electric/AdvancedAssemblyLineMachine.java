@@ -41,17 +41,17 @@ public class AdvancedAssemblyLineMachine extends WorkableElectricMultiblockMachi
             for (int i = 0; i < recipeInputs.size(); i++) {
                 ItemStackTransfer storage = lineMachine.itemStackTransfers.get(i);
                 Set<Item> itemSet = new HashSet<>();
-                Set<ItemStack> itemStackSet = new HashSet<>();
+                ItemStack stack = ItemStack.EMPTY;
                 for (int j = 0; j < storage.getSlots(); j++) {
                     ItemStack item = storage.getStackInSlot(j);
                     if (!item.isEmpty()) {
                         itemSet.add(item.getItem());
-                        itemStackSet.add(item);
+                        stack = item;
                     }
                 }
                 if (itemSet.size() != 1) return null;
                 Ingredient recipeStack = ItemRecipeCapability.CAP.of(recipeInputs.get(i).content);
-                if (!recipeStack.test(itemStackSet.iterator().next())) return null;
+                if (!recipeStack.test(stack)) return null;
             }
             GTRecipe recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe, false, params, result);
             if (recipe1 == null) return null;

@@ -4,12 +4,14 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.CoilWorkableElectricMultipleRecipesMultiblockMachine;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.client.renderer.machine.BallHatchRenderer;
+import org.gtlcore.gtlcore.client.renderer.machine.WindMillTurbineRenderer;
 import org.gtlcore.gtlcore.common.data.machines.*;
 import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
 import org.gtlcore.gtlcore.common.machine.generator.MagicEnergyMachine;
+import org.gtlcore.gtlcore.common.machine.generator.WindMillTurbineMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.CombustionEngineMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.MegaTurbineMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.TurbineMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.*;
 
 import com.gregtechceu.gtceu.GTCEu;
@@ -230,6 +232,22 @@ public class GTLMachines {
                     .register(),
             GTValues.ULV, GTValues.LV);
 
+    public static final MachineDefinition[] WIND_MILL_TURBINE = registerTieredMachines(
+            "wind_mill_turbine",
+            WindMillTurbineMachine::new,
+            (tier, builder) -> builder
+                    .langValue("%s Wind Mill Turbine %s".formatted(GTValues.VLVH[tier], GTValues.VLVT[tier]))
+                    .rotationState(RotationState.NON_Y_AXIS)
+                    .renderer(() -> new WindMillTurbineRenderer(tier))
+                    .hasTESR(true)
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.ampere_out", 2))
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.voltage_out",
+                            FormattingUtil.formatNumbers(GTValues.V[tier]), GTValues.VNF[tier]))
+                    .tooltips(Component.translatable("gtceu.universal.tooltip.energy_storage_capacity",
+                            FormattingUtil.formatNumbers(GTValues.V[tier] * 64)))
+                    .register(),
+            GTValues.ULV, GTValues.LV, GTValues.MV, GTValues.HV);
+
     private static MachineDefinition[] registerHugeFluidHatches(String name, String displayname, String model,
                                                                 String tooltip, IO io, PartAbility... abilities) {
         return registerTieredMachines(name,
@@ -406,11 +424,11 @@ public class GTLMachines {
     }
 
     public static MultiblockMachineDefinition registerLargeTurbine(GTRegistrate registrate, String name, int tier, boolean special, GTRecipeType recipeType, Supplier<? extends Block> casing, Supplier<? extends Block> gear, ResourceLocation casingTexture, ResourceLocation overlayModel, boolean isGTM) {
-        MultiblockMachineBuilder builder = registrate.multiblock(name, holder -> new MegaTurbineMachine(holder, tier, special, false))
+        MultiblockMachineBuilder builder = registrate.multiblock(name, holder -> new TurbineMachine(holder, tier, special, false))
                 .rotationState(RotationState.ALL)
                 .recipeType(recipeType)
                 .generator(true)
-                .recipeModifier(MegaTurbineMachine::recipeModifier, true)
+                .recipeModifier(TurbineMachine::recipeModifier, true)
                 .appearanceBlock(casing)
                 .pattern(definition -> FactoryBlockPattern.start()
                         .aisle("CCCC", "CHHC", "CCCC")

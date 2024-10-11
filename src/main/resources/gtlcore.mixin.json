@@ -55,6 +55,7 @@
         "gtm.machine.MEOutputPartMachineMixin",
         "gtm.machine.MetaMachineMixin",
         "gtm.machine.ParallelHatchPartMachineMixin",
+        "gtm.machine.RotorHolderPartMachineMixin",
         "gtm.machine.SimpleGeneratorMachineMixin",
         "gtm.machine.SimpleTieredMachineMixin",
         "gtm.machine.SteamItemBusPartMachineMixin",
