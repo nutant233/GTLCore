@@ -16,9 +16,15 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 public class Lanthanidetreatment {
 
     public static void init(Consumer<FinishedRecipe> provider) {
+        EXTRACTOR_RECIPES.recipeBuilder("monazite_extraction")
+                .inputItems(gemExquisite, Monazite)
+                .outputItems(dustSmall, RareEarth)
+                .outputFluids(Helium.getFluid(1000))
+                .duration(64).EUt(64).save(provider);
+
         DIGESTION_TREATMENT.recipeBuilder("monazite_rare_earth_turbid_liquid1")
                 .inputItems(dust, Monazite, 2)
-                .inputFluids(NitricAcid.getFluid(700))
+                .inputFluids(NitricAcid.getFluid(400))
                 .outputItems(dust, SiliconDioxide, 1)
                 .outputFluids(MonaziteRareEarthTurbidLiquid.getFluid(400))
                 .duration(200)
@@ -31,7 +37,7 @@ public class Lanthanidetreatment {
                 .inputFluids(MonaziteRareEarthTurbidLiquid.getFluid(9000))
                 .inputFluids(Water.getFluid(90000))
                 .outputItems(dust, ThoritePowder, 9)
-                .outputItems(dust, Monazite, 2)
+                .outputItems(dust, Monazite, 1)
                 .outputFluids(DilutedMonaziteSlurry.getFluid(100000))
                 .duration(200)
                 .EUt(480)
@@ -126,8 +132,8 @@ public class Lanthanidetreatment {
                 .chancedOutput(dust, Uranium235, 1, 4500, 0)
                 .chancedOutput(dust, Uranium235, 1, 4000, 0)
                 .chancedOutput(dust, Uranium235, 1, 3000, 0)
-                .chancedOutput(dust, Uranium235, 1, 3000, 0)
                 .chancedOutput(dust, Uranium235, 1, 2000, 0)
+                .chancedOutput(dust, Uranium235, 1, 1000, 0)
                 .duration(240)
                 .EUt(30)
                 .save(provider);
@@ -432,7 +438,7 @@ public class Lanthanidetreatment {
         /* 氟碳镧铈线 */
         DIGESTION_TREATMENT.recipeBuilder("fluoro_carbon_lanthanide_cerium_solution47")
                 .inputItems(dust, Bastnasite, 2)
-                .inputFluids(NitricAcid.getFluid(700))
+                .inputFluids(NitricAcid.getFluid(400))
                 .outputItems(dust, SiliconDioxide, 1)
                 .outputFluids(FluoroCarbonLanthanideCeriumSolution.getFluid(400))
                 .duration(200)
@@ -450,7 +456,7 @@ public class Lanthanidetreatment {
 
         MIXER_RECIPES.recipeBuilder("fluoro_carbon_lanthanide_cerium_solution49")
                 .inputFluids(SteamCrackedFluoroCarbonLanthanideSlurry.getFluid(1000))
-                .inputFluids(NitricAcid.getFluid(700))
+                .inputFluids(NitricAcid.getFluid(400))
                 .outputFluids(ModulatedFluoroCarbonLanthanideSlurry.getFluid(1320))
                 .duration(200)
                 .EUt(120)
@@ -530,7 +536,7 @@ public class Lanthanidetreatment {
 
         MIXER_RECIPES.recipeBuilder("nitrided_fluoro_carbon_lanthanide_cerium_rare_earth_oxide_solution59")
                 .inputItems(dust, FluoroCarbonLanthanideCeriumRareEarthOxidePowder, 1)
-                .inputFluids(NitricAcid.getFluid(400))
+                .inputFluids(NitricAcid.getFluid(500))
                 .outputFluids(NitridedFluoroCarbonLanthanideCeriumRareEarthOxideSolution.getFluid(1000))
                 .duration(150)
                 .EUt(480)

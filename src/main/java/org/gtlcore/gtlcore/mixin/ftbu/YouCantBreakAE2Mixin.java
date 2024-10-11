@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
  */
 @Mixin(FTBUltiminePlayerData.class)
 public class YouCantBreakAE2Mixin {
+
     @ModifyVariable(method = "updateBlocks", at = @At(value = "STORE", ordinal = 2), remap = false)
     public BlockMatcher modifyBlockMatcher(BlockMatcher matcher) {
         return (original, state) -> !(state.getBlock() instanceof AEBaseBlock) && original.getBlock() == state.getBlock();

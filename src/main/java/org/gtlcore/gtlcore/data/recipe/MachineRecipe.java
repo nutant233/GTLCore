@@ -137,6 +137,22 @@ public class MachineRecipe {
                 "PVP", "CMC", "WBW", 'M', GTBlocks.MACHINE_CASING_ULV.asStack(), 'P', new UnificationEntry(plate, Steel), 'V',
                 new UnificationEntry(rotor, Tin), 'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(wireGtSingle, RedAlloy), 'B', GTMachines.STEAM_SOLID_BOILER.first().asStack());
 
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "ulv_wind_mill_turbine", GTLMachines.WIND_MILL_TURBINE[0].asStack(),
+                "RGR", "MHM", "WCW", 'H', GTLMachines.THERMAL_GENERATOR[0].asStack(), 'G', new UnificationEntry(gear, Bronze), 'R', new UnificationEntry(rod, WroughtIron),
+                'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(cableGtSingle, Lead), 'M', new UnificationEntry(rod, IronMagnetic));
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "lv_wind_mill_turbine", GTLMachines.WIND_MILL_TURBINE[1].asStack(),
+                "RGR", "MHM", "WCW", 'H', GTMachines.HULL[1].asStack(), 'G', new UnificationEntry(gear, Steel), 'R', new UnificationEntry(rod, Invar),
+                'C', CustomTags.LV_CIRCUITS, 'W', new UnificationEntry(cableGtSingle, Tin), 'M', GTItems.ELECTRIC_MOTOR_LV.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "mv_wind_mill_turbine", GTLMachines.WIND_MILL_TURBINE[2].asStack(),
+                "RGR", "MHM", "WCW", 'H', GTMachines.HULL[2].asStack(), 'G', new UnificationEntry(gear, Aluminium), 'R', new UnificationEntry(rod, VanadiumSteel),
+                'C', CustomTags.MV_CIRCUITS, 'W', new UnificationEntry(cableGtSingle, Copper), 'M', GTItems.ELECTRIC_MOTOR_MV.asStack());
+
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "hv_wind_mill_turbine", GTLMachines.WIND_MILL_TURBINE[3].asStack(),
+                "RGR", "MHM", "WCW", 'H', GTMachines.HULL[3].asStack(), 'G', new UnificationEntry(gear, StainlessSteel), 'R', new UnificationEntry(rod, BlackSteel),
+                'C', CustomTags.HV_CIRCUITS, 'W', new UnificationEntry(cableGtSingle, Gold), 'M', GTItems.ELECTRIC_MOTOR_HV.asStack());
+
         VanillaRecipeHelper.addShapedRecipe(provider, true, "ulv_packer", GTLMachines.ULV_PACKER[0].asStack(),
                 "BCB", "RMV", "WCW", 'M', GTBlocks.MACHINE_CASING_ULV.asStack(), 'R', GTItems.RESISTOR.asStack(), 'V',
                 new UnificationEntry(rod, IronMagnetic), 'C', CustomTags.ULV_CIRCUITS, 'W', new UnificationEntry(wireGtSingle, GTMaterials.Lead), 'B', GTLItems.PRIMITIVE_ROBOT_ARM.asStack());

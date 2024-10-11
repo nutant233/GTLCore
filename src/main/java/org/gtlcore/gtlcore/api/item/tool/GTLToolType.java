@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.api.item.tool;
 
 import com.gregtechceu.gtceu.api.data.tag.TagUtil;
 import com.gregtechceu.gtceu.api.item.tool.GTToolType;
+import com.gregtechceu.gtceu.api.item.tool.ToolHelper;
 import com.gregtechceu.gtceu.common.item.tool.behavior.*;
 
 import net.minecraft.tags.ItemTags;
@@ -28,7 +29,7 @@ public class GTLToolType {
                             TreeFellingBehavior.INSTANCE, LogStripBehavior.INSTANCE,
                             ScrapeBehavior.INSTANCE, WaxOffBehavior.INSTANCE,
                             BlockRotatingBehavior.INSTANCE, ToolModeSwitchBehavior.INSTANCE)
-                    .brokenStack(com.gregtechceu.gtceu.api.item.tool.ToolHelper.SUPPLY_POWER_UNIT_IV))
+                    .brokenStack(ToolHelper.SUPPLY_POWER_UNIT_IV))
             .toolClasses(GTToolType.PICKAXE, GTToolType.SHOVEL, GTToolType.AXE,
                     GTToolType.WRENCH, GTToolType.WIRE_CUTTER)
             .build();

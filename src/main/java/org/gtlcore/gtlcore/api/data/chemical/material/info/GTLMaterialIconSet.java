@@ -15,7 +15,7 @@ public class GTLMaterialIconSet extends MaterialIconSet {
     private final ICustomRenderer customRenderer;
 
     public GTLMaterialIconSet(@NotNull String name,
-                              @Nullable com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet parentIconset,
+                              @Nullable MaterialIconSet parentIconset,
                               boolean isRootIconset,
                               ICustomRenderer customRenderer) {
         super(name, parentIconset, isRootIconset);

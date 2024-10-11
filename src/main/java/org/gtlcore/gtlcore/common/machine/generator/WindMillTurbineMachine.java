@@ -9,6 +9,7 @@ import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.gui.fancy.IFancyTooltip;
 import com.gregtechceu.gtceu.api.gui.fancy.TooltipsPanel;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.TickableSubscription;
 import com.gregtechceu.gtceu.api.machine.TieredEnergyMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IFancyUIMachine;
@@ -31,7 +32,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -114,10 +114,21 @@ public class WindMillTurbineMachine extends TieredEnergyMachine implements IMach
                 material = rotorItem.getMaterial();
                 obstructed = false;
 
-                Direction facing = getFrontFacing().getOpposite();
-                boolean permuteXZ = facing.getAxis() == Direction.Axis.Z;
-                BlockPos centerPos = pos.relative(facing);
-                outerLoop:
+                Direction facing = getFrontFacing();
+                Direction back = facing.getOpposite();
+                boolean permuteXZ = back.getAxis() == Direction.Axis.Z;
+                BlockPos centerPos = pos.relative(back);
+                loop1:
+                for (int x = -2; x < 3; x++) {
+                    for (int y = -2; y < 3; y++) {
+                        if (x == 0 && y == 0) continue;
+                        if (MetaMachine.getMachine(level, pos.offset(permuteXZ ? x : 0, y, permuteXZ ? 0 : x)) instanceof WindMillTurbineMachine machine && machine.isHasRotor() && machine.getFrontFacing() == facing) {
+                            obstructed = true;
+                            break loop1;
+                        }
+                    }
+                }
+                loop2:
                 for (int x = -1; x < 2; x++) {
                     for (int y = -1; y < 2; y++) {
                         BlockPos blockPos = centerPos.offset(permuteXZ ? x : 0, y, permuteXZ ? 0 : x);
@@ -126,10 +137,9 @@ public class WindMillTurbineMachine extends TieredEnergyMachine implements IMach
                             if (e.kjs$isLiving()) e.kjs$attack(20 * spinSpeed);
                             obstructed = true;
                         }
-                        BlockState blockState = level.getBlockState(blockPos);
-                        if (!blockState.isAir()) {
+                        if (!level.getBlockState(blockPos).isAir()) {
                             obstructed = true;
-                            break outerLoop;
+                            break loop2;
                         }
                     }
                 }
@@ -138,7 +148,7 @@ public class WindMillTurbineMachine extends TieredEnergyMachine implements IMach
                     stack.setDamageValue(damage + (int) (40 * spinSpeed));
                     spinSpeed = 0;
                 } else if (wind > rotorItem.getMinWind()) {
-                    stack.setDamageValue(damage + (int) Math.pow(Math.ceil(wind / rotorItem.getMaxWind()), 4));
+                    stack.setDamageValue(damage + (int) Math.pow(Math.ceil(wind / rotorItem.getMaxWind()), 8));
                     spinSpeed = Math.min(0.04F * wind, spinSpeed + 0.04F);
                     actualPower = (int) (GTValues.V[tier] * spinSpeed);
                     energyContainer.addEnergy(20L * actualPower);

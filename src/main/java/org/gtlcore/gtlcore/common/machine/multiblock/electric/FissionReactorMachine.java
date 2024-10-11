@@ -48,6 +48,8 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     private int damaged = 0;
     @Persisted
     private int parallel = 0;
+    @Persisted
+    private int recipeHeat = 0;
     private int fuel = 0, cooler = 0, heatAdjacent = 1, coolerAdjacent = 0;
 
     protected ConditionalSubscriptionHandler HeatSubs;
@@ -126,6 +128,7 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     @Override
     public void afterWorking() {
         parallel = 0;
+        recipeHeat = 0;
         super.afterWorking();
     }
 
@@ -140,6 +143,21 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
         }
     }
 
+    private boolean inputWater(long amount) {
+        boolean value = MachineIO.inputFluid(this, GTMaterials.DistilledWater.getFluid(amount * 800));
+        double steamMultiplier = heat > 373 ? 160 : 160 / Math.pow(1.4, 373 - heat);
+        if (value) value = MachineIO.outputFluid(this, GTMaterials.Steam.getFluid((long) (amount * 800 * steamMultiplier)));
+        return value;
+    }
+
+    private boolean inputSodiumPotassium(long amount) {
+        boolean value = MachineIO.inputFluid(this, GTMaterials.SodiumPotassium.getFluid(amount * 20));
+        if (heat > 825) {
+            if (value) value = MachineIO.outputFluid(this, GTLMaterials.SupercriticalSodiumPotassium.getFluid(amount * 20));
+        } else if (value) value = MachineIO.outputFluid(this, GTLMaterials.HotSodiumPotassium.getFluid(amount * 20));
+        return value;
+    }
+
     protected void HeatUpdate() {
         if (getOffsetTimer() % 20 == 0) {
             if (heat > 1500) {
@@ -149,7 +167,43 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
                     damaged += Math.max(1, heatAdjacent / 6);
                 }
             }
-            if (!getRecipeLogic().isWorking()) {
+            if (getRecipeLogic().isWorking()) {
+                int required = recipeHeat * parallel * heat / 1500;
+                int surplus = ((cooler - (coolerAdjacent / 3)) * 8) - required;
+                boolean isCooler = false;
+                if (surplus >= 0) {
+                    if (inputWater(required)) {
+                        while (surplus >= required && getProgress() < getMaxProgress()) {
+                            if (inputWater(required)) {
+                                surplus = surplus - required;
+                                getRecipeLogic().setProgress(getProgress() + 20);
+                            } else {
+                                break;
+                            }
+                        }
+                        if (heat > 298 && surplus >= required && inputWater(required)) {
+                            heat--;
+                        }
+                        isCooler = true;
+                    } else if (inputSodiumPotassium(required)) {
+                        while (surplus >= required && getProgress() < getMaxProgress()) {
+                            if (inputSodiumPotassium(required)) {
+                                surplus = surplus - required;
+                                getRecipeLogic().setProgress(getProgress() + 20);
+                            } else {
+                                break;
+                            }
+                        }
+                        if (heat > 298 && surplus >= required && inputSodiumPotassium(required)) {
+                            heat--;
+                        }
+                        isCooler = true;
+                    }
+                }
+                if (!isCooler) {
+                    heat += recipeHeat * heatAdjacent;
+                }
+            } else {
                 if (heat > 298) {
                     heat--;
                 } else if (damaged > 0) {
@@ -166,24 +220,10 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
                     fissionReactorMachine.fuel, false);
             GTRecipe recipe1 = result.getFirst();
             fissionReactorMachine.parallel = result.getSecond();
+            fissionReactorMachine.recipeHeat = recipe1.data.getInt("FRheat");
             return recipe1;
         }
         return null;
-    }
-
-    private boolean inputWater(double amount) {
-        boolean value = MachineIO.inputFluid(this, GTMaterials.DistilledWater.getFluid((long) (amount * 800)));
-        double steamMultiplier = heat > 373 ? 160 : 160 / Math.pow(1.4, 373 - heat);
-        if (value) value = MachineIO.outputFluid(this, GTMaterials.Steam.getFluid((long) (amount * 800 * steamMultiplier)));
-        return value;
-    }
-
-    private boolean inputSodiumPotassium(double amount) {
-        boolean value = MachineIO.inputFluid(this, GTMaterials.SodiumPotassium.getFluid((long) (amount * 20)));
-        if (heat > 825) {
-            if (value) value = MachineIO.outputFluid(this, GTLMaterials.SupercriticalSodiumPotassium.getFluid((long) (amount * 20)));
-        } else if (value) value = MachineIO.outputFluid(this, GTLMaterials.HotSodiumPotassium.getFluid((long) (amount * 20)));
-        return value;
     }
 
     @Override
@@ -195,50 +235,6 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
     public void onWaiting() {
         super.onWaiting();
         getRecipeLogic().resetRecipeLogic();
-    }
-
-    @Override
-    public boolean onWorking() {
-        boolean value = super.onWorking();
-        if (getOffsetTimer() % 20 == 0) {
-            GTRecipe recipe = getRecipeLogic().getLastRecipe();
-            if (recipe != null) {
-                int h = recipe.data.getInt("FRheat");
-                double required = (double) (h * parallel * heat) / 1500;
-                double surplus = ((cooler - ((double) coolerAdjacent / 3)) * 8) - required;
-                if (surplus >= 0) {
-                    if (inputWater(required)) {
-                        while (surplus >= required && getProgress() < getMaxProgress()) {
-                            if (inputWater(required)) {
-                                surplus = surplus - required;
-                                getRecipeLogic().setProgress(getProgress() + 20);
-                            } else {
-                                break;
-                            }
-                        }
-                        if (heat > 298 && surplus >= required && inputWater(required)) {
-                            heat--;
-                        }
-                        return value;
-                    } else if (inputSodiumPotassium(required)) {
-                        while (surplus >= required && getProgress() < getMaxProgress()) {
-                            if (inputSodiumPotassium(required)) {
-                                surplus = surplus - required;
-                                getRecipeLogic().setProgress(getProgress() + 20);
-                            } else {
-                                break;
-                            }
-                        }
-                        if (heat > 298 && surplus >= required && inputSodiumPotassium(required)) {
-                            heat--;
-                        }
-                        return value;
-                    }
-                }
-                heat += h * heatAdjacent;
-            }
-        }
-        return value;
     }
 
     @Override
