@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gtlcore:item/circuit/magneto_resonatic_circuit_iv"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gtlcore:item/essence/pitchblende_vein_end"
+  }
+}

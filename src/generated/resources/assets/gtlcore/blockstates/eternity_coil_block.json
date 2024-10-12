@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "gtlcore:block/coil/eternity_coil_block"
+    },
+    "active=true": {
+      "model": "gtlcore:block/coil/eternity_coil_block_bloom"
+    }
+  }
+}

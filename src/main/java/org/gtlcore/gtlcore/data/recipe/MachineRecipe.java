@@ -265,13 +265,13 @@ public class MachineRecipe {
                 .duration(400).EUt(VA[UV]).save(provider);
 
         ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("wood_distillation"))
-                .inputItems(MultiBlockMachineA.LARGE_PYROLYSE_OVEN, 2)
-                .inputItems(GCyMMachines.LARGE_DISTILLERY, 4)
+                .inputItems(MultiBlockMachineA.LARGE_PYROLYSE_OVEN.asStack(), 2)
+                .inputItems(GCyMMachines.LARGE_DISTILLERY.asStack(), 4)
                 .inputItems(CustomTags.LuV_CIRCUITS, 16)
-                .inputItems(GTItems.EMITTER_LuV, 4)
+                .inputItems(GTItems.EMITTER_LuV.asStack(), 4)
                 .inputItems(pipeHugeFluid, StainlessSteel, 8)
-                .inputItems(GTItems.ELECTRIC_PUMP_IV, 8)
-                .inputItems(WatertightSteel, 16)
+                .inputItems(GTItems.ELECTRIC_PUMP_IV.asStack(), 8)
+                .inputItems(plate, WatertightSteel, 16)
                 .inputItems(plateDouble, StainlessSteel, 32)
                 .inputFluids(SolderingAlloy.getFluid(1296))
                 .outputItems(MultiBlockMachineB.WOOD_DISTILLATION)

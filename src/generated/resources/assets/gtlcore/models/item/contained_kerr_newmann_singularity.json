@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gtlcore:item/contained_kerr_newmann_singularity"
+  }
+}

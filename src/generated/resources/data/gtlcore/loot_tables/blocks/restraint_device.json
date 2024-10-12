@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "gtlcore:restraint_device"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "gtlcore:blocks/restraint_device"
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "gtceu:block/cube_2_layer/all",
+    "textures": {
+        "bot_all": "gtlcore:block/coil/eternity_coil_block",
+        "top_all": "gtlcore:block/coil/eternity_coil_block_bloom"
+    }
+}

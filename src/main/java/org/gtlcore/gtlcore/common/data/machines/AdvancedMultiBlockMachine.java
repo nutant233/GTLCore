@@ -42,7 +42,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -151,9 +150,9 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1)))
                     .where('D', Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
-                    .where('E', Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
-                    .where('F', Predicates.blocks(Registries.getBlock("kubejs:spacetime_compression_field_generator")))
-                    .where('G', Predicates.blocks(Registries.getBlock("kubejs:dimensional_stability_casing")))
+                    .where('E', Predicates.blocks(GTLBlocks.DIMENSIONAL_BRIDGE_CASING.get()))
+                    .where('F', Predicates.blocks(GTLBlocks.SPACETIME_COMPRESSION_FIELD_GENERATOR.get()))
+                    .where('G', Predicates.blocks(GTLBlocks.DIMENSIONAL_STABILITY_CASING.get()))
                     .where(" ", Predicates.any())
                     .build())
             .renderer(EyeOfHarmonyRenderer::new)
@@ -193,7 +192,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setMaxGlobalLimited(1)))
                     .where("c", Predicates.blocks(GCyMBlocks.HEAT_VENT.get()))
-                    .where("d", Predicates.blocks(Registries.getBlock("kubejs:neutronium_pipe_casing")))
+                    .where("d", Predicates.blocks(GTLBlocks.NEUTRONIUM_PIPE_CASING.get()))
                     .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.BlackTitanium)))
                     .where("f", Predicates.blocks(GTLBlocks.EXTREME_STRENGTH_TRITANIUM_CASING.get()))
                     .build())
@@ -244,7 +243,7 @@ public class AdvancedMultiBlockMachine {
                     .where("b", Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
                     .where("C", Predicates.heatingCoils())
                     .where("d", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
-                    .where("s", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
+                    .where("s", Predicates.blocks(GTLBlocks.DIMENSIONAL_BRIDGE_CASING.get()))
                     .where(" ", Predicates.any())
                     .build())
             .beforeWorking((machine, recipe) -> {
@@ -288,15 +287,15 @@ public class AdvancedMultiBlockMachine {
                     p = item.getCount() * 2;
                     long inputEUt = RecipeHelper.getInputEUt(recipe);
                     if (inputEUt == GTValues.VA[GTValues.UV]) {
-                        isParallel = Objects.equals(item.kjs$getId(), "kubejs:precision_circuit_assembly_robot_mk1");
+                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK1.get();
                     } else if (inputEUt == GTValues.VA[GTValues.UHV]) {
-                        isParallel = Objects.equals(item.kjs$getId(), "kubejs:precision_circuit_assembly_robot_mk2");
+                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK2.get();
                     } else if (inputEUt == GTValues.VA[GTValues.UEV]) {
-                        isParallel = Objects.equals(item.kjs$getId(), "kubejs:precision_circuit_assembly_robot_mk3");
+                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK3.get();
                     } else if (inputEUt == GTValues.VA[GTValues.UIV]) {
-                        isParallel = Objects.equals(item.kjs$getId(), "kubejs:precision_circuit_assembly_robot_mk4");
+                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK4.get();
                     } else if (inputEUt == GTValues.VA[GTValues.UXV]) {
-                        isParallel = Objects.equals(item.kjs$getId(), "kubejs:precision_circuit_assembly_robot_mk5");
+                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK5.get();
                     }
                 }
                 if (isParallel) {
@@ -316,7 +315,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("c", Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                     .where("d", Predicates.blocks(GTMachines.ITEM_IMPORT_BUS[0].get()).or(Predicates.blocks(CustomMachines.HUGE_ITEM_IMPORT_BUS[0].get())))
-                    .where("e", Predicates.blocks(Registries.getBlock("kubejs:machine_casing_circuit_assembly_line")))
+                    .where("e", Predicates.blocks(GTLBlocks.MACHINE_CASING_CIRCUIT_ASSEMBLY_LINE.get()))
                     .where("f", Predicates.abilities(PartAbility.EXPORT_ITEMS))
                     .where("g", Predicates.abilities(PartAbility.IMPORT_FLUIDS_4X))
                     .build())
@@ -340,7 +339,7 @@ public class AdvancedMultiBlockMachine {
                     .where("b", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes())))
                     .where("a", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:module_connector")))
+                    .where("c", Predicates.blocks(GTLBlocks.MODULE_CONNECTOR.get()))
                     .build())
             .workableCasingRenderer(GTLCore.id("block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
@@ -363,7 +362,7 @@ public class AdvancedMultiBlockMachine {
                     .where("b", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes())))
                     .where("a", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:module_connector")))
+                    .where("c", Predicates.blocks(GTLBlocks.MODULE_CONNECTOR.get()))
                     .build())
             .workableCasingRenderer(GTLCore.id("block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
@@ -387,13 +386,13 @@ public class AdvancedMultiBlockMachine {
                 }
             }
         }
-        covRecipe.put("minecraft:bone_block", "kubejs:essence_block");
+        covRecipe.put("minecraft:bone_block", "gtlcore:essence_block");
         covRecipe.put("minecraft:oak_log", "minecraft:crimson_stem");
         covRecipe.put("minecraft:birch_log", "minecraft:warped_stem");
         covRecipe.put("gtceu:calcium_block", "minecraft:bone_block");
         covRecipe.put("minecraft:moss_block", "minecraft:sculk");
         covRecipe.put("minecraft:grass_block", "minecraft:moss_block");
-        covRecipe.put("kubejs:infused_obsidian", "kubejs:draconium_block_charged");
+        covRecipe.put("gtlcore:infused_obsidian", "gtlcore:draconium_block_charged");
     }
 
     private static boolean blockConversionRoom(List<int[]> poses, IRecipeLogicMachine machine, int tier) {
@@ -445,7 +444,7 @@ public class AdvancedMultiBlockMachine {
                     .where("b", Predicates.blocks(GTLBlocks.ALUMINIUM_BRONZE_CASING.get()).setMinGlobalLimited(120)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:shining_obsidian")))
+                    .where("c", Predicates.blocks(GTLBlocks.SHINING_OBSIDIAN.get()))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get())
                             .or(Predicates.blocks(Blocks.IRON_DOOR).setMaxGlobalLimited(4)))
                     .where(" ", Predicates.any())
@@ -487,7 +486,7 @@ public class AdvancedMultiBlockMachine {
                     .where("b", Predicates.blocks(GTLBlocks.ALUMINIUM_BRONZE_CASING.get()).setMinGlobalLimited(240)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:shining_obsidian")))
+                    .where("c", Predicates.blocks(GTLBlocks.SHINING_OBSIDIAN.get()))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get())
                             .or(Predicates.blocks(Blocks.IRON_DOOR).setMaxGlobalLimited(4)))
                     .where(" ", Predicates.any())
@@ -695,7 +694,7 @@ public class AdvancedMultiBlockMachine {
                     .where("d", Predicates.blocks(GTLBlocks.DIMENSION_CONNECTION_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1)))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:dimension_creation_casing")))
+                    .where("c", Predicates.blocks(GTLBlocks.DIMENSION_CREATION_CASING.get()))
                     .where(" ", Predicates.any())
                     .build())
             .onWorking(machine -> {
@@ -768,8 +767,8 @@ public class AdvancedMultiBlockMachine {
                     .where("b", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.HastelloyX)))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TITANIUM_PIPE.get()))
                     .where("e", Predicates.blocks(GCyMBlocks.MOLYBDENUM_DISILICIDE_COIL_BLOCK.get()))
-                    .where("f", Predicates.blocks(Registries.getBlock("kubejs:neutronium_gearbox")))
-                    .where("g", Predicates.blocks(Registries.getBlock("kubejs:machine_casing_grinding_head")))
+                    .where("f", Predicates.blocks(GTLBlocks.NEUTRONIUM_GEARBOX.get()))
+                    .where("g", Predicates.blocks(GTLBlocks.MACHINE_CASING_GRINDING_HEAD.get()))
                     .where(" ", Predicates.any())
                     .build())
             .beforeWorking((machine, recipe) -> {
@@ -827,11 +826,11 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_RECEPTION).setMaxGlobalLimited(1)))
-                    .where("b", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
+                    .where("b", Predicates.blocks(GTLBlocks.DIMENSIONAL_BRIDGE_CASING.get()))
                     .where("c", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Infinity)))
                     .where("d", Predicates.blocks(GTLBlocks.CREATE_CASING.get()))
-                    .where("e", Predicates.blocks(Registries.getBlock("kubejs:spacetime_compression_field_generator")))
-                    .where("f", Predicates.blocks(Registries.getBlock("kubejs:create_aggregatione_core")))
+                    .where("e", Predicates.blocks(GTLBlocks.SPACETIME_COMPRESSION_FIELD_GENERATOR.get()))
+                    .where("f", Predicates.blocks(GTLBlocks.CREATE_AGGREGATIONE_CORE.get()))
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where(" ", Predicates.any())
                     .build())
@@ -840,11 +839,11 @@ public class AdvancedMultiBlockMachine {
                     Level level = machine.self().getLevel();
                     if (level != null) {
                         BlockPos pos = machine.self().getPos().offset(0, -16, 0);
-                        String block = level.getBlockState(pos).getBlock().kjs$getId();
-                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, Registries.getItemStack("kubejs:chain_command_block_core")) && Objects.equals(block, "kubejs:command_block_broken")) {
+                        Block block = level.getBlockState(pos).getBlock();
+                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, GTLItems.CHAIN_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.COMMAND_BLOCK_BROKEN.get()) {
                             level.setBlockAndUpdate(pos, Blocks.CHAIN_COMMAND_BLOCK.defaultBlockState());
                         }
-                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, Registries.getItemStack("kubejs:repeating_command_block_core")) && Objects.equals(block, "kubejs:chain_command_block_broken")) {
+                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, GTLItems.REPEATING_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.CHAIN_COMMAND_BLOCK_BROKEN.get()) {
                             level.setBlockAndUpdate(pos, Blocks.COMMAND_BLOCK.defaultBlockState());
                         }
                     }
@@ -907,16 +906,16 @@ public class AdvancedMultiBlockMachine {
                     .aisle("                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ", "               IIIII               ", "                                   ", "                                   ", "                                   ", "                                   ", "                                   ")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("A", Predicates.blocks(GTBlocks.FUSION_GLASS.get()))
-                    .where("B", Predicates.blocks(Registries.getBlock("kubejs:spacetime_assembly_line_unit")))
-                    .where("C", Predicates.blocks(Registries.getBlock("kubejs:spacetime_assembly_line_casing")))
+                    .where("B", Predicates.blocks(GTLBlocks.SPACETIME_ASSEMBLY_LINE_UNIT.get()))
+                    .where("C", Predicates.blocks(GTLBlocks.SPACETIME_ASSEMBLY_LINE_CASING.get()))
                     .where("D", Predicates.cleanroomFilters())
                     .where("E", Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
                     .where("F", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
-                    .where("G", Predicates.blocks(Registries.getBlock("kubejs:dimensional_bridge_casing")))
+                    .where("G", Predicates.blocks(GTLBlocks.DIMENSIONAL_BRIDGE_CASING.get()))
                     .where("H", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
                     .where("I", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get()))
                     .where("J", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
-                    .where("M", Predicates.blocks(Registries.getBlock("kubejs:hollow_casing")))
+                    .where("M", Predicates.blocks(GTLBlocks.HOLLOW_CASING.get()))
                     .where("K", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get()))
                     .where("L", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
@@ -1222,7 +1221,7 @@ public class AdvancedMultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.isa_mill")))
             .recipeModifier(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:inconel_625_casing"))
+            .appearanceBlock(GTLBlocks.INCONEL_625_CASING)
             .pattern((definition) -> FactoryBlockPattern.start(RelativeDirection.BACK, RelativeDirection.UP, RelativeDirection.RIGHT)
                     .aisle("BBB", "BBB", "BBB")
                     .aisle("BBB", "BCB", "BBB")
@@ -1232,18 +1231,18 @@ public class AdvancedMultiBlockMachine {
                     .aisle("BBB", "BCB", "BBB")
                     .aisle("AAA", "ADA", "AAA")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("B", Predicates.blocks(Registries.getBlock("kubejs:inconel_625_casing"))
+                    .where("B", Predicates.blocks(GTLBlocks.INCONEL_625_CASING.get())
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(4))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.MUFFLER).setExactLimit(1)))
-                    .where("C", Predicates.blocks(Registries.getBlock("kubejs:inconel_625_gearbox")))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:inconel_625_pipe")))
+                    .where("C", Predicates.blocks(GTLBlocks.INCONEL_625_GEARBOX.get()))
+                    .where("A", Predicates.blocks(GTLBlocks.INCONEL_625_PIPE.get()))
                     .where("D", Predicates.blocks(GTLMachines.GRIND_BALL_HATCH.getBlock()))
                     .build())
-            .workableCasingRenderer(new ResourceLocation("kubejs:block/inconel_625_casing"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
+            .workableCasingRenderer(GTLCore.id("block/inconel_625_casing"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
             .register();
 
     public static final MultiblockMachineDefinition NEUTRON_ACTIVATOR = REGISTRATE
@@ -1491,11 +1490,11 @@ public class AdvancedMultiBlockMachine {
                     .where("H", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Neutronium)))
                     .where("F", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_internal_support")))
                     .where("C", GTLPredicates.tierActiveCasings(GTLBlocks.sepmmap, "SEPMTier"))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:high_strength_concrete")))
+                    .where("A", Predicates.blocks(GTLBlocks.HIGH_STRENGTH_CONCRETE.get()))
                     .where("D", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get()))
                     .where("M", Predicates.blocks(GTLBlocks.POWER_CORE.get()))
                     .where("G", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
-                    .where("V", Predicates.any().or(Predicates.blocks(Registries.getBlock("kubejs:module_connector")).setPreviewCount(1)))
+                    .where("V", Predicates.any().or(Predicates.blocks(GTLBlocks.MODULE_CONNECTOR.get()).setPreviewCount(1)))
                     .where("-", Predicates.air())
                     .where(" ", Predicates.any())
                     .build())
@@ -1782,7 +1781,7 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.COMPUTATION_DATA_TRANSMISSION).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(1)))
                     .where("a", Predicates.blocks(GTBlocks.ADVANCED_COMPUTER_CASING.get()))
-                    .where("c", Predicates.blocks(Registries.getBlock("kubejs:create_hpca_component")))
+                    .where("c", Predicates.blocks(GTLBlocks.CREATE_HPCA_COMPONENT.get()))
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/hpca/advanced_computer_casing/back"), GTCEu.id("block/multiblock/hpca"))
             .register();

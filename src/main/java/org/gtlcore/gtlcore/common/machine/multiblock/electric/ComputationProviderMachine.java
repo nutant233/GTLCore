@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.utils.MachineIO;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
@@ -16,7 +17,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +27,6 @@ import java.util.List;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static org.gtlcore.gtlcore.utils.MachineIO.inputEU;
-import static org.gtlcore.gtlcore.utils.Registries.getItemStack;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -72,26 +71,21 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
         return toAllocate;
     }
 
-    private static final ItemStack OPTICAL_MAINFRAME = getItemStack("kubejs:optical_mainframe", 8);
-    private static final ItemStack EXOTIC_MAINFRAME = getItemStack("kubejs:exotic_mainframe", 8);
-    private static final ItemStack COSMIC_MAINFRAME = getItemStack("kubejs:cosmic_mainframe", 8);
-    private static final ItemStack SUPRACAUSAL_MAINFRAME = getItemStack("kubejs:supracausal_mainframe", 8);
-
     @Override
     public int getMaxCWUt(@NotNull Collection<IOpticalComputationProvider> seen) {
         seen.add(this);
         if (inf) return Integer.MAX_VALUE;
         if (maxCWUt == 0) {
-            if (getTier() < 12 && MachineIO.notConsumableItem(this, OPTICAL_MAINFRAME)) {
+            if (getTier() < 12 && MachineIO.notConsumableItem(this, GTLItems.OPTICAL_MAINFRAME.asStack())) {
                 return 1024;
             }
-            if (getTier() < 13 && MachineIO.notConsumableItem(this, EXOTIC_MAINFRAME)) {
+            if (getTier() < 13 && MachineIO.notConsumableItem(this, GTLItems.EXOTIC_MAINFRAME.asStack())) {
                 return 2048;
             }
-            if (getTier() < 14 && MachineIO.notConsumableItem(this, COSMIC_MAINFRAME)) {
+            if (getTier() < 14 && MachineIO.notConsumableItem(this, GTLItems.COSMIC_MAINFRAME.asStack())) {
                 return 4096;
             }
-            if (MachineIO.notConsumableItem(this, SUPRACAUSAL_MAINFRAME)) {
+            if (MachineIO.notConsumableItem(this, GTLItems.SUPRACAUSAL_MAINFRAME.asStack())) {
                 return 8192;
             }
             return 0;

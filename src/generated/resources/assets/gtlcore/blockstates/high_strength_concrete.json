@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "gtlcore:block/high_strength_concrete"
+    }
+  }
+}

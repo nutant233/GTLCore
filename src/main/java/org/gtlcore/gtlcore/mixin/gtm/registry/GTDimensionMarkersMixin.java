@@ -50,23 +50,23 @@ public class GTDimensionMarkersMixin {
         createAndRegister(new ResourceLocation("ad_astra:glacio"),
                 7, new ResourceLocation("ad_astra:glacio_stone"), "dimension.ad_astra.glacio");
         createAndRegister(new ResourceLocation("kubejs:ancient_world"),
-                0, new ResourceLocation("kubejs:reactor_core"), "dimension.kubejs.ancient_world");
+                0, new ResourceLocation("gtlcore:reactor_core"), "dimension.kubejs.ancient_world");
         createAndRegister(new ResourceLocation("kubejs:titan"),
-                6, new ResourceLocation("kubejs:titanstone"), "dimension.kubejs.titan");
+                6, new ResourceLocation("gtlcore:titanstone"), "dimension.kubejs.titan");
         createAndRegister(new ResourceLocation("kubejs:pluto"),
-                6, new ResourceLocation("kubejs:plutostone"), "dimension.kubejs.pluto");
+                6, new ResourceLocation("gtlcore:plutostone"), "dimension.kubejs.pluto");
         createAndRegister(new ResourceLocation("kubejs:io"),
-                5, new ResourceLocation("kubejs:iostone"), "dimension.kubejs.io");
+                5, new ResourceLocation("gtlcore:iostone"), "dimension.kubejs.io");
         createAndRegister(new ResourceLocation("kubejs:ganymede"),
-                5, new ResourceLocation("kubejs:ganymedestone"), "dimension.kubejs.ganymede");
+                5, new ResourceLocation("gtlcore:ganymedestone"), "dimension.kubejs.ganymede");
         createAndRegister(new ResourceLocation("kubejs:enceladus"),
-                6, new ResourceLocation("kubejs:enceladusstone"), "dimension.kubejs.enceladus");
+                6, new ResourceLocation("gtlcore:enceladusstone"), "dimension.kubejs.enceladus");
         createAndRegister(new ResourceLocation("kubejs:ceres"),
-                4, new ResourceLocation("kubejs:ceresstone"), "dimension.kubejs.ceres");
+                4, new ResourceLocation("gtlcore:ceresstone"), "dimension.kubejs.ceres");
         createAndRegister(new ResourceLocation("kubejs:barnarda"),
-                8, new ResourceLocation("kubejs:barnarda_wood"), "dimension.kubejs.barnarda");
+                8, new ResourceLocation("gtlcore:barnarda_wood"), "dimension.kubejs.barnarda");
         createAndRegister(new ResourceLocation("kubejs:create"),
-                10, new ResourceLocation("kubejs:dimension_creation_casing"), "dimension.kubejs.create");
+                10, new ResourceLocation("gtlcore:dimension_creation_casing"), "dimension.kubejs.create");
         createAndRegister(new ResourceLocation("kubejs:void"),
                 0, new ResourceLocation("minecraft:obsidian"), "dimension.kubejs.void");
         createAndRegister(new ResourceLocation("kubejs:flat"),

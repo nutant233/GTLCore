@@ -1,7 +1,5 @@
 package org.gtlcore.gtlcore.common.data;
 
-import org.gtlcore.gtlcore.GTLCore;
-
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.cover.CoverDefinition;
 import com.gregtechceu.gtceu.client.renderer.cover.*;
@@ -10,6 +8,7 @@ import com.gregtechceu.gtceu.common.cover.PumpCover;
 import com.gregtechceu.gtceu.common.cover.RobotArmCover;
 import com.gregtechceu.gtceu.common.data.GTCovers;
 
+import com.hepdd.gtmthings.GTMThings;
 import com.hepdd.gtmthings.common.cover.WirelessEnergyReceiveCover;
 
 import java.util.Locale;
@@ -50,7 +49,7 @@ public class GTLCovers {
     public static CoverDefinition registerTieredWirelessCover(String id, int amperage, int tier) {
         String name = id + "." + GTValues.VN[tier].toLowerCase(Locale.ROOT);
         return GTCovers.register(name, (holder, coverable, side) -> new WirelessEnergyReceiveCover(holder, coverable, side, tier, amperage),
-                new SimpleCoverRenderer(GTLCore.id("block/cover/overlay_" + (amperage == 1 ? "" : "4a_") + "wireless_energy_receive")));
+                new SimpleCoverRenderer(GTMThings.id("block/cover/overlay_" + (amperage == 1 ? "" : "4a_") + "wireless_energy_receive")));
     }
 
     public static void init() {}

@@ -7,6 +7,6 @@
   },
   "loader": "avaritia:cosmic",
   "cosmic": {
-    "mask": "kubejs:mask/cosmic_wire_fine"
+    "mask": "gtlcore:mask/cosmic_wire_fine"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "values": [
+    "gtlcore:bioware_computer",
+    "gtlcore:optical_assembly",
+    "gtlcore:exotic_processor",
+    "gtlcore:suprachronal_circuit_uhv",
+    "gtlcore:magneto_resonatic_circuit_uhv",
+    "gtlcore:universal_circuit_uhv"
+  ]
+}

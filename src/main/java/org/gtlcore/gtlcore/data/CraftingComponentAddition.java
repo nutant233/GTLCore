@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.data;
 
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 
@@ -15,7 +16,6 @@ import java.util.stream.Stream;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
-import static org.gtlcore.gtlcore.utils.Registries.getItem;
 
 public final class CraftingComponentAddition {
 
@@ -237,10 +237,10 @@ public final class CraftingComponentAddition {
         GLASS.appendIngredients(Stream.of(new Object[][] {
                 { UHV, GTBlocks.FUSION_GLASS.asStack() },
                 { UEV, GTBlocks.FUSION_GLASS.asStack() },
-                { UIV, getItem("kubejs:force_field_glass") },
-                { UXV, getItem("kubejs:force_field_glass") },
-                { OpV, getItem("kubejs:force_field_glass") },
-                { MAX, getItem("kubejs:force_field_glass") },
+                { UIV, GTLBlocks.FORCE_FIELD_GLASS.asStack() },
+                { UXV, GTLBlocks.FORCE_FIELD_GLASS.asStack() },
+                { OpV, GTLBlocks.FORCE_FIELD_GLASS.asStack() },
+                { MAX, GTLBlocks.FORCE_FIELD_GLASS.asStack() },
 
         }).collect(Collectors.toMap(data -> (Integer) data[0], data -> data[1])));
 
@@ -321,8 +321,8 @@ public final class CraftingComponentAddition {
                 { 6, new UnificationEntry(TagPrefix.rod, GTMaterials.VanadiumGallium) },
                 { 7, new UnificationEntry(TagPrefix.rod, GTMaterials.NiobiumTitanium) },
                 { 8, new UnificationEntry(TagPrefix.rod, GTMaterials.NiobiumTitanium) },
-                { 9, getItem("kubejs:netherite_rod") },
-                { 10, getItem("kubejs:netherite_rod") },
+                { 9, GTLItems.NETHERITE_ROD.asStack() },
+                { 10, GTLItems.NETHERITE_ROD.asStack() },
                 { 11, new UnificationEntry(TagPrefix.rod, GTLMaterials.Mithril) },
                 { 12, new UnificationEntry(TagPrefix.rod, GTLMaterials.Mithril) },
                 { 13, new UnificationEntry(TagPrefix.rod, GTLMaterials.Echoite) },
@@ -344,21 +344,21 @@ public final class CraftingComponentAddition {
         }).collect(Collectors.toMap(data -> (Integer) data[0], data -> data[1])));
 
         POWER_COMPONENT.appendIngredients(Stream.of(new Object[][] {
-                { 10, getItem("kubejs:nm_chip") },
-                { 11, getItem("kubejs:pm_chip") },
-                { 12, getItem("kubejs:pm_chip") },
-                { 13, getItem("kubejs:fm_chip") },
-                { 14, getItem("kubejs:fm_chip") },
+                { 10, GTLItems.NM_CHIP.asStack() },
+                { 11, GTLItems.PM_CHIP.asStack() },
+                { 12, GTLItems.PM_CHIP.asStack() },
+                { 13, GTLItems.FM_CHIP.asStack() },
+                { 14, GTLItems.FM_CHIP.asStack() },
 
         }).collect(Collectors.toMap(data -> (Integer) data[0], data -> data[1])));
 
         VOLTAGE_COIL.appendIngredients(Stream.of(new Object[][] {
-                { 9, getItem("kubejs:uhv_voltage_coil") },
-                { 10, getItem("kubejs:uev_voltage_coil") },
-                { 11, getItem("kubejs:uiv_voltage_coil") },
-                { 12, getItem("kubejs:uxv_voltage_coil") },
-                { 13, getItem("kubejs:opv_voltage_coil") },
-                { 14, getItem("kubejs:max_voltage_coil") },
+                { 9, GTLItems.UHV_VOLTAGE_COIL.asStack() },
+                { 10, GTLItems.UEV_VOLTAGE_COIL.asStack() },
+                { 11, GTLItems.UIV_VOLTAGE_COIL.asStack() },
+                { 12, GTLItems.UXV_VOLTAGE_COIL.asStack() },
+                { 13, GTLItems.OPV_VOLTAGE_COIL.asStack() },
+                { 14, GTLItems.MAX_VOLTAGE_COIL.asStack() },
 
         }).collect(Collectors.toMap(data -> (Integer) data[0], data -> data[1])));
 

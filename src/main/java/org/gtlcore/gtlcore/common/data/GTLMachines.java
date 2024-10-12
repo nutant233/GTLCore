@@ -240,6 +240,8 @@ public class GTLMachines {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .renderer(() -> new WindMillTurbineRenderer(tier))
                     .hasTESR(true)
+                    .tooltips(Component.translatable("gtceu.machine.wind_mill_turbine.tooltip.0"))
+                    .tooltips(Component.translatable("gtceu.machine.wind_mill_turbine.tooltip.1"))
                     .tooltips(Component.translatable("gtceu.universal.tooltip.ampere_out", 2))
                     .tooltips(Component.translatable("gtceu.universal.tooltip.voltage_out",
                             FormattingUtil.formatNumbers(GTValues.V[tier]), GTValues.VNF[tier]))

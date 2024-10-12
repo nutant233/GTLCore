@@ -1,0 +1,7 @@
+{
+  "values": [
+    "gtlcore:suprachronal_circuit_mv",
+    "gtlcore:magneto_resonatic_circuit_mv",
+    "gtlcore:universal_circuit_mv"
+  ]
+}

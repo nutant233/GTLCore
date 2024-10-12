@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gtlcore:item/hyper_stable_self_healing_adhesive"
+  }
+}

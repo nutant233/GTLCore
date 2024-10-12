@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "gtlcore:block/machine_casing_grinding_head"
+    }
+  }
+}

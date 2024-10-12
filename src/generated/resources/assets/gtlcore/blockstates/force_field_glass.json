@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "gtlcore:block/force_field_glass"
+    }
+  }
+}
