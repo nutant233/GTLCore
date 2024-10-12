@@ -1,7 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
 import org.gtlcore.gtlcore.common.data.GTLRecipes;
-import org.gtlcore.gtlcore.data.recipe.*;
 
 import com.gregtechceu.gtceu.data.recipe.misc.GCyMRecipes;
 

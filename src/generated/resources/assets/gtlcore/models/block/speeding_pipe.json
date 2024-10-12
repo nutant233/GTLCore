@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "gtlcore:block/casings/speeding_pipe/top",
+    "side": "gtlcore:block/casings/speeding_pipe/side",
+    "top": "gtlcore:block/casings/speeding_pipe/top"
+  }
+}

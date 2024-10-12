@@ -9,7 +9,6 @@ import org.gtlcore.gtlcore.common.machine.multiblock.generator.DysonSphereMachin
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.TurbineMachine;
 import org.gtlcore.gtlcore.utils.MachineIO;
-import org.gtlcore.gtlcore.utils.Registries;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -164,7 +163,7 @@ public class GeneratorMachine {
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.dyson_sphere")))
             .recipeModifier((machine, recipe, params, result) -> DysonSphereMachine.recipeModifier(machine, recipe))
-            .appearanceBlock(() -> Registries.getBlock("kubejs:dyson_receiver_casing"))
+            .appearanceBlock(GTLBlocks.DYSON_RECEIVER_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "BBBBBBBBBBBBBB     JJJJJJJJJ   ", "BBBBBBBBBBBBBB     JJJJJJJJJ   ", "BBBBBBBBBBBBBB     JJJJJJJJJ   ", "BBBBBBBBBBBBBB     JJJJJJJJJ   ", "BBBBBBBBBBBBBB                 ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ")
                     .aisle("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "BBBBBBBBBBBBBB     JJJJJJJJJ   ", "B            B     JJJJJJJJJ   ", "B            B     JJJJJJJJJ   ", "B            B     JJJJJJJJJ   ", "BBBBBBBBBBBBBB                 ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ")
@@ -199,7 +198,7 @@ public class GeneratorMachine {
                     .aisle("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                   HHHHHHH     ", "                 HHHHHHHHHHH   ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ")
                     .aisle("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                  HHHHHHHHH    ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ", "                               ")
                     .where("O", Predicates.controller(Predicates.blocks(definition.get())))
-                    .where("I", Predicates.blocks(Registries.getBlock("kubejs:dyson_receiver_casing"))
+                    .where("I", Predicates.blocks(GTLBlocks.DYSON_RECEIVER_CASING.get())
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
@@ -220,14 +219,14 @@ public class GeneratorMachine {
                     .where("L", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Adamantine)))
                     .where("M", Predicates.blocks(GTLBlocks.HYPER_CORE.get()))
                     .where("N", Predicates.blocks(GTLBlocks.ECHO_CASING.get()))
-                    .where("P", Predicates.blocks(Registries.getBlock("kubejs:dyson_deployment_magnet")))
+                    .where("P", Predicates.blocks(GTLBlocks.DYSON_DEPLOYMENT_MAGNET.get()))
                     .where("Q", Predicates.blocks(GTLBlocks.POWER_MODULE_5.get()))
                     .where("R", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.Vibranium)))
                     .where("S", Predicates.blocks(GTLBlocks.CONTAINMENT_FIELD_GENERATOR.get()))
                     .where("T", Predicates.blocks(GTLBlocks.DYSON_DEPLOYMENT_CORE.get()))
                     .where(" ", Predicates.any())
                     .build())
-            .workableCasingRenderer(GTLCore.id("block/dyson_receiver_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/dyson_receiver_casing/top"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition LARGE_NAQUADAH_REACTOR = REGISTRATE.multiblock("large_naquadah_reactor", WorkableElectricMultiblockMachine::new)
@@ -531,7 +530,7 @@ public class GeneratorMachine {
                             .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                             .or(Predicates.abilities(PartAbility.EXPORT_ITEMS)))
                     .where("T", Predicates.blocks(GTLBlocks.DEGENERATE_RHENIUM_CONSTRAINED_CASING.get()))
-                    .where("R", Predicates.blocks(Registries.getBlock("kubejs:dyson_receiver_casing")))
+                    .where("R", Predicates.blocks(GTLBlocks.DYSON_RECEIVER_CASING.get()))
                     .where(" ", Predicates.any())
                     .build())
             .renderer(AnnihilateGeneratorRenderer::new)

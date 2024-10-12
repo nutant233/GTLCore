@@ -6,6 +6,6 @@
   },
   "loader": "avaritia:cosmic",
   "cosmic": {
-    "mask": "kubejs:mask/eternal_singularity"
+    "mask": "gtlcore:mask/eternal_singularity"
   }
 }

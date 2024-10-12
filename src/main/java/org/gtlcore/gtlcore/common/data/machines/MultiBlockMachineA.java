@@ -1471,7 +1471,7 @@ public class MultiBlockMachineA {
                             .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
                     .where("C", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get()))
-                    .where("D", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
+                    .where("D", Predicates.blocks(GTLBlocks.MOLECULAR_COIL.get()))
                     .where("E", Predicates.blocks(GTLBlocks.HOLLOW_CASING.get()))
                     .where("F", Predicates.blocks(GTLBlocks.HYPER_CORE.get()))
                     .where("G", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Tritanium)))
@@ -1556,7 +1556,7 @@ public class MultiBlockMachineA {
                     .where("I", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
-                    .where("B", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
+                    .where("B", Predicates.blocks(GTLBlocks.MOLECULAR_COIL.get()))
                     .where("C", Predicates.blocks(GTLBlocks.CONTAINMENT_FIELD_GENERATOR.get()))
                     .where("D", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
                     .where("E", Predicates.blocks(GTLBlocks.HOLLOW_CASING.get()))
@@ -2421,7 +2421,7 @@ public class MultiBlockMachineA {
                     .where("A", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
                     .where("B", Predicates.blocks(GTBlocks.FUSION_GLASS.get()))
                     .where("C", Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
-                    .where("D", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
+                    .where("D", Predicates.blocks(GTLBlocks.MOLECULAR_COIL.get()))
                     .where("E", Predicates.blocks(GTLBlocks.CONTAINMENT_FIELD_GENERATOR.get()))
                     .where("F", Predicates.blocks(GTLBlocks.IMPROVED_SUPERCONDUCTOR_COIL.get()))
                     .where("G", Predicates.blocks(GCyMBlocks.CASING_LASER_SAFE_ENGRAVING.get())
@@ -2697,7 +2697,7 @@ public class MultiBlockMachineA {
                             .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2)))
                     .where("B", Predicates.blocks(GTLBlocks.HYPER_CORE.get()))
-                    .where("C", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
+                    .where("C", Predicates.blocks(GTLBlocks.MOLECULAR_COIL.get()))
                     .where("D", Predicates.blocks(GTLBlocks.HOLLOW_CASING.get()))
                     .where("E", Predicates.blocks(GTLBlocks.CONTAINMENT_FIELD_GENERATOR.get()))
                     .where("F", Predicates.blocks(GCyMBlocks.ELECTROLYTIC_CELL.get()))
@@ -2816,14 +2816,14 @@ public class MultiBlockMachineA {
                 }
                 return null;
             })
-            .appearanceBlock(() -> Registries.getBlock("kubejs:red_steel_casing"))
+            .appearanceBlock(GTLBlocks.RED_STEEL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("AAA", "BBB", "BBB", "BBB", "AAA")
                     .aisle("AAA", "B B", "B B", "B B", "ACA")
                     .aisle("A~A", "BBB", "BBB", "BBB", "AAA")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("C", Predicates.abilities(PartAbility.MUFFLER).setExactLimit(1))
-                    .where("A", Predicates.blocks(Registries.getBlock("kubejs:red_steel_casing"))
+                    .where("A", Predicates.blocks(GTLBlocks.RED_STEEL_CASING.get())
                             .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setMaxGlobalLimited(2))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setMaxGlobalLimited(2))
@@ -2843,7 +2843,7 @@ public class MultiBlockMachineA {
                                     .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
                 }
             })
-            .workableCasingRenderer(GTLCore.id("block/red_steel_casing_top"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/red_steel_casing/top"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition MEGA_FLUID_HEATER = REGISTRATE.multiblock("mega_fluid_heater", CoilWorkableElectricMultipleRecipesMultiblockMachine::new)

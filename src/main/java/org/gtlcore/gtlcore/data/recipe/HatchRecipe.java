@@ -31,7 +31,6 @@ import static com.gregtechceu.gtceu.api.GTValues.MAX;
 import static com.gregtechceu.gtceu.api.GTValues.VN;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.ASSEMBLER_RECIPES;
 import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.*;
-import static com.gregtechceu.gtceu.data.recipe.CraftingComponent.GLASS;
 import static com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader.registerMachineRecipe;
 
 public class HatchRecipe {

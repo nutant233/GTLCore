@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "gtlcore:block/casings/molecular_coil/top",
+    "side": "gtlcore:block/casings/molecular_coil/side",
+    "top": "gtlcore:block/casings/molecular_coil/top"
+  }
+}

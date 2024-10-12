@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "gtlcore:block/casings/module_base/top",
+    "side": "gtlcore:block/casings/module_base/side",
+    "top": "gtlcore:block/casings/module_base/top"
+  }
+}

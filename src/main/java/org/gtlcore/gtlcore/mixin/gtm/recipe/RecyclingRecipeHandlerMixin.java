@@ -18,7 +18,6 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dust;
 
 @Mixin(RecyclingRecipeHandler.class)
 public class RecyclingRecipeHandlerMixin {

@@ -20,7 +20,6 @@ import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
-import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
@@ -338,7 +337,7 @@ public class AdvancedMultiBlockMachine {
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("b", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes())))
-                    .where("a", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
+                    .where("a", Predicates.blocks(GTLBlocks.MODULE_BASE.get()))
                     .where("c", Predicates.blocks(GTLBlocks.MODULE_CONNECTOR.get()))
                     .build())
             .workableCasingRenderer(GTLCore.id("block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
@@ -361,67 +360,13 @@ public class AdvancedMultiBlockMachine {
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("b", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get())
                             .or(Predicates.autoAbilities(definition.getRecipeTypes())))
-                    .where("a", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
+                    .where("a", Predicates.blocks(GTLBlocks.MODULE_BASE.get()))
                     .where("c", Predicates.blocks(GTLBlocks.MODULE_CONNECTOR.get()))
                     .build())
             .workableCasingRenderer(GTLCore.id("block/space_elevator_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))
             .register();
 
-    private static final List<int[]> poses1 = new ArrayList<>();
-    private static final List<int[]> poses2 = new ArrayList<>();
-    private static final Map<String, String> covRecipe = new HashMap<>();
-
-    static {
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -1; j >= -5; j--) {
-                for (int k = -2; k <= 2; k++) {
-                    poses1.add(new int[] { i, j, k });
-                }
-            }
-        }
-        for (int i = -4; i <= 4; i++) {
-            for (int j = -1; j >= -7; j--) {
-                for (int k = -4; k <= 4; k++) {
-                    poses2.add(new int[] { i, j, k });
-                }
-            }
-        }
-        covRecipe.put("minecraft:bone_block", "gtlcore:essence_block");
-        covRecipe.put("minecraft:oak_log", "minecraft:crimson_stem");
-        covRecipe.put("minecraft:birch_log", "minecraft:warped_stem");
-        covRecipe.put("gtceu:calcium_block", "minecraft:bone_block");
-        covRecipe.put("minecraft:moss_block", "minecraft:sculk");
-        covRecipe.put("minecraft:grass_block", "minecraft:moss_block");
-        covRecipe.put("gtlcore:infused_obsidian", "gtlcore:draconium_block_charged");
-    }
-
-    private static boolean blockConversionRoom(List<int[]> poses, IRecipeLogicMachine machine, int tier) {
-        if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-            if (workableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
-                Level level = machine.self().getLevel();
-                if (level != null) {
-                    int amount = workableElectricMultiblockMachine.getTier() * tier - 7;
-                    int[] pos = new int[] {};
-                    for (int i = 0; i < amount; i++) {
-                        int[] pos_0 = poses.get((int) (Math.random() * poses.size()));
-                        if (pos_0 != pos) {
-                            pos = pos_0;
-                            BlockPos blockPos = machine.self().getPos().offset(pos[0], pos[1], pos[2]);
-                            String block = level.getBlockState(blockPos).getBlock().kjs$getId();
-                            if (covRecipe.containsKey(block)) {
-                                level.setBlockAndUpdate(blockPos, Registries.getBlock(covRecipe.get(block)).defaultBlockState());
-                            }
-                        } else {
-                            i--;
-                        }
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    public final static MultiblockMachineDefinition BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("block_conversion_room", WorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("block_conversion_room", holder -> new blockConversionRoomMachine(holder, false))
             .rotationState(RotationState.NONE)
             .allowExtendedFacing(false)
             .allowFlip(false)
@@ -449,17 +394,10 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.blocks(Blocks.IRON_DOOR).setMaxGlobalLimited(4)))
                     .where(" ", Predicates.any())
                     .build())
-            .onWorking(machine -> blockConversionRoom(poses1, machine, 4))
-            .onWaiting(machine -> machine.getRecipeLogic().interruptRecipe())
-            .additionalDisplay((controller, components) -> {
-                if (controller.isFormed() && controller instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-                    components.add(Component.literal("每次转化数量：" + (workableElectricMultiblockMachine.getTier() * 4 - 7)));
-                }
-            })
             .workableCasingRenderer(GTLCore.id("block/casings/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
             .register();
 
-    public final static MultiblockMachineDefinition LARGE_BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("large_block_conversion_room", WorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition LARGE_BLOCK_CONVERSION_ROOM = REGISTRATE.multiblock("large_block_conversion_room", holder -> new blockConversionRoomMachine(holder, true))
             .rotationState(RotationState.NONE)
             .allowExtendedFacing(false)
             .allowFlip(false)
@@ -491,13 +429,6 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.blocks(Blocks.IRON_DOOR).setMaxGlobalLimited(4)))
                     .where(" ", Predicates.any())
                     .build())
-            .onWorking(machine -> blockConversionRoom(poses2, machine, 64))
-            .onWaiting(machine -> machine.getRecipeLogic().interruptRecipe())
-            .additionalDisplay((controller, components) -> {
-                if (controller.isFormed() && controller instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-                    components.add(Component.literal("每次转化数量：" + (workableElectricMultiblockMachine.getTier() * 64 - 7)));
-                }
-            })
             .workableCasingRenderer(GTLCore.id("block/casings/aluminium_bronze_casing"), GTCEu.id("block/multiblock/cleanroom"))
             .register();
 
@@ -910,7 +841,7 @@ public class AdvancedMultiBlockMachine {
                     .where("C", Predicates.blocks(GTLBlocks.SPACETIME_ASSEMBLY_LINE_CASING.get()))
                     .where("D", Predicates.cleanroomFilters())
                     .where("E", Predicates.blocks(GTLBlocks.DIMENSION_INJECTION_CASING.get()))
-                    .where("F", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
+                    .where("F", Predicates.blocks(GTLBlocks.MOLECULAR_COIL.get()))
                     .where("G", Predicates.blocks(GTLBlocks.DIMENSIONAL_BRIDGE_CASING.get()))
                     .where("H", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
                     .where("I", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get()))
@@ -951,7 +882,7 @@ public class AdvancedMultiBlockMachine {
                     .aisle("   ", " - ", "   ")
                     .where("~", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("B", Predicates.blocks(GTLBlocks.DIMENSIONALLY_TRANSCENDENT_CASING.get()))
-                    .where("C", Predicates.blocks(Registries.getBlock("kubejs:molecular_coil")))
+                    .where("C", Predicates.blocks(GTLBlocks.MOLECULAR_COIL.get()))
                     .where("D", Predicates.blocks(GTBlocks.FUSION_GLASS.get()))
                     .where("E", Predicates.blocks(GTBlocks.HIGH_POWER_CASING.get()))
                     .where("A", Predicates.blocks(GTLBlocks.MOLECULAR_CASING.get())
@@ -1278,7 +1209,7 @@ public class AdvancedMultiBlockMachine {
                     .where('D', Predicates.blocks(GTLBlocks.PROCESS_MACHINE_CASING.get()))
                     .where('E', Predicates.blocks(GTBlocks.CASING_LAMINATED_GLASS.get()))
                     .where('F', GTLPredicates.countBlock("SpeedPipe",
-                            Registries.getBlock("kubejs:speeding_pipe")))
+                            GTLBlocks.SPEEDING_PIPE.get()))
                     .where(' ', Predicates.any())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/fusion_reactor"))
@@ -1488,12 +1419,12 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("E", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_SUPPORT.get()))
                     .where("H", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTMaterials.Neutronium)))
-                    .where("F", Predicates.blocks(Registries.getBlock("kubejs:space_elevator_internal_support")))
+                    .where("F", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_INTERNAL_SUPPORT.get()))
                     .where("C", GTLPredicates.tierActiveCasings(GTLBlocks.sepmmap, "SEPMTier"))
                     .where("A", Predicates.blocks(GTLBlocks.HIGH_STRENGTH_CONCRETE.get()))
                     .where("D", Predicates.blocks(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING.get()))
                     .where("M", Predicates.blocks(GTLBlocks.POWER_CORE.get()))
-                    .where("G", Predicates.blocks(Registries.getBlock("kubejs:module_base")))
+                    .where("G", Predicates.blocks(GTLBlocks.MODULE_BASE.get()))
                     .where("V", Predicates.any().or(Predicates.blocks(GTLBlocks.MODULE_CONNECTOR.get()).setPreviewCount(1)))
                     .where("-", Predicates.air())
                     .where(" ", Predicates.any())

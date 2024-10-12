@@ -1,6 +1,7 @@
 package org.gtlcore.gtlcore.client.forge;
 
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
 import org.gtlcore.gtlcore.utils.TextUtil;
@@ -44,33 +45,49 @@ public class ForgeClientEventListener {
         Item item = event.getItemStack().getItem();
 
         Map<Item, String[]> tooltipMap = new HashMap<>();
-        tooltipMap.put(GTLItems.CREATE_ULTIMATE_BATTERY.get(), new String[] { "能凭空产生能量", "§2等级-", TextUtil.white_blue("未知") });
-        tooltipMap.put(GTLItems.SUPRACHRONAL_MAINFRAME_COMPLEX.get(), new String[] { "能凭空产生算力", "§2等级-", TextUtil.white_blue("未知") });
-        tooltipMap.put(GTLItems.SUPRACAUSAL_MAINFRAME.get(), new String[] { "万物归一者，原初的神迹", TextUtil.full_color("MAX级电路") });
-        tooltipMap.put(GTLItems.SUPRACAUSAL_COMPUTER.get(), new String[] { "超越时间之影", TextUtil.full_color("OpV级电路") });
-        tooltipMap.put(GTLItems.SUPRACAUSAL_ASSEMBLY.get(), new String[] { "跨过真理之门前的宏伟障壁", TextUtil.full_color("UXV级电路") });
-        tooltipMap.put(GTLItems.SUPRACAUSAL_PROCESSOR.get(), new String[] { "宇宙的法则涌现于此", TextUtil.full_color("UIV级电路") });
-        tooltipMap.put(GTLItems.COSMIC_ASSEMBLY.get(), new String[] { "于握揽微微转动", TextUtil.dark_purplish_red("UIV级电路") });
-        tooltipMap.put(GTLItems.COSMIC_COMPUTER.get(), new String[] { "密度趋近于奇点的小东西", TextUtil.dark_purplish_red("UXV级电路") });
-        tooltipMap.put(GTLItems.COSMIC_MAINFRAME.get(), new String[] { "模拟一切，分析一切，理解一切", TextUtil.dark_purplish_red("OpV级电路") });
-        tooltipMap.put(GTLItems.COSMIC_PROCESSOR.get(), new String[] { "手握星辰", TextUtil.dark_purplish_red("UEV级电路") });
-        tooltipMap.put(GTLItems.EXOTIC_ASSEMBLY.get(), new String[] { "量子随机游走", TextUtil.purplish_red("UEV级电路") });
-        tooltipMap.put(GTLItems.EXOTIC_COMPUTER.get(), new String[] { "以自旋控制一切", TextUtil.purplish_red("UIV级电路") });
-        tooltipMap.put(GTLItems.EXOTIC_MAINFRAME.get(), new String[] { "来自未来的电路", TextUtil.purplish_red("UXV级电路") });
-        tooltipMap.put(GTLItems.EXOTIC_PROCESSOR.get(), new String[] { "超级磁性半导体电路", TextUtil.purplish_red("UHV级电路") });
-        tooltipMap.put(GTLItems.OPTICAL_ASSEMBLY.get(), new String[] { "光子涌流", TextUtil.golden("UHV级电路") });
-        tooltipMap.put(GTLItems.OPTICAL_COMPUTER.get(), new String[] { "超大规模计算数据支持", TextUtil.golden("UEV级电路") });
-        tooltipMap.put(GTLItems.OPTICAL_MAINFRAME.get(), new String[] { "计算速度无限逼近于光速", TextUtil.golden("UIV级电路") });
-        tooltipMap.put(GTLItems.OPTICAL_PROCESSOR.get(), new String[] { "超高效光电子载运", TextUtil.golden("UV级电路") });
-        tooltipMap.put(GTLItems.BIOWARE_ASSEMBLY.get(), new String[] { "似乎能听到窃窃私语", TextUtil.dark_green("UV级电路") });
-        tooltipMap.put(GTLItems.BIOWARE_COMPUTER.get(), new String[] { "金属之间布满了黏菌", TextUtil.dark_green("UHV级电路") });
-        tooltipMap.put(GTLItems.BIOWARE_MAINFRAME.get(), new String[] { "菌群意识网络", TextUtil.dark_green("UEV级电路") });
-        tooltipMap.put(GTLItems.BIOWARE_PROCESSOR.get(), new String[] { "粘稠的有机浆液附着于表面", TextUtil.dark_green("ZPM级电路") });
+        tooltipMap.put(GTLItems.WARPED_ENDER_PEAL.get(), new String[] { "潜行右键可设置个人传送点，右键传送到传送点" });
+        tooltipMap.put(GTLBlocks.COIL_URUIUM.asItem(), new String[] { "可为超维度等离子锻炉提供32000K炉温", "恒星锻炉模式仅可使用该线圈" });
+        tooltipMap.put(GTLBlocks.ESSENCE_BLOCK.asItem(), new String[] { "将骨块放置在转换室获得" });
+        tooltipMap.put(GTLBlocks.DRACONIUM_BLOCK_CHARGED.asItem(), new String[] { "将注入龙力的黑曜石放置在转换室获得" });
+        tooltipMap.put(GTLItems.HYPER_STABLE_SELF_HEALING_ADHESIVE.get(), new String[] { "§7选择性完全粘合，即使在撕裂或损坏时也有效" });
+        tooltipMap.put(GTLItems.BLACK_BODY_NAQUADRIA_SUPERSOLID.get(), new String[] { "§7如液体般流动，不反射任何电磁波，完美地将其吸收与传递" });
+        tooltipMap.put(GTLItems.HUI_CIRCUIT_1.get(), new String[] { "§793015-T浮点运算/秒" });
+        tooltipMap.put(GTLItems.HUI_CIRCUIT_2.get(), new String[] { "§776M处理单元" });
+        tooltipMap.put(GTLItems.HUI_CIRCUIT_3.get(), new String[] { "§7无效RSA算法" });
+        tooltipMap.put(GTLItems.HUI_CIRCUIT_4.get(), new String[] { "§7第56梅森素数" });
+        tooltipMap.put(GTLItems.HUI_CIRCUIT_5.get(), new String[] { "§7佯谬" });
+        tooltipMap.put(GTLItems.BIOWARE_PRINTED_CIRCUIT_BOARD.get(), new String[] { "§7生物基因突变的电路基板" });
+        tooltipMap.put(GTLItems.OPTICAL_PRINTED_CIRCUIT_BOARD.get(), new String[] { "§7光学注入的电路基板" });
+        tooltipMap.put(GTLItems.EXOTIC_PRINTED_CIRCUIT_BOARD.get(), new String[] { "§7量子电路基板" });
+        tooltipMap.put(GTLItems.COSMIC_PRINTED_CIRCUIT_BOARD.get(), new String[] { "§7承载宇宙的电路基板" });
+        tooltipMap.put(GTLItems.SUPRACAUSAL_PRINTED_CIRCUIT_BOARD.get(), new String[] { "§7最终的电路基板" });
+        tooltipMap.put(GTLItems.CREATE_ULTIMATE_BATTERY.get(), new String[] { "§7能凭空产生能量", "§2等级-", TextUtil.white_blue("未知") });
+        tooltipMap.put(GTLItems.SUPRACHRONAL_MAINFRAME_COMPLEX.get(), new String[] { "§7能凭空产生算力", "§2等级-", TextUtil.white_blue("未知") });
+        tooltipMap.put(GTLItems.SUPRACAUSAL_MAINFRAME.get(), new String[] { "§7未卜先知", TextUtil.full_color("MAX级电路") });
+        tooltipMap.put(GTLItems.SUPRACAUSAL_COMPUTER.get(), new String[] { "§7利用虫洞的优势", TextUtil.full_color("OpV级电路") });
+        tooltipMap.put(GTLItems.SUPRACAUSAL_ASSEMBLY.get(), new String[] { "§7巨量的奇点", TextUtil.full_color("UXV级电路") });
+        tooltipMap.put(GTLItems.SUPRACAUSAL_PROCESSOR.get(), new String[] { "§7黑洞之力", TextUtil.full_color("UIV级电路") });
+        tooltipMap.put(GTLItems.COSMIC_ASSEMBLY.get(), new String[] { "§7于握揽微微转动", TextUtil.dark_purplish_red("UIV级电路") });
+        tooltipMap.put(GTLItems.COSMIC_COMPUTER.get(), new String[] { "§7密度趋近于奇点的小东西", TextUtil.dark_purplish_red("UXV级电路") });
+        tooltipMap.put(GTLItems.COSMIC_MAINFRAME.get(), new String[] { "§7寰宇之力，震慑古今！", TextUtil.dark_purplish_red("OpV级电路") });
+        tooltipMap.put(GTLItems.COSMIC_PROCESSOR.get(), new String[] { "§7手握星辰", TextUtil.dark_purplish_red("UEV级电路") });
+        tooltipMap.put(GTLItems.EXOTIC_ASSEMBLY.get(), new String[] { "§7量子随机游走", TextUtil.purplish_red("UEV级电路") });
+        tooltipMap.put(GTLItems.EXOTIC_COMPUTER.get(), new String[] { "§7以自旋控制一切", TextUtil.purplish_red("UIV级电路") });
+        tooltipMap.put(GTLItems.EXOTIC_MAINFRAME.get(), new String[] { "§7来自未来的电路", TextUtil.purplish_red("UXV级电路") });
+        tooltipMap.put(GTLItems.EXOTIC_PROCESSOR.get(), new String[] { "§7超级磁性半导体电路", TextUtil.purplish_red("UHV级电路") });
+        tooltipMap.put(GTLItems.OPTICAL_ASSEMBLY.get(), new String[] { "§7激光之力！", TextUtil.golden("UHV级电路") });
+        tooltipMap.put(GTLItems.OPTICAL_COMPUTER.get(), new String[] { "§7就在眨眼之间", TextUtil.golden("UEV级电路") });
+        tooltipMap.put(GTLItems.OPTICAL_MAINFRAME.get(), new String[] { "§7还能更快吗？", TextUtil.golden("UIV级电路") });
+        tooltipMap.put(GTLItems.OPTICAL_PROCESSOR.get(), new String[] { "§7光速计算", TextUtil.golden("UV级电路") });
+        tooltipMap.put(GTLItems.BIOWARE_ASSEMBLY.get(), new String[] { "§7似乎能听到窃窃私语", TextUtil.dark_green("UV级电路") });
+        tooltipMap.put(GTLItems.BIOWARE_COMPUTER.get(), new String[] { "§7金属之间布满了黏菌", TextUtil.dark_green("UHV级电路") });
+        tooltipMap.put(GTLItems.BIOWARE_MAINFRAME.get(), new String[] { "§7菌群意识网络", TextUtil.dark_green("UEV级电路") });
+        tooltipMap.put(GTLItems.BIOWARE_PROCESSOR.get(), new String[] { "§7粘稠的有机浆液附着于表面", TextUtil.dark_green("ZPM级电路") });
 
         if (tooltipMap.containsKey(item)) {
             String[] tooltipInfo = tooltipMap.get(item);
             for (String text : tooltipInfo) {
-                event.getToolTip().add(Component.literal(text).withStyle(ChatFormatting.GRAY));
+                event.getToolTip().add(Component.literal(text));
             }
         } else {
             for (int tier : GTMachines.ALL_TIERS) {

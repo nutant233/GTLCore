@@ -46,10 +46,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static com.gregtechceu.gtceu.common.data.GTBlocks.ALL_FUSION_CASINGS;
@@ -232,10 +229,27 @@ public class GTLBlocks {
     }
 
     @SuppressWarnings("all")
+    public static BlockEntry<Block> createSidedCasingBlock(String name, ResourceLocation texture) {
+        return REGISTRATE.block(name, Block::new)
+                .initialProperties(() -> Blocks.IRON_BLOCK)
+                .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
+                .addLayer(() -> RenderType::cutoutMipped)
+                .blockstate((ctx, prov) -> {
+                    prov.simpleBlock(ctx.getEntry(), prov.models().cubeBottomTop(name,
+                            texture.withSuffix("/side"),
+                            texture.withSuffix("/top"),
+                            texture.withSuffix("/top")));
+                })
+                .tag(GTToolType.WRENCH.harvestTags.get(0), BlockTags.MINEABLE_WITH_PICKAXE)
+                .item(BlockItem::new)
+                .build()
+                .register();
+    }
+
+    @SuppressWarnings("all")
     public static BlockEntry<Block> createStoneBlock(String name, ResourceLocation texture) {
         return REGISTRATE.block(name, Block::new)
                 .initialProperties(() -> Blocks.STONE)
-                .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
                 .blockstate(GTModels.cubeAllModel(name, texture))
                 .tag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -248,7 +262,6 @@ public class GTLBlocks {
     public static BlockEntry<Block> createSandBlock(String name, ResourceLocation texture) {
         return REGISTRATE.block(name, Block::new)
                 .initialProperties(() -> Blocks.SAND)
-                .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
                 .addLayer(() -> RenderType::cutoutMipped)
                 .blockstate(GTModels.cubeAllModel(name, texture))
                 .tag(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -394,6 +407,21 @@ public class GTLBlocks {
     public static final BlockEntry<Block> CERESGRUNT = createSandBlock(
             "ceresgrunt", GTLCore.id("block/sand/ceresgrunt"));
 
+    public static final BlockEntry<Block> SPACE_ELEVATOR_INTERNAL_SUPPORT = createSidedCasingBlock(
+            "space_elevator_internal_support", GTLCore.id("block/casings/space_elevator_internal_support"));
+    public static final BlockEntry<Block> MODULE_BASE = createSidedCasingBlock(
+            "module_base", GTLCore.id("block/casings/module_base"));
+    public static final BlockEntry<Block> MOLECULAR_COIL = createSidedCasingBlock(
+            "molecular_coil", GTLCore.id("block/casings/molecular_coil"));
+    public static final BlockEntry<Block> DYSON_RECEIVER_CASING = createSidedCasingBlock(
+            "dyson_receiver_casing", GTLCore.id("block/casings/dyson_receiver_casing"));
+    public static final BlockEntry<Block> DYSON_DEPLOYMENT_MAGNET = createSidedCasingBlock(
+            "dyson_deployment_magnet", GTLCore.id("block/casings/dyson_deployment_magnet"));
+    public static final BlockEntry<Block> SPEEDING_PIPE = createSidedCasingBlock(
+            "speeding_pipe", GTLCore.id("block/casings/speeding_pipe"));
+    public static final BlockEntry<Block> RED_STEEL_CASING = createSidedCasingBlock(
+            "red_steel_casing", GTLCore.id("block/casings/red_steel_casing"));
+
     public static final BlockEntry<Block> NAQUADRIA_CHARGE = createCasingBlock(
             "naquadria_charge", GTLCore.id("block/naquadria_charge"));
     public static final BlockEntry<Block> LEPTONIC_CHARGE = createCasingBlock(
@@ -417,7 +445,7 @@ public class GTLBlocks {
     public static final BlockEntry<Block> MACHINE_CASING_CIRCUIT_ASSEMBLY_LINE = createCasingBlock(
             "machine_casing_circuit_assembly_line", GTLCore.id("block/machine_casing_circuit_assembly_line"));
     public static final BlockEntry<Block> HIGH_STRENGTH_CONCRETE = createCasingBlock(
-            "high_strength_concrete", GTLCore.id("block/high_strength_concrete"));
+            "high_strength_concrete", GTLCore.id("block/casings/module_base/side"));
     public static final BlockEntry<Block> AGGREGATIONE_CORE = createCasingBlock(
             "aggregatione_core", GTLCore.id("block/aggregatione_core"));
     public static final BlockEntry<Block> ACCELERATED_PIPELINE = createCasingBlock(

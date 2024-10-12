@@ -6,6 +6,6 @@
   },
   "loader": "avaritia:cosmic",
   "cosmic": {
-    "mask": "kubejs:mask/cosmic"
+    "mask": "gtlcore:mask/cosmic"
   }
 }
