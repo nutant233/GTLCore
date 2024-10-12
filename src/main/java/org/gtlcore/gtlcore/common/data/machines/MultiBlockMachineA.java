@@ -2843,7 +2843,7 @@ public class MultiBlockMachineA {
                                     .setStyle(Style.EMPTY.withColor(ChatFormatting.RED))));
                 }
             })
-            .workableCasingRenderer(GTLCore.id("block/red_steel_casing/top"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/casings/red_steel_casing/top"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition MEGA_FLUID_HEATER = REGISTRATE.multiblock("mega_fluid_heater", CoilWorkableElectricMultipleRecipesMultiblockMachine::new)

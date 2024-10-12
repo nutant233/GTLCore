@@ -226,7 +226,7 @@ public class GeneratorMachine {
                     .where("T", Predicates.blocks(GTLBlocks.DYSON_DEPLOYMENT_CORE.get()))
                     .where(" ", Predicates.any())
                     .build())
-            .workableCasingRenderer(GTLCore.id("block/dyson_receiver_casing/top"), GTCEu.id("block/multiblock/fusion_reactor"))
+            .workableCasingRenderer(GTLCore.id("block/casings/dyson_receiver_casing/top"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
     public final static MultiblockMachineDefinition LARGE_NAQUADAH_REACTOR = REGISTRATE.multiblock("large_naquadah_reactor", WorkableElectricMultiblockMachine::new)
