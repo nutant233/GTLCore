@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-12T16:53:45.246656	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.20.1	2024-10-12T19:44:06.747805	Registrate Provider for gtlcore [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 46f342ef8461a19d4ac40f284d9763fa45db0648 assets/gtlcore/blockstates/16m_storage.json
 7400be84a032519aa2d82750804ae8f04828fdae assets/gtlcore/blockstates/1m_storage.json
 5483bb31743b034345b5a059cc8bf43cfb875d7d assets/gtlcore/blockstates/256m_storage.json
@@ -143,8 +143,8 @@ ef4075d5fce51c1bca408a3b000a181b2f316234 assets/gtlcore/blockstates/titansteel_c
 3afa2a126b9397cb3cc4b0e95bf4279b48c28ae6 assets/gtlcore/blockstates/titanstone.json
 406dd8ad0f18b0d9592528acf2afa92e21c642a0 assets/gtlcore/blockstates/ultimate_stellar_containment_casing.json
 fe082b4430fd12643d51c36a7bd901ed72ad0913 assets/gtlcore/blockstates/uruium_coil_block.json
-5e31443438d5a7b98f8226cfca6cdc802e74fd4a assets/gtlcore/lang/en_ud.json
-5e493d39229eb63dd92bf80e7836c1748537aee8 assets/gtlcore/lang/en_us.json
+5979eaa82d6d2348638e981e259caf38a48c3af6 assets/gtlcore/lang/en_ud.json
+7997d278573590775aacffa08e280bf32432e19f assets/gtlcore/lang/en_us.json
 cdea6d8736da8d893375bed1c6e4542c120acc82 assets/gtlcore/models/block/accelerated_pipeline.json
 1e86cdc17231fb0b0c08fb79ac317c3978c918bf assets/gtlcore/models/block/advanced_stellar_containment_casing.json
 265858b6250350e2314098a3a8f538fe6e3c7e40 assets/gtlcore/models/block/aggregatione_core.json

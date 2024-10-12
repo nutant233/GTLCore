@@ -195,7 +195,7 @@ public class WindMillTurbineMachine extends TieredEnergyMachine implements IMach
 
     @Override
     protected long getMaxInputOutputAmperage() {
-        return 1;
+        return 2;
     }
 
     @Override

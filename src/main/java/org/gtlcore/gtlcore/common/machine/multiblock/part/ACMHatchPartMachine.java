@@ -29,10 +29,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @Getter
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class AutoConfigurationMaintenanceHatchPartMachine extends TieredPartMachine implements IMaintenanceMachine {
+public class ACMHatchPartMachine extends TieredPartMachine implements IMaintenanceMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            AutoConfigurationMaintenanceHatchPartMachine.class, MultiblockPartMachine.MANAGED_FIELD_HOLDER);
+            ACMHatchPartMachine.class, MultiblockPartMachine.MANAGED_FIELD_HOLDER);
 
     private static final float MAX_DURATION_MULTIPLIER = 1.2f;
     private static final float MIN_DURATION_MULTIPLIER = 0.2f;
@@ -40,7 +40,7 @@ public class AutoConfigurationMaintenanceHatchPartMachine extends TieredPartMach
     @Persisted
     private float durationMultiplier = 1f;
 
-    public AutoConfigurationMaintenanceHatchPartMachine(IMachineBlockEntity metaTileEntityId) {
+    public ACMHatchPartMachine(IMachineBlockEntity metaTileEntityId) {
         super(metaTileEntityId, 5);
     }
 
