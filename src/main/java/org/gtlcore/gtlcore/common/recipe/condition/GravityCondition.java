@@ -14,15 +14,13 @@ import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.level.Level;
 
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import earth.terrarium.adastra.api.systems.GravityApi;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 @NoArgsConstructor
 public class GravityCondition extends RecipeCondition {
@@ -65,8 +63,7 @@ public class GravityCondition extends RecipeCondition {
                 }
             }
         }
-        Level level = Objects.requireNonNull(recipeLogic.getMachine().getLevel());
-        return level.kjs$getDimension().toString().contains("_orbit") && zero;
+        return GravityApi.API.getGravity(machine.getLevel(), machine.getPos()) == 0 && zero;
     }
 
     @Override

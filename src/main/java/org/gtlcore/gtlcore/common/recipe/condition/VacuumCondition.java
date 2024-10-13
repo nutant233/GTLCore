@@ -22,6 +22,8 @@ import net.minecraft.world.level.Level;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import earth.terrarium.adastra.api.systems.GravityApi;
+import earth.terrarium.adastra.api.systems.OxygenApi;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,7 +77,7 @@ public class VacuumCondition extends RecipeCondition {
                 }
             }
         }
-        return false;
+        return !OxygenApi.API.hasOxygen(level, pos) && GravityApi.API.getGravity(level, pos) == 0;
     }
 
     private boolean checkVacuumTier(Iterable<IMultiPart> parts) {

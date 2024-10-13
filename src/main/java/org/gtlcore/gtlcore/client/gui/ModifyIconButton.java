@@ -71,26 +71,6 @@ public class ModifyIconButton extends Button implements ITooltip {
     }
 
     @Override
-    public int getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    @Override
-    public void setHeight(int value) {
-        this.height = value;
-    }
-
-    @Override
-    public void setAlpha(float alpha) {
-        this.alpha = alpha;
-    }
-
-    @Override
     public Rect2i getTooltipArea() {
         return new Rect2i(this.getX(), this.getY(), 8, 8);
     }

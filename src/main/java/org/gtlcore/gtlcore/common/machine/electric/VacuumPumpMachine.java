@@ -54,7 +54,7 @@ public class VacuumPumpMachine extends SimpleTieredMachine implements IVacuumMac
 
     private void tick() {
         if (getOffsetTimer() % 20 != 0) return;
-        if (isActive()) {
+        if (getRecipeLogic().isWorking()) {
             if (totalEU < 12000) totalEU += 2 * GTValues.VA[getTier()];
         } else {
             totalEU -= 4 * GTValues.VA[getTier()];

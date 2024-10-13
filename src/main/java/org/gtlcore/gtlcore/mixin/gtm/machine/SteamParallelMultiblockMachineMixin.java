@@ -11,9 +11,7 @@ import com.gregtechceu.gtceu.common.machine.multiblock.steam.SteamParallelMultib
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.gregtechceu.gtceu.common.data.GTMachines.STEAM_OVEN;
@@ -33,10 +31,5 @@ public class SteamParallelMultiblockMachineMixin extends WorkableMultiblockMachi
             recipe1.duration = (int) Math.max(1, recipe1.duration * 0.5);
             cir.setReturnValue(recipe1);
         }
-    }
-
-    @ModifyConstant(method = "addDisplayText", remap = false, constant = @Constant(intValue = 8))
-    private int modifyConsume(int constant) {
-        return this.getDefinition() == STEAM_OVEN ? 256 : 8;
     }
 }

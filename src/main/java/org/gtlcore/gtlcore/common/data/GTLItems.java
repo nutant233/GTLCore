@@ -715,6 +715,7 @@ public class GTLItems {
     public static ItemEntry<Item> FISHBIG_FABRIC = register("fishbig_fabric");
     public static ItemEntry<Item> FISHBIG_FRAME = register("fishbig_frame");
 
+    public static ItemEntry<Item> HOT_IRON_INGOT = registerCustomModel("hot_iron_ingot");
     public static ItemEntry<Item> RAW_VACUUM_TUBE = registerCustomModel("raw_vacuum_tube");
     public static ItemEntry<Item> INFINITE_CELL_COMPONENT = register("infinite_cell_component");
     public static ItemEntry<Item> PROTONATED_FULLERENE_SIEVING_MATRIX = register("protonated_fullerene_sieving_matrix");

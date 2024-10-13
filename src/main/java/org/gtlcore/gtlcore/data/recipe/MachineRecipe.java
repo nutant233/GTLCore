@@ -123,6 +123,8 @@ public class MachineRecipe {
                 CABLE, 'G', CONVEYOR);
         registerMachineRecipe(provider, GTLMachines.LOOM, "CWC", "EME", "EWE", 'M', HULL, 'E', MOTOR, 'C', CIRCUIT,
                 'W', CABLE);
+        registerMachineRecipe(provider, GTLMachines.VACUUM_PUMP, "CLC", "LML", "PLP", 'M', HULL, 'P', PUMP, 'C', CIRCUIT,
+                'W', CABLE, 'L', PIPE_LARGE);
 
         VanillaRecipeHelper.addShapedRecipe(provider, true, "rotor_holder_uhv", GTLMachines.ROTOR_HOLDER[UHV].asStack(),
                 "SGS", "GHG", "SGS", 'H', GTMachines.HULL[GTValues.UHV].asStack(), 'G',

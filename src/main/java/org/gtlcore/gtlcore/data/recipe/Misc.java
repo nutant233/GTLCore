@@ -5,6 +5,7 @@ import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
 import org.gtlcore.gtlcore.common.recipe.condition.VacuumCondition;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
+import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
@@ -43,6 +44,10 @@ public class Misc {
                     .duration(200)
                     .save(provider);
         }
+
+        VanillaRecipeHelper.addBlastingRecipe(provider, "hot_iron_ingot", ChemicalHelper.getTag(ingot, Iron), GTLItems.HOT_IRON_INGOT.asStack(), 0);
+
+        VanillaRecipeHelper.addShapedRecipe(provider, "wrought_iron_ingot", ChemicalHelper.get(ingot, WroughtIron), "h", "H", 'H', GTLItems.HOT_IRON_INGOT.asStack());
 
         VanillaRecipeHelper.addShapedRecipe(provider, "raw_vacuum_tube", GTLItems.RAW_VACUUM_TUBE.asStack(),
                 "PTP", "WWW",
