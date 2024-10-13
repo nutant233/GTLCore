@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine.multiblock.part;
+package org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance;
 
 import com.gregtechceu.gtceu.api.capability.ICleanroomReceiver;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;

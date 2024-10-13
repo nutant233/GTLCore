@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_all",
   "textures": {
     "all": "gtlcore:block/support",
-    "up": "gtlcore:block/structure",
-    "down": "gtlcore:block/structure"
+    "up": "gtlcore:block/casings/space_elevator_internal_support/top",
+    "down": "gtlcore:block/casings/space_elevator_internal_support/top"
   }
 }

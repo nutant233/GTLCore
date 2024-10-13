@@ -16,6 +16,7 @@ public class RemoveRecipe {
 
     public static void init(Consumer<ResourceLocation> consumer) {
         DISASSEMBLY_RECORD.clear();
+        consumer.accept(GTCEu.id("shaped/vacuum_tube"));
         consumer.accept(GTCEu.id("macerator/macerate_wheat"));
         consumer.accept(GTCEu.id("autoclave/agar"));
         consumer.accept(GTCEu.id("assembly_line/dynamo_hatch_uhv"));

@@ -7,6 +7,7 @@ import org.gtlcore.gtlcore.common.item.StructureWriteBehavior;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
 import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 
 import com.lowdragmc.lowdraglib.client.utils.RenderBufferUtils;
@@ -45,6 +46,7 @@ public class ForgeClientEventListener {
         Item item = event.getItemStack().getItem();
 
         Map<Item, String[]> tooltipMap = new HashMap<>();
+        tooltipMap.put(GTItems.VACUUM_TUBE.get(), new String[] { "手持粗真空管右击真空等级大于0的真空提供机器获取" });
         tooltipMap.put(GTLItems.WARPED_ENDER_PEAL.get(), new String[] { "潜行右键可设置个人传送点，右键传送到传送点" });
         tooltipMap.put(GTLBlocks.COIL_URUIUM.asItem(), new String[] { "可为超维度等离子锻炉提供32000K炉温", "恒星锻炉模式仅可使用该线圈" });
         tooltipMap.put(GTLBlocks.ESSENCE_BLOCK.asItem(), new String[] { "将骨块放置在转换室获得" });

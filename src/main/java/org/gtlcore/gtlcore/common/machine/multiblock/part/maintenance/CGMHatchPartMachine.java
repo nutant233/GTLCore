@@ -1,34 +1,43 @@
-package org.gtlcore.gtlcore.common.machine.multiblock.part;
+package org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance;
 
 import org.gtlcore.gtlcore.api.machine.part.IGravityPartMachine;
 
 import com.gregtechceu.gtceu.api.gui.widget.IntInputWidget;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.feature.ICleanroomProvider;
 import com.gregtechceu.gtceu.api.machine.multiblock.part.MultiblockPartMachine;
-import com.gregtechceu.gtceu.common.machine.multiblock.part.AutoMaintenanceHatchPartMachine;
 
 import com.lowdragmc.lowdraglib.gui.widget.Widget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.util.Mth;
 
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 @Getter
-public class GravityPartMachine extends AutoMaintenanceHatchPartMachine implements IGravityPartMachine {
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+public class CGMHatchPartMachine extends CMHatchPartMachine implements IGravityPartMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            GravityPartMachine.class, MultiblockPartMachine.MANAGED_FIELD_HOLDER);
+            CGMHatchPartMachine.class, MultiblockPartMachine.MANAGED_FIELD_HOLDER);
 
-    public GravityPartMachine(IMachineBlockEntity blockEntity) {
-        super(blockEntity);
+    @Override
+    public ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
     }
 
     @Persisted
     private int currentGravity;
+
+    public CGMHatchPartMachine(IMachineBlockEntity blockEntity, ICleanroomProvider cleanroomTypes) {
+        super(blockEntity, cleanroomTypes);
+    }
 
     @Override
     public Widget createUIWidget() {
@@ -39,11 +48,5 @@ public class GravityPartMachine extends AutoMaintenanceHatchPartMachine implemen
 
     public void setCurrentGravity(int gravity) {
         this.currentGravity = Mth.clamp(gravity, 0, 100);
-    }
-
-    @Override
-    @NotNull
-    public ManagedFieldHolder getFieldHolder() {
-        return MANAGED_FIELD_HOLDER;
     }
 }

@@ -253,6 +253,9 @@ public class MachineRecipe {
                 'S', GTItems.SENSOR_ZPM.asStack(), 'E', GTItems.EMITTER_ZPM.asStack(), 'H',
                 AdvancedMultiBlockMachine.BLOCK_CONVERSION_ROOM.asStack());
 
+        VanillaRecipeHelper.addShapedRecipe(provider, true, "steam_vacuum_pump", GTLMachines.STEAM_VACUUM_PUMP.first().asStack(), "DSD",
+                "SMS", "GSG", 'M', GTBlocks.BRONZE_BRICKS_HULL.asStack(), 'S', new UnificationEntry(TagPrefix.pipeNormalFluid, GTMaterials.Bronze), 'D', GTMachines.BRONZE_DRUM.asStack(), 'G', new UnificationEntry(TagPrefix.gearSmall, GTMaterials.Bronze));
+
         ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("zpm_fluid_drilling_rig"))
                 .inputItems(GTMachines.HULL[UV])
                 .inputItems(frameGt, Ruridit, 4)

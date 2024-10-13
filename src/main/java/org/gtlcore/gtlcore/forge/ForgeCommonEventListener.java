@@ -1,12 +1,22 @@
 package org.gtlcore.gtlcore.forge;
 
 import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.api.machine.IVacuumMachine;
+import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
-import net.minecraft.server.level.ServerPlayer;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
+import com.gregtechceu.gtceu.common.data.GTItems;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
@@ -28,14 +38,22 @@ public class ForgeCommonEventListener {
 
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getEntity().level().getBlockState(event.getPos()).getBlock() == Blocks.END_PORTAL_FRAME &&
-                event.getEntity().getItemInHand(event.getHand()).getItem() == Items.ENDER_EYE) {
-            if (event.getEntity() instanceof ServerPlayer player &&
-                    Objects.equals(player.getOffhandItem().kjs$getId(), "kubejs:end_data")) {
-                player.getOffhandItem().setCount(player.getOffhandItem().getCount() - 1);
+        Level level = event.getLevel();
+        if (level == null) return;
+        BlockPos pos = event.getPos();
+        Player player = event.getEntity();
+        InteractionHand hand = event.getHand();
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.getItem() == Items.ENDER_EYE && level.getBlockState(pos).getBlock() == Blocks.END_PORTAL_FRAME) {
+            if (Objects.equals(itemStack.kjs$getId(), "kubejs:end_data")) {
+                player.setItemInHand(hand, itemStack.copyWithCount(itemStack.getCount() - 1));
                 return;
             }
             event.setCanceled(true);
+        }
+        if (player.isShiftKeyDown() && itemStack.getItem() == GTLItems.RAW_VACUUM_TUBE.get() && MetaMachine.getMachine(level, pos) instanceof IVacuumMachine vacuumMachine && vacuumMachine.getVacuumTier() > 0) {
+            player.setItemInHand(hand, itemStack.copyWithCount(itemStack.getCount() - 1));
+            level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY() + 1, pos.getZ(), GTItems.VACUUM_TUBE.asStack()));
         }
     }
 

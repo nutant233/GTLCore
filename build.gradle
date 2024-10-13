@@ -178,6 +178,8 @@ dependencies {
 
     modRuntimeOnly("maven.modrinth:rubidium-extra:0.5.4.3+mc1.20.1-build.121")
 
+    modRuntimeOnly("curse.maven:FerriteCore-429235:4810975")
+
     modRuntimeOnly("dev:jecharacters:1.20.1-forge-4.5.11-dev-shadow")
 
     forgeRuntimeLibrary(runtimeOnly("icyllis.modernui:ModernUI-Core:3.10.1")) // Modern UI core framework

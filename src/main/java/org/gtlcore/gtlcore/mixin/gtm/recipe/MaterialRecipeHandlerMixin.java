@@ -84,7 +84,7 @@ public class MaterialRecipeHandlerMixin {
                         .inputItems(ingotPrefix, material)
                         .notConsumable(GTItems.SHAPE_EXTRUDER_ROD)
                         .outputItems(rod, material, 2)
-                        .duration(mass * 2)
+                        .duration(mass * 4)
                         .EUt(6L * getVoltageMultiplier(material))
                         .save(provider);
             }
@@ -104,7 +104,7 @@ public class MaterialRecipeHandlerMixin {
                     .inputItems(dust, material)
                     .notConsumable(GTItems.SHAPE_EXTRUDER_INGOT)
                     .outputItems(ingot, material)
-                    .duration(10)
+                    .duration(mass)
                     .EUt(4L * getVoltageMultiplier(material))
                     .save(provider);
         }
@@ -160,7 +160,7 @@ public class MaterialRecipeHandlerMixin {
                         .inputItems(ingotPrefix, material)
                         .notConsumable(GTItems.SHAPE_EXTRUDER_PLATE)
                         .outputItems(plate, material)
-                        .duration(mass)
+                        .duration(mass * 2)
                         .EUt(8L * voltageMultiplier)
                         .save(provider);
 
@@ -169,7 +169,7 @@ public class MaterialRecipeHandlerMixin {
                             .inputItems(dust, material)
                             .notConsumable(GTItems.SHAPE_EXTRUDER_PLATE)
                             .outputItems(plate, material)
-                            .duration(mass)
+                            .duration(mass * 2)
                             .EUt(8L * voltageMultiplier)
                             .save(provider);
                 }

@@ -1,6 +1,8 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
+import org.gtlcore.gtlcore.common.recipe.condition.VacuumCondition;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
@@ -41,6 +43,63 @@ public class Misc {
                     .duration(200)
                     .save(provider);
         }
+
+        VanillaRecipeHelper.addShapedRecipe(provider, "raw_vacuum_tube", GTLItems.RAW_VACUUM_TUBE.asStack(),
+                "PTP", "WWW",
+                'P', new UnificationEntry(bolt, Steel),
+                'T', GLASS_TUBE.asStack(),
+                'W', new UnificationEntry(wireGtSingle, Copper));
+
+        ASSEMBLER_RECIPES.recipeBuilder("vacuum_tube_plain")
+                .inputItems(GLASS_TUBE)
+                .inputItems(bolt, Steel)
+                .inputItems(wireGtSingle, Copper, 2)
+                .circuitMeta(1)
+                .outputItems(VACUUM_TUBE, 2)
+                .addCondition(new VacuumCondition(1))
+                .duration(120).EUt(VA[ULV]).save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder("vacuum_tube_red_alloy")
+                .inputItems(GLASS_TUBE)
+                .inputItems(bolt, Steel)
+                .inputItems(wireGtSingle, Copper, 2)
+                .inputFluids(RedAlloy.getFluid(18))
+                .outputItems(VACUUM_TUBE, 4)
+                .addCondition(new VacuumCondition(2))
+                .duration(40).EUt(16).save(provider);
+
+        ASSEMBLER_RECIPES.recipeBuilder("vacuum_tube_red_alloy_annealed")
+                .inputItems(GLASS_TUBE)
+                .inputItems(bolt, Steel)
+                .inputItems(wireGtSingle, AnnealedCopper, 2)
+                .inputFluids(RedAlloy.getFluid(18))
+                .outputItems(VACUUM_TUBE, 8)
+                .addCondition(new VacuumCondition(3))
+                .duration(40).EUt(VA[LV]).save(provider);
+
+        VACUUM_PUMP_RECIPES.recipeBuilder("a")
+                .notConsumable(pipeHugeFluid, Bronze)
+                .EUt(7).duration(200)
+                .addData("tier", 0)
+                .save(provider);
+
+        VACUUM_PUMP_RECIPES.recipeBuilder("b")
+                .notConsumable(FLUID_REGULATOR_LV)
+                .EUt(30).duration(200)
+                .addData("tier", 1)
+                .save(provider);
+
+        VACUUM_PUMP_RECIPES.recipeBuilder("c")
+                .notConsumable(FLUID_REGULATOR_MV)
+                .EUt(120).duration(200)
+                .addData("tier", 2)
+                .save(provider);
+
+        VACUUM_PUMP_RECIPES.recipeBuilder("d")
+                .notConsumable(FLUID_REGULATOR_HV)
+                .EUt(480).duration(200)
+                .addData("tier", 3)
+                .save(provider);
 
         WOOD_DISTILLATION_RECIPES.recipeBuilder("wood_distillation_recipes")
                 .inputItems(ItemTags.LOGS, 16)

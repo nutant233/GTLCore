@@ -111,7 +111,7 @@ public class PartsRecipeHandlerMixin {
                     .inputItems(ingot, material)
                     .notConsumable(GTItems.SHAPE_EXTRUDER_FOIL)
                     .outputItems(foilPrefix, material, 4)
-                    .duration(mass)
+                    .duration(mass * 2)
                     .EUt(96)
                     .save(provider);
         }
@@ -154,7 +154,7 @@ public class PartsRecipeHandlerMixin {
                     .inputItems(ingot, material, 4)
                     .notConsumable(GTItems.SHAPE_EXTRUDER_GEAR)
                     .outputItems(gearPrefix, material)
-                    .duration(mass * 5)
+                    .duration(mass * 10)
                     .EUt(8L * voltageMultiplier)
                     .save(provider);
 
@@ -172,7 +172,7 @@ public class PartsRecipeHandlerMixin {
                         .inputItems(dust, material, 4)
                         .notConsumable(GTItems.SHAPE_EXTRUDER_GEAR)
                         .outputItems(gearPrefix, material)
-                        .duration(mass * 5)
+                        .duration(mass * 10)
                         .EUt(8L * voltageMultiplier)
                         .save(provider);
             }
@@ -201,7 +201,7 @@ public class PartsRecipeHandlerMixin {
                         .inputItems(ingot, material)
                         .notConsumable(GTItems.SHAPE_EXTRUDER_GEAR_SMALL)
                         .outputItems(stack)
-                        .duration(mass)
+                        .duration(mass * 2)
                         .EUt(material.getBlastTemperature() >= 2800 ? 256 : 64)
                         .save(provider);
 
@@ -218,7 +218,7 @@ public class PartsRecipeHandlerMixin {
                             .inputItems(dust, material)
                             .notConsumable(GTItems.SHAPE_EXTRUDER_GEAR_SMALL)
                             .outputItems(stack)
-                            .duration(mass)
+                            .duration(mass * 2)
                             .EUt(material.getBlastTemperature() >= 2800 ? 256 : 64)
                             .save(provider);
                 }
@@ -244,7 +244,7 @@ public class PartsRecipeHandlerMixin {
 
             GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_double_plate")
                     .EUt(96).duration(mass * 2)
-                    .inputItems(plate, material, 2)
+                    .inputItems(ingot, material, 2)
                     .outputItems(doublePrefix, material)
                     .save(provider);
         }
@@ -253,18 +253,19 @@ public class PartsRecipeHandlerMixin {
     @Unique
     private static void gTLCore$processPlateDense(TagPrefix tagPrefix, Material material, DustProperty property,
                                                   Consumer<FinishedRecipe> provider) {
+        int mass = (int) material.getMass();
         if (material.hasProperty(PropertyKey.INGOT)) {
             GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_block_to_dense_plate")
                     .inputItems(block, material)
                     .outputItems(tagPrefix, material)
-                    .duration((int) Math.max(material.getMass() * 9L, 1L))
+                    .duration(mass * 11)
                     .EUt(96)
                     .save(provider);
         } else {
             GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_dense_plate")
                     .inputItems(plate, material, 9)
                     .outputItems(tagPrefix, material)
-                    .duration((int) Math.max(material.getMass() * 9L, 1L))
+                    .duration(mass * 11)
                     .EUt(96)
                     .save(provider);
         }
@@ -278,7 +279,7 @@ public class PartsRecipeHandlerMixin {
                 .inputItems(ingot, material)
                 .notConsumable(GTItems.SHAPE_EXTRUDER_RING)
                 .outputItems(ringPrefix, material, 4)
-                .duration(mass * 2)
+                .duration(mass * 4)
                 .EUt(6L * getVoltageMultiplier(material))
                 .save(provider);
 
@@ -303,7 +304,7 @@ public class PartsRecipeHandlerMixin {
                     .inputItems(dust, material)
                     .notConsumable(GTItems.SHAPE_EXTRUDER_RING)
                     .outputItems(ringPrefix, material, 4)
-                    .duration(mass * 2)
+                    .duration(mass * 4)
                     .EUt(6L * getVoltageMultiplier(material))
                     .save(provider);
         }
@@ -370,7 +371,7 @@ public class PartsRecipeHandlerMixin {
                 .inputItems(ingot, material, 4)
                 .notConsumable(GTItems.SHAPE_EXTRUDER_ROTOR)
                 .outputItems(GTUtil.copy(stack))
-                .duration(mass * 4)
+                .duration(mass * 8)
                 .EUt(material.getBlastTemperature() >= 2800 ? 256 : 64)
                 .save(provider);
 
@@ -379,7 +380,7 @@ public class PartsRecipeHandlerMixin {
                     .inputItems(dust, material, 4)
                     .notConsumable(GTItems.SHAPE_EXTRUDER_ROTOR)
                     .outputItems(GTUtil.copy(stack))
-                    .duration(mass * 4)
+                    .duration(mass * 8)
                     .EUt(material.getBlastTemperature() >= 2800 ? 256 : 64)
                     .save(provider);
         }
@@ -392,7 +393,7 @@ public class PartsRecipeHandlerMixin {
         if (material.hasProperty(PropertyKey.GEM) || material.hasProperty(PropertyKey.INGOT)) {
             GTRecipeBuilder builder = LATHE_RECIPES.recipeBuilder("lathe_" + material.getName() + "_to_rod")
                     .inputItems(material.hasProperty(PropertyKey.GEM) ? gem : ingot, material)
-                    .duration(Math.max(mass * 2, 1))
+                    .duration(mass * 2)
                     .EUt(16);
 
             if (ConfigHolder.INSTANCE.recipes.harderRods) {
@@ -409,7 +410,7 @@ public class PartsRecipeHandlerMixin {
             CUTTER_RECIPES.recipeBuilder("cut_" + material.getName() + "_rod_to_bolt")
                     .inputItems(stickPrefix, material)
                     .outputItems(GTUtil.copyAmount(4, boltStack))
-                    .duration(Math.max(mass * 2, 1))
+                    .duration(mass * 2)
                     .EUt(4)
                     .save(provider);
 
@@ -430,7 +431,7 @@ public class PartsRecipeHandlerMixin {
         CUTTER_RECIPES.recipeBuilder("cut_" + material.getName() + "_long_rod_to_rod")
                 .inputItems(longStickPrefix, material)
                 .outputItems(GTUtil.copyAmount(2, stickStack))
-                .duration(Math.max(mass, 1)).EUt(4)
+                .duration(mass).EUt(4)
                 .save(provider);
 
         if (mass < 240 && material.getBlastTemperature() < 4000)
@@ -462,7 +463,7 @@ public class PartsRecipeHandlerMixin {
         FORGE_HAMMER_RECIPES.recipeBuilder("hammer_" + material.getName() + "_rod_to_long_rod")
                 .inputItems(rod, material, 2)
                 .outputItems(stack)
-                .duration(Math.max(mass, 1))
+                .duration(mass)
                 .EUt(16)
                 .save(provider);
 
@@ -471,7 +472,7 @@ public class PartsRecipeHandlerMixin {
                     .inputItems(ingot, material)
                     .notConsumable(GTItems.SHAPE_EXTRUDER_ROD_LONG)
                     .outputItems(stack)
-                    .duration(Math.max(mass, 1))
+                    .duration(mass * 2)
                     .EUt(64)
                     .save(provider);
 
@@ -480,7 +481,7 @@ public class PartsRecipeHandlerMixin {
                         .inputItems(dust, material)
                         .notConsumable(GTItems.SHAPE_EXTRUDER_ROD_LONG)
                         .outputItems(stack)
-                        .duration(Math.max(mass, 1))
+                        .duration(mass * 2)
                         .EUt(64)
                         .save(provider);
             }

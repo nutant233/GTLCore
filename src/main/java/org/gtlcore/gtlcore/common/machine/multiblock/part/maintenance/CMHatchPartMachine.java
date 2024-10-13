@@ -1,4 +1,4 @@
-package org.gtlcore.gtlcore.common.machine.multiblock.part;
+package org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
 

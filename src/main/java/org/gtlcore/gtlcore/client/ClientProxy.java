@@ -15,5 +15,6 @@ public class ClientProxy extends CommonProxy {
 
     public static void init() {
         CraftingUnitModelProvider.initCraftingUnitModels();
+        KeyBind.init();
     }
 }
