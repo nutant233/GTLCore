@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
@@ -63,7 +64,7 @@ public class WireRecipeHandlerMixin {
         TagPrefix prefix = material.hasProperty(PropertyKey.INGOT) ? ingot :
                 material.hasProperty(PropertyKey.GEM) ? gem : dust;
         int mass = (int) material.getMass();
-        GTRecipeTypes.WIREMILL_RECIPES.recipeBuilder("mill_" + material.getName() + "_wire")
+        GTRecipeTypes.WIREMILL_RECIPES.recipeBuilder(GTLCore.id("mill_" + material.getName() + "_wire"))
                 .inputItems(prefix, material)
                 .outputItems(wireGtSingle, material, 2)
                 .duration(mass)
@@ -81,18 +82,17 @@ public class WireRecipeHandlerMixin {
     private static void gTLCore$generateCableCovering(TagPrefix wirePrefix, Material material, WireProperties property, Consumer<FinishedRecipe> provider) {
         if (property.isSuperconductor()) return;
 
-        int cableAmount = (int) (wirePrefix.getMaterialAmount(material) * 2 / M);
         TagPrefix cablePrefix = TagPrefix.get("cable" + wirePrefix.name().substring(4));
         int voltageTier = GTUtil.getTierByVoltage(property.getVoltage());
         int insulationAmount = INSULATION_AMOUNT.get(cablePrefix);
 
         if (voltageTier <= LV) {
-            gTLCore$generateManualRecipe(wirePrefix, material, cablePrefix, cableAmount, provider);
+            gTLCore$generateManualRecipe(wirePrefix, material, cablePrefix, provider);
         }
 
         if (voltageTier < IV) {
             GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
-                    .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_rubber")
+                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix + "_rubber"))
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
                     .outputItems(cablePrefix, material)
@@ -104,7 +104,7 @@ public class WireRecipeHandlerMixin {
             builder.save(provider);
         } else if (voltageTier < UHV) {
             GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
-                    .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_silicone")
+                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix + "_silicone"))
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
                     .outputItems(cablePrefix, material);
@@ -119,7 +119,7 @@ public class WireRecipeHandlerMixin {
                     .save(provider);
         } else {
             GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
-                    .recipeBuilder("cover_" + material.getName() + "_" + wirePrefix + "_styrene_butadiene")
+                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix + "_styrene_butadiene"))
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
                     .outputItems(cablePrefix, material);
@@ -136,9 +136,8 @@ public class WireRecipeHandlerMixin {
     }
 
     @Unique
-    private static void gTLCore$generateManualRecipe(TagPrefix wirePrefix, Material material, TagPrefix cablePrefix,
-                                                     int cableAmount, Consumer<FinishedRecipe> provider) {
-        GTRecipeTypes.PACKER_RECIPES.recipeBuilder("cover_" + material.getName() + "_" + wirePrefix)
+    private static void gTLCore$generateManualRecipe(TagPrefix wirePrefix, Material material, TagPrefix cablePrefix, Consumer<FinishedRecipe> provider) {
+        GTRecipeTypes.PACKER_RECIPES.recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix))
                 .inputItems(wirePrefix, material)
                 .inputItems(plate, Rubber, INSULATION_AMOUNT.get(cablePrefix))
                 .outputItems(cablePrefix, material)

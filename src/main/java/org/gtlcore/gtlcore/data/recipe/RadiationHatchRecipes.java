@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
@@ -26,14 +27,14 @@ public class RadiationHatchRecipes {
 
     private static void registerRadioactiveMaterial(Material material, int duration, int radioactivity, Consumer<FinishedRecipe> provider) {
         if (material.hasFlag(MaterialFlags.GENERATE_ROD))
-            GTLRecipeTypes.RADIATION_HATCH_RECIPES.recipeBuilder("radioactive_material_rod" + material.getName().toLowerCase(Locale.ROOT))
+            GTLRecipeTypes.RADIATION_HATCH_RECIPES.recipeBuilder(GTLCore.id("radioactive_material_rod" + material.getName().toLowerCase(Locale.ROOT)))
                     .inputItems(ChemicalHelper.get(TagPrefix.rod, material, 1))
                     .duration(duration)
                     .addData("radioactivity", radioactivity)
                     .save(provider);
 
         if (material.hasFlag(MaterialFlags.GENERATE_LONG_ROD))
-            GTLRecipeTypes.RADIATION_HATCH_RECIPES.recipeBuilder("radioactive_material_long_rod" + material.getName().toLowerCase(Locale.ROOT))
+            GTLRecipeTypes.RADIATION_HATCH_RECIPES.recipeBuilder(GTLCore.id("radioactive_material_long_rod" + material.getName().toLowerCase(Locale.ROOT)))
                     .inputItems(ChemicalHelper.get(TagPrefix.rodLong, material, 1))
                     .duration((int) (duration * 1.5))
                     .addData("radioactivity", (int) (radioactivity * 1.2))

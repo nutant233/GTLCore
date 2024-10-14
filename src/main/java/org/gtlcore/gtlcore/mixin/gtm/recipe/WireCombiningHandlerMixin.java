@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
 import com.gregtechceu.gtceu.api.GTValues;
@@ -51,7 +52,7 @@ public class WireCombiningHandlerMixin {
         int mass = (int) material.getMass();
         for (int startTier = 0; startTier < 4; startTier++) {
             for (int i = 1; i < 5 - startTier; i++) {
-                GTLRecipeTypes.LOOM_RECIPES.recipeBuilder("loom_" + material.getName() + "_wires_" + i + "_" + startTier)
+                GTLRecipeTypes.LOOM_RECIPES.recipeBuilder(GTLCore.id("loom_" + material.getName() + "_wires_" + i + "_" + startTier))
                         .inputItems(WIRE_DOUBLING_ORDER[startTier], material, 1 << i)
                         .circuitMeta((int) Math.pow(2, i))
                         .outputItems(WIRE_DOUBLING_ORDER[startTier + i], material, 1)
@@ -62,7 +63,7 @@ public class WireCombiningHandlerMixin {
         }
 
         for (int i = 1; i < 5; i++) {
-            GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder("pack_" + material.getName() + "_wires_" + i + "_single")
+            GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder(GTLCore.id("pack_" + material.getName() + "_wires_" + i + "_single"))
                     .inputItems(WIRE_DOUBLING_ORDER[i], material, 1)
                     .outputItems(WIRE_DOUBLING_ORDER[0], material, (int) Math.pow(2, i))
                     .duration(mass * i)
@@ -80,7 +81,7 @@ public class WireCombiningHandlerMixin {
         } else if (voltageTier > GTValues.EV) {
             rubber = GTMaterials.SiliconeRubber;
         }
-        GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder("strip_" + material.getName() + "_" + prefix.name)
+        GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder(GTLCore.id("strip_" + material.getName() + "_" + prefix.name))
                 .inputItems(prefix, material)
                 .outputItems(cableToWireMap.get(prefix), material)
                 .outputItems(TagPrefix.plate, rubber,

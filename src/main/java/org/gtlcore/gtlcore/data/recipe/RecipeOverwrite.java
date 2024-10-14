@@ -15,6 +15,8 @@ import static com.gregtechceu.gtceu.common.data.GTItems.*;
 import static com.gregtechceu.gtceu.common.data.GTItems.ENGRAVED_CRYSTAL_CHIP;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
+import static org.gtlcore.gtlcore.common.data.GTLMaterials.SodiumFormate;
+import static org.gtlcore.gtlcore.common.data.GTLMaterials.SodiumSulfate;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES;
 
 public class RecipeOverwrite {
@@ -99,6 +101,14 @@ public class RecipeOverwrite {
                 .circuitMeta(1)
                 .outputItems(dust, EnderPearl, 10)
                 .save(provider);
+
+        CHEMICAL_RECIPES.recipeBuilder("formic_acid")
+                .inputFluids(SodiumFormate.getFluid(2000))
+                .inputFluids(SulfuricAcid.getFluid(1000))
+                .circuitMeta(1)
+                .outputFluids(FormicAcid.getFluid(2000))
+                .outputItems(dust, SodiumSulfate, 7)
+                .duration(15).EUt(VA[LV]).save(provider);
 
         // 修复冲突
         CHEMICAL_RECIPES.recipeBuilder("hypochlorous_acid_mercury")

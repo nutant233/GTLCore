@@ -70,22 +70,22 @@ public class HatchRecipe {
             var exportHatch9x = GTMachines.FLUID_EXPORT_HATCH_9X[tier];
 
             VanillaRecipeHelper.addShapedRecipe(
-                    provider, true, "fluid_import_hatch_4x_" + tierName,
+                    provider, true, GTLCore.id("fluid_import_hatch_4x_") + tierName,
                     importHatch4x.asStack(), "P", "M",
                     'M', importHatch.asStack(),
                     'P', new UnificationEntry(TagPrefix.pipeQuadrupleFluid, material));
             VanillaRecipeHelper.addShapedRecipe(
-                    provider, true, "fluid_export_hatch_4x_" + tierName,
+                    provider, true, GTLCore.id("fluid_export_hatch_4x_") + tierName,
                     exportHatch4x.asStack(), "M", "P",
                     'M', exportHatch.asStack(),
                     'P', new UnificationEntry(TagPrefix.pipeQuadrupleFluid, material));
             VanillaRecipeHelper.addShapedRecipe(
-                    provider, true, "fluid_import_hatch_9x_" + tierName,
+                    provider, true, GTLCore.id("fluid_import_hatch_9x_") + tierName,
                     importHatch9x.asStack(), "P", "M",
                     'M', importHatch.asStack(),
                     'P', new UnificationEntry(TagPrefix.pipeNonupleFluid, material));
             VanillaRecipeHelper.addShapedRecipe(
-                    provider, true, "fluid_export_hatch_9x_" + tierName,
+                    provider, true, GTLCore.id("fluid_export_hatch_9x_") + tierName,
                     exportHatch9x.asStack(), "M", "P",
                     'M', exportHatch.asStack(),
                     'P', new UnificationEntry(TagPrefix.pipeNonupleFluid, material));

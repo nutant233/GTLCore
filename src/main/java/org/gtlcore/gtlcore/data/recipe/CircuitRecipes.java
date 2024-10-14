@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
@@ -18,14 +19,14 @@ import static org.gtlcore.gtlcore.common.data.GTLMaterials.PiranhaSolution;
 public class CircuitRecipes {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-        AUTOCLAVE_RECIPES.recipeBuilder("sterilized_petri_dish")
+        AUTOCLAVE_RECIPES.recipeBuilder(GTLCore.id("sterilized_petri_dish"))
                 .inputItems(GTItems.PETRI_DISH)
                 .inputFluids(AbsoluteEthanol.getFluid(100))
                 .outputItems(GTLItems.STERILIZED_PETRI_DISH)
                 .cleanroom(CleanroomType.STERILE_CLEANROOM)
                 .duration(25).EUt(7680).save(provider);
 
-        ASSEMBLER_RECIPES.recipeBuilder("electricaly_wired_petri_dish")
+        ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("electricaly_wired_petri_dish"))
                 .inputItems(GTLItems.STERILIZED_PETRI_DISH)
                 .inputItems(TagPrefix.wireFine, GTMaterials.Titanium)
                 .inputFluids(GTMaterials.Polyethylene.getFluid(1296))
@@ -33,7 +34,7 @@ public class CircuitRecipes {
                 .cleanroom(CleanroomType.STERILE_CLEANROOM)
                 .duration(100).EUt(7680).save(provider);
 
-        CHEMICAL_BATH_RECIPES.recipeBuilder("petri_dish")
+        CHEMICAL_BATH_RECIPES.recipeBuilder(GTLCore.id("petri_dish"))
                 .inputItems(GTLItems.CONTAMINATED_PETRI_DISH)
                 .outputItems(GTItems.PETRI_DISH)
                 .inputFluids(PiranhaSolution.getFluid(100))

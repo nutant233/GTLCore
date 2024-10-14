@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.mixin.gtm.recipe;
 
+import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
@@ -99,7 +100,7 @@ public class PartsRecipeHandlerMixin {
                     ChemicalHelper.get(foilPrefix, material, 2),
                     "hP ", 'P', new UnificationEntry(plate, material));
 
-        GTLRecipeTypes.CLUSTER_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_foil")
+        GTLRecipeTypes.CLUSTER_RECIPES.recipeBuilder(GTLCore.id("bend_" + material.getName() + "_plate_to_foil"))
                 .inputItems(plate, material)
                 .outputItems(foilPrefix, material, 4)
                 .duration(mass)
@@ -242,7 +243,7 @@ public class PartsRecipeHandlerMixin {
                         "h", "P", "P", 'P', new UnificationEntry(plate, material));
             }
 
-            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_double_plate")
+            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder(GTLCore.id("bend_" + material.getName() + "_plate_to_double_plate"))
                     .EUt(96).duration(mass * 2)
                     .inputItems(ingot, material, 2)
                     .outputItems(doublePrefix, material)
@@ -255,14 +256,14 @@ public class PartsRecipeHandlerMixin {
                                                   Consumer<FinishedRecipe> provider) {
         int mass = (int) material.getMass();
         if (material.hasProperty(PropertyKey.INGOT)) {
-            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_block_to_dense_plate")
+            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder(GTLCore.id("bend_" + material.getName() + "_block_to_dense_plate"))
                     .inputItems(block, material)
                     .outputItems(tagPrefix, material)
                     .duration(mass * 11)
                     .EUt(96)
                     .save(provider);
         } else {
-            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder("bend_" + material.getName() + "_plate_to_dense_plate")
+            GTLRecipeTypes.ROLLING_RECIPES.recipeBuilder(GTLCore.id("bend_" + material.getName() + "_plate_to_dense_plate"))
                     .inputItems(plate, material, 9)
                     .outputItems(tagPrefix, material)
                     .duration(mass * 11)
@@ -284,7 +285,7 @@ public class PartsRecipeHandlerMixin {
                 .save(provider);
 
         if (material.hasFlag(GENERATE_ROD)) {
-            BENDER_RECIPES.recipeBuilder("bender_" + material.getName() + "_rod_to_ring")
+            BENDER_RECIPES.recipeBuilder(GTLCore.id("bender_" + material.getName() + "_rod_to_ring"))
                     .inputItems(rod, material)
                     .outputItems(ringPrefix, material, 2)
                     .duration(mass * 2)
@@ -391,7 +392,7 @@ public class PartsRecipeHandlerMixin {
                                              Consumer<FinishedRecipe> provider) {
         int mass = (int) material.getMass();
         if (material.hasProperty(PropertyKey.GEM) || material.hasProperty(PropertyKey.INGOT)) {
-            GTRecipeBuilder builder = LATHE_RECIPES.recipeBuilder("lathe_" + material.getName() + "_to_rod")
+            GTRecipeBuilder builder = LATHE_RECIPES.recipeBuilder(GTLCore.id("lathe_" + material.getName() + "_to_rod"))
                     .inputItems(material.hasProperty(PropertyKey.GEM) ? gem : ingot, material)
                     .duration(mass * 2)
                     .EUt(16);
