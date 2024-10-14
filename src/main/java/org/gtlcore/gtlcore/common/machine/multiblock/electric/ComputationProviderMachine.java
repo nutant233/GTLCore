@@ -167,7 +167,7 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
                     if (isFormed()) {
                         Component cwutInfo = Component.literal(
                                 lastAllocatedCWUt + " / " +
-                                        (inf ? TextUtil.full_color("无尽") : getMaxCWUt()))
+                                        (inf ? TextUtil.full_color("infinity") : getMaxCWUt()))
                                 .append(Component.literal(" CWU/t"))
                                 .withStyle(ChatFormatting.AQUA);
                         tl.add(Component.translatable(

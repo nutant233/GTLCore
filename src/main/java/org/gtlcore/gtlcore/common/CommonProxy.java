@@ -1,6 +1,5 @@
 package org.gtlcore.gtlcore.common;
 
-import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 import org.gtlcore.gtlcore.integration.ae2.InfinityCellGuiHandler;
@@ -8,15 +7,12 @@ import org.gtlcore.gtlcore.integration.ae2.storage.InfinityCellHandler;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
-import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
-import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.condition.RecipeConditionType;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -32,10 +28,7 @@ public class CommonProxy {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         REGISTRATE.registerEventListeners(eventBus);
         eventBus.addListener(this::commonSetup);
-        eventBus.addListener(this::clientSetup);
-        eventBus.addListener(this::addMaterialRegistries);
         eventBus.addListener(this::addMaterials);
-        eventBus.addListener(this::modifyMaterials);
         eventBus.addGenericListener(RecipeConditionType.class, this::registerRecipeConditions);
         eventBus.addGenericListener(GTRecipeType.class, this::registerRecipeTypes);
         eventBus.addGenericListener(MachineDefinition.class, this::registerMachines);
@@ -60,21 +53,9 @@ public class CommonProxy {
         GTLItems.InitUpgrades();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {}
-
-    // You MUST have this for custom materials.
-    // Remember to register them not to GT's namespace, but your own.
-    private void addMaterialRegistries(MaterialRegistryEvent event) {
-        GTCEuAPI.materialManager.createRegistry(GTLCore.MOD_ID);
-    }
-
-    // As well as this.
     private void addMaterials(MaterialEvent event) {
         GTLMaterials.init();
     }
-
-    // This is optional, though.
-    private void modifyMaterials(PostMaterialEvent event) {}
 
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
         GTLRecipeTypes.init();
@@ -85,6 +66,8 @@ public class CommonProxy {
     }
 
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
+        GTLItems.init();
+        GTLBlocks.init();
         GTLMachines.init();
     }
 }

@@ -10,7 +10,6 @@ import org.gtlcore.gtlcore.common.data.machines.*;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
-import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMachines;
@@ -123,8 +122,7 @@ public class MachineRecipe {
                 CABLE, 'G', CONVEYOR);
         registerMachineRecipe(provider, GTLMachines.LOOM, "CWC", "EME", "EWE", 'M', HULL, 'E', MOTOR, 'C', CIRCUIT,
                 'W', CABLE);
-        registerMachineRecipe(provider, GTLMachines.VACUUM_PUMP, "CLC", "LML", "PLP", 'M', HULL, 'P', PUMP, 'C', CIRCUIT,
-                'W', CABLE, 'L', PIPE_LARGE);
+        registerMachineRecipe(provider, GTLMachines.VACUUM_PUMP, "CLC", "LML", "PLP", 'M', HULL, 'P', PUMP, 'C', CIRCUIT, 'L', PIPE_LARGE);
 
         VanillaRecipeHelper.addShapedRecipe(provider, true, "rotor_holder_uhv", GTLMachines.ROTOR_HOLDER[UHV].asStack(),
                 "SGS", "GHG", "SGS", 'H', GTMachines.HULL[GTValues.UHV].asStack(), 'G',
@@ -282,56 +280,5 @@ public class MachineRecipe {
                 .outputItems(MultiBlockMachineB.WOOD_DISTILLATION)
                 .duration(400).EUt(VA[LuV])
                 .save(provider);
-
-        for (int tier = 1; tier < 4; tier++) {
-            var hatch = GTLMachines.ENERGY_INPUT_HATCH_4A[tier];
-
-            ASSEMBLER_RECIPES.recipeBuilder("energy_hatch_4a_" + GTValues.VN[tier].toLowerCase())
-                    .inputItems(GTMachines.ENERGY_INPUT_HATCH[tier])
-                    .inputItems(WIRE_QUAD.getIngredient(tier), 2)
-                    .inputItems(PLATE.getIngredient(tier), 2)
-                    .outputItems(hatch)
-                    .duration(100).EUt(VA[tier]).save(provider);
-        }
-
-        for (int tier = 1; tier < 4; tier++) {
-            MachineDefinition hatch = GTLMachines.ENERGY_INPUT_HATCH_16A[tier];
-            MachineDefinition transformer;
-            transformer = GTMachines.TRANSFORMER[tier];
-            ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("energy_hatch_16a_" + GTValues.VN[tier].toLowerCase()))
-                    .inputItems(transformer)
-                    .inputItems(GTLMachines.ENERGY_INPUT_HATCH_4A[tier])
-                    .inputItems(WIRE_OCT.getIngredient(tier), 2)
-                    .inputItems(PLATE.getIngredient(tier), 4)
-                    .outputItems(hatch)
-                    .duration(200).EUt(VA[tier]).save(provider);
-        }
-
-        for (int tier = 1; tier < 4; tier++) {
-            var hatch = GTLMachines.ENERGY_OUTPUT_HATCH_4A[tier];
-            ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("dynamo_hatch_4a_" + GTValues.VN[tier].toLowerCase()))
-                    .inputItems(GTMachines.ENERGY_OUTPUT_HATCH[tier])
-                    .inputItems(WIRE_QUAD.getIngredient(tier), 2)
-                    .inputItems(PLATE.getIngredient(tier), 2)
-                    .outputItems(hatch)
-                    .duration(100)
-                    .EUt(VA[tier])
-                    .save(provider);
-        }
-
-        for (int tier = 1; tier < 4; tier++) {
-            MachineDefinition hatch = GTLMachines.ENERGY_OUTPUT_HATCH_16A[tier];
-
-            MachineDefinition transformer;
-            transformer = GTMachines.TRANSFORMER[tier];
-
-            ASSEMBLER_RECIPES.recipeBuilder(GTLCore.id("dynamo_hatch_16a_" + GTValues.VN[tier].toLowerCase()))
-                    .inputItems(transformer)
-                    .inputItems(GTLMachines.ENERGY_OUTPUT_HATCH_4A[tier])
-                    .inputItems(WIRE_OCT.getIngredient(tier), 2)
-                    .inputItems(PLATE.getIngredient(tier), 4)
-                    .outputItems(hatch)
-                    .duration(200).EUt(VA[tier]).save(provider);
-        }
     }
 }

@@ -100,7 +100,7 @@ public class PlatGroupMetalsRecipesMixin {
                 .outputFluids(SodiumFormate.getFluid(1000))
                 .duration(15).EUt(VA[LV]).save(provider);
 
-        CHEMICAL_RECIPES.recipeBuilder("formic_acid_a")
+        CHEMICAL_RECIPES.recipeBuilder("formic_acid")
                 .inputFluids(SodiumFormate.getFluid(2000))
                 .inputFluids(SulfuricAcid.getFluid(1000))
                 .circuitMeta(1)

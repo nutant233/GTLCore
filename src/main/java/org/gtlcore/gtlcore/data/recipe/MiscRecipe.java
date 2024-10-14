@@ -1,8 +1,6 @@
 package org.gtlcore.gtlcore.data.recipe;
 
 import org.gtlcore.gtlcore.common.data.GTLItems;
-import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
-import org.gtlcore.gtlcore.common.recipe.condition.VacuumCondition;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
 
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
@@ -30,7 +28,7 @@ import static org.gtlcore.gtlcore.common.data.GTLMaterials.WaterAgarMix;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 import static org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineB.PRIMITIVE_VOID_ORE;
 
-public class Misc {
+public class MiscRecipe {
 
     public static void init(Consumer<FinishedRecipe> provider) {
         if (GTLConfigHolder.INSTANCE.enablePrimitiveVoidOre) {
@@ -54,33 +52,6 @@ public class Misc {
                 'P', new UnificationEntry(bolt, Steel),
                 'T', GLASS_TUBE.asStack(),
                 'W', new UnificationEntry(wireGtSingle, Copper));
-
-        ASSEMBLER_RECIPES.recipeBuilder("vacuum_tube_plain")
-                .inputItems(GLASS_TUBE)
-                .inputItems(bolt, Steel)
-                .inputItems(wireGtSingle, Copper, 2)
-                .circuitMeta(1)
-                .outputItems(VACUUM_TUBE, 2)
-                .addCondition(new VacuumCondition(1))
-                .duration(120).EUt(VA[ULV]).save(provider);
-
-        ASSEMBLER_RECIPES.recipeBuilder("vacuum_tube_red_alloy")
-                .inputItems(GLASS_TUBE)
-                .inputItems(bolt, Steel)
-                .inputItems(wireGtSingle, Copper, 2)
-                .inputFluids(RedAlloy.getFluid(18))
-                .outputItems(VACUUM_TUBE, 4)
-                .addCondition(new VacuumCondition(2))
-                .duration(40).EUt(16).save(provider);
-
-        ASSEMBLER_RECIPES.recipeBuilder("vacuum_tube_red_alloy_annealed")
-                .inputItems(GLASS_TUBE)
-                .inputItems(bolt, Steel)
-                .inputItems(wireGtSingle, AnnealedCopper, 2)
-                .inputFluids(RedAlloy.getFluid(18))
-                .outputItems(VACUUM_TUBE, 8)
-                .addCondition(new VacuumCondition(3))
-                .duration(40).EUt(VA[LV]).save(provider);
 
         VACUUM_PUMP_RECIPES.recipeBuilder("a")
                 .notConsumable(pipeHugeFluid, Bronze)
@@ -140,67 +111,6 @@ public class Misc {
                 .outputItems(dust, Agar, 1)
                 .duration(420).EUt(VA[MV])
                 .cleanroom(CleanroomType.STERILE_CLEANROOM)
-                .save(provider);
-
-        CHEMICAL_RECIPES.recipeBuilder("soda_ash_from_carbon_dioxide")
-                .circuitMeta(2)
-                .inputItems(dust, SodiumHydroxide, 6)
-                .inputFluids(CarbonDioxide.getFluid(1000))
-                .outputItems(dust, SodaAsh, 6)
-                .outputFluids(Water.getFluid(1000))
-                .duration(80).EUt(VA[HV])
-                .save(provider);
-
-        BLAST_RECIPES.recipeBuilder("engraved_crystal_chip_from_emerald")
-                .inputItems(plate, Emerald)
-                .inputItems(RAW_CRYSTAL_CHIP)
-                .inputFluids(Helium.getFluid(1000))
-                .outputItems(ENGRAVED_CRYSTAL_CHIP)
-                .blastFurnaceTemp(5000)
-                .duration(900).EUt(VA[HV])
-                .addCondition(new GravityCondition(true))
-                .save(provider);
-
-        BLAST_RECIPES.recipeBuilder("engraved_crystal_chip_from_olivine")
-                .inputItems(plate, Olivine)
-                .inputItems(RAW_CRYSTAL_CHIP)
-                .inputFluids(Helium.getFluid(1000))
-                .outputItems(ENGRAVED_CRYSTAL_CHIP)
-                .blastFurnaceTemp(5000)
-                .duration(900).EUt(VA[HV])
-                .addCondition(new GravityCondition(true))
-                .save(provider);
-
-        CHEMICAL_BATH_RECIPES.recipeBuilder("quantum_star")
-                .inputItems(gem, NetherStar)
-                .inputFluids(Radon.getFluid(1250))
-                .outputItems(QUANTUM_STAR)
-                .duration(1920).EUt(VA[HV])
-                .addCondition(new GravityCondition(true))
-                .save(provider);
-
-        AUTOCLAVE_RECIPES.recipeBuilder("gravi_star")
-                .inputItems(QUANTUM_STAR)
-                .inputFluids(Neutronium.getFluid(L * 2))
-                .outputItems(GRAVI_STAR)
-                .duration(480).EUt(VA[IV])
-                .addCondition(new GravityCondition(true))
-                .save(provider);
-
-        CHEMICAL_BATH_RECIPES.recipeBuilder("quantum_eye")
-                .inputItems(gem, EnderEye)
-                .inputFluids(Radon.getFluid(250))
-                .outputItems(QUANTUM_EYE)
-                .duration(480).EUt(VA[HV])
-                .addCondition(new GravityCondition(true))
-                .save(provider);
-
-        LIGHTNING_PROCESSOR_RECIPES.recipeBuilder("ender_pearl_dust").duration(400).EUt(VA[LV])
-                .inputItems(dust, Beryllium)
-                .inputItems(dust, Potassium, 4)
-                .inputFluids(Nitrogen.getFluid(5000))
-                .circuitMeta(1)
-                .outputItems(dust, EnderPearl, 10)
                 .save(provider);
 
         UNPACKER_RECIPES.recipeBuilder("unpackage_lv_cadmium_battery").inputItems(BATTERY_LV_CADMIUM)
