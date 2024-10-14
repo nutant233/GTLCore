@@ -4,6 +4,7 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.CoilWorkableElectricMultipleRecipesMultiblockMachine;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.client.renderer.machine.BallHatchRenderer;
+import org.gtlcore.gtlcore.client.renderer.machine.ItemHatchRenderer;
 import org.gtlcore.gtlcore.client.renderer.machine.WindMillTurbineRenderer;
 import org.gtlcore.gtlcore.common.data.machines.*;
 import org.gtlcore.gtlcore.common.machine.electric.VacuumPumpMachine;
@@ -962,5 +963,13 @@ public class GTLMachines {
             .tier(GTValues.EV)
             .rotationState(RotationState.ALL)
             .overlayTieredHullRenderer("rotor_hatch")
+            .register();
+
+    public static final MachineDefinition ITEM_HATCH = REGISTRATE
+            .machine("item_hatch", ItemHatchPartMachine::new)
+            .tier(GTValues.LV)
+            .hasTESR(true)
+            .rotationState(RotationState.ALL)
+            .renderer(ItemHatchRenderer::new)
             .register();
 }
