@@ -377,7 +377,7 @@ public class Lanthanidetreatment {
                 .EUt(480)
                 .save(provider);
 
-        CENTRIFUGE_RECIPES.recipeBuilder(GTLCore.id("Samarium40"))
+        CENTRIFUGE_RECIPES.recipeBuilder(GTLCore.id("samarium40"))
                 .inputItems(dust, PhosphorusFreeSamariumConcentratePowder, 1)
                 .chancedOutput(dust, Samarium, 1, 9000, 0)
                 .chancedOutput(dust, ThoritePowder, 2, 8000, 0)
@@ -402,7 +402,7 @@ public class Lanthanidetreatment {
                 .EUt(30)
                 .save(provider);
 
-        ELECTROLYZER_RECIPES.recipeBuilder(GTLCore.id("Samarium43"))
+        ELECTROLYZER_RECIPES.recipeBuilder(GTLCore.id("samarium43"))
                 .inputItems(dust, SamariumChlorideSodiumChlorideMixturePowder, 6)
                 .outputItems(dust, Samarium, 1)
                 .outputItems(dust, Sodium, 1)

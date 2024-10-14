@@ -92,7 +92,7 @@ public class WireRecipeHandlerMixin {
 
         if (voltageTier < IV) {
             GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
-                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix + "_rubber"))
+                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix.name().toLowerCase() + "_rubber"))
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
                     .outputItems(cablePrefix, material)
@@ -104,7 +104,7 @@ public class WireRecipeHandlerMixin {
             builder.save(provider);
         } else if (voltageTier < UHV) {
             GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
-                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix + "_silicone"))
+                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix.name().toLowerCase() + "_silicone"))
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
                     .outputItems(cablePrefix, material);
@@ -119,7 +119,7 @@ public class WireRecipeHandlerMixin {
                     .save(provider);
         } else {
             GTRecipeBuilder builder = GTLRecipeTypes.LAMINATOR_RECIPES
-                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix + "_styrene_butadiene"))
+                    .recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix.name().toLowerCase() + "_styrene_butadiene"))
                     .EUt(VA[ULV]).duration(100)
                     .inputItems(wirePrefix, material)
                     .outputItems(cablePrefix, material);
@@ -137,7 +137,7 @@ public class WireRecipeHandlerMixin {
 
     @Unique
     private static void gTLCore$generateManualRecipe(TagPrefix wirePrefix, Material material, TagPrefix cablePrefix, Consumer<FinishedRecipe> provider) {
-        GTRecipeTypes.PACKER_RECIPES.recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix))
+        GTRecipeTypes.PACKER_RECIPES.recipeBuilder(GTLCore.id("cover_" + material.getName() + "_" + wirePrefix.name().toLowerCase()))
                 .inputItems(wirePrefix, material)
                 .inputItems(plate, Rubber, INSULATION_AMOUNT.get(cablePrefix))
                 .outputItems(cablePrefix, material)

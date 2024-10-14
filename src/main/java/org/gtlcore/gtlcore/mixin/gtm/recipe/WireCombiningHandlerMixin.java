@@ -81,7 +81,7 @@ public class WireCombiningHandlerMixin {
         } else if (voltageTier > GTValues.EV) {
             rubber = GTMaterials.SiliconeRubber;
         }
-        GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder(GTLCore.id("strip_" + material.getName() + "_" + prefix.name))
+        GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder(GTLCore.id("strip_" + material.getName() + "_" + prefix.name.toLowerCase()))
                 .inputItems(prefix, material)
                 .outputItems(cableToWireMap.get(prefix), material)
                 .outputItems(TagPrefix.plate, rubber,
