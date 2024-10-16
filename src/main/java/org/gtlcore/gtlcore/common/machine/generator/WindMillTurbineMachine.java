@@ -171,8 +171,8 @@ public class WindMillTurbineMachine extends TieredEnergyMachine implements IMach
     public void attachTooltips(TooltipsPanel tooltipsPanel) {
         tooltipsPanel.attachTooltips(new Basic(() -> GuiTextures.INDICATOR_NO_STEAM.get(false), () -> List.of(Component.translatable("gtceu.multiblock.large_combustion_engine.obstructed").setStyle(Style.EMPTY.withColor(ChatFormatting.RED))), this::isObstructed, () -> null));
         tooltipsPanel.attachTooltips(new IFancyTooltip.Basic(() -> GuiTextures.INFO_ICON,
-                () -> List.of(Component.literal("当前风力：" + FormattingUtil.formatNumbers(wind)),
-                        Component.literal("能量输出：" + actualPower + " EU/t")),
+                () -> List.of(Component.translatable("gtceu.machine.wind_mill_turbine.wind", FormattingUtil.formatNumbers(wind)),
+                        Component.translatable("gtceu.machine.wind_mill_turbine.actualPower", actualPower)),
                 () -> true, () -> null));
     }
 

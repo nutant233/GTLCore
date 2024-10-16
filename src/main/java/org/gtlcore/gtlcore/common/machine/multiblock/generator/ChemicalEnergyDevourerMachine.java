@@ -82,11 +82,11 @@ public class ChemicalEnergyDevourerMachine extends WorkableElectricMultiblockMac
     @Override
     public long getOverclockVoltage() {
         if (isOxygenBoosted && isDinitrogenTetroxideBoosted)
-            return GTValues.V[tier] * 128;
-        else if (isOxygenBoosted)
             return GTValues.V[tier] * 64;
-        else
+        else if (isOxygenBoosted)
             return GTValues.V[tier] * 32;
+        else
+            return GTValues.V[tier] * 16;
     }
 
     protected GTRecipe getLubricantRecipe() {

@@ -2,11 +2,11 @@ package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
+import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronAcceleratorPartMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.NeutronSensorPartMachine;
 import org.gtlcore.gtlcore.utils.NumberUtils;
 
-import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
@@ -26,7 +26,6 @@ import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -118,7 +117,7 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
         if (machine instanceof NeutronActivatorMachine nMachine &&
                 (nMachine.eV > recipe.data.getInt("ev_min") * 1000000 &&
                         nMachine.eV < recipe.data.getInt("ev_max") * 1000000)) {
-            GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe, nMachine.getParallel(), false)
+            GTRecipe recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe, GTLRecipeModifiers.getHatchParallel(nMachine), false)
                     .getFirst();
             recipe1.duration = (int) Math.round(Math.max(recipe1.duration * nMachine.getEfficiencyFactor(), 1));
             return recipe1;
@@ -151,7 +150,7 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
     }
 
     private double getEVtMultiplier() {
-        return Math.max(1, Math.pow(getParallel(), 1.5) * getEfficiencyFactor());
+        return Math.max(1, Math.pow(GTLRecipeModifiers.getHatchParallel(this), 1.5) * getEfficiencyFactor());
     }
 
     private void neutronEnergyUpdate() {
@@ -194,24 +193,10 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
         }
     }
 
-    private int getParallel() {
-        int numParallels = 1;
-        Optional<IParallelHatch> optional = this.getParts().stream().filter(IParallelHatch.class::isInstance)
-                .map(IParallelHatch.class::cast).findAny();
-        if (optional.isPresent()) {
-            IParallelHatch parallelHatch = optional.get();
-            numParallels = parallelHatch.getCurrentParallel();
-        }
-        return numParallels;
-    }
-
     @Override
     public void addDisplayText(List<Component> textList) {
         super.addDisplayText(textList);
         if (isFormed()) {
-            textList.add(Component.translatable("gtceu.multiblock.parallel",
-                    Component.literal(FormattingUtil.formatNumbers(getParallel())).withStyle(ChatFormatting.DARK_PURPLE))
-                    .withStyle(ChatFormatting.GRAY));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.ev", NumberUtils.formatLong(eV)));
             textList.add(Component.translatable("gtceu.machine.neutron_activator.efficiency",
                     FormattingUtil.formatNumbers(getEVtMultiplier())));

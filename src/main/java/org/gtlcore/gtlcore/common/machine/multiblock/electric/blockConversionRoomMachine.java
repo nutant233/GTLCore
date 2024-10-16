@@ -95,6 +95,6 @@ public class blockConversionRoomMachine extends WorkableElectricMultiblockMachin
     @Override
     public void addDisplayText(@NotNull List<Component> textList) {
         super.addDisplayText(textList);
-        textList.add(Component.literal("每次转化数量：" + (getTier() * am - 7)));
+        textList.add(Component.translatable("gtceu.machine.block_conversion_room.am", (getTier() * am - 7)));
     }
 }

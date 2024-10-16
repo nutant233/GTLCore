@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
 import org.gtlcore.gtlcore.api.machine.multiblock.StorageMachine;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
@@ -10,7 +11,6 @@ import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
-import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
@@ -37,7 +37,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ProcessingPlantMachine extends StorageMachine {
+public class ProcessingPlantMachine extends StorageMachine implements IParallelMachine {
 
     private static final Set<GTRecipeType> RECIPE_TYPES = Set.of(
             GTRecipeTypes.BENDER_RECIPES,
@@ -95,12 +95,12 @@ public class ProcessingPlantMachine extends StorageMachine {
     @Nullable
     public static GTRecipe processingPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                                     @NotNull OCResult result) {
-        if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
+        if (machine instanceof ProcessingPlantMachine plantMachine) {
             GTRecipe recipe1 = GTLRecipeModifiers.reduction(machine, recipe, 0.9, 0.6);
             if (recipe1 != null) {
-                recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe1, 4 * workableElectricMultiblockMachine.getTier() - 1, false).getFirst();
+                recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe1, plantMachine.getParallel(), false).getFirst();
                 if (recipe1 != null) return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1,
-                        workableElectricMultiblockMachine.getOverclockVoltage(), params, result);
+                        plantMachine.getOverclockVoltage(), params, result);
             }
         }
         return null;
@@ -153,8 +153,8 @@ public class ProcessingPlantMachine extends StorageMachine {
     public void addDisplayText(List<Component> textList) {
         super.addDisplayText(textList);
         if (!this.isFormed) return;
-        textList.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(getTier() == 0 ? 0 : 4 * (getTier() - 1))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
-        if (mismatched) textList.add(Component.literal("配方等级与小机器等级不匹配").withStyle(ChatFormatting.RED));
+        textList.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(getParallel())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+        if (mismatched) textList.add(Component.translatable("gtceu.machine.processing_plant.mismatched").withStyle(ChatFormatting.RED));
     }
 
     protected void onMachineChanged() {
@@ -177,5 +177,10 @@ public class ProcessingPlantMachine extends StorageMachine {
             }
         }
         tier = machineTier;
+    }
+
+    @Override
+    public int getParallel() {
+        return getTier() > 0 ? 4 * (getTier() - 1) : 0;
     }
 }

@@ -26,11 +26,6 @@ public class GTRecipeBuilderMixin {
     @Shadow(remap = false)
     public int duration;
 
-    @Shadow(remap = false)
-    public GTRecipeBuilder duration(int duration) {
-        return null;
-    }
-
     @Unique
     private long gTLCore$eut = 0;
 

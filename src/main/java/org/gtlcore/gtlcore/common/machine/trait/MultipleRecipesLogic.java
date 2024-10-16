@@ -49,7 +49,7 @@ public class MultipleRecipesLogic extends RecipeLogic {
         recipe.outputs.put(ItemRecipeCapability.CAP, new ArrayList<>());
         recipe.outputs.put(FluidRecipeCapability.CAP, new ArrayList<>());
         long totalEu = 0;
-        int parallel = getMachine().getMaxParallel();
+        int parallel = getMachine().getParallel();
         for (int i = 0; i < 64; i++) {
             match = parallelRecipe(match, parallel);
             GTRecipe input = buildEmptyRecipe();

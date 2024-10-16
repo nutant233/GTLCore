@@ -125,9 +125,9 @@ public class HarmonyMachine extends NoEnergyMultiblockMachine {
                 textList.add(Component.translatable("gtmthings.machine.wireless_energy_monitor.tooltip.1",
                         FormattingUtil.formatNumbers(WirelessEnergyManager.getUserEU(userid))));
             }
-            textList.add(Component.literal("启动耗能：" + FormattingUtil.formatNumbers(getStartupEnergy()) + "EU"));
-            textList.add(Component.literal("氢储量：" + FormattingUtil.formatNumbers(hydrogen) + "mb"));
-            textList.add(Component.literal("氦储量：" + FormattingUtil.formatNumbers(helium) + "mb"));
+            textList.add(Component.translatable("gtceu.machine.eye_of_harmony.eu", FormattingUtil.formatNumbers(getStartupEnergy())));
+            textList.add(Component.translatable("gtceu.machine.eye_of_harmony.hydrogen", FormattingUtil.formatNumbers(hydrogen)));
+            textList.add(Component.translatable("gtceu.machine.eye_of_harmony.helium", FormattingUtil.formatNumbers(helium)));
         }
     }
 }

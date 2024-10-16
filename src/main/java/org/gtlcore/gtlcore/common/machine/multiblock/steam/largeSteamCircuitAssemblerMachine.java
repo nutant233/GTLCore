@@ -73,7 +73,7 @@ public class largeSteamCircuitAssemblerMachine extends LargeSteamParallelMultibl
         super.addDisplayText(textList);
         if (isFormed()) {
             textList.add(ComponentPanelWidget.withButton(Component.literal("铭刻电路"), "engraveCircuit"));
-            textList.add(Component.literal("已铭刻电路：" + (item == null ? "空" : LocalizationUtils.format(item.getDescriptionId()))));
+            textList.add(Component.translatable("gtceu.machine.large_steam_circuit_assembler.circuit", (item == null ? "null" : LocalizationUtils.format(item.getDescriptionId()))));
         }
     }
 

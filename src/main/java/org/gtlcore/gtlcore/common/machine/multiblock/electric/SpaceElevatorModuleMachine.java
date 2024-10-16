@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
@@ -33,7 +34,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachine {
+public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachine implements IParallelMachine {
 
     public SpaceElevatorModuleMachine(IMachineBlockEntity holder, boolean SEPMTier, Object... args) {
         super(holder, args);
@@ -85,7 +86,7 @@ public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachin
             }
             GTRecipe recipe1 = GTLRecipeModifiers.reduction(machine, recipe, 1, Math.pow(0.8, spaceElevatorModuleMachine.SpaceElevatorTier - 1));
             if (recipe1 != null) {
-                recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe1, (int) Math.pow(4, spaceElevatorModuleMachine.ModuleTier - 1), false).getFirst();
+                recipe1 = GTRecipeModifiers.accurateParallel(machine, recipe1, spaceElevatorModuleMachine.getParallel(), false).getFirst();
                 if (recipe1 != null) return RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, spaceElevatorModuleMachine.getOverclockVoltage(), params, result);
             }
         }
@@ -112,8 +113,13 @@ public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachin
         if (getOffsetTimer() % 10 == 0) {
             getSpaceElevatorTier();
         }
-        textList.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.pow(4, ModuleTier - 1))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+        textList.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(getParallel())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
         textList.add(Component.literal((SpaceElevatorTier < 1 ? "未" : "已") + "连接正在运行的太空电梯"));
         textList.add(Component.translatable("gtceu.machine.duration_multiplier.tooltip", FormattingUtil.formatNumbers(Math.pow(0.8, SpaceElevatorTier - 1))));
+    }
+
+    @Override
+    public int getParallel() {
+        return SpaceElevatorTier > 0 ? (int) Math.pow(4, ModuleTier - 1) : 0;
     }
 }

@@ -265,7 +265,7 @@ public class AdvancedMultiBlockMachine {
                     int temp = machine.getCoilType().getCoilTemperature();
                     components.add(Component.translatable("gtceu.multiblock.blast_furnace.max_temperature", Component.literal(FormattingUtil.formatNumbers((temp == 273 ? 32000 : temp)) + "K").withStyle(ChatFormatting.BLUE)));
                     if (machine.getRecipeType() == GTLRecipeTypes.STELLAR_FORGE_RECIPES && temp != 273) {
-                        components.add(Component.literal("当前配方模式无法使用该线圈").withStyle(ChatFormatting.RED));
+                        components.add(Component.translatable("gtceu.machine.dimensionally_transcendent_plasma_forge.coil").withStyle(ChatFormatting.RED));
                     }
                 }
             })
@@ -328,7 +328,7 @@ public class AdvancedMultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.resource_collection.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.assembler_module")))
-            .recipeModifier(SpaceElevatorModuleMachine::recipeModifier)
+            .recipeModifier(SpaceElevatorModuleMachine::recipeModifier, true)
             .appearanceBlock(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("aaa", "bcb", "bbb", "bbb", "bbb")
@@ -351,7 +351,7 @@ public class AdvancedMultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.resource_collection.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
                     Component.translatable("gtceu.miner_module"), Component.translatable("gtceu.drilling_module")))
-            .recipeModifier(SpaceElevatorModuleMachine::recipeModifier)
+            .recipeModifier(SpaceElevatorModuleMachine::recipeModifier, true)
             .appearanceBlock(GTLBlocks.SPACE_ELEVATOR_MECHANICAL_CASING)
             .pattern((definition) -> FactoryBlockPattern.start()
                     .aisle("aaa", "bcb", "bbb", "bbb", "bbb")
@@ -486,10 +486,9 @@ public class AdvancedMultiBlockMachine {
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.5))
             .tooltips(Component.translatable("gtceu.machine.blaze_blast_furnace.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.blaze_blast_furnace.tooltip.1"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
+            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.electric_blast_furnace")))
             .recipeModifiers((machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe, 1, 0.5), (machine, recipe, params, result) -> GTRecipeModifiers.accurateParallel(machine, recipe, 64, false).getFirst(), GTRecipeModifiers::ebfOverclock)
@@ -1039,7 +1038,7 @@ public class AdvancedMultiBlockMachine {
                     if (Objects.equals(machine.getMachineStorageItem().kjs$getId(), "gtceu:carbon_nanoswarm")) {
                         components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(String.valueOf(machine.getMachineStorageItem().getCount())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
                     } else {
-                        components.add(Component.literal("需要放入碳纳米蜂群").withStyle(ChatFormatting.RED));
+                        components.add(Component.translatable("gtceu.machine.nano_forge_1.nanoswarm").withStyle(ChatFormatting.RED));
                     }
                 }
             })
@@ -1087,7 +1086,7 @@ public class AdvancedMultiBlockMachine {
                     if (Objects.equals(machine.getMachineStorageItem().kjs$getId(), "gtceu:neutronium_nanoswarm")) {
                         components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(String.valueOf(machine.getMachineStorageItem().getCount())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
                     } else {
-                        components.add(Component.literal("需要放入中子素纳米蜂群").withStyle(ChatFormatting.RED));
+                        components.add(Component.translatable("gtceu.machine.nano_forge_2.nanoswarm").withStyle(ChatFormatting.RED));
                     }
                 }
             })
@@ -1137,7 +1136,7 @@ public class AdvancedMultiBlockMachine {
                     if (Objects.equals(machine.getMachineStorageItem().kjs$getId(), "gtceu:draconium_nanoswarm")) {
                         components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(String.valueOf(machine.getMachineStorageItem().getCount())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
                     } else {
-                        components.add(Component.literal("需要放入龙纳米蜂群").withStyle(ChatFormatting.RED));
+                        components.add(Component.translatable("gtceu.machine.nano_forge_3.nanoswarm").withStyle(ChatFormatting.RED));
                     }
                 }
             })
@@ -1290,7 +1289,7 @@ public class AdvancedMultiBlockMachine {
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.assembly_line")))
-            .recipeModifier(AdvancedAssemblyLineMachine::recipeModifier)
+            .recipeModifier(AdvancedAssemblyLineMachine::recipeModifier, true)
             .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
             .pattern(definition -> FactoryBlockPattern.start(RelativeDirection.BACK, RelativeDirection.UP, RelativeDirection.RIGHT)
                     .aisle("FIF", "RTR", "SAG", "#Y#")
@@ -1779,5 +1778,34 @@ public class AdvancedMultiBlockMachine {
                     .where(" ", Predicates.air())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/cleanroom/plascrete"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
+            .register();
+
+    public final static MultiblockMachineDefinition DISSOLVING_TANK = REGISTRATE.multiblock("dissolving_tank", DissolvingTankMachine::new)
+            .langValue("Dissolving Tank")
+            .tooltips(Component.translatable("gtceu.multiblock.dissolving_tank.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
+            .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
+                    Component.translatable("gtceu.dissolution_treatment")))
+            .rotationState(RotationState.ALL)
+            .recipeTypes(GTLRecipeTypes.DISSOLUTION_TREATMENT)
+            .recipeModifier(DissolvingTankMachine::dissolvingTankOverclock, true)
+            .appearanceBlock(GTBlocks.CASING_STAINLESS_CLEAN)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("X###X", "OOOOO", "XGGGX", "XGGGX", "#XXX#")
+                    .aisle("#####", "OKKKO", "GAAAG", "GAAAG", "XXXXX")
+                    .aisle("#####", "OKKKO", "GAAAG", "GAAAG", "XXXXX")
+                    .aisle("#####", "OKKKO", "GAAAG", "GAAAG", "XXXXX")
+                    .aisle("X###X", "OOSOO", "XGGGX", "XGGGX", "#XXX#")
+                    .where('S', Predicates.controller(Predicates.blocks(definition.get())))
+                    .where('X', Predicates.blocks(GTBlocks.CASING_STAINLESS_CLEAN.get()))
+                    .where('K', Predicates.blocks(GTBlocks.CASING_INVAR_HEATPROOF.get()))
+                    .where('O', Predicates.blocks(GTBlocks.CASING_STAINLESS_CLEAN.get())
+                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
+                            .or(Predicates.autoAbilities(true, false, true)))
+                    .where('G', Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
+                    .where('A', Predicates.air())
+                    .where('#', Predicates.any())
+                    .build())
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/generator/large_gas_turbine"))
             .register();
 }

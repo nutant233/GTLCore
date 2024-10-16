@@ -36,7 +36,7 @@ public class RecipeModify {
                     .inputFluids(GTMaterials.DistilledWater.getFluid(eu / 160))
                     .outputFluids(FluidRecipeCapability.CAP.of(recipeBuilder.output
                             .get(FluidRecipeCapability.CAP).get(0).getContent()))
-                    .outputFluids(GTLMaterials.SupercriticalSteam.getFluid(eu))
+                    .outputFluids(GTLMaterials.SupercriticalSteam.getFluid(eu / 16))
                     .addData("eu", eu)
                     .duration(200)
                     .save(provider);

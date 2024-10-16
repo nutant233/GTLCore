@@ -50,10 +50,10 @@ public class GeneratorMachine {
             .recipeTypes(GTRecipeTypes.COMBUSTION_GENERATOR_FUELS, GTLRecipeTypes.SEMI_FLUID_GENERATOR_FUELS,
                     GTRecipeTypes.GAS_TURBINE_FUELS, GTLRecipeTypes.ROCKET_ENGINE_FUELS)
             .generator(true)
-            .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", 2 * GTValues.V[GTValues.ZPM]),
+            .tooltips(Component.translatable("gtceu.universal.tooltip.base_production_eut", GTValues.V[GTValues.ZPM]),
                     Component.translatable("gtceu.universal.tooltip.uses_per_hour_lubricant", 10000),
-                    Component.literal("提供§f320mB/s§7的液态氧，并消耗§f双倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UV]) + "§7EU/t的功率。"),
-                    Component.literal("再额外提供§f480mB/s§7的四氧化二氮，并消耗§f四倍§7燃料以产生高达§f" + (2 * GTValues.V[GTValues.UHV]) + "§7EU/t的功率。"))
+                    Component.translatable("gtceu.machine.chemical_energy_devourer.tooltip.0", GTValues.V[GTValues.UV]),
+                    Component.translatable("gtceu.machine.chemical_energy_devourer.tooltip.1", GTValues.V[GTValues.UHV]))
             .recipeModifier(ChemicalEnergyDevourerMachine::recipeModifier, true)
             .appearanceBlock(GTBlocks.CASING_TUNGSTENSTEEL_ROBUST)
             .pattern(definition -> FactoryBlockPattern.start()

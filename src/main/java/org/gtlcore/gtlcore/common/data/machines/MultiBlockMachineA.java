@@ -4,6 +4,7 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.*;
 import org.gtlcore.gtlcore.api.pattern.GTLPredicates;
 import org.gtlcore.gtlcore.common.data.*;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.AlloyBlastSmelterMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.largeSteamCircuitAssemblerMachine;
 import org.gtlcore.gtlcore.utils.Registries;
@@ -745,18 +746,19 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTLCore.id("block/casings/iridium_casing"), GTCEu.id("block/multiblock/gcym/large_engraving_laser"))
             .register();
 
-    public final static MultiblockMachineDefinition MEGA_ALLOY_BLAST_SMELTER = REGISTRATE.multiblock("mega_alloy_blast_smelter", CoilWorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition MEGA_ALLOY_BLAST_SMELTER = REGISTRATE.multiblock("mega_alloy_blast_smelter", AlloyBlastSmelterMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
-            .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH, GTRecipeModifiers::ebfOverclock)
+            .recipeModifiers(GTLRecipeModifiers.GCYM_REDUCTION, GTRecipeModifiers.PARALLEL_HATCH, AlloyBlastSmelterMachine::recipeModifier)
             .appearanceBlock(GCyMBlocks.CASING_HIGH_TEMPERATURE_SMELTING)
             .recipeType(GCyMRecipeTypes.ALLOY_BLAST_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
+            .tooltips(Component.translatable("gtceu.machine.alloy_blast_smelter.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.alloy_blast_smelter.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.alloy_blast_smelter")))
@@ -884,10 +886,9 @@ public class MultiBlockMachineA {
             .recipeType(GTRecipeTypes.BLAST_RECIPES)
             .recipeType(GCyMRecipeTypes.ALLOY_BLAST_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.2))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
+            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.multiblock.laser.tooltip"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
@@ -2317,7 +2318,7 @@ public class MultiBlockMachineA {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_inert_ptfe"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
-    public final static MultiblockMachineDefinition DIMENSIONAL_FOCUS_ENGRAVING_ARRAY = REGISTRATE.multiblock("dimensional_focus_engraving_array", CoilWorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition DIMENSIONAL_FOCUS_ENGRAVING_ARRAY = REGISTRATE.multiblock("dimensional_focus_engraving_array", CoilWorkableElectricParallelMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.DIMENSIONAL_FOCUS_ENGRAVING_ARRAY_RECIPES)
             .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
@@ -2495,7 +2496,7 @@ public class MultiBlockMachineA {
                     .where("I", Predicates.blocks(GTBlocks.CASING_INVAR_HEATPROOF.get()))
                     .where(" ", Predicates.any())
                     .build())
-            .additionalDisplay(GTLMachines.MULTIPLERECIPES_COIL_PARALLEL)
+            .additionalDisplay(GTLMachines.COIL_PARALLEL)
             .workableCasingRenderer(GTLCore.id("block/casings/oxidation_resistant_hastelloy_n_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_wiremill"))
             .register();
 
@@ -2553,7 +2554,7 @@ public class MultiBlockMachineA {
                     .where("G", Predicates.heatingCoils())
                     .where(" ", Predicates.any())
                     .build())
-            .additionalDisplay(GTLMachines.MULTIPLERECIPES_COIL_PARALLEL)
+            .additionalDisplay(GTLMachines.COIL_PARALLEL)
             .workableCasingRenderer(GTLCore.id("block/molecular_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
 
@@ -2595,7 +2596,7 @@ public class MultiBlockMachineA {
                     .where("F", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_PIPE.get()))
                     .where(" ", Predicates.any())
                     .build())
-            .additionalDisplay(GTLMachines.MULTIPLERECIPES_COIL_PARALLEL)
+            .additionalDisplay(GTLMachines.COIL_PARALLEL)
             .workableCasingRenderer(GTLCore.id("block/casings/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_extractor"))
             .register();
 
@@ -2797,10 +2798,9 @@ public class MultiBlockMachineA {
             .recipeType(GTLRecipeTypes.VACUUM_DRYING_RECIPES)
             .recipeType(GTLRecipeTypes.DEHYDRATOR_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.vacuum_drying_furnace.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"))
-            .tooltips(Component.translatable("gtceu.machine.perfect_oc"))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
+            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.machine.vacuum_drying_furnace.tooltip.1"))
             .tooltips(Component.translatable("gtceu.multiblock.coil_parallel"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_2.tooltip",
@@ -2882,7 +2882,7 @@ public class MultiBlockMachineA {
                             .or(Predicates.abilities(PartAbility.INPUT_LASER).setMaxGlobalLimited(1)))
                     .where(" ", Predicates.any())
                     .build())
-            .additionalDisplay(GTLMachines.MULTIPLERECIPES_COIL_PARALLEL)
+            .additionalDisplay(GTLMachines.COIL_PARALLEL)
             .workableCasingRenderer(GTLCore.id("block/casings/iridium_casing"), GTCEu.id("block/machines/fluid_heater"))
             .register();
 

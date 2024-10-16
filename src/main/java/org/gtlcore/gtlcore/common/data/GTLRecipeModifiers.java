@@ -1,19 +1,17 @@
 package org.gtlcore.gtlcore.common.data;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.CoilWorkableElectricParallelMultiblockMachine;
 import org.gtlcore.gtlcore.api.machine.multiblock.StorageMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.steam.LargeSteamParallelMultiblockMachine;
 
 import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.feature.IOverclockMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
-import com.gregtechceu.gtceu.api.machine.trait.IRecipeHandlerTrait;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
@@ -24,13 +22,10 @@ import com.gregtechceu.gtceu.api.recipe.logic.OCResult;
 import com.gregtechceu.gtceu.api.recipe.modifier.RecipeModifier;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 
-import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class GTLRecipeModifiers {
 
@@ -41,7 +36,7 @@ public class GTLRecipeModifiers {
 
     public static final RecipeModifier STEAM_OC = (machine, recipe, params, result) -> LargeSteamParallelMultiblockMachine.recipeModifier(machine, recipe, 1);
 
-    public static final RecipeModifier COIL_PARALLEL = (machine, recipe, params, result) -> GTRecipeModifiers.accurateParallel(machine, recipe, Math.min(2147483647, (int) Math.pow(2, ((double) ((CoilWorkableElectricMultiblockMachine) machine).getCoilType().getCoilTemperature() / 900))), false).getFirst();
+    public static final RecipeModifier COIL_PARALLEL = (machine, recipe, params, result) -> GTRecipeModifiers.accurateParallel(machine, recipe, ((CoilWorkableElectricParallelMultiblockMachine) machine).getParallel(), false).getFirst();
 
     public static GTRecipe chemicalPlantOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
                                                   @NotNull OCResult result) {
@@ -77,42 +72,6 @@ public class GTLRecipeModifiers {
         return null;
     }
 
-    public static GTRecipe dissolvingTankOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,
-                                                   @NotNull OCResult result) {
-        if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
-            List<Content> fluidList = recipe.inputs.getOrDefault(FluidRecipeCapability.CAP, null);
-            FluidStack fluidStack1 = FluidRecipeCapability.CAP.of(fluidList.get(0).getContent()).getStacks()[0];
-            FluidStack fluidStack2 = FluidRecipeCapability.CAP.of(fluidList.get(1).getContent()).getStacks()[0];
-            long a = 0, b = 0;
-            for (IMultiPart part : workableElectricMultiblockMachine.getParts()) {
-                for (IRecipeHandlerTrait<?> handler : part.getRecipeHandlers()) {
-                    if (handler.getHandlerIO() == IO.IN) {
-                        for (Object contents : handler.getContents()) {
-                            if (contents instanceof FluidStack fluidStack) {
-                                if (fluidStack.getFluid() == fluidStack1.getFluid()) {
-                                    a += fluidStack.getAmount();
-                                }
-                                if (fluidStack.getFluid() == fluidStack2.getFluid()) {
-                                    b += fluidStack.getAmount();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (b == 0) return null;
-            GTRecipe recipe1 = GTRecipeModifiers.hatchParallel(machine, recipe, false, params, result);
-            if (recipe1 != null) {
-                GTRecipe recipe2 = RecipeHelper.applyOverclock(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK, recipe1, workableElectricMultiblockMachine.getOverclockVoltage(), params, result);
-                if (a / b != fluidStack1.getAmount() / fluidStack2.getAmount()) {
-                    recipe2.outputs.clear();
-                }
-                return recipe2;
-            }
-        }
-        return null;
-    }
-
     public static GTRecipe reduction(MetaMachine machine, @NotNull GTRecipe recipe,
                                      double reductionEUt, double reductionDuration) {
         if (machine instanceof IOverclockMachine overclockMachine) {
@@ -136,11 +95,11 @@ public class GTLRecipeModifiers {
 
     public static int getHatchParallel(MetaMachine machine) {
         if (machine instanceof IMultiController controller && controller.isFormed()) {
-            Optional<IParallelHatch> optional = controller.getParts().stream().filter(IParallelHatch.class::isInstance)
-                    .map(IParallelHatch.class::cast).findAny();
-            if (optional.isPresent()) {
-                IParallelHatch hatch = optional.get();
-                return hatch.getCurrentParallel();
+            List<IMultiPart> parts = controller.getParts();
+            for (IMultiPart part : parts) {
+                if (part instanceof IParallelHatch hatch) {
+                    return hatch.getCurrentParallel();
+                }
             }
         }
         return 1;

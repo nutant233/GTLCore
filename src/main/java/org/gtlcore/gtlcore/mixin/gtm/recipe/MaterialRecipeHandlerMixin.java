@@ -7,10 +7,14 @@ import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.*;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
+import com.gregtechceu.gtceu.api.recipe.ingredient.FluidIngredient;
 import com.gregtechceu.gtceu.common.data.GTBlocks;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
+import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.gregtechceu.gtceu.data.recipe.generated.MaterialRecipeHandler;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.gregtechceu.gtceu.utils.GTUtil;
@@ -32,18 +36,20 @@ import java.util.function.Consumer;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.Helium;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.Silicon;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 
 @Mixin(MaterialRecipeHandler.class)
-public class MaterialRecipeHandlerMixin {
-
-    @Shadow(remap = false)
-    private static void processEBFRecipe(Material material, BlastProperty property, ItemStack output, Consumer<FinishedRecipe> provider) {}
+public abstract class MaterialRecipeHandlerMixin {
 
     @Shadow(remap = false)
     private static int getVoltageMultiplier(Material material) {
         return 0;
     }
+
+    @Shadow(remap = false)
+    private static void generateSurfaceRockRecipe(Consumer<FinishedRecipe> provider) {}
 
     @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
     private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
@@ -60,6 +66,7 @@ public class MaterialRecipeHandlerMixin {
         for (TagPrefix orePrefix : Arrays.asList(gem, gemFlawless, gemExquisite)) {
             orePrefix.executeHandler(provider, PropertyKey.GEM, MaterialRecipeHandler::processGemConversion);
         }
+        generateSurfaceRockRecipe(provider);
         ci.cancel();
     }
 
@@ -73,7 +80,7 @@ public class MaterialRecipeHandlerMixin {
         }
 
         if (material.hasFlag(GENERATE_ROD)) {
-            if (mass < 240 && material.getBlastTemperature() < 4000)
+            if (mass < 240 && material.getBlastTemperature() < 3600)
                 VanillaRecipeHelper.addShapedRecipe(provider, String.format("stick_%s", material.getName()),
                         ChemicalHelper.get(rod, material),
                         "f ", " X",
@@ -148,7 +155,7 @@ public class MaterialRecipeHandlerMixin {
                             .outputItems(GTUtil.copyAmount(2, plateStack))
                             .EUt(16).duration(mass)
                             .save(provider);
-                    if (mass < 240 && material.getBlastTemperature() < 4000)
+                    if (mass < 240 && material.getBlastTemperature() < 3600)
                         VanillaRecipeHelper.addShapedRecipe(provider, String.format("plate_%s", material.getName()),
                                 plateStack, "h", "I", "I", 'I', new UnificationEntry(ingotPrefix, material));
                 }
@@ -270,10 +277,10 @@ public class MaterialRecipeHandlerMixin {
                     IngotProperty ingotProperty = mat.getProperty(PropertyKey.INGOT);
                     BlastProperty blastProperty = mat.getProperty(PropertyKey.BLAST);
 
-                    processEBFRecipe(mat, blastProperty, ingotStack, provider);
+                    gTLCore$processEBFRecipe(mat, blastProperty, ingotStack, provider);
 
                     if (ingotProperty.getMagneticMaterial() != null) {
-                        processEBFRecipe(ingotProperty.getMagneticMaterial(), blastProperty, ingotStack, provider);
+                        gTLCore$processEBFRecipe(ingotProperty.getMagneticMaterial(), blastProperty, ingotStack, provider);
                     }
                 }
             }
@@ -325,5 +332,64 @@ public class MaterialRecipeHandlerMixin {
                 .inputItems(dust, material)
                 .outputItems(GTUtil.copyAmount(9, ChemicalHelper.get(orePrefix, material)))
                 .save(provider);
+    }
+
+    @Unique
+    private static void gTLCore$processEBFRecipe(Material material, BlastProperty property, ItemStack output,
+                                                 Consumer<FinishedRecipe> provider) {
+        int blastTemp = property.getBlastTemperature();
+        BlastProperty.GasTier gasTier = property.getGasTier();
+        int duration = property.getDurationOverride();
+        if (duration <= 0) {
+            duration = Math.max(1, (int) (material.getMass() * blastTemp / 200));
+        }
+        int EUt = property.getEUtOverride();
+        if (EUt <= 0) EUt = VA[MV];
+
+        GTRecipeBuilder blastBuilder = BLAST_RECIPES.recipeBuilder("blast_" + material.getName())
+                .inputItems(dust, material)
+                .outputItems(output)
+                .blastFurnaceTemp(blastTemp)
+                .EUt(EUt);
+
+        if (gasTier != null) {
+            FluidIngredient gas = CraftingComponent.EBF_GASES.get(gasTier).copy();
+
+            blastBuilder.copy("blast_" + material.getName())
+                    .circuitMeta(1)
+                    .duration(duration)
+                    .save(provider);
+
+            blastBuilder.copy("blast_" + material.getName() + "_gas")
+                    .circuitMeta(2)
+                    .inputFluids(gas)
+                    .duration((int) (duration * 0.6))
+                    .save(provider);
+        } else {
+            blastBuilder.duration(duration);
+            if (material == Silicon) {
+                blastBuilder.circuitMeta(1);
+            }
+            blastBuilder.save(provider);
+        }
+
+        // Add Vacuum Freezer recipe if required.
+        if (ingotHot.doGenerateItem(material)) {
+            if (blastTemp < 5000) {
+                VACUUM_RECIPES.recipeBuilder("cool_hot_" + material.getName() + "_ingot")
+                        .inputItems(ingotHot, material)
+                        .outputItems(ingot, material)
+                        .duration((int) material.getMass() * 3)
+                        .save(provider);
+            } else {
+                VACUUM_RECIPES.recipeBuilder("cool_hot_" + material.getName() + "_ingot")
+                        .inputItems(ingotHot, material)
+                        .inputFluids(Helium.getFluid(FluidStorageKeys.LIQUID, 500))
+                        .outputItems(ingot, material)
+                        .outputFluids(Helium.getFluid(250))
+                        .duration((int) material.getMass() * 3)
+                        .save(provider);
+            }
+        }
     }
 }

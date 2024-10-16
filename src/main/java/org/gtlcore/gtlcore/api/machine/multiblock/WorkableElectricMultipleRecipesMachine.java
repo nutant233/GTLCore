@@ -8,7 +8,7 @@ import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 
 import org.jetbrains.annotations.NotNull;
 
-public class WorkableElectricMultipleRecipesMachine extends WorkableElectricMultiblockMachine {
+public class WorkableElectricMultipleRecipesMachine extends WorkableElectricMultiblockMachine implements IParallelMachine {
 
     public WorkableElectricMultipleRecipesMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, args);
@@ -25,7 +25,8 @@ public class WorkableElectricMultipleRecipesMachine extends WorkableElectricMult
         return (MultipleRecipesLogic) super.getRecipeLogic();
     }
 
-    public int getMaxParallel() {
-        return Integer.MAX_VALUE;
+    @Override
+    public int getParallel() {
+        return isFormed() ? Integer.MAX_VALUE : 0;
     }
 }

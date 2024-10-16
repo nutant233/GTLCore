@@ -112,7 +112,7 @@ public class RecipeOverwrite {
 
         // 修复冲突
         CHEMICAL_RECIPES.recipeBuilder("hypochlorous_acid_mercury")
-                .circuitMeta(1)
+                .circuitMeta(10)
                 .inputFluids(Mercury.getFluid(1000))
                 .inputFluids(Water.getFluid(10000))
                 .inputFluids(Chlorine.getFluid(10000))
@@ -120,7 +120,7 @@ public class RecipeOverwrite {
                 .duration(600).EUt(VA[ULV]).save(provider);
 
         CHEMICAL_RECIPES.recipeBuilder("hypochlorous_acid")
-                .circuitMeta(2)
+                .circuitMeta(11)
                 .inputFluids(Water.getFluid(1000))
                 .inputFluids(Chlorine.getFluid(2000))
                 .outputFluids(DilutedHydrochloricAcid.getFluid(1000))

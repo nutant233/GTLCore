@@ -71,7 +71,7 @@ public class WireRecipeHandlerMixin {
                 .EUt(getVoltageMultiplier(material))
                 .save(provider);
 
-        if (!material.hasFlag(MaterialFlags.NO_WORKING) && material.hasFlag(MaterialFlags.GENERATE_PLATE) && mass < 240 && material.getBlastTemperature() < 4000) {
+        if (!material.hasFlag(MaterialFlags.NO_WORKING) && material.hasFlag(MaterialFlags.GENERATE_PLATE) && mass < 240 && material.getBlastTemperature() < 3600) {
             VanillaRecipeHelper.addShapedRecipe(provider, String.format("%s_wire_single", material.getName()),
                     ChemicalHelper.get(wireGtSingle, material), "Xx",
                     'X', new UnificationEntry(plate, material));

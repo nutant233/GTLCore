@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.api.machine.multiblock;
 
+import com.gregtechceu.gtceu.api.capability.IParallelHatch;
 import com.gregtechceu.gtceu.api.gui.GuiTextures;
 import com.gregtechceu.gtceu.api.gui.fancy.FancyMachineUIWidget;
 import com.gregtechceu.gtceu.api.gui.fancy.IFancyUIProvider;
@@ -8,19 +9,19 @@ import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.feature.IFancyUIMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IDisplayUIMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
+import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockDisplayText;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableMultiblockMachine;
 
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.gui.widget.*;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -34,43 +35,33 @@ public class NoEnergyMultiblockMachine extends WorkableMultiblockMachine impleme
 
     @Override
     public void addDisplayText(List<Component> textList) {
-        IDisplayUIMachine.super.addDisplayText(textList);
-        if (isFormed()) {
-            textList.add(Component.translatable(getRecipeType().registryName.toLanguageKey())
-                    .setStyle(Style.EMPTY.withColor(ChatFormatting.AQUA)
-                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                    Component.translatable("gtceu.gui.machinemode.title")))));
-            if (!isWorkingEnabled()) {
-                textList.add(Component.translatable("gtceu.multiblock.work_paused"));
-            } else if (isActive()) {
-                textList.add(Component.translatable("gtceu.multiblock.running"));
-                int currentProgress = (int) (recipeLogic.getProgressPercent() * 100);
-                textList.add(Component.translatable("gtceu.multiblock.progress", currentProgress));
-            } else {
-                textList.add(Component.translatable("gtceu.multiblock.idling"));
-            }
-            if (recipeLogic.isWaiting()) {
-                textList.add(Component.translatable("gtceu.multiblock.waiting")
-                        .setStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
-            }
-        } else {
-            Component tooltip = Component.translatable("gtceu.multiblock.invalid_structure.tooltip")
-                    .withStyle(ChatFormatting.GRAY);
-            textList.add(Component.translatable("gtceu.multiblock.invalid_structure")
-                    .withStyle(Style.EMPTY.withColor(ChatFormatting.RED)
-                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tooltip))));
+        int numParallels = 0;
+        Optional<IParallelHatch> optional = this.getParts().stream().filter(IParallelHatch.class::isInstance)
+                .map(IParallelHatch.class::cast).findAny();
+        if (optional.isPresent()) {
+            IParallelHatch parallelHatch = optional.get();
+            numParallels = parallelHatch.getCurrentParallel();
         }
+        MultiblockDisplayText.builder(textList, isFormed())
+                .setWorkingStatus(recipeLogic.isWorkingEnabled(), recipeLogic.isActive())
+                .addMachineModeLine(getRecipeType(), getRecipeTypes().length > 1)
+                .addParallelsLine(numParallels)
+                .addWorkingStatusLine()
+                .addProgressLine(recipeLogic.getProgress(), recipeLogic.getMaxProgress(),
+                        recipeLogic.getProgressPercent())
+                .addOutputLines(recipeLogic.getLastRecipe(), this.getChanceTier());
         getDefinition().getAdditionalDisplay().accept(this, textList);
+        IDisplayUIMachine.super.addDisplayText(textList);
     }
 
     @Override
     public Widget createUIWidget() {
         var group = new WidgetGroup(0, 0, 182 + 8, 117 + 8);
-        group.addWidget(new DraggableScrollableWidgetGroup(4, 4, 182, 117)
-                .setBackground(getScreenTexture())
+        group.addWidget(new DraggableScrollableWidgetGroup(4, 4, 182, 117).setBackground(getScreenTexture())
                 .addWidget(new LabelWidget(4, 5, self().getBlockState().getBlock().getDescriptionId()))
                 .addWidget(new ComponentPanelWidget(4, 17, this::addDisplayText)
-                        .setMaxWidthLimit(150)
+                        .textSupplier(Objects.requireNonNull(this.getLevel()).isClientSide ? null : this::addDisplayText)
+                        .setMaxWidthLimit(200)
                         .clickHandler(this::handleDisplayClick)));
         group.setBackground(GuiTextures.BACKGROUND_INVERSE);
         return group;
@@ -85,7 +76,7 @@ public class NoEnergyMultiblockMachine extends WorkableMultiblockMachine impleme
     @Override
     public List<IFancyUIProvider> getSubTabs() {
         return getParts().stream()
-                .filter(IFancyUIProvider.class::isInstance)
+                .filter(Objects::nonNull)
                 .map(IFancyUIProvider.class::cast)
                 .toList();
     }

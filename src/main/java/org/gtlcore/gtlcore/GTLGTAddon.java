@@ -3,7 +3,6 @@ package org.gtlcore.gtlcore;
 import org.gtlcore.gtlcore.api.data.tag.GTLTagPrefix;
 import org.gtlcore.gtlcore.api.registries.GTLRegistration;
 import org.gtlcore.gtlcore.common.data.*;
-import org.gtlcore.gtlcore.config.GTConfigModify;
 import org.gtlcore.gtlcore.data.recipe.*;
 
 import com.gregtechceu.gtceu.api.addon.GTAddon;
@@ -49,7 +48,6 @@ public class GTLGTAddon implements IGTAddon {
 
     @Override
     public void registerElements() {
-        GTConfigModify.init();
         GTLElements.init();
     }
 

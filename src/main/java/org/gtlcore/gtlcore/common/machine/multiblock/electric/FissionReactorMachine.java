@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
 import org.gtlcore.gtlcore.api.pattern.util.IValueContainer;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
@@ -35,7 +36,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class FissionReactorMachine extends WorkableElectricMultiblockMachine implements IExplosionMachine {
+public class FissionReactorMachine extends WorkableElectricMultiblockMachine implements IExplosionMachine, IParallelMachine {
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
             FissionReactorMachine.class, WorkableMultiblockMachine.MANAGED_FIELD_HOLDER);
@@ -246,5 +247,10 @@ public class FissionReactorMachine extends WorkableElectricMultiblockMachine imp
             textList.add(Component.translatable("gtceu.machine.fission_reactor.heat", heat));
             textList.add(Component.translatable("gtceu.machine.fission_reactor.damaged", damaged).append("%"));
         }
+    }
+
+    @Override
+    public int getParallel() {
+        return fuel;
     }
 }

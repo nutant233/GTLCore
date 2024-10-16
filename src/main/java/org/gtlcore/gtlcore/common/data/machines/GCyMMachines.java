@@ -3,6 +3,7 @@ package org.gtlcore.gtlcore.common.data.machines;
 import org.gtlcore.gtlcore.common.data.GTLMachines;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+import org.gtlcore.gtlcore.common.machine.multiblock.electric.AlloyBlastSmelterMachine;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
@@ -489,18 +490,19 @@ public class GCyMMachines {
             .register();
 
     public final static MultiblockMachineDefinition BLAST_ALLOY_SMELTER = REGISTRATE
-            .multiblock("alloy_blast_smelter", CoilWorkableElectricMultiblockMachine::new)
+            .multiblock("alloy_blast_smelter", AlloyBlastSmelterMachine::new)
             .langValue("Alloy Blast Smelter")
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"),
-                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
-                    Component.translatable("gtceu.machine.perfect_oc"),
+            .tooltips(Component.translatable("gtceu.machine.alloy_blast_smelter.tooltip.0"))
+            .tooltips(Component.translatable("gtceu.machine.alloy_blast_smelter.tooltip.1"))
+            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
                     Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.alloy_blast_smelter")))
             .tooltipBuilder(GTLMachines.GTL_MODIFY)
             .rotationState(RotationState.ALL)
             .recipeType(ALLOY_BLAST_RECIPES)
-            .recipeModifiers(GTRecipeModifiers::ebfOverclock)
+            .recipeModifiers(AlloyBlastSmelterMachine::recipeModifier)
             .appearanceBlock(CASING_HIGH_TEMPERATURE_SMELTING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("#XXX#", "#CCC#", "#GGG#", "#CCC#", "#XXX#")
@@ -865,9 +867,8 @@ public class GCyMMachines {
             .langValue("Rotary Hearth Furnace")
             .tooltips(Component.translatable("gtceu.machine.eut_multiplier.tooltip", 0.8))
             .tooltips(Component.translatable("gtceu.machine.duration_multiplier.tooltip", 0.6))
-            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"),
-                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
-                    Component.translatable("gtceu.machine.perfect_oc"),
+            .tooltips(Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.0"),
+                    Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.1"),
                     Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.2"))
             .tooltips(Component.translatable("gtceu.multiblock.parallelizable.tooltip"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",

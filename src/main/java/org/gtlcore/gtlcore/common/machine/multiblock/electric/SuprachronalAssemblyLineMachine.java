@@ -1,5 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
 
@@ -24,7 +25,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockMachine {
+public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockMachine implements IParallelMachine {
 
     private final boolean isModule;
 
@@ -71,6 +72,7 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
         }
     }
 
+    @Override
     public int getParallel() {
         return GTLRecipeModifiers.getHatchParallel(machine);
     }
@@ -121,12 +123,12 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
                 getSuprachronalAssemblyLine();
             }
             textList.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(getParallel())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
-            textList.add(Component.literal("该模块" + (machine != null ? "已" : "未") + "成功安装"));
+            textList.add(machine == null ? Component.translatable("gtceu.machine.module.null") : Component.translatable("gtceu.machine.module.have"));
         } else {
             if (getOffsetTimer() % 10 == 0) {
                 getSuprachronalAssemblyLineModule();
             }
-            textList.add(Component.literal("已安装的模块数：" + module));
+            textList.add(Component.translatable("gtceu.machine.module.am", module));
         }
     }
 }

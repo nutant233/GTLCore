@@ -11,7 +11,7 @@ public class WorkableElectricParallelHatchMultipleRecipesMachine extends Workabl
     }
 
     @Override
-    public int getMaxParallel() {
-        return getHatchParallel(this);
+    public int getParallel() {
+        return isFormed() ? getHatchParallel(this) : 0;
     }
 }

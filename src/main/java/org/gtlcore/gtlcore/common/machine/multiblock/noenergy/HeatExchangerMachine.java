@@ -40,7 +40,7 @@ public class HeatExchangerMachine extends NoEnergyMultiblockMachine {
                     .buildRawRecipe(), Integer.MAX_VALUE, false);
             long count = result.getSecond() * recipe.data.getLong("eu");
             if (MachineIO.inputFluid(hMachine, GTMaterials.DistilledWater.getFluid(count / 160))) {
-                hMachine.count = count;
+                hMachine.count = count / 16;
                 return result.getFirst();
             }
         }

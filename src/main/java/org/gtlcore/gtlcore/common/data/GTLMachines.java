@@ -1,8 +1,8 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.api.machine.multiblock.CoilWorkableElectricMultipleRecipesMultiblockMachine;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
+import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
 import org.gtlcore.gtlcore.client.renderer.machine.BallHatchRenderer;
 import org.gtlcore.gtlcore.client.renderer.machine.ItemHatchRenderer;
 import org.gtlcore.gtlcore.client.renderer.machine.WindMillTurbineRenderer;
@@ -104,14 +104,8 @@ public class GTLMachines {
     };
 
     public static final BiConsumer<IMultiController, List<Component>> COIL_PARALLEL = (controller, components) -> {
-        if (controller instanceof CoilWorkableElectricMultiblockMachine machine && controller.isFormed()) {
-            components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.min(2147483647, (int) Math.pow(2, ((double) machine.getCoilType().getCoilTemperature() / 900))))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
-        }
-    };
-
-    public static final BiConsumer<IMultiController, List<Component>> MULTIPLERECIPES_COIL_PARALLEL = (controller, components) -> {
-        if (controller instanceof CoilWorkableElectricMultipleRecipesMultiblockMachine machine && controller.isFormed()) {
-            components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.min(2147483647, (int) Math.pow(2, ((double) machine.getCoilType().getCoilTemperature() / 900))))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+        if (controller instanceof IParallelMachine machine && controller.isFormed()) {
+            components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(machine.getParallel())).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
         }
     };
 

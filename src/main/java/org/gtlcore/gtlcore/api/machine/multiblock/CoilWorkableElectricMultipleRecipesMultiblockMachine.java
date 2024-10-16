@@ -35,7 +35,7 @@ public class CoilWorkableElectricMultipleRecipesMultiblockMachine extends Workab
     }
 
     @Override
-    public int getMaxParallel() {
-        return Math.min(2147483647, (int) Math.pow(2, (double) getCoilType().getCoilTemperature() / 900));
+    public int getParallel() {
+        return isFormed() ? Math.min(2147483647, (int) Math.pow(2, getCoilType().getCoilTemperature() / 900D)) : 0;
     }
 }

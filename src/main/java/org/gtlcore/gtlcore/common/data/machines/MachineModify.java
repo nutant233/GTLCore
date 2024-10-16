@@ -19,13 +19,6 @@ public class MachineModify {
         hpca_advanced_computation_component.setTooltipBuilder(hpca_advanced_computation_component.getTooltipBuilder().andThen((itemStack, components) -> components.set(3, Component.translatable("gtceu.machine.hpca.component_type.computation_cwut", 32))));
         hpca_advanced_computation_component.setTooltipBuilder(hpca_advanced_computation_component.getTooltipBuilder().andThen(GTLMachines.GTL_MODIFY));
 
-        MachineDefinition electric_blast_furnace = GTMachines.ELECTRIC_BLAST_FURNACE;
-        electric_blast_furnace.setTooltipBuilder(electric_blast_furnace.getTooltipBuilder().andThen((itemStack, components) -> {
-            components.add(1, Component.translatable("gtceu.machine.electric_blast_furnace.tooltip.a"));
-            components.set(3, Component.translatable("gtceu.machine.perfect_oc"));
-        }));
-        electric_blast_furnace.setTooltipBuilder(electric_blast_furnace.getTooltipBuilder().andThen(GTLMachines.GTL_MODIFY));
-
         MachineDefinition steamExportBus = GTMachines.STEAM_EXPORT_BUS;
         steamExportBus.setTooltipBuilder(steamExportBus.getTooltipBuilder().andThen(GTLMachines.GTL_MODIFY));
         MachineDefinition steamImportBus = GTMachines.STEAM_IMPORT_BUS;
