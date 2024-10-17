@@ -1,41 +1,40 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance;
 
-import org.gtlcore.gtlcore.api.machine.part.IGravityPartMachine;
-
 import com.gregtechceu.gtceu.api.gui.widget.IntInputWidget;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import com.gregtechceu.gtceu.api.machine.feature.ICleanroomProvider;
-
 import com.lowdragmc.lowdraglib.gui.widget.Widget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
-
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.util.Mth;
-
-import lombok.Getter;
+import org.gtlcore.gtlcore.api.machine.part.IGravityPartMachine;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@Getter
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class CGCMHatchPartMachine extends CCMHatchPartMachine implements IGravityPartMachine {
+public class CGCHatchPartMachine extends ACMHatchPartMachine implements IGravityPartMachine {
+
+    @Persisted
+    private int currentGravity = 0;
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            CGCMHatchPartMachine.class, ACMHatchPartMachine.MANAGED_FIELD_HOLDER);
+            CGCHatchPartMachine.class, ACMHatchPartMachine.MANAGED_FIELD_HOLDER);
 
     @Override
     public ManagedFieldHolder getFieldHolder() {
         return MANAGED_FIELD_HOLDER;
     }
 
-    @Persisted
-    private int currentGravity;
 
-    public CGCMHatchPartMachine(IMachineBlockEntity blockEntity, ICleanroomProvider cleanroomTypes) {
-        super(blockEntity, cleanroomTypes);
+    public CGCHatchPartMachine(IMachineBlockEntity metaTileEntityId) {
+        super(metaTileEntityId);
+    }
+
+    @Override
+    public int getCurrentGravity() {
+        return currentGravity;
     }
 
     @Override
