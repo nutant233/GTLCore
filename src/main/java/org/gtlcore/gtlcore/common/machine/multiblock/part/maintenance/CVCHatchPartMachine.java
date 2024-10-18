@@ -1,8 +1,10 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance;
 
-import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import org.gtlcore.gtlcore.api.machine.IVacuumMachine;
+
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+
+import net.minecraft.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -16,6 +18,6 @@ public class CVCHatchPartMachine extends ACMHatchPartMachine implements IVacuumM
 
     @Override
     public int getVacuumTier() {
-        return 10;
+        return 4;
     }
 }

@@ -8,7 +8,7 @@ import org.gtlcore.gtlcore.common.machine.multiblock.generator.ChemicalEnergyDev
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.DysonSphereMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.generator.TurbineMachine;
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -273,10 +273,10 @@ public class GeneratorMachine {
             .recipeModifier((machine, recipe, params, result) -> {
                 if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine) {
                     int p = 1;
-                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Starmetal.getFluid(FluidStorageKeys.PLASMA, 1))) {
+                    if (MachineUtil.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Starmetal.getFluid(FluidStorageKeys.PLASMA, 1))) {
                         p = 8;
                     }
-                    if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.DenseNeutron.getFluid(FluidStorageKeys.PLASMA, 1))) {
+                    if (MachineUtil.inputFluid(workableElectricMultiblockMachine, GTLMaterials.DenseNeutron.getFluid(FluidStorageKeys.PLASMA, 1))) {
                         p = 16;
                     }
                     return GTLRecipeModifiers.standardOverclocking(workableElectricMultiblockMachine, GTRecipeModifiers.fastParallel(machine, recipe, p, false).getFirst());
@@ -325,19 +325,19 @@ public class GeneratorMachine {
                     int p = 1;
                     long outputEUt = RecipeHelper.getOutputEUt(recipe);
                     if (outputEUt == GTValues.V[GTValues.UEV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Orichalcum.getFluid(FluidStorageKeys.PLASMA, 1))) {
+                        if (MachineUtil.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Orichalcum.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.UIV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Enderium.getFluid(FluidStorageKeys.PLASMA, 1))) {
+                        if (MachineUtil.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Enderium.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.UXV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Infuscolium.getFluid(FluidStorageKeys.PLASMA, 1))) {
+                        if (MachineUtil.inputFluid(workableElectricMultiblockMachine, GTLMaterials.Infuscolium.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     } else if (outputEUt == GTValues.V[GTValues.OpV]) {
-                        if (MachineIO.inputFluid(workableElectricMultiblockMachine, GTLMaterials.MetastableHassium.getFluid(FluidStorageKeys.PLASMA, 1))) {
+                        if (MachineUtil.inputFluid(workableElectricMultiblockMachine, GTLMaterials.MetastableHassium.getFluid(FluidStorageKeys.PLASMA, 1))) {
                             p = 16;
                         }
                     }

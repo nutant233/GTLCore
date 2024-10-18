@@ -3,7 +3,7 @@ package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
 import org.gtlcore.gtlcore.common.data.GTLMaterials;
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
@@ -39,7 +39,7 @@ public class HeatExchangerMachine extends NoEnergyMultiblockMachine {
                     .duration(200)
                     .buildRawRecipe(), Integer.MAX_VALUE, false);
             long count = result.getSecond() * recipe.data.getLong("eu");
-            if (MachineIO.inputFluid(hMachine, GTMaterials.DistilledWater.getFluid(count / 160))) {
+            if (MachineUtil.inputFluid(hMachine, GTMaterials.DistilledWater.getFluid(count / 160))) {
                 hMachine.count = count / 16;
                 return result.getFirst();
             }
@@ -50,7 +50,7 @@ public class HeatExchangerMachine extends NoEnergyMultiblockMachine {
     @Override
     public void afterWorking() {
         if (count != 0) {
-            MachineIO.outputFluid(this, GTLMaterials.SupercriticalSteam
+            MachineUtil.outputFluid(this, GTLMaterials.SupercriticalSteam
                     .getFluid(count));
         }
         count = 0;

@@ -1,14 +1,17 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance;
 
+import org.gtlcore.gtlcore.api.machine.part.IGravityPartMachine;
+
 import com.gregtechceu.gtceu.api.gui.widget.IntInputWidget;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+
 import com.lowdragmc.lowdraglib.gui.widget.Widget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.util.Mth;
-import org.gtlcore.gtlcore.api.machine.part.IGravityPartMachine;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -26,7 +29,6 @@ public class CGCHatchPartMachine extends ACMHatchPartMachine implements IGravity
     public ManagedFieldHolder getFieldHolder() {
         return MANAGED_FIELD_HOLDER;
     }
-
 
     public CGCHatchPartMachine(IMachineBlockEntity metaTileEntityId) {
         super(metaTileEntityId);

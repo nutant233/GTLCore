@@ -87,12 +87,6 @@ public class blockConversionRoomMachine extends WorkableElectricMultiblockMachin
     }
 
     @Override
-    public void onWaiting() {
-        super.onWaiting();
-        getRecipeLogic().interruptRecipe();
-    }
-
-    @Override
     public void addDisplayText(@NotNull List<Component> textList) {
         super.addDisplayText(textList);
         textList.add(Component.translatable("gtceu.machine.block_conversion_room.am", (getTier() * am - 7)));

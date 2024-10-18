@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.generator;
 
+import org.gtlcore.gtlcore.utils.MachineUtil;
+
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
@@ -89,18 +91,11 @@ public class DysonSphereMachine extends WorkableElectricMultiblockMachine {
     @Override
     public boolean beforeWorking(@Nullable GTRecipe recipe) {
         final Level level = getLevel();
-        int x = 0, y = 14, z = 0;
-        switch (getFrontFacing()) {
-            case NORTH -> z = 4;
-            case SOUTH -> z = -4;
-            case WEST -> x = 4;
-            case EAST -> x = -4;
-        }
-        final BlockPos blockPos = getPos().offset(x, y, z);
+        if (level == null) return false;
+        final BlockPos blockPos = MachineUtil.getOffsetPos(4, 14, getFrontFacing(), getPos());
         for (int i = -6; i < 7; i++) {
             for (int j = -6; j < 7; j++) {
                 if (i != 0 && j != 0 && level.kjs$getBlock(blockPos.offset(i, 1, j)).getSkyLight() == 0) {
-                    getRecipeLogic().resetRecipeLogic();
                     return false;
                 }
             }

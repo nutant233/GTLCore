@@ -11,7 +11,7 @@ import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.electric.*;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.HeatExchangerMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.noenergy.NeutronActivatorMachine;
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 import org.gtlcore.gtlcore.utils.Registries;
 
 import com.gregtechceu.gtceu.GTCEu;
@@ -30,7 +30,6 @@ import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import com.gregtechceu.gtceu.api.recipe.OverclockingLogic;
-import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.client.renderer.machine.FusionReactorRenderer;
 import com.gregtechceu.gtceu.common.data.*;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.FusionReactorMachine;
@@ -45,9 +44,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -158,7 +155,7 @@ public class AdvancedMultiBlockMachine {
             .hasTESR(true)
             .register();
 
-    public final static MultiblockMachineDefinition SPACE_PROBE_SURFACE_RECEPTION = REGISTRATE.multiblock("space_probe_surface_reception", WorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition SPACE_PROBE_SURFACE_RECEPTION = REGISTRATE.multiblock("space_probe_surface_reception", SpaceProbeSurfaceReceptionMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.SPACE_PROBE_SURFACE_RECEPTION_RECIPES)
@@ -195,30 +192,10 @@ public class AdvancedMultiBlockMachine {
                     .where("e", Predicates.blocks(ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.BlackTitanium)))
                     .where("f", Predicates.blocks(GTLBlocks.EXTREME_STRENGTH_TRITANIUM_CASING.get()))
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                Level level = machine.self().getLevel();
-                BlockPos pos = machine.self().getPos();
-                BlockPos[] coordinates = new BlockPos[] { pos.offset(4, 8, 0), pos.offset(-4, 8, 0), pos.offset(0, 8, 4), pos.offset(0, 8, -4) };
-                for (BlockPos a : coordinates) {
-                    if (level != null && level.getBlockState(a).getBlock() == ChemicalHelper.getBlock(TagPrefix.frameGt, GTLMaterials.BlackTitanium)) {
-                        for (int i = -6; i < 7; i++) {
-                            for (int j = -6; j < 7; j++) {
-                                if (level.getBrightness(LightLayer.SKY, a.offset(0, 1, 0)) == 0) {
-                                    machine.getRecipeLogic().interruptRecipe();
-                                    return false;
-                                }
-                            }
-                        }
-                        return true;
-                    }
-                }
-                machine.getRecipeLogic().interruptRecipe();
-                return false;
-            })
             .workableCasingRenderer(GTCEu.id("block/casings/gcym/atomic_casing"), GTCEu.id("block/multiblock/data_bank"))
             .register();
 
-    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_PLASMA_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_plasma_forge", CoilWorkableElectricMultiblockMachine::new)
+    public final static MultiblockMachineDefinition DIMENSIONALLY_TRANSCENDENT_PLASMA_FORGE = REGISTRATE.multiblock("dimensionally_transcendent_plasma_forge", DimensionallyTranscendentPlasmaForgeMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .allowExtendedFacing(false)
             .recipeType(GTLRecipeTypes.DIMENSIONALLY_TRANSCENDENT_PLASMA_FORGE_RECIPES)
@@ -245,64 +222,16 @@ public class AdvancedMultiBlockMachine {
                     .where("s", Predicates.blocks(GTLBlocks.DIMENSIONAL_BRIDGE_CASING.get()))
                     .where(" ", Predicates.any())
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                if (machine instanceof CoilWorkableElectricMultiblockMachine coilWorkableElectricMultiblockMachine) {
-                    if (coilWorkableElectricMultiblockMachine.getCoilType().getCoilTemperature() == 273) {
-                        if (machine.getRecipeType() == GTLRecipeTypes.STELLAR_FORGE_RECIPES) {
-                            return true;
-                        } else if (recipe.data.getInt("ebf_temp") <= 32000) {
-                            return true;
-                        }
-                    } else if (recipe.data.getInt("ebf_temp") <= coilWorkableElectricMultiblockMachine.getCoilType().getCoilTemperature()) {
-                        return true;
-                    }
-                }
-                machine.getRecipeLogic().interruptRecipe();
-                return false;
-            })
-            .additionalDisplay((controller, components) -> {
-                if (controller.isFormed() && controller instanceof CoilWorkableElectricMultiblockMachine machine) {
-                    int temp = machine.getCoilType().getCoilTemperature();
-                    components.add(Component.translatable("gtceu.multiblock.blast_furnace.max_temperature", Component.literal(FormattingUtil.formatNumbers((temp == 273 ? 32000 : temp)) + "K").withStyle(ChatFormatting.BLUE)));
-                    if (machine.getRecipeType() == GTLRecipeTypes.STELLAR_FORGE_RECIPES && temp != 273) {
-                        components.add(Component.translatable("gtceu.machine.dimensionally_transcendent_plasma_forge.coil").withStyle(ChatFormatting.RED));
-                    }
-                }
-            })
             .workableCasingRenderer(GTLCore.id("block/casings/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/dimensionally_transcendent_plasma_forge"))
             .register();
 
-    public final static MultiblockMachineDefinition CIRCUIT_ASSEMBLY_LINE = REGISTRATE.multiblock("circuit_assembly_line", (holder) -> new StorageMachine(holder, 64))
+    public final static MultiblockMachineDefinition CIRCUIT_ASSEMBLY_LINE = REGISTRATE.multiblock("circuit_assembly_line", CircuitAssemblyLineMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.CIRCUIT_ASSEMBLY_LINE_RECIPES)
             .tooltips(Component.translatable("gtceu.machine.circuit_assembly_line.tooltip.0"))
             .tooltips(Component.translatable("gtceu.machine.available_recipe_map_1.tooltip",
                     Component.translatable("gtceu.circuit_assembly_line")))
-            .recipeModifiers((machine, recipe, params, result) -> {
-                boolean isParallel = false;
-                int p = 0;
-                if (machine instanceof StorageMachine storageMachine) {
-                    ItemStack item = storageMachine.getMachineStorageItem();
-                    p = item.getCount() * 2;
-                    long inputEUt = RecipeHelper.getInputEUt(recipe);
-                    if (inputEUt == GTValues.VA[GTValues.UV]) {
-                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK1.get();
-                    } else if (inputEUt == GTValues.VA[GTValues.UHV]) {
-                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK2.get();
-                    } else if (inputEUt == GTValues.VA[GTValues.UEV]) {
-                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK3.get();
-                    } else if (inputEUt == GTValues.VA[GTValues.UIV]) {
-                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK4.get();
-                    } else if (inputEUt == GTValues.VA[GTValues.UXV]) {
-                        isParallel = item.getItem() == GTLItems.PRECISION_CIRCUIT_ASSEMBLY_ROBOT_MK5.get();
-                    }
-                }
-                if (isParallel) {
-                    return GTRecipeModifiers.accurateParallel(machine, recipe, p, false).getFirst();
-                } else {
-                    return recipe;
-                }
-            }, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
+            .recipeModifiers(CircuitAssemblyLineMachine::recipeModifier, GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.NON_PERFECT_OVERCLOCK_SUBTICK))
             .appearanceBlock(GTLBlocks.PIKYONIUM_MACHINE_CASING)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("bbb", "bbb", "bfb")
@@ -505,16 +434,10 @@ public class AdvancedMultiBlockMachine {
                     .where("C", Predicates.heatingCoils())
                     .where("#", Predicates.air())
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                if (MachineIO.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Blaze.getFluid((long) (Math.pow(2, (((CoilWorkableElectricMultiblockMachine) machine).getTier() - 2)) * 10)))) {
-                    return true;
-                }
-                machine.getRecipeLogic().interruptRecipe();
-                return false;
-            })
+            .beforeWorking((machine, recipe) -> MachineUtil.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Blaze.getFluid((long) (Math.pow(2, (((CoilWorkableElectricMultiblockMachine) machine).getTier() - 2)) * 10))))
             .onWorking(machine -> {
                 if (machine instanceof CoilWorkableElectricMultiblockMachine coilWorkableElectricMultiblockMachine && coilWorkableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
-                    if (MachineIO.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Blaze.getFluid((long) (Math.pow(2, (coilWorkableElectricMultiblockMachine.getTier() - 2)) * 10)))) {
+                    if (MachineUtil.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Blaze.getFluid((long) (Math.pow(2, (coilWorkableElectricMultiblockMachine.getTier() - 2)) * 10)))) {
                         return true;
                     }
                     machine.getRecipeLogic().setProgress(0);
@@ -555,16 +478,10 @@ public class AdvancedMultiBlockMachine {
                     .where("M", Predicates.abilities(PartAbility.MUFFLER))
                     .where("#", Predicates.blocks(GTBlocks.HERMETIC_CASING_LuV.get()))
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                if (MachineIO.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Ice.getFluid((long) (Math.pow(2, (((WorkableElectricMultiblockMachine) machine).getTier() - 2)) * 10)))) {
-                    return true;
-                }
-                machine.getRecipeLogic().interruptRecipe();
-                return false;
-            })
+            .beforeWorking((machine, recipe) -> MachineUtil.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Ice.getFluid((long) (Math.pow(2, (((WorkableElectricMultiblockMachine) machine).getTier() - 2)) * 10))))
             .onWorking(machine -> {
                 if (machine instanceof WorkableElectricMultiblockMachine workableElectricMultiblockMachine && workableElectricMultiblockMachine.getOffsetTimer() % 20 == 0) {
-                    if (MachineIO.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Ice.getFluid((long) (Math.pow(2, (workableElectricMultiblockMachine.getTier() - 2)) * 10)))) {
+                    if (MachineUtil.inputFluid((WorkableMultiblockMachine) machine, GTMaterials.Ice.getFluid((long) (Math.pow(2, (workableElectricMultiblockMachine.getTier() - 2)) * 10)))) {
                         return true;
                     }
                     machine.getRecipeLogic().setProgress(0);
@@ -632,29 +549,32 @@ public class AdvancedMultiBlockMachine {
                     BlockPos pos = machine.self().getPos().offset(0, -13, 0);
                     Level level = machine.self().getLevel();
                     if (level != null) {
-                        level.getServer().kjs$runCommandSilent("particle minecraft:dragon_breath " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 4 4 4 0.01 1000 force");
-                        List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(
-                                pos.getX() - 10,
-                                pos.getY() - 10,
-                                pos.getZ() - 10,
-                                pos.getX() + 10,
-                                pos.getY() + 10,
-                                pos.getZ() + 10));
-                        for (Entity entity : entities) {
-                            if (entity instanceof Player player) {
-                                if (Objects.equals(player.getArmorSlots().toString(), "[1 magnetohydrodynamicallyconstrainedstarmatter_boots, 1 magnetohydrodynamicallyconstrainedstarmatter_leggings, 1 magnetohydrodynamicallyconstrainedstarmatter_chestplate, 1 magnetohydrodynamicallyconstrainedstarmatter_helmet]")) {
-                                    player.getServer().kjs$runCommandSilent("execute in kubejs:create as " + entity.getName().getString() + " run tp 0 1 0");
-                                } else {
-                                    player.kjs$setStatusMessage(Component.literal("你的装备无法适应目标维度的环境"));
+                        MinecraftServer server = level.getServer();
+                        if (server != null) {
+                            server.kjs$runCommandSilent("particle minecraft:dragon_breath " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 4 4 4 0.01 1000 force");
+                            List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(
+                                    pos.getX() - 10,
+                                    pos.getY() - 10,
+                                    pos.getZ() - 10,
+                                    pos.getX() + 10,
+                                    pos.getY() + 10,
+                                    pos.getZ() + 10));
+                            for (Entity entity : entities) {
+                                if (entity instanceof Player player) {
+                                    if (Objects.equals(player.getArmorSlots().toString(), "[1 magnetohydrodynamicallyconstrainedstarmatter_boots, 1 magnetohydrodynamicallyconstrainedstarmatter_leggings, 1 magnetohydrodynamicallyconstrainedstarmatter_chestplate, 1 magnetohydrodynamicallyconstrainedstarmatter_helmet]")) {
+                                        server.kjs$runCommandSilent("execute in kubejs:create as " + entity.getName().getString() + " run tp 0 1 0");
+                                    } else {
+                                        player.kjs$setStatusMessage(Component.literal("你的装备无法适应目标维度的环境"));
+                                    }
                                 }
-                            }
-                            if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magnetohydrodynamicallyconstrainedstarmatter_block")) {
-                                item.getServer().kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"minecraft:command_block\",Count:" + item.getItem().getCount() + "b}}");
-                                item.kill();
-                            }
-                            if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magmatter_ingot") && item.getItem().getCount() >= 64) {
-                                item.getServer().kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"gtceu:magmatter_block\",Count:" + (item.getItem().getCount() / 64) + "b}}");
-                                item.kill();
+                                if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magnetohydrodynamicallyconstrainedstarmatter_block")) {
+                                    server.kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"minecraft:command_block\",Count:" + item.getItem().getCount() + "b}}");
+                                    item.kill();
+                                }
+                                if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magmatter_ingot") && item.getItem().getCount() >= 64) {
+                                    server.kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"gtceu:magmatter_block\",Count:" + (item.getItem().getCount() / 64) + "b}}");
+                                    item.kill();
+                                }
                             }
                         }
                     }
@@ -707,7 +627,7 @@ public class AdvancedMultiBlockMachine {
                     if (Math.random() < 0.1) {
                         level.setBlockAndUpdate(machine.self().getPos().offset(0, -9, 0), Blocks.AIR.defaultBlockState());
                     }
-                    return Objects.equals(level.getBlockState(machine.self().getPos().offset(0, -9, 0)).getBlock().kjs$getId(), "minecraft:bedrock");
+                    return level.getBlockState(machine.self().getPos().offset(0, -9, 0)).getBlock() == Blocks.BEDROCK;
                 }
                 return false;
             })
@@ -770,10 +690,10 @@ public class AdvancedMultiBlockMachine {
                     if (level != null) {
                         BlockPos pos = machine.self().getPos().offset(0, -16, 0);
                         Block block = level.getBlockState(pos).getBlock();
-                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, GTLItems.CHAIN_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.COMMAND_BLOCK_BROKEN.get()) {
+                        if (MachineUtil.inputItem((WorkableMultiblockMachine) machine, GTLItems.CHAIN_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.COMMAND_BLOCK_BROKEN.get()) {
                             level.setBlockAndUpdate(pos, Blocks.CHAIN_COMMAND_BLOCK.defaultBlockState());
                         }
-                        if (MachineIO.inputItem((WorkableMultiblockMachine) machine, GTLItems.REPEATING_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.CHAIN_COMMAND_BLOCK_BROKEN.get()) {
+                        if (MachineUtil.inputItem((WorkableMultiblockMachine) machine, GTLItems.REPEATING_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.CHAIN_COMMAND_BLOCK_BROKEN.get()) {
                             level.setBlockAndUpdate(pos, Blocks.COMMAND_BLOCK.defaultBlockState());
                         }
                     }
@@ -989,14 +909,16 @@ public class AdvancedMultiBlockMachine {
                 Level level = machine.self().getLevel();
                 String dim = level.kjs$getDimension().toString();
                 MinecraftServer server = level.getServer();
-                if (MachineIO.notConsumableCircuit((WorkableMultiblockMachine) machine, 1)) {
-                    server.kjs$runCommandSilent("execute in " + dim + " run weather clear");
-                }
-                if (MachineIO.notConsumableCircuit((WorkableMultiblockMachine) machine, 2)) {
-                    server.kjs$runCommandSilent("execute in " + dim + " run weather rain");
-                }
-                if (MachineIO.notConsumableCircuit((WorkableMultiblockMachine) machine, 3)) {
-                    server.kjs$runCommandSilent("execute in " + dim + " run weather thunder");
+                if (server != null) {
+                    if (MachineUtil.notConsumableCircuit((WorkableMultiblockMachine) machine, 1)) {
+                        server.kjs$runCommandSilent("execute in " + dim + " run weather clear");
+                    }
+                    if (MachineUtil.notConsumableCircuit((WorkableMultiblockMachine) machine, 2)) {
+                        server.kjs$runCommandSilent("execute in " + dim + " run weather rain");
+                    }
+                    if (MachineUtil.notConsumableCircuit((WorkableMultiblockMachine) machine, 3)) {
+                        server.kjs$runCommandSilent("execute in " + dim + " run weather thunder");
+                    }
                 }
             })
             .workableCasingRenderer(GTCEu.id("block/casings/steam/steel/side"), GTCEu.id("block/multiblock/gcym/large_maceration_tower"))
@@ -1792,9 +1714,9 @@ public class AdvancedMultiBlockMachine {
             .appearanceBlock(GTBlocks.CASING_STAINLESS_CLEAN)
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("X###X", "OOOOO", "XGGGX", "XGGGX", "#XXX#")
-                    .aisle("#####", "OKKKO", "GAAAG", "GAAAG", "XXXXX")
-                    .aisle("#####", "OKKKO", "GAAAG", "GAAAG", "XXXXX")
-                    .aisle("#####", "OKKKO", "GAAAG", "GAAAG", "XXXXX")
+                    .aisle("#####", "OKKKO", "G###G", "G###G", "XXXXX")
+                    .aisle("#####", "OKKKO", "G###G", "G###G", "XXXXX")
+                    .aisle("#####", "OKKKO", "G###G", "G###G", "XXXXX")
                     .aisle("X###X", "OOSOO", "XGGGX", "XGGGX", "#XXX#")
                     .where('S', Predicates.controller(Predicates.blocks(definition.get())))
                     .where('X', Predicates.blocks(GTBlocks.CASING_STAINLESS_CLEAN.get()))
@@ -1803,7 +1725,6 @@ public class AdvancedMultiBlockMachine {
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.autoAbilities(true, false, true)))
                     .where('G', Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get()))
-                    .where('A', Predicates.air())
                     .where('#', Predicates.any())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_clean_stainless_steel"), GTCEu.id("block/multiblock/generator/large_gas_turbine"))

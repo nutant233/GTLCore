@@ -17,10 +17,7 @@ public class MixinGenericSlotCapacities {
     @Shadow(remap = false)
     private static CowMap<AEKeyType, Long> map;
 
-    @Inject(method = "<clinit>",
-            at = @At(value = "INVOKE",
-                     target = "Lappeng/api/behaviors/GenericSlotCapacities;register(Lappeng/api/stacks/AEKeyType;Ljava/lang/Long;)V"),
-            remap = false)
+    @Inject(method = "<clinit>", at = @At(value = "HEAD"), remap = false)
     private static void clinitInj(CallbackInfo ci) {
         map.putIfAbsent(AEKeyType.items(), 2147483647L);
         map.putIfAbsent(AEKeyType.fluids(), 2147483647L);

@@ -35,13 +35,13 @@ public class Lanthanidetreatment {
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder(GTLCore.id("diluted_monazite_slurry2"))
-                .inputItems(dust, Saltpeter, 9)
-                .inputFluids(MonaziteRareEarthTurbidLiquid.getFluid(9000))
-                .inputFluids(Water.getFluid(90000))
-                .outputItems(dust, ThoritePowder, 9)
-                .outputItems(dust, Monazite, 1)
-                .outputFluids(DilutedMonaziteSlurry.getFluid(100000))
-                .duration(200)
+                .inputItems(dust, Saltpeter, 90)
+                .inputFluids(MonaziteRareEarthTurbidLiquid.getFluid(90000))
+                .inputFluids(Water.getFluid(900000))
+                .outputItems(dust, ThoritePowder, 90)
+                .outputItems(dust, Monazite, 10)
+                .outputFluids(DilutedMonaziteSlurry.getFluid(1000000))
+                .duration(2000)
                 .EUt(480)
                 .save(provider);
 
@@ -339,22 +339,22 @@ public class Lanthanidetreatment {
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder(GTLCore.id("samarium_rrare_eearth_turbid_liquid36"))
-                .inputFluids(SamariumRrareEearthTurbidLiquid.getFluid(1000))
-                .inputFluids(NitricAcid.getFluid(1000))
-                .chancedOutput(dust, CeriumRichMixturePowder, 1, 6000, 0)
-                .chancedOutput(dust, CeriumOxide, 1, 8000, 0)
-                .outputFluids(SamariumRareEarthSlurry.getFluid(2000))
-                .duration(80)
+                .inputFluids(SamariumRrareEearthTurbidLiquid.getFluid(10000))
+                .inputFluids(NitricAcid.getFluid(10000))
+                .chancedOutput(dust, CeriumRichMixturePowder, 10, 6000, 0)
+                .chancedOutput(dust, CeriumOxide, 10, 8000, 0)
+                .outputFluids(SamariumRareEarthSlurry.getFluid(20000))
+                .duration(800)
                 .EUt(1920)
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder(GTLCore.id("samarium_rare_earth_slurry37"))
-                .inputFluids(SamariumRareEarthSlurry.getFluid(1000))
-                .inputFluids(Water.getFluid(9000))
-                .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 1, 9000, 0)
-                .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 1, 6000, 0)
-                .outputFluids(SamariumRareEarthDilutedSolution.getFluid(10000))
-                .duration(120)
+                .inputFluids(SamariumRareEarthSlurry.getFluid(10000))
+                .inputFluids(Water.getFluid(90000))
+                .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 10, 9000, 0)
+                .chancedOutput(dust, NeodymiumRareEarthConcentratePowder, 10, 6000, 0)
+                .outputFluids(SamariumRareEarthDilutedSolution.getFluid(100000))
+                .duration(1200)
                 .EUt(1920)
                 .save(provider);
 
@@ -465,12 +465,12 @@ public class Lanthanidetreatment {
                 .save(provider);
 
         DISSOLUTION_TREATMENT.recipeBuilder(GTLCore.id("diluted_fluoro_carbon_lanthanide_slurry51"))
-                .inputItems(dust, Saltpeter, 1)
-                .inputFluids(ModulatedFluoroCarbonLanthanideSlurry.getFluid(1000))
-                .inputFluids(Water.getFluid(10000))
-                .outputItems(dust, Stone, 1)
-                .outputFluids(DilutedFluoroCarbonLanthanideSlurry.getFluid(10000))
-                .duration(160)
+                .inputItems(dust, Saltpeter, 10)
+                .inputFluids(ModulatedFluoroCarbonLanthanideSlurry.getFluid(10000))
+                .inputFluids(Water.getFluid(100000))
+                .outputItems(dust, Stone, 10)
+                .outputFluids(DilutedFluoroCarbonLanthanideSlurry.getFluid(100000))
+                .duration(1600)
                 .EUt(1920)
                 .save(provider);
 

@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.common.data.GTLItems;
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 import org.gtlcore.gtlcore.utils.TextUtil;
 
 import com.gregtechceu.gtceu.api.capability.IControllable;
@@ -26,7 +26,7 @@ import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static org.gtlcore.gtlcore.utils.MachineIO.inputEU;
+import static org.gtlcore.gtlcore.utils.MachineUtil.inputEU;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -76,16 +76,16 @@ public class ComputationProviderMachine extends WorkableElectricMultiblockMachin
         seen.add(this);
         if (inf) return Integer.MAX_VALUE;
         if (maxCWUt == 0) {
-            if (getTier() < 12 && MachineIO.notConsumableItem(this, GTLItems.OPTICAL_MAINFRAME.asStack())) {
+            if (getTier() < 12 && MachineUtil.notConsumableItem(this, GTLItems.OPTICAL_MAINFRAME.asStack())) {
                 return 1024;
             }
-            if (getTier() < 13 && MachineIO.notConsumableItem(this, GTLItems.EXOTIC_MAINFRAME.asStack())) {
+            if (getTier() < 13 && MachineUtil.notConsumableItem(this, GTLItems.EXOTIC_MAINFRAME.asStack())) {
                 return 2048;
             }
-            if (getTier() < 14 && MachineIO.notConsumableItem(this, GTLItems.COSMIC_MAINFRAME.asStack())) {
+            if (getTier() < 14 && MachineUtil.notConsumableItem(this, GTLItems.COSMIC_MAINFRAME.asStack())) {
                 return 4096;
             }
-            if (MachineIO.notConsumableItem(this, GTLItems.SUPRACAUSAL_MAINFRAME.asStack())) {
+            if (MachineUtil.notConsumableItem(this, GTLItems.SUPRACAUSAL_MAINFRAME.asStack())) {
                 return 8192;
             }
             return 0;

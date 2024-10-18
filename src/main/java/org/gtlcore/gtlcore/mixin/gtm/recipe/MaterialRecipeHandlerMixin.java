@@ -102,7 +102,7 @@ public abstract class MaterialRecipeHandlerMixin {
                     .notConsumable(GTItems.SHAPE_MOLD_INGOT)
                     .inputFluids(material.getFluid(L))
                     .outputItems(ingotPrefix, material)
-                    .duration(20).EUt(VA[ULV])
+                    .duration(mass).EUt(VA[ULV])
                     .save(provider);
         }
 
@@ -124,16 +124,17 @@ public abstract class MaterialRecipeHandlerMixin {
                 .save(provider);
 
         if (!ChemicalHelper.get(block, material).isEmpty()) {
+            int amount = (int) (block.getMaterialAmount(material) / M);
             ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_to_ingot")
-                    .EUt(VA[ULV]).duration(mass * (int) (block.getMaterialAmount(material) / M))
+                    .EUt(VA[ULV]).duration(mass * amount)
                     .inputItems(block, material)
                     .notConsumable(GTItems.SHAPE_MOLD_INGOT)
-                    .outputItems(ingot, material, (int) (block.getMaterialAmount(material) / M))
+                    .outputItems(ingot, material, amount)
                     .save(provider);
 
             COMPRESSOR_RECIPES.recipeBuilder("compress_" + material.getName() + "_to_block")
-                    .EUt(2).duration(300)
-                    .inputItems(ingot, material, (int) (block.getMaterialAmount(material) / M))
+                    .EUt(2).duration(mass * amount)
+                    .inputItems(ingot, material, amount)
                     .outputItems(block, material)
                     .save(provider);
         }
@@ -339,9 +340,9 @@ public abstract class MaterialRecipeHandlerMixin {
                                                  Consumer<FinishedRecipe> provider) {
         int blastTemp = property.getBlastTemperature();
         BlastProperty.GasTier gasTier = property.getGasTier();
-        int duration = property.getDurationOverride();
+        int duration = property.getDurationOverride() / 2;
         if (duration <= 0) {
-            duration = Math.max(1, (int) (material.getMass() * blastTemp / 200));
+            duration = Math.max(1, (int) (material.getMass() * blastTemp / 150));
         }
         int EUt = property.getEUtOverride();
         if (EUt <= 0) EUt = VA[MV];

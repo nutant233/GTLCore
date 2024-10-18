@@ -1,5 +1,26 @@
 package org.gtlcore.gtlcore.common.data;
 
+import org.gtlcore.gtlcore.GTLCore;
+import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
+import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
+import org.gtlcore.gtlcore.client.renderer.machine.BallHatchRenderer;
+import org.gtlcore.gtlcore.client.renderer.machine.ItemHatchRenderer;
+import org.gtlcore.gtlcore.client.renderer.machine.WindMillTurbineRenderer;
+import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
+import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
+import org.gtlcore.gtlcore.common.data.machines.MachineModify;
+import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineA;
+import org.gtlcore.gtlcore.common.machine.electric.VacuumPumpMachine;
+import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
+import org.gtlcore.gtlcore.common.machine.generator.MagicEnergyMachine;
+import org.gtlcore.gtlcore.common.machine.generator.WindMillTurbineMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.CombustionEngineMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.generator.TurbineMachine;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.*;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance.*;
+import org.gtlcore.gtlcore.common.machine.steam.SteamVacuumPumpMachine;
+
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
@@ -31,39 +52,22 @@ import com.gregtechceu.gtceu.common.machine.multiblock.part.LaserHatchPartMachin
 import com.gregtechceu.gtceu.common.machine.multiblock.part.RotorHolderPartMachine;
 import com.gregtechceu.gtceu.data.lang.LangHandler;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-import com.hepdd.gtmthings.GTMThings;
-import com.hepdd.gtmthings.common.block.machine.multiblock.part.WirelessEnergyHatchPartMachine;
-import com.hepdd.gtmthings.data.WirelessMachines;
+
 import com.lowdragmc.lowdraglib.side.fluid.FluidHelper;
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
-import it.unimi.dsi.fastutil.Pair;
-import it.unimi.dsi.fastutil.ints.Int2LongFunction;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
-import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
-import org.gtlcore.gtlcore.client.renderer.machine.BallHatchRenderer;
-import org.gtlcore.gtlcore.client.renderer.machine.ItemHatchRenderer;
-import org.gtlcore.gtlcore.client.renderer.machine.WindMillTurbineRenderer;
-import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
-import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
-import org.gtlcore.gtlcore.common.data.machines.MachineModify;
-import org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineA;
-import org.gtlcore.gtlcore.common.machine.electric.VacuumPumpMachine;
-import org.gtlcore.gtlcore.common.machine.generator.LightningRodMachine;
-import org.gtlcore.gtlcore.common.machine.generator.MagicEnergyMachine;
-import org.gtlcore.gtlcore.common.machine.generator.WindMillTurbineMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.CombustionEngineMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.GeneratorArrayMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.generator.TurbineMachine;
-import org.gtlcore.gtlcore.common.machine.multiblock.part.*;
-import org.gtlcore.gtlcore.common.machine.multiblock.part.maintenance.*;
-import org.gtlcore.gtlcore.common.machine.steam.SteamVacuumPumpMachine;
+
+import com.hepdd.gtmthings.GTMThings;
+import com.hepdd.gtmthings.common.block.machine.multiblock.part.WirelessEnergyHatchPartMachine;
+import com.hepdd.gtmthings.data.WirelessMachines;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.ints.Int2LongFunction;
 
 import java.util.List;
 import java.util.Locale;
@@ -367,7 +371,7 @@ public class GTLMachines {
         MachineDefinition[] definitions = new MachineDefinition[GTValues.TIER_COUNT];
         for (int tier : tiers) {
             MachineBuilder<MachineDefinition> register = registrate.machine(GTValues.VN[tier].toLowerCase(Locale.ROOT) + "_" + name,
-                            holder -> factory.apply(holder, tier))
+                    holder -> factory.apply(holder, tier))
                     .tier(tier);
             definitions[tier] = builder.apply(tier, register);
         }
@@ -699,7 +703,7 @@ public class GTLMachines {
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.MAINTENANCE)
             .tooltips(Component.translatable("gtceu.universal.disabled"))
-            .renderer(() -> new MaintenanceHatchPartRenderer(9, GTCEu.id("block/machine/part/maintenance.full_auto")))
+            .renderer(() -> new MaintenanceHatchPartRenderer(10, GTCEu.id("block/machine/part/maintenance.full_auto")))
             .register();
 
     public static final MachineDefinition VACUUM_HATCH = REGISTRATE
@@ -715,8 +719,9 @@ public class GTLMachines {
             .machine("vacuum_configuration_hatch", CVCHatchPartMachine::new)
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.MAINTENANCE)
+            .tooltips(Component.translatable("gtlcore.vacuum.tier", 4))
             .tooltips(Component.translatable("gtceu.universal.disabled"))
-            .renderer(() -> new MaintenanceHatchPartRenderer(11,
+            .renderer(() -> new MaintenanceHatchPartRenderer(6,
                     GTCEu.id("block/machine/part/maintenance.full_auto")))
             .register();
 

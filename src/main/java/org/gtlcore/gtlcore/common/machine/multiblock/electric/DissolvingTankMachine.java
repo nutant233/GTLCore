@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.utils.MachineUtil;
+
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.capability.recipe.IRecipeHandler;
@@ -16,8 +18,14 @@ import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluids;
+
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +36,49 @@ public class DissolvingTankMachine extends WorkableElectricMultiblockMachine {
 
     public DissolvingTankMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, args);
+    }
+
+    @Override
+    public boolean beforeWorking(@Nullable GTRecipe recipe) {
+        boolean value = super.beforeWorking(recipe);
+        if (value) {
+            Level level = getLevel();
+            if (level == null) return true;
+            BlockPos pos = MachineUtil.getOffsetPos(2, 1, getFrontFacing(), getPos());
+            if (level.getFluidState(pos) == Fluids.WATER.defaultFluidState()) return true;
+            for (int i = -1; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    for (int k = -1; k < 2; k++) {
+                        level.setBlockAndUpdate(pos.offset(i, j, k), Fluids.WATER.defaultFluidState().createLegacyBlock());
+                    }
+                }
+            }
+        }
+        return value;
+    }
+
+    @Override
+    public void afterWorking() {
+        removeWater();
+    }
+
+    @Override
+    public void onStructureInvalid() {
+        removeWater();
+        super.onStructureInvalid();
+    }
+
+    private void removeWater() {
+        Level level = getLevel();
+        if (level == null) return;
+        BlockPos pos = MachineUtil.getOffsetPos(2, 1, getFrontFacing(), getPos());
+        for (int i = -1; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = -1; k < 2; k++) {
+                    level.setBlockAndUpdate(pos.offset(i, j, k), Blocks.AIR.defaultBlockState());
+                }
+            }
+        }
     }
 
     public static GTRecipe dissolvingTankOverclock(MetaMachine machine, @NotNull GTRecipe recipe, @NotNull OCParams params,

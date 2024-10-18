@@ -2,6 +2,7 @@ package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.TierCasingMachine;
 import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
@@ -35,14 +36,7 @@ public class SpaceElevatorMachine extends TierCasingMachine {
     private int getMAM() {
         if (getOffsetTimer() % 20 == 0) {
             final Level level = getLevel();
-            int x = 0, y = -2, z = 0;
-            switch (getFrontFacing()) {
-                case NORTH -> z = 3;
-                case SOUTH -> z = -3;
-                case WEST -> x = 3;
-                case EAST -> x = -3;
-            }
-            final BlockPos blockPos = getPos().offset(x, y, z);
+            final BlockPos blockPos = MachineUtil.getOffsetPos(3, -2, getFrontFacing(), getPos());
             BlockPos[] coordinatess = new BlockPos[] { blockPos.offset(8, 2, 3),
                     blockPos.offset(8, 2, -3),
                     blockPos.offset(-8, 2, 3),

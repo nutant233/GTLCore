@@ -46,7 +46,7 @@ public class RecipeOverwrite {
                 .inputItems(bolt, Steel)
                 .inputItems(wireGtSingle, AnnealedCopper, 2)
                 .inputFluids(RedAlloy.getFluid(18))
-                .outputItems(VACUUM_TUBE, 8)
+                .outputItems(VACUUM_TUBE, 6)
                 .addCondition(new VacuumCondition(3))
                 .duration(40).EUt(VA[LV]).save(provider);
 
@@ -100,6 +100,7 @@ public class RecipeOverwrite {
                 .inputFluids(Nitrogen.getFluid(5000))
                 .circuitMeta(1)
                 .outputItems(dust, EnderPearl, 10)
+                .addCondition(new VacuumCondition(3))
                 .save(provider);
 
         CHEMICAL_RECIPES.recipeBuilder("formic_acid")
@@ -204,6 +205,29 @@ public class RecipeOverwrite {
                 .outputFluids(HydrochloricAcid.getFluid(1000))
                 .outputFluids(Dichlorobenzene.getFluid(1000))
                 .duration(400).EUt(VA[MV])
+                .save(provider);
+
+        MIXER_RECIPES.recipeBuilder("tungstencarbide").duration(200).EUt(VA[EV])
+                .inputItems(dust, Tungsten)
+                .inputItems(dust, Carbon)
+                .circuitMeta(2)
+                .outputItems(dust, TungstenCarbide, 2)
+                .save(provider);
+
+        MIXER_RECIPES.recipeBuilder("titanium_carbide")
+                .inputItems(dust, Titanium)
+                .inputItems(dust, Carbon)
+                .circuitMeta(2)
+                .outputItems(dust, TitaniumCarbide, 2)
+                .duration(160).EUt(VA[EV])
+                .save(provider);
+
+        MIXER_RECIPES.recipeBuilder("tantalum_carbide")
+                .inputItems(dust, Tantalum)
+                .inputItems(dust, Carbon)
+                .circuitMeta(2)
+                .outputItems(dust, TantalumCarbide, 2)
+                .duration(150).EUt(VA[EV])
                 .save(provider);
     }
 }

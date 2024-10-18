@@ -140,7 +140,6 @@ public class NeutronActivatorMachine extends NoEnergyMultiblockMachine implement
             int evt = (int) (getRecipeLogic().getLastRecipe().data.getInt("evt") *
                     1000 * getEVtMultiplier());
             if (eV < evt) {
-                getRecipeLogic().interruptRecipe();
                 return false;
             } else {
                 eV -= evt;

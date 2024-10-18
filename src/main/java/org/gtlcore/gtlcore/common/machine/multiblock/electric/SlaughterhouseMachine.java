@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
@@ -79,7 +79,7 @@ public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
                 if (en.kjs$isLiving()) {
                     en.hurt(Source, 10000);
                 } else if (en instanceof ItemEntity itemEntity) {
-                    MachineIO.outputItem(this, itemEntity.getItem());
+                    MachineUtil.outputItem(this, itemEntity.getItem());
                     itemEntity.kill();
                 }
             }
@@ -90,16 +90,9 @@ public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
     @Override
     public void afterWorking() {
         final Level level = getLevel();
-        int x = 0, y = 1, z = 0;
-        switch (getFrontFacing()) {
-            case NORTH -> z = 3;
-            case SOUTH -> z = -3;
-            case WEST -> x = 3;
-            case EAST -> x = -3;
-        }
-        final BlockPos blockPos = getPos().offset(x, y, z);
+        final BlockPos blockPos = MachineUtil.getOffsetPos(3, 1, getFrontFacing(), getPos());
         if (level instanceof ServerLevel serverLevel) {
-            final String[] mobList = MachineIO.notConsumableCircuit(this, 1) ? this.mobList1 : this.mobList2;
+            final String[] mobList = MachineUtil.notConsumableCircuit(this, 1) ? this.mobList1 : this.mobList2;
             if (!this.isSpawn) {
                 getItem(serverLevel, blockPos);
                 for (int am = 0; am <= (getTier() - 2) * 8; am++) {
@@ -117,7 +110,7 @@ public class SlaughterhouseMachine extends WorkableElectricMultiblockMachine {
                     ObjectArrayList<ItemStack> loottable = serverLevel.getServer().getLootData()
                             .getLootTable(new ResourceLocation("minecraft:entities/" + mobList[index]))
                             .getRandomItems(lootparams);
-                    loottable.forEach(i -> MachineIO.outputItem(this, i));
+                    loottable.forEach(i -> MachineUtil.outputItem(this, i));
                 }
             }
         }

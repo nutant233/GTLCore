@@ -1,7 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
 import org.gtlcore.gtlcore.api.machine.multiblock.NoEnergyMultiblockMachine;
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 
 import com.gregtechceu.gtceu.api.machine.ConditionalSubscriptionHandler;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
@@ -61,22 +61,22 @@ public class HarmonyMachine extends NoEnergyMultiblockMachine {
     protected void StartupUpdate() {
         if (getOffsetTimer() % 20 == 0) {
             oc = 0;
-            if (MachineIO.inputFluid(this, GTMaterials.Hydrogen.getFluid(100000000))) {
+            if (MachineUtil.inputFluid(this, GTMaterials.Hydrogen.getFluid(100000000))) {
                 hydrogen += 100000000;
             }
-            if (MachineIO.inputFluid(this, GTMaterials.Helium.getFluid(100000000))) {
+            if (MachineUtil.inputFluid(this, GTMaterials.Helium.getFluid(100000000))) {
                 helium += 100000000;
             }
-            if (MachineIO.notConsumableCircuit(this, 4)) {
+            if (MachineUtil.notConsumableCircuit(this, 4)) {
                 oc = 4;
             }
-            if (MachineIO.notConsumableCircuit(this, 3)) {
+            if (MachineUtil.notConsumableCircuit(this, 3)) {
                 oc = 3;
             }
-            if (MachineIO.notConsumableCircuit(this, 2)) {
+            if (MachineUtil.notConsumableCircuit(this, 2)) {
                 oc = 2;
             }
-            if (MachineIO.notConsumableCircuit(this, 1)) {
+            if (MachineUtil.notConsumableCircuit(this, 1)) {
                 oc = 1;
             }
         }

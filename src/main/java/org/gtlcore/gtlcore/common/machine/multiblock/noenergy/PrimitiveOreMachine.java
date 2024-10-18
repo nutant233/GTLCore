@@ -1,6 +1,6 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.noenergy;
 
-import org.gtlcore.gtlcore.utils.MachineIO;
+import org.gtlcore.gtlcore.utils.MachineUtil;
 
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
@@ -187,13 +187,13 @@ public class PrimitiveOreMachine extends WorkableMultiblockMachine {
     public boolean onWorking() {
         boolean value = super.onWorking();
         if (Objects.requireNonNull(getLevel()).dimension() == Level.OVERWORLD) {
-            MachineIO.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
+            MachineUtil.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
                     getRandomMaterial(OVERWORLD_ORE), 64));
         } else if (getLevel().dimension() == Level.NETHER) {
-            MachineIO.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
+            MachineUtil.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
                     getRandomMaterial(NETHER_ORE), 64));
         } else if (getLevel().dimension() == Level.END) {
-            MachineIO.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
+            MachineUtil.outputItem(this, ChemicalHelper.get(TagPrefix.rawOre,
                     getRandomMaterial(END_ORE), 64));
         }
         return value;

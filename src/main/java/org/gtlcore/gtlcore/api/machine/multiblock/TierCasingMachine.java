@@ -44,7 +44,6 @@ public class TierCasingMachine extends WorkableElectricMultiblockMachine {
     @Override
     public boolean beforeWorking(@Nullable GTRecipe recipe) {
         if (recipe != null && recipe.data.contains(tierType) && recipe.data.getInt(tierType) > casingTier) {
-            getRecipeLogic().interruptRecipe();
             return false;
         }
         return super.beforeWorking(recipe);

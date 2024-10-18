@@ -2307,13 +2307,7 @@ public class MultiBlockMachineA {
                     .where("E", Predicates.heatingCoils())
                     .where(" ", Predicates.any())
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                if (recipe.data.getInt("ebf_temp") <= ((CoilWorkableElectricMultiblockMachine) machine).getCoilType().getCoilTemperature()) {
-                    return true;
-                }
-                machine.getRecipeLogic().interruptRecipe();
-                return false;
-            })
+            .beforeWorking((machine, recipe) -> recipe.data.getInt("ebf_temp") <= ((CoilWorkableElectricMultiblockMachine) machine).getCoilType().getCoilTemperature())
             .additionalDisplay(GTLMachines.TEMPERATURE)
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_inert_ptfe"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();
@@ -2744,13 +2738,7 @@ public class MultiBlockMachineA {
                     .where(" ", Predicates.any())
                     .where("#", Predicates.air())
                     .build())
-            .beforeWorking((machine, recipe) -> {
-                if (recipe.data.getInt("ebf_temp") <= ((CoilWorkableElectricMultiblockMachine) machine).getCoilType().getCoilTemperature()) {
-                    return true;
-                }
-                machine.getRecipeLogic().interruptRecipe();
-                return false;
-            })
+            .beforeWorking((machine, recipe) -> recipe.data.getInt("ebf_temp") <= ((CoilWorkableElectricMultiblockMachine) machine).getCoilType().getCoilTemperature())
             .additionalDisplay(GTLMachines.TEMPERATURE)
             .workableCasingRenderer(GTLCore.id("block/casings/dimensionally_transcendent_casing"), GTCEu.id("block/multiblock/fusion_reactor"))
             .register();

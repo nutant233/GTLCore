@@ -10,12 +10,25 @@ import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 
 import com.lowdragmc.lowdraglib.side.fluid.FluidStack;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
-public class MachineIO {
+public class MachineUtil {
+
+    public static BlockPos getOffsetPos(int a, int b, Direction facing, BlockPos pos) {
+        int x = 0, z = 0;
+        switch (facing) {
+            case NORTH -> z = a;
+            case SOUTH -> z = -a;
+            case WEST -> x = a;
+            case EAST -> x = -a;
+        }
+        return pos.offset(x, b, z);
+    }
 
     public static boolean inputItem(WorkableMultiblockMachine machine, ItemStack item) {
         GTRecipe recipe = new GTRecipeBuilder(item.kjs$getIdLocation(), GTRecipeTypes.DUMMY_RECIPES).inputItems(item).buildRawRecipe();

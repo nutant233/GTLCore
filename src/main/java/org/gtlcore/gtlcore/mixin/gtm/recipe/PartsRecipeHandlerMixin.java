@@ -363,7 +363,7 @@ public class PartsRecipeHandlerMixin {
                     .notConsumable(GTItems.SHAPE_MOLD_ROTOR)
                     .inputFluids(material.getFluid(L * 4))
                     .outputItems(GTUtil.copy(stack))
-                    .duration(120)
+                    .duration(mass * 4)
                     .EUt(20)
                     .save(provider);
         }
@@ -535,7 +535,7 @@ public class PartsRecipeHandlerMixin {
         }
 
         LATHE_RECIPES.recipeBuilder("lathe_" + material.getName() + "_nugget_to_round")
-                .EUt(VA[ULV]).duration(100)
+                .EUt(VA[ULV]).duration(Math.min(1, (int) material.getMass() / 9))
                 .inputItems(nugget, material)
                 .outputItems(round, material)
                 .save(provider);

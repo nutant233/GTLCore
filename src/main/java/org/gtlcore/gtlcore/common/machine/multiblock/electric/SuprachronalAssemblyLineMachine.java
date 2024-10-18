@@ -101,13 +101,11 @@ public class SuprachronalAssemblyLineMachine extends WorkableElectricMultiblockM
         if (isModule) {
             getSuprachronalAssemblyLine();
             if (machine == null) {
-                getRecipeLogic().interruptRecipe();
                 return false;
             }
         } else {
             getSuprachronalAssemblyLineModule();
             if (module > 2) {
-                getRecipeLogic().interruptRecipe();
                 return false;
             }
         }

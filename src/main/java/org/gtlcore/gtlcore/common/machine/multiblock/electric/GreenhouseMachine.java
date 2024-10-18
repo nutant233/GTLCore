@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.utils.MachineUtil;
+
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
@@ -30,14 +32,7 @@ public class GreenhouseMachine extends WorkableElectricMultiblockMachine {
     private void getGreenhouseLight() {
         Level level = getLevel();
         SkyLight = 15;
-        int x = 0, y = 3, z = 0;
-        switch (getFrontFacing()) {
-            case NORTH -> z = 1;
-            case SOUTH -> z = -1;
-            case WEST -> x = 1;
-            case EAST -> x = -1;
-        }
-        final BlockPos pos = getPos().offset(x, y, z);
+        final BlockPos pos = MachineUtil.getOffsetPos(1, 3, getFrontFacing(), getPos());
         BlockPos[] coordinates = new BlockPos[] { pos,
                 pos.offset(1, 0, 0),
                 pos.offset(1, 0, 1),
@@ -59,7 +54,6 @@ public class GreenhouseMachine extends WorkableElectricMultiblockMachine {
     public boolean beforeWorking(@Nullable GTRecipe recipe) {
         getGreenhouseLight();
         if (SkyLight == 0) {
-            getRecipeLogic().interruptRecipe();
             return false;
         }
         return super.beforeWorking(recipe);

@@ -2,8 +2,10 @@ package org.gtlcore.gtlcore.forge;
 
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.IVacuumMachine;
+import org.gtlcore.gtlcore.common.data.GTLBlocks;
 import org.gtlcore.gtlcore.common.data.GTLItems;
 import org.gtlcore.gtlcore.config.GTLConfigHolder;
+import org.gtlcore.gtlcore.utils.GTLExplosion;
 
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.common.data.GTItems;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -44,16 +47,33 @@ public class ForgeCommonEventListener {
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.getItem() == Items.ENDER_EYE && level.getBlockState(pos).getBlock() == Blocks.END_PORTAL_FRAME) {
-            if (Objects.equals(itemStack.kjs$getId(), "kubejs:end_data")) {
+        Item item = itemStack.getItem();
+        if (item == Items.ENDER_EYE && level.getBlockState(pos).getBlock() == Blocks.END_PORTAL_FRAME) {
+            if (Objects.equals(item.kjs$getId(), "kubejs:end_data")) {
                 player.setItemInHand(hand, itemStack.copyWithCount(itemStack.getCount() - 1));
                 return;
             }
             event.setCanceled(true);
+            return;
         }
-        if (player.isShiftKeyDown() && itemStack.getItem() == GTLItems.RAW_VACUUM_TUBE.get() && MetaMachine.getMachine(level, pos) instanceof IVacuumMachine vacuumMachine && vacuumMachine.getVacuumTier() > 0) {
+        if (item == GTLItems.RAW_VACUUM_TUBE.get() && player.isShiftKeyDown() && MetaMachine.getMachine(level, pos) instanceof IVacuumMachine vacuumMachine && vacuumMachine.getVacuumTier() > 0) {
             player.setItemInHand(hand, itemStack.copyWithCount(itemStack.getCount() - 1));
             level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY() + 1, pos.getZ(), GTItems.VACUUM_TUBE.asStack()));
+            return;
+        }
+        if (item == GTItems.QUANTUM_STAR.get() && level.getBlockState(pos).getBlock() == GTLBlocks.NAQUADRIA_CHARGE.get()) {
+            GTLExplosion nukeExplosion = new GTLExplosion(pos, level, 80);
+            nukeExplosion.finalizeExplosion(true);
+            return;
+        }
+        if (item == GTItems.GRAVI_STAR.get() && level.getBlockState(pos).getBlock() == GTLBlocks.LEPTONIC_CHARGE.get()) {
+            GTLExplosion nukeExplosion = new GTLExplosion(pos, level, 200);
+            nukeExplosion.finalizeExplosion(true);
+            return;
+        }
+        if (item == GTLItems.UNSTABLE_STAR.get() && level.getBlockState(pos).getBlock() == GTLBlocks.QUANTUM_CHROMODYNAMIC_CHARGE.get()) {
+            GTLExplosion nukeExplosion = new GTLExplosion(pos, level, 1000);
+            nukeExplosion.finalizeExplosion(false);
         }
     }
 

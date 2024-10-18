@@ -99,7 +99,6 @@ public class SpaceElevatorModuleMachine extends WorkableElectricMultiblockMachin
         if (getOffsetTimer() % 20 == 0) {
             getSpaceElevatorTier();
             if (SpaceElevatorTier < 1) {
-                getRecipeLogic().interruptRecipe();
                 return false;
             }
         }

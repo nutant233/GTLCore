@@ -42,7 +42,7 @@ public class LightningRodMachine extends TieredEnergyMachine {
                 } else {
                     energyContainer.addEnergy(getCharge() / 4);
                 }
-                if (Math.random() > 0.9) {
+                if (Math.random() > 0.95) {
                     getLevel().setBlockAndUpdate(getPos().offset(0, 1, 0), Blocks.AIR.defaultBlockState());
                 }
             }
