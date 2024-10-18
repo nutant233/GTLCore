@@ -10,6 +10,8 @@ import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 
 import com.lowdragmc.lowdraglib.Platform;
 
+import appeng.core.definitions.AEBlocks;
+import appeng.core.definitions.AEItems;
 import committee.nova.mods.avaritia.init.registry.ModBlocks;
 import committee.nova.mods.avaritia.init.registry.ModItems;
 
@@ -17,6 +19,7 @@ import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 
 public class GTLMaterials {
 
+    public static Material Fluix;
     public static Material MutatedLivingSolder;
     public static Material SuperMutatedLivingSolder;
     public static Material PotassiumPyrosulfate;
@@ -830,7 +833,17 @@ public class GTLMaterials {
         oreProp.getOreByProducts().clear();
         oreProp.setOreByProducts(Thorium, Neodymium, Bastnasite);
 
+        TagPrefix.gem.setIgnored(Fluix, AEItems.FLUIX_CRYSTAL);
+        TagPrefix.block.setIgnoredBlock(Fluix, AEBlocks.FLUIX_BLOCK.block());
+        TagPrefix.dust.setIgnored(Fluix, AEItems.FLUIX_DUST);
+
+        TagPrefix.gem.setIgnored(CertusQuartz, AEItems.CERTUS_QUARTZ_CRYSTAL);
+        TagPrefix.block.setIgnoredBlock(CertusQuartz, AEBlocks.QUARTZ_BLOCK.block());
+        TagPrefix.dust.setIgnored(CertusQuartz, AEItems.CERTUS_QUARTZ_DUST);
+        TagPrefix.dust.setIgnored(EnderPearl, AEItems.ENDER_DUST);
+
         if (!Platform.isDevEnv()) {
+            TagPrefix.ingot.setIgnored(Crystalmatrix, ModItems.crystal_matrix_ingot);
             TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);
             TagPrefix.nugget.setIgnored(Infinity, ModItems.infinity_nugget);
             TagPrefix.block.setIgnored(Infinity, ModBlocks.infinity);

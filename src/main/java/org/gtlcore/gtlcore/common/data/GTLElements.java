@@ -78,10 +78,10 @@ public class GTLElements {
         DRACONIUMAWAKENED = GTElements.createAndRegister(16000, 16000, -1, null, "draconiumawakened", "✵Dc✵", true);
         ECHOITE = GTElements.createAndRegister(570, 570, -1, null, "echoite", "Ec", false);
         ETERNITY = GTElements.createAndRegister(1000000, 1000000, -1, null, "eternity", "Et❃", false);
-        DEGENERATE_REHENIUM = GTElements.createAndRegister(100, 100, -1, null, "degenerate_rhenium", "§bRe", false);
-        HEAVY_QUARK_DEGENERATE_MATTER = GTElements.createAndRegister(120, 150, -1, null, "heavy_quark_degenerate_matter", "§b§ke§r§b(u₂);d§ke", true);
-        QUANTUMCHROMODYNAMICALLY_CONFINED_MATTER = GTElements.createAndRegister(160, 200, -1, null, "quantumchromodynamically_confined_matter", "§b§ke§r§b(u₂);d(c₂);s(t₂);bg§ke", true);
-        TRANSCENDENTMETAL = GTElements.createAndRegister(100, 100, -1, null, "transcendentmetal", "§kmetal", false);
+        DEGENERATE_REHENIUM = GTElements.createAndRegister(1000, 1000, -1, null, "degenerate_rhenium", "§bRe", false);
+        HEAVY_QUARK_DEGENERATE_MATTER = GTElements.createAndRegister(800, 1500, -1, null, "heavy_quark_degenerate_matter", "§b§ke§r§b(u₂);d§ke", true);
+        QUANTUMCHROMODYNAMICALLY_CONFINED_MATTER = GTElements.createAndRegister(1000, 2000, -1, null, "quantumchromodynamically_confined_matter", "§b§ke§r§b(u₂);d(c₂);s(t₂);bg§ke", true);
+        TRANSCENDENTMETAL = GTElements.createAndRegister(200, 500, -1, null, "transcendentmetal", "§kmetal", false);
         COSMIC_MESH = GTElements.createAndRegister(10000, 10000, -1, null, "cosmic_mesh", "§kcm", false);
         TITANIUM50 = GTElements.createAndRegister(22, 28, -1, null, "titanium50", "Ti⁵⁰", false);
         TENGAM = GTElements.createAndRegister(200, 0, -1, null, "tengam", "M", false);
@@ -97,9 +97,9 @@ public class GTLElements {
         QUARK_GLUON = GTElements.createAndRegister(10, 10, -1, null, "quark_gluon", "§ke§r(u2);d(c2);s(t2);bg§ke", false);
         HEAVY_QUARKS = GTElements.createAndRegister(10, 10, -1, null, "heavy_quarks", "§ke§r(u₂);d§ke", false);
         LIGHT_QUARKS = GTElements.createAndRegister(10, 10, -1, null, "light_quarks", "§ke§r(c₂);(t₂);b§ke", false);
-        HEAVY_LEPTON_MIXTURE = GTElements.createAndRegister(10, 10, -1, null, "heavy_lepton_mixture", "§ke§r(t₂);u§ke", false);
-        HEAVY_QUARK_ENRICHED_MIXTURE = GTElements.createAndRegister(100, 100, -1, null, "heavy_quark_enriched_mixture", "§ke§r(u₂);d(c₂);s(t₂);b§ke", false);
-        DENSE_NEUTRON = GTElements.createAndRegister(1000, 1000, -1, null, "dense_neutron", "§ke§rn§ke", false);
+        HEAVY_LEPTON_MIXTURE = GTElements.createAndRegister(100, 100, -1, null, "heavy_lepton_mixture", "§ke§r(t₂);u§ke", false);
+        HEAVY_QUARK_ENRICHED_MIXTURE = GTElements.createAndRegister(400, 400, -1, null, "heavy_quark_enriched_mixture", "§ke§r(u₂);d(c₂);s(t₂);b§ke", false);
+        DENSE_NEUTRON = GTElements.createAndRegister(5000, 5000, -1, null, "dense_neutron", "§ke§rn§ke", false);
         HIGH_ENERGY_QUARK_GLUON = GTElements.createAndRegister(1000, 1000, -1, null, "high_energy_quark_gluon", "§ke§r(u₂);d(c₂);s(t₂);bg§ke", false);
         TIME = GTElements.createAndRegister(1000, 1000, -1, null, "time", "§ketime", false);
         STAR_MATTER = GTElements.createAndRegister(10000, 10000, -1, null, "star_matter", "§kestar_matter", true);

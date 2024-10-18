@@ -24,6 +24,14 @@ import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 public class MaterialBuilder {
 
     public static void init() {
+        Fluix = new Material.Builder(GTCEu.id("fluix"))
+                .gem()
+                .components(NetherQuartz, 1, CertusQuartz, 1, Redstone, 1)
+                .color(0x8f5ccb)
+                .iconSet(QUARTZ)
+                .flags(NO_SMASHING, NO_SMELTING, DISABLE_DECOMPOSITION, GENERATE_PLATE)
+                .buildAndRegister();
+
         BarnardaAir = new Material.Builder(GTCEu.id("barnarda_air"))
                 .gas()
                 .color(0x563a24)

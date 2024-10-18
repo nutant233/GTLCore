@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "gtlcore:item/suprachronal_mainframe_complex"
-  }
-}

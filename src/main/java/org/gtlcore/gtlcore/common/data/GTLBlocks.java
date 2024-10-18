@@ -65,8 +65,7 @@ public class GTLBlocks {
 
     public static void init() {
         for (int i = 1; i < 15; i++) {
-            GTLBlocks.createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(),
-                    GTLCore.id("block/casings/component_assembly_line/component_assembly_line_casing_" + GTValues.VN[i].toLowerCase()), calmap, i);
+            createTierCasings("component_assembly_line_casing_" + GTValues.VN[i].toLowerCase(), GTLCore.id("block/casings/component_assembly_line/component_assembly_line_casing_" + GTValues.VN[i].toLowerCase()), calmap, i);
         }
     }
 
@@ -592,14 +591,14 @@ public class GTLBlocks {
             "ultimate_stellar_containment_casing", GTLCore.id("block/stellar_containment_casing"),
             scmap, 3);
 
-    public static final BlockEntry<ActiveBlock> POWER_MODULE = GTLBlocks.createActiveTierCasing("power_module",
+    public static final BlockEntry<ActiveBlock> POWER_MODULE = createActiveTierCasing("power_module",
             "block/variant/power_module", sepmmap, 1);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_2 = GTLBlocks.createActiveTierCasing("power_module_2",
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_2 = createActiveTierCasing("power_module_2",
             "block/variant/power_module", sepmmap, 2);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_3 = GTLBlocks.createActiveTierCasing("power_module_3",
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_3 = createActiveTierCasing("power_module_3",
             "block/variant/power_module", sepmmap, 3);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_4 = GTLBlocks.createActiveTierCasing("power_module_4",
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_4 = createActiveTierCasing("power_module_4",
             "block/variant/power_module", sepmmap, 4);
-    public static final BlockEntry<ActiveBlock> POWER_MODULE_5 = GTLBlocks.createActiveTierCasing("power_module_5",
+    public static final BlockEntry<ActiveBlock> POWER_MODULE_5 = createActiveTierCasing("power_module_5",
             "block/variant/power_module", sepmmap, 5);
 }

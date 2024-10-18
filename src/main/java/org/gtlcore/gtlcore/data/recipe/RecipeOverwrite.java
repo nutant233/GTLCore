@@ -1,5 +1,7 @@
 package org.gtlcore.gtlcore.data.recipe;
 
+import org.gtlcore.gtlcore.common.data.GTLMaterials;
+import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
 import org.gtlcore.gtlcore.common.recipe.condition.VacuumCondition;
 
@@ -8,16 +10,10 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
-import static com.gregtechceu.gtceu.api.GTValues.LV;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dust;
 import static com.gregtechceu.gtceu.common.data.GTItems.*;
-import static com.gregtechceu.gtceu.common.data.GTItems.ENGRAVED_CRYSTAL_CHIP;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
-import static org.gtlcore.gtlcore.common.data.GTLMaterials.SodiumFormate;
-import static org.gtlcore.gtlcore.common.data.GTLMaterials.SodiumSulfate;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES;
 
 public class RecipeOverwrite {
 
@@ -94,7 +90,7 @@ public class RecipeOverwrite {
                 .addCondition(new GravityCondition(true))
                 .save(provider);
 
-        LIGHTNING_PROCESSOR_RECIPES.recipeBuilder("ender_pearl_dust").duration(400).EUt(VA[LV])
+        GTLRecipeTypes.LIGHTNING_PROCESSOR_RECIPES.recipeBuilder("ender_pearl_dust").duration(400).EUt(VA[LV])
                 .inputItems(dust, Beryllium)
                 .inputItems(dust, Potassium, 4)
                 .inputFluids(Nitrogen.getFluid(5000))
@@ -104,11 +100,11 @@ public class RecipeOverwrite {
                 .save(provider);
 
         CHEMICAL_RECIPES.recipeBuilder("formic_acid")
-                .inputFluids(SodiumFormate.getFluid(2000))
+                .inputFluids(GTLMaterials.SodiumFormate.getFluid(2000))
                 .inputFluids(SulfuricAcid.getFluid(1000))
                 .circuitMeta(1)
                 .outputFluids(FormicAcid.getFluid(2000))
-                .outputItems(dust, SodiumSulfate, 7)
+                .outputItems(dust, GTLMaterials.SodiumSulfate, 7)
                 .duration(15).EUt(VA[LV]).save(provider);
 
         // 修复冲突

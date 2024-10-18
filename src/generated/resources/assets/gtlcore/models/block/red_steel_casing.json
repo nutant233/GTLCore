@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "gtlcore:block/casings/red_steel_casing/top",
-    "side": "gtlcore:block/casings/red_steel_casing/side",
-    "top": "gtlcore:block/casings/red_steel_casing/top"
-  }
-}

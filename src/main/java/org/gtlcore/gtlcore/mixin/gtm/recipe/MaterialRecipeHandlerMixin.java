@@ -3,6 +3,7 @@ package org.gtlcore.gtlcore.mixin.gtm.recipe;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
 
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
+import com.gregtechceu.gtceu.api.data.chemical.material.MarkerMaterials;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.*;
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.UnificationEntry;
@@ -22,6 +23,7 @@ import com.gregtechceu.gtceu.utils.GTUtil;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.ItemStack;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,14 +32,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlags.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.common.data.GTMaterials.Helium;
-import static com.gregtechceu.gtceu.common.data.GTMaterials.Silicon;
+import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
 
 @Mixin(MaterialRecipeHandler.class)
@@ -49,14 +51,15 @@ public abstract class MaterialRecipeHandlerMixin {
     }
 
     @Shadow(remap = false)
-    private static void generateSurfaceRockRecipe(Consumer<FinishedRecipe> provider) {}
+    @Final
+    private static List<TagPrefix> GEM_ORDER;
 
     @Inject(method = "init", at = @At("HEAD"), remap = false, cancellable = true)
     private static void init(Consumer<FinishedRecipe> provider, CallbackInfo ci) {
         ingot.executeHandler(provider, PropertyKey.INGOT, MaterialRecipeHandlerMixin::gTLCore$processIngot);
         nugget.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandler::processNugget);
 
-        block.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandler::processBlock);
+        block.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandlerMixin::gTLCore$processBlock);
         frameGt.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandler::processFrame);
 
         dust.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandlerMixin::gTLCore$processDust);
@@ -64,9 +67,8 @@ public abstract class MaterialRecipeHandlerMixin {
         dustTiny.executeHandler(provider, PropertyKey.DUST, MaterialRecipeHandlerMixin::gTLCore$processTinyDust);
 
         for (TagPrefix orePrefix : Arrays.asList(gem, gemFlawless, gemExquisite)) {
-            orePrefix.executeHandler(provider, PropertyKey.GEM, MaterialRecipeHandler::processGemConversion);
+            orePrefix.executeHandler(provider, PropertyKey.GEM, MaterialRecipeHandlerMixin::gTLCore$processGemConversion);
         }
-        generateSurfaceRockRecipe(provider);
         ci.cancel();
     }
 
@@ -182,6 +184,91 @@ public abstract class MaterialRecipeHandlerMixin {
                             .save(provider);
                 }
             }
+        }
+    }
+
+    @Unique
+    private static void gTLCore$processBlock(TagPrefix blockPrefix, Material material, DustProperty property,
+                                             Consumer<FinishedRecipe> provider) {
+        int mass = (int) material.getMass();
+        ItemStack blockStack = ChemicalHelper.get(blockPrefix, material);
+        long materialAmount = blockPrefix.getMaterialAmount(material);
+        if (material.hasFluid()) {
+            FLUID_SOLIDFICATION_RECIPES.recipeBuilder("solidify_" + material.getName() + "_block")
+                    .notConsumable(GTItems.SHAPE_MOLD_BLOCK)
+                    .inputFluids(material.getFluid((int) (materialAmount * L / M)))
+                    .outputItems(blockStack)
+                    .duration(mass).EUt(VA[ULV])
+                    .save(provider);
+        }
+
+        if (material.hasFlag(NO_SMASHING) && material.hasFlag(GENERATE_PLATE)) {
+            ItemStack plateStack = ChemicalHelper.get(plate, material);
+            if (!plateStack.isEmpty()) {
+                CUTTER_RECIPES.recipeBuilder("cut_" + material.getName() + "_block_to_plate")
+                        .inputItems(blockPrefix, material)
+                        .outputItems(GTUtil.copyAmount((int) (materialAmount / M), plateStack))
+                        .duration(mass * 8).EUt(VA[LV])
+                        .save(provider);
+            }
+        }
+
+        if (!material.hasFlag(EXCLUDE_BLOCK_CRAFTING_RECIPES)) {
+            if (material.hasProperty(PropertyKey.INGOT)) {
+                int voltageMultiplier = getVoltageMultiplier(material);
+                EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_ingot_to_block")
+                        .inputItems(ingot, material, (int) (materialAmount / M))
+                        .notConsumable(GTItems.SHAPE_EXTRUDER_BLOCK)
+                        .outputItems(blockStack)
+                        .duration(mass * 2).EUt(8L * voltageMultiplier)
+                        .save(provider);
+
+                if (material.getBlastTemperature() < 3000)
+                    ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_ingot_to_block")
+                            .inputItems(ingot, material, (int) (materialAmount / M))
+                            .notConsumable(GTItems.SHAPE_MOLD_BLOCK)
+                            .outputItems(blockStack)
+                            .duration(mass * 4).EUt(4L * voltageMultiplier)
+                            .save(provider);
+            } else if (material.hasProperty(PropertyKey.GEM)) {
+                COMPRESSOR_RECIPES.recipeBuilder("compress_" + material.getName() + "_gem_to_block")
+                        .inputItems(gem, material, (int) (block.getMaterialAmount(material) / M))
+                        .outputItems(block, material)
+                        .duration(300).EUt(2).save(provider);
+
+                FORGE_HAMMER_RECIPES.recipeBuilder("hammer_" + material.getName() + "_block_to_gem")
+                        .inputItems(block, material)
+                        .outputItems(gem, material, (int) (block.getMaterialAmount(material) / M))
+                        .duration(100).EUt(24).save(provider);
+            }
+        }
+    }
+
+    @Unique
+    private static void gTLCore$processGemConversion(TagPrefix gemPrefix, Material material, GemProperty property,
+                                                     Consumer<FinishedRecipe> provider) {
+        if (material.hasFlag(MORTAR_GRINDABLE)) {
+            VanillaRecipeHelper.addShapedRecipe(provider, String.format("gem_to_dust_%s_%s", material.getName(), FormattingUtil.toLowerCaseUnder(gemPrefix.name)), ChemicalHelper.getDust(material, gemPrefix.getMaterialAmount(material)), "X", "m", 'X', new UnificationEntry(gemPrefix, material));
+        }
+
+        TagPrefix prevPrefix = GTUtil.getItem(GEM_ORDER, GEM_ORDER.indexOf(gemPrefix) - 1, null);
+        ItemStack prevStack = prevPrefix == null ? ItemStack.EMPTY : ChemicalHelper.get(prevPrefix, material, 2);
+        if (!prevStack.isEmpty() && prevPrefix != null) {
+            CUTTER_RECIPES.recipeBuilder("cut_" + material.getName() + "_" + FormattingUtil.toLowerCaseUnder(gemPrefix.name) + "_to_" + FormattingUtil.toLowerCaseUnder(prevPrefix.name))
+                    .inputItems(gemPrefix, material)
+                    .outputItems(prevStack)
+                    .duration(20)
+                    .EUt(16)
+                    .save(provider);
+
+            LASER_ENGRAVER_RECIPES.recipeBuilder("engrave_" + material.getName() + "_" + FormattingUtil.toLowerCaseUnder(gemPrefix.name) + "_to_" + FormattingUtil.toLowerCaseUnder(prevPrefix.name))
+                    .inputItems(prevStack)
+                    .notConsumable(lens, MarkerMaterials.Color.White)
+                    .inputFluids(DistilledWater.getFluid(10))
+                    .outputItems(gemPrefix, material)
+                    .duration(300)
+                    .EUt(240)
+                    .save(provider);
         }
     }
 
@@ -317,6 +404,7 @@ public abstract class MaterialRecipeHandlerMixin {
 
         GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder("unpackage_" + material.getName() + "_small_dust")
                 .inputItems(dust, material)
+                .circuitMeta(1)
                 .outputItems(GTUtil.copyAmount(4, ChemicalHelper.get(orePrefix, material)))
                 .save(provider);
     }
@@ -331,6 +419,7 @@ public abstract class MaterialRecipeHandlerMixin {
 
         GTLRecipeTypes.UNPACKER_RECIPES.recipeBuilder("unpackage_" + material.getName() + "_tiny_dust")
                 .inputItems(dust, material)
+                .circuitMeta(2)
                 .outputItems(GTUtil.copyAmount(9, ChemicalHelper.get(orePrefix, material)))
                 .save(provider);
     }

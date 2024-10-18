@@ -16,9 +16,7 @@ import com.gregtechceu.gtceu.api.machine.multiblock.CleanroomType;
 import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.item.TurbineRotorBehaviour;
-import com.gregtechceu.gtceu.config.ConfigHolder;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
-import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.gregtechceu.gtceu.data.recipe.generated.PartsRecipeHandler;
 import com.gregtechceu.gtceu.utils.GTUtil;
 
@@ -392,18 +390,11 @@ public class PartsRecipeHandlerMixin {
                                              Consumer<FinishedRecipe> provider) {
         int mass = (int) material.getMass();
         if (material.hasProperty(PropertyKey.GEM) || material.hasProperty(PropertyKey.INGOT)) {
-            GTRecipeBuilder builder = LATHE_RECIPES.recipeBuilder(GTLCore.id("lathe_" + material.getName() + "_to_rod"))
+            LATHE_RECIPES.recipeBuilder(GTLCore.id("lathe_" + material.getName() + "_to_rod"))
                     .inputItems(material.hasProperty(PropertyKey.GEM) ? gem : ingot, material)
+                    .outputItems(rod, material, 2)
                     .duration(mass * 2)
-                    .EUt(16);
-
-            if (ConfigHolder.INSTANCE.recipes.harderRods) {
-                builder.outputItems(rod, material);
-                builder.outputItems(dustSmall, material, 2);
-            } else {
-                builder.outputItems(rod, material, 2);
-            }
-            builder.save(provider);
+                    .EUt(16).save(provider);
         }
 
         if (material.hasFlag(GENERATE_BOLT_SCREW)) {

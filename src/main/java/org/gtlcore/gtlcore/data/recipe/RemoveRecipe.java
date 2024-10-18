@@ -7,6 +7,9 @@ import com.gregtechceu.gtceu.common.data.GTMaterials;
 
 import net.minecraft.resources.ResourceLocation;
 
+import appeng.core.AppEng;
+import committee.nova.mods.avaritia.Static;
+
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.VN;
@@ -16,6 +19,26 @@ public class RemoveRecipe {
 
     public static void init(Consumer<ResourceLocation> consumer) {
         DISASSEMBLY_RECORD.clear();
+        consumer.accept(new ResourceLocation("minecraft", "infinity"));
+        consumer.accept(new ResourceLocation("minecraft", "crystal_matrix_ingot"));
+        consumer.accept(Static.rl("crystal_matrix_ingot"));
+        consumer.accept(AppEng.makeId("decorative/quartz_block"));
+        consumer.accept(AppEng.makeId("decorative/fluix_block"));
+        consumer.accept(AppEng.makeId("misc/deconstruction_certus_quartz_block"));
+        consumer.accept(AppEng.makeId("misc/deconstruction_fluix_block"));
+        consumer.accept(AppEng.makeId("misc/fluixpearl"));
+        consumer.accept(AppEng.makeId("network/cables/glass_fluix"));
+        consumer.accept(AppEng.makeId("network/blocks/controller"));
+        consumer.accept(AppEng.makeId("network/crafting/patterns_blank"));
+        consumer.accept(AppEng.makeId("network/parts/export_bus"));
+        consumer.accept(AppEng.makeId("network/parts/import_bus"));
+        consumer.accept(AppEng.makeId("network/wireless_part"));
+        consumer.accept(AppEng.makeId("network/crafting/cpu_crafting_unit"));
+        consumer.accept(AppEng.makeId("materials/annihilationcore"));
+        consumer.accept(AppEng.makeId("materials/formationcore"));
+        consumer.accept(AppEng.makeId("materials/advancedcard"));
+        consumer.accept(AppEng.makeId("materials/basiccard"));
+
         consumer.accept(GTCEu.id("shaped/maintenance_hatch_cleaning"));
         consumer.accept(GTCEu.id("shaped/vacuum_tube"));
         consumer.accept(GTCEu.id("packer/unpackage_lv_cadmium_battery"));

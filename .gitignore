@@ -11,6 +11,7 @@ classes/
 
 # idea
 
+src/generated/
 .idea/
 *.iml
 *.ipr
