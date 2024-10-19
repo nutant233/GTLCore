@@ -3809,24 +3809,30 @@ public class MaterialBuilder {
                 .buildAndRegister();
 
         Desh = new Material.Builder(GTCEu.id("desh"))
-                .dust()
+                .ingot()
                 .ore()
+                .element(GTLElements.DESH)
                 .color(0xf2a057)
                 .iconSet(METALLIC)
+                .flags(NO_SMELTING, NO_ORE_SMELTING)
                 .buildAndRegister();
 
         Ostrum = new Material.Builder(GTCEu.id("ostrum"))
-                .dust()
+                .ingot()
                 .ore()
+                .element(GTLElements.OSTRUM)
                 .color(0xe5939b)
                 .iconSet(METALLIC)
+                .flags(NO_SMELTING, NO_ORE_SMELTING)
                 .buildAndRegister();
 
         Calorite = new Material.Builder(GTCEu.id("calorite"))
-                .dust()
+                .ingot()
                 .ore()
+                .element(GTLElements.CALORITE)
                 .color(0xe65757)
                 .iconSet(METALLIC)
+                .flags(NO_SMELTING, NO_ORE_SMELTING)
                 .buildAndRegister();
 
         LaNdOxidesSolution = new Material.Builder(GTCEu.id("la_nd_oxides_solution"))

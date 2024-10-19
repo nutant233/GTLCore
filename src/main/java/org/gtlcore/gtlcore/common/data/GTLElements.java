@@ -57,6 +57,9 @@ public class GTLElements {
     public static Element ASTRALTITANIUM;
     public static Element CELESTIALTUNGSTEN;
     public static Element QUANTANIUM;
+    public static Element DESH;
+    public static Element OSTRUM;
+    public static Element CALORITE;
 
     public static void init() {
         SPACETIME = GTElements.createAndRegister(0, 1000, -1, null, "spacetime", "§7熔炼为流体的时空", false);
@@ -111,5 +114,8 @@ public class GTLElements {
         ASTRALTITANIUM = GTElements.createAndRegister(1000, 1000, -1, null, "astraltitanium", "✧◇✧", false);
         CELESTIALTUNGSTEN = GTElements.createAndRegister(10000, 10000, -1, null, "celestialtungsten", "✦◆✦", false);
         QUANTANIUM = GTElements.createAndRegister(800, 800, -1, null, "quantanium", "Qt", false);
+        DESH = GTElements.createAndRegister(200, 300, -1, null, "desh", "Ds", false);
+        OSTRUM = GTElements.createAndRegister(300, 300, -1, null, "ostrum", "Ot", false);
+        CALORITE = GTElements.createAndRegister(300, 400, -1, null, "calorite", "Ci", false);
     }
 }

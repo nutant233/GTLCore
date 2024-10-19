@@ -1172,17 +1172,5 @@
     "key.gtlcore.vajra": "金刚杵按键",
     "key.keybinding.gtlcore": "GTL按键绑定",
     "structure_writer.export_order": "导出顺序： C:%s  S:%s  A:%s",
-    "structure_writer.structural_scale": "结构规模： X:%s  Y:%s  Z:%s",
-    "block.gtlcore.cleaning_gravity_configuration_maintenance_hatch": "Cleaning Gravity Configuration Maintenance Hatch",
-    "block.gtlcore.cleaning_gravity_maintenance_hatch": "Cleaning Gravity Maintenance Hatch",
-    "block.gtlcore.cleaning_vacuum_configuration_maintenance_hatch": "Cleaning Vacuum Configuration Maintenance Hatch",
-    "block.gtlcore.cleaning_vacuum_maintenance_hatch": "Cleaning Vacuum Maintenance Hatch",
-    "block.gtlcore.law_gravity_cleaning_maintenance_hatch": "Law Gravity Cleaning Maintenance Hatch",
-    "block.gtlcore.law_gravity_configuration_cleaning_maintenance_hatch": "Law Gravity Configuration Cleaning Maintenance Hatch",
-    "block.gtlcore.law_vacuum_cleaning_maintenance_hatch": "Law Vacuum Cleaning Maintenance Hatch",
-    "block.gtlcore.law_vacuum_configuration_cleaning_maintenance_hatch": "Law Vacuum Configuration Cleaning Maintenance Hatch",
-    "block.gtlcore.sterile_gravity_cleaning_maintenance_hatch": "Sterile Gravity Cleaning Maintenance Hatch",
-    "block.gtlcore.sterile_gravity_configuration_cleaning_maintenance_hatch": "Sterile Gravity Configuration Cleaning Maintenance Hatch",
-    "block.gtlcore.sterile_vacuum_cleaning_maintenance_hatch": "Sterile Vacuum Cleaning Maintenance Hatch",
-    "block.gtlcore.sterile_vacuum_configuration_cleaning_maintenance_hatch": "Sterile Vacuum Configuration Cleaning Maintenance Hatch"
+    "structure_writer.structural_scale": "结构规模： X:%s  Y:%s  Z:%s"
 }

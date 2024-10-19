@@ -12,10 +12,12 @@ import com.lowdragmc.lowdraglib.Platform;
 
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
-import committee.nova.mods.avaritia.init.registry.ModBlocks;
-import committee.nova.mods.avaritia.init.registry.ModItems;
+import earth.terrarium.adastra.common.registry.ModBlocks;
+import earth.terrarium.adastra.common.registry.ModItems;
 
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
+import static committee.nova.mods.avaritia.init.registry.ModBlocks.infinity;
+import static committee.nova.mods.avaritia.init.registry.ModItems.*;
 
 public class GTLMaterials {
 
@@ -757,7 +759,6 @@ public class GTLMaterials {
     public static Material FluoroCarbonLanthanideCeriumSolution;
     public static Material SteamCrackedFluoroCarbonLanthanideSlurry;
     public static Material ModulatedFluoroCarbonLanthanideSlurry;
-    public static Material SodiumFluorosilicate;
     public static Material DilutedFluoroCarbonLanthanideSlurry;
     public static Material FilteredFluoroCarbonLanthanideSlurry;
     public static Material FluoroCarbonLanthanideCeriumOxidePowder;
@@ -842,11 +843,27 @@ public class GTLMaterials {
         TagPrefix.dust.setIgnored(CertusQuartz, AEItems.CERTUS_QUARTZ_DUST);
         TagPrefix.dust.setIgnored(EnderPearl, AEItems.ENDER_DUST);
 
+        TagPrefix.rawOre.setIgnored(Desh, ModItems.RAW_DESH);
+        TagPrefix.rawOre.setIgnored(Ostrum, ModItems.RAW_OSTRUM);
+        TagPrefix.rawOre.setIgnored(Calorite, ModItems.RAW_CALORITE);
+        TagPrefix.rawOreBlock.setIgnored(Desh, ModBlocks.RAW_DESH_BLOCK);
+        TagPrefix.rawOreBlock.setIgnored(Ostrum, ModBlocks.RAW_OSTRUM_BLOCK);
+        TagPrefix.rawOreBlock.setIgnored(Calorite, ModBlocks.RAW_CALORITE_BLOCK);
+        TagPrefix.ingot.setIgnored(Desh, ModItems.DESH_INGOT);
+        TagPrefix.nugget.setIgnored(Desh, ModItems.DESH_NUGGET);
+        TagPrefix.block.setIgnored(Desh, ModBlocks.DESH_BLOCK);
+        TagPrefix.ingot.setIgnored(Ostrum, ModItems.OSTRUM_INGOT);
+        TagPrefix.nugget.setIgnored(Ostrum, ModItems.OSTRUM_NUGGET);
+        TagPrefix.block.setIgnored(Ostrum, ModBlocks.OSTRUM_BLOCK);
+        TagPrefix.ingot.setIgnored(Calorite, ModItems.CALORITE_INGOT);
+        TagPrefix.nugget.setIgnored(Calorite, ModItems.CALORITE_NUGGET);
+        TagPrefix.block.setIgnored(Calorite, ModBlocks.CALORITE_BLOCK);
+
         if (!Platform.isDevEnv()) {
-            TagPrefix.ingot.setIgnored(Crystalmatrix, ModItems.crystal_matrix_ingot);
-            TagPrefix.ingot.setIgnored(Infinity, ModItems.infinity_ingot);
-            TagPrefix.nugget.setIgnored(Infinity, ModItems.infinity_nugget);
-            TagPrefix.block.setIgnored(Infinity, ModBlocks.infinity);
+            TagPrefix.ingot.setIgnored(Crystalmatrix, crystal_matrix_ingot);
+            TagPrefix.ingot.setIgnored(Infinity, infinity_ingot);
+            TagPrefix.nugget.setIgnored(Infinity, infinity_nugget);
+            TagPrefix.block.setIgnored(Infinity, infinity);
         }
     }
 }

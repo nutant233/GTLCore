@@ -64,7 +64,7 @@ public class GTDimensionMarkersMixin {
         createAndRegister(new ResourceLocation("kubejs:ceres"),
                 4, new ResourceLocation("gtlcore:ceresstone"), "dimension.kubejs.ceres");
         createAndRegister(new ResourceLocation("kubejs:barnarda"),
-                8, new ResourceLocation("gtlcore:barnarda_wood"), "dimension.kubejs.barnarda");
+                8, new ResourceLocation("kubejs:barnarda_wood"), "dimension.kubejs.barnarda");
         createAndRegister(new ResourceLocation("kubejs:create"),
                 10, new ResourceLocation("gtlcore:dimension_creation_casing"), "dimension.kubejs.create");
         createAndRegister(new ResourceLocation("kubejs:void"),
