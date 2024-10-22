@@ -1,10 +1,10 @@
 package org.gtlcore.gtlcore.mixin.gtm;
 
+import com.google.common.primitives.Ints;
 import com.gregtechceu.gtceu.api.capability.recipe.*;
+import com.gregtechceu.gtceu.api.machine.trait.NotifiableComputationContainer;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.content.IContentSerializer;
-
-import com.google.common.primitives.Ints;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Collections;
@@ -26,10 +26,8 @@ public abstract class CWURecipeCapabilityMixin extends RecipeCapability<Integer>
                 .stream()
                 .filter(handler -> !handler.isProxy()).toList();
         for (IRecipeHandler<?> container : recipeHandlerList) {
-            for (Object content : container.getContents()) {
-                if (content instanceof Integer integer) {
-                    maxCWU += integer;
-                }
+            if (container.getContents() instanceof NotifiableComputationContainer ncc) {
+                maxCWU += ncc.requestCWUt(Integer.MAX_VALUE, true);
             }
         }
         int recipeCWU = CWURecipeCapability.CAP.of(recipe.tickInputs.get(CWURecipeCapability.CAP).get(0).getContent());
