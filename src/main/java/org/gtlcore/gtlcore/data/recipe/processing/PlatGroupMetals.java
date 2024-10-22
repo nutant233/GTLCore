@@ -9,12 +9,9 @@ import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.*;
-import static com.gregtechceu.gtceu.api.data.tag.TagPrefix.dust;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.CHEMICAL_RECIPES;
 import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
-import static org.gtlcore.gtlcore.common.data.GTLMaterials.AcidicIridium;
 
 public class PlatGroupMetals {
 

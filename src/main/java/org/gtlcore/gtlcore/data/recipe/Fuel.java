@@ -23,9 +23,7 @@ import java.util.function.Consumer;
 import static com.gregtechceu.gtceu.api.GTValues.*;
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.*;
-import static com.gregtechceu.gtceu.common.data.GTRecipeTypes.PLASMA_GENERATOR_FUELS;
 import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
-import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.ADVANCED_HYPER_REACTOR_RECIPES;
 
 public class Fuel {
 

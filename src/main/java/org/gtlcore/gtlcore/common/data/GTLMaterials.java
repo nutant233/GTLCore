@@ -10,10 +10,16 @@ import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 
 import com.lowdragmc.lowdraglib.Platform;
 
+import net.minecraft.world.level.ItemLike;
+
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
+import com.enderio.base.common.init.EIOBlocks;
+import com.enderio.base.common.init.EIOItems;
 import earth.terrarium.adastra.common.registry.ModBlocks;
 import earth.terrarium.adastra.common.registry.ModItems;
+
+import java.util.function.Supplier;
 
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static committee.nova.mods.avaritia.init.registry.ModBlocks.infinity;
@@ -22,6 +28,18 @@ import static committee.nova.mods.avaritia.init.registry.ModItems.*;
 public class GTLMaterials {
 
     public static Material Fluix;
+    public static Material Desh;
+    public static Material Ostrum;
+    public static Material Calorite;
+    public static Material CopperAlloy;
+    public static Material EnergeticAlloy;
+    public static Material VibrantAlloy;
+    public static Material RedstoneAlloy;
+    public static Material ConductiveAlloy;
+    public static Material PulsatingAlloy;
+    public static Material DarkSteel;
+    public static Material Soularium;
+    public static Material EndSteel;
     public static Material MutatedLivingSolder;
     public static Material SuperMutatedLivingSolder;
     public static Material PotassiumPyrosulfate;
@@ -177,10 +195,6 @@ public class GTLMaterials {
     public static Material HighEnergyMixture;
     public static Material Luminessence;
     public static Material Sunnarium;
-    public static Material PulsatingAlloy;
-    public static Material ConductiveAlloy;
-    public static Material EnergeticAlloy;
-    public static Material VibrantAlloy;
     public static Material UuAmplifier;
     public static Material Celestine;
     public static Material Zircon;
@@ -626,9 +640,6 @@ public class GTLMaterials {
     public static Material StellarEnergyRocketFuel;
     public static Material ExplosiveHydrazine;
     public static Material HmxExplosive;
-    public static Material Desh;
-    public static Material Ostrum;
-    public static Material Calorite;
     public static Material LaNdOxidesSolution;
     public static Material SmGdOxidesSolution;
     public static Material TbHoOxidesSolution;
@@ -841,7 +852,6 @@ public class GTLMaterials {
         TagPrefix.gem.setIgnored(CertusQuartz, AEItems.CERTUS_QUARTZ_CRYSTAL);
         TagPrefix.block.setIgnoredBlock(CertusQuartz, AEBlocks.QUARTZ_BLOCK.block());
         TagPrefix.dust.setIgnored(CertusQuartz, AEItems.CERTUS_QUARTZ_DUST);
-        TagPrefix.dust.setIgnored(EnderPearl, AEItems.ENDER_DUST);
 
         TagPrefix.rawOre.setIgnored(Desh, ModItems.RAW_DESH);
         TagPrefix.rawOre.setIgnored(Ostrum, ModItems.RAW_OSTRUM);
@@ -860,6 +870,56 @@ public class GTLMaterials {
         TagPrefix.block.setIgnored(Calorite, ModBlocks.CALORITE_BLOCK);
 
         if (!Platform.isDevEnv()) {
+            TagPrefix.gear.setIgnored(Wood, (Supplier<? extends ItemLike>) EIOItems.GEAR_WOOD);
+
+            TagPrefix.dust.setIgnored(Wheat, (Supplier<? extends ItemLike>) EIOItems.FLOUR);
+            TagPrefix.dust.setIgnored(Coal, (Supplier<? extends ItemLike>) EIOItems.POWDERED_COAL);
+            TagPrefix.dust.setIgnored(Iron, (Supplier<? extends ItemLike>) EIOItems.POWDERED_IRON);
+            TagPrefix.dust.setIgnored(Gold, (Supplier<? extends ItemLike>) EIOItems.POWDERED_GOLD);
+            TagPrefix.dust.setIgnored(Copper, (Supplier<? extends ItemLike>) EIOItems.POWDERED_COPPER);
+            TagPrefix.dust.setIgnored(Tin, (Supplier<? extends ItemLike>) EIOItems.POWDERED_TIN);
+            TagPrefix.dust.setIgnored(EnderPearl, (Supplier<? extends ItemLike>) EIOItems.POWDERED_ENDER_PEARL);
+            TagPrefix.dust.setIgnored(Obsidian, (Supplier<? extends ItemLike>) EIOItems.POWDERED_OBSIDIAN);
+            TagPrefix.dust.setIgnored(Cobalt, (Supplier<? extends ItemLike>) EIOItems.POWDERED_COBALT);
+            TagPrefix.dust.setIgnored(Lapis, (Supplier<? extends ItemLike>) EIOItems.POWDERED_LAPIS_LAZULI);
+            TagPrefix.dust.setIgnored(Soularium, (Supplier<? extends ItemLike>) EIOItems.SOUL_POWDER);
+
+            TagPrefix.ingot.setIgnored(CopperAlloy, (Supplier<? extends ItemLike>) EIOItems.COPPER_ALLOY_INGOT);
+            TagPrefix.nugget.setIgnored(CopperAlloy, (Supplier<? extends ItemLike>) EIOItems.COPPER_ALLOY_NUGGET);
+            TagPrefix.block.setIgnored(CopperAlloy, (Supplier<? extends ItemLike>) EIOBlocks.COPPER_ALLOY_BLOCK);
+
+            TagPrefix.ingot.setIgnored(EnergeticAlloy, (Supplier<? extends ItemLike>) EIOItems.ENERGETIC_ALLOY_INGOT);
+            TagPrefix.nugget.setIgnored(EnergeticAlloy, (Supplier<? extends ItemLike>) EIOItems.ENERGETIC_ALLOY_NUGGET);
+            TagPrefix.block.setIgnored(EnergeticAlloy, (Supplier<? extends ItemLike>) EIOBlocks.ENERGETIC_ALLOY_BLOCK);
+
+            TagPrefix.ingot.setIgnored(VibrantAlloy, (Supplier<? extends ItemLike>) EIOItems.VIBRANT_ALLOY_INGOT);
+            TagPrefix.nugget.setIgnored(VibrantAlloy, (Supplier<? extends ItemLike>) EIOItems.VIBRANT_ALLOY_NUGGET);
+            TagPrefix.block.setIgnored(VibrantAlloy, (Supplier<? extends ItemLike>) EIOBlocks.VIBRANT_ALLOY_BLOCK);
+
+            TagPrefix.ingot.setIgnored(RedstoneAlloy, (Supplier<? extends ItemLike>) EIOItems.REDSTONE_ALLOY_INGOT);
+            TagPrefix.nugget.setIgnored(RedstoneAlloy, (Supplier<? extends ItemLike>) EIOItems.REDSTONE_ALLOY_NUGGET);
+            TagPrefix.block.setIgnored(RedstoneAlloy, (Supplier<? extends ItemLike>) EIOBlocks.REDSTONE_ALLOY_BLOCK);
+
+            TagPrefix.ingot.setIgnored(ConductiveAlloy, (Supplier<? extends ItemLike>) EIOItems.CONDUCTIVE_ALLOY_INGOT);
+            TagPrefix.nugget.setIgnored(ConductiveAlloy, (Supplier<? extends ItemLike>) EIOItems.CONDUCTIVE_ALLOY_NUGGET);
+            TagPrefix.block.setIgnored(ConductiveAlloy, (Supplier<? extends ItemLike>) EIOBlocks.CONDUCTIVE_ALLOY_BLOCK);
+
+            TagPrefix.ingot.setIgnored(PulsatingAlloy, (Supplier<? extends ItemLike>) EIOItems.PULSATING_ALLOY_INGOT);
+            TagPrefix.nugget.setIgnored(PulsatingAlloy, (Supplier<? extends ItemLike>) EIOItems.PULSATING_ALLOY_NUGGET);
+            TagPrefix.block.setIgnored(PulsatingAlloy, (Supplier<? extends ItemLike>) EIOBlocks.PULSATING_ALLOY_BLOCK);
+
+            TagPrefix.ingot.setIgnored(DarkSteel, (Supplier<? extends ItemLike>) EIOItems.DARK_STEEL_INGOT);
+            TagPrefix.nugget.setIgnored(DarkSteel, (Supplier<? extends ItemLike>) EIOItems.DARK_STEEL_NUGGET);
+            TagPrefix.block.setIgnored(DarkSteel, (Supplier<? extends ItemLike>) EIOBlocks.DARK_STEEL_BLOCK);
+
+            TagPrefix.ingot.setIgnored(Soularium, (Supplier<? extends ItemLike>) EIOItems.SOULARIUM_INGOT);
+            TagPrefix.nugget.setIgnored(Soularium, (Supplier<? extends ItemLike>) EIOItems.SOULARIUM_NUGGET);
+            TagPrefix.block.setIgnored(Soularium, (Supplier<? extends ItemLike>) EIOBlocks.SOULARIUM_BLOCK);
+
+            TagPrefix.ingot.setIgnored(EndSteel, (Supplier<? extends ItemLike>) EIOItems.END_STEEL_INGOT);
+            TagPrefix.nugget.setIgnored(EndSteel, (Supplier<? extends ItemLike>) EIOItems.END_STEEL_NUGGET);
+            TagPrefix.block.setIgnored(EndSteel, (Supplier<? extends ItemLike>) EIOBlocks.END_STEEL_BLOCK);
+
             TagPrefix.ingot.setIgnored(Crystalmatrix, crystal_matrix_ingot);
             TagPrefix.ingot.setIgnored(Infinity, infinity_ingot);
             TagPrefix.nugget.setIgnored(Infinity, infinity_nugget);

@@ -24,12 +24,113 @@ import static org.gtlcore.gtlcore.common.data.GTLMaterials.*;
 public class MaterialBuilder {
 
     public static void init() {
+        // ae
         Fluix = new Material.Builder(GTCEu.id("fluix"))
                 .gem()
                 .components(NetherQuartz, 1, CertusQuartz, 1, Redstone, 1)
                 .color(0x8f5ccb)
                 .iconSet(QUARTZ)
                 .flags(NO_SMASHING, NO_SMELTING, DISABLE_DECOMPOSITION, GENERATE_PLATE)
+                .buildAndRegister();
+
+        // ad
+        Desh = new Material.Builder(GTCEu.id("desh"))
+                .ingot()
+                .ore()
+                .element(GTLElements.DESH)
+                .color(0xf2a057)
+                .iconSet(METALLIC)
+                .flags(NO_SMELTING, NO_ORE_SMELTING)
+                .buildAndRegister();
+
+        Ostrum = new Material.Builder(GTCEu.id("ostrum"))
+                .ingot()
+                .ore()
+                .element(GTLElements.OSTRUM)
+                .color(0xe5939b)
+                .iconSet(METALLIC)
+                .flags(NO_SMELTING, NO_ORE_SMELTING)
+                .buildAndRegister();
+
+        Calorite = new Material.Builder(GTCEu.id("calorite"))
+                .ingot()
+                .ore()
+                .element(GTLElements.CALORITE)
+                .color(0xe65757)
+                .iconSet(METALLIC)
+                .flags(NO_SMELTING, NO_ORE_SMELTING)
+                .buildAndRegister();
+
+        // eio
+        CopperAlloy = new Material.Builder(GTCEu.id("copper_alloy_ingot"))
+                .ingot()
+                .color(0xc79738)
+                .iconSet(SHINY)
+                .components(Copper, 1, Silicon, 1)
+                .buildAndRegister();
+
+        EnergeticAlloy = new Material.Builder(GTCEu.id("energetic_alloy"))
+                .ingot()
+                .fluid()
+                .color(0xffb545)
+                .iconSet(SHINY)
+                .blastTemp(1650, LOW, GTValues.VA[GTValues.MV], 700)
+                .components(Redstone, 1, Gold, 1, Glowstone, 1)
+                .cableProperties(128, 1, 0, true)
+                .buildAndRegister();
+
+        VibrantAlloy = new Material.Builder(GTCEu.id("vibrant_alloy"))
+                .ingot()
+                .fluid()
+                .color(0xa4ff70)
+                .iconSet(SHINY)
+                .components(EnergeticAlloy, 1, EnderPearl, 1)
+                .cableProperties(512, 1, 0, true)
+                .buildAndRegister();
+
+        RedstoneAlloy = new Material.Builder(GTCEu.id("redstone_alloy"))
+                .ingot()
+                .color(0xf66565)
+                .iconSet(SHINY)
+                .components(Redstone, 1, Silicon, 1)
+                .buildAndRegister();
+
+        ConductiveAlloy = new Material.Builder(GTCEu.id("conductive_alloy"))
+                .ingot()
+                .color(0xf7b29b)
+                .iconSet(METALLIC)
+                .components(CopperAlloy, 1, Iron, 1, Redstone, 1)
+                .cableProperties(32, 1, 0, true)
+                .buildAndRegister();
+
+        PulsatingAlloy = new Material.Builder(GTCEu.id("pulsating_alloy"))
+                .ingot()
+                .color(0x6ae26e)
+                .iconSet(SHINY)
+                .components(Iron, 1, EnderPearl, 1)
+                .cableProperties(8, 1, 0, true)
+                .buildAndRegister();
+
+        DarkSteel = new Material.Builder(GTCEu.id("dark_steel"))
+                .ingot()
+                .color(0x414751)
+                .iconSet(DULL)
+                .components(Iron, 1, Coal, 1, Obsidian, 1)
+                .buildAndRegister();
+
+        Soularium = new Material.Builder(GTCEu.id("soularium"))
+                .ingot()
+                .color(0x7c674d)
+                .iconSet(METALLIC)
+                .flags(DISABLE_DECOMPOSITION)
+                .components(Gold, 1, Concrete, 1)
+                .buildAndRegister();
+
+        EndSteel = new Material.Builder(GTCEu.id("end_steel"))
+                .ingot()
+                .color(0xd6d980)
+                .iconSet(METALLIC)
+                .components(Endstone, 1, DarkSteel, 1, Obsidian, 1)
                 .buildAndRegister();
 
         BarnardaAir = new Material.Builder(GTCEu.id("barnarda_air"))
@@ -116,42 +217,6 @@ public class MaterialBuilder {
                 .color(0xfcfc00)
                 .iconSet(BRIGHT)
                 .buildAndRegister().setFormula("?");
-
-        PulsatingAlloy = new Material.Builder(GTCEu.id("pulsating_alloy"))
-                .ingot()
-                .color(0x6ae26e)
-                .iconSet(SHINY)
-                .components(Iron, 1)
-                .cableProperties(8, 1, 0, true)
-                .buildAndRegister();
-
-        ConductiveAlloy = new Material.Builder(GTCEu.id("conductive_alloy"))
-                .ingot()
-                .color(0xf7b29b)
-                .iconSet(MAGNETIC)
-                .components(Iron, 1, Redstone, 1)
-                .cableProperties(32, 1, 0, true)
-                .buildAndRegister();
-
-        EnergeticAlloy = new Material.Builder(GTCEu.id("energetic_alloy"))
-                .ingot()
-                .fluid()
-                .color(0xffb545)
-                .iconSet(SHINY)
-                .blastTemp(1650, LOW, GTValues.VA[GTValues.MV], 700)
-                .components(Gold, 2, Redstone, 1, Glowstone, 1)
-                .cableProperties(128, 1, 0, true)
-                .buildAndRegister();
-
-        VibrantAlloy = new Material.Builder(GTCEu.id("vibrant_alloy"))
-                .ingot()
-                .fluid()
-                .color(0xa4ff70)
-                .iconSet(SHINY)
-                .blastTemp(2375, LOW, GTValues.VA[GTValues.HV], 1300)
-                .components(EnergeticAlloy, 1, EnderPearl, 1)
-                .cableProperties(512, 1, 0, true)
-                .buildAndRegister();
 
         UuAmplifier = new Material.Builder(GTCEu.id("uu_amplifier"))
                 .fluid()
@@ -3806,33 +3871,6 @@ public class MaterialBuilder {
                 .dust()
                 .color(0xf3ffdb)
                 .iconSet(BRIGHT)
-                .buildAndRegister();
-
-        Desh = new Material.Builder(GTCEu.id("desh"))
-                .ingot()
-                .ore()
-                .element(GTLElements.DESH)
-                .color(0xf2a057)
-                .iconSet(METALLIC)
-                .flags(NO_SMELTING, NO_ORE_SMELTING)
-                .buildAndRegister();
-
-        Ostrum = new Material.Builder(GTCEu.id("ostrum"))
-                .ingot()
-                .ore()
-                .element(GTLElements.OSTRUM)
-                .color(0xe5939b)
-                .iconSet(METALLIC)
-                .flags(NO_SMELTING, NO_ORE_SMELTING)
-                .buildAndRegister();
-
-        Calorite = new Material.Builder(GTCEu.id("calorite"))
-                .ingot()
-                .ore()
-                .element(GTLElements.CALORITE)
-                .color(0xe65757)
-                .iconSet(METALLIC)
-                .flags(NO_SMELTING, NO_ORE_SMELTING)
                 .buildAndRegister();
 
         LaNdOxidesSolution = new Material.Builder(GTCEu.id("la_nd_oxides_solution"))

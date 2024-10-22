@@ -82,8 +82,7 @@
     "mc.CursedInternalSlotMixin",
     "mc.RecipeBookMixin",
     "mc.ServerPlayerMixin",
-    "mc.ServerRecipeBookMixin",
-    "travelanchors.EventListenerMixin"
+    "mc.ServerRecipeBookMixin"
   ],
   "injectors": {
     "defaultRequire": 1,

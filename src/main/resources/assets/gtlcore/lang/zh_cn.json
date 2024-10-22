@@ -1172,5 +1172,8 @@
     "key.gtlcore.vajra": "金刚杵按键",
     "key.keybinding.gtlcore": "GTL按键绑定",
     "structure_writer.export_order": "导出顺序： C:%s  S:%s  A:%s",
-    "structure_writer.structural_scale": "结构规模： X:%s  Y:%s  Z:%s"
+    "structure_writer.structural_scale": "结构规模： X:%s  Y:%s  Z:%s",
+    "block.gtlcore.item_hatch": "Item Hatch",
+    "block.gtlcore.nuke_bomb": "核弹",
+    "entity.gtlcore.nuke_bomb": "核弹"
 }

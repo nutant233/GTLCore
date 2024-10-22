@@ -12,6 +12,7 @@ import com.gregtechceu.gtceu.common.data.GTItems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Shulker;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,8 +51,8 @@ public class ForgeCommonEventListener {
         ItemStack itemStack = player.getItemInHand(hand);
         Item item = itemStack.getItem();
         if (item == Items.ENDER_EYE && level.getBlockState(pos).getBlock() == Blocks.END_PORTAL_FRAME) {
-            if (Objects.equals(item.kjs$getId(), "kubejs:end_data")) {
-                player.setItemInHand(hand, itemStack.copyWithCount(itemStack.getCount() - 1));
+            if (Objects.equals(player.getItemInHand(InteractionHand.OFF_HAND).kjs$getId(), "kubejs:end_data")) {
+                player.setItemInHand(InteractionHand.OFF_HAND, itemStack.copyWithCount(itemStack.getCount() - 1));
                 return;
             }
             event.setCanceled(true);
@@ -63,16 +65,19 @@ public class ForgeCommonEventListener {
         }
         if (item == GTItems.QUANTUM_STAR.get() && level.getBlockState(pos).getBlock() == GTLBlocks.NAQUADRIA_CHARGE.get()) {
             GTLExplosion nukeExplosion = new GTLExplosion(pos, level, 80);
+            nukeExplosion.setBreakBedrock(true);
             nukeExplosion.finalizeExplosion(true);
             return;
         }
         if (item == GTItems.GRAVI_STAR.get() && level.getBlockState(pos).getBlock() == GTLBlocks.LEPTONIC_CHARGE.get()) {
             GTLExplosion nukeExplosion = new GTLExplosion(pos, level, 200);
+            nukeExplosion.setBreakBedrock(true);
             nukeExplosion.finalizeExplosion(true);
             return;
         }
         if (item == GTLItems.UNSTABLE_STAR.get() && level.getBlockState(pos).getBlock() == GTLBlocks.QUANTUM_CHROMODYNAMIC_CHARGE.get()) {
             GTLExplosion nukeExplosion = new GTLExplosion(pos, level, 1000);
+            nukeExplosion.setBreakBedrock(true);
             nukeExplosion.finalizeExplosion(false);
         }
     }
@@ -94,6 +99,13 @@ public class ForgeCommonEventListener {
         if (GTLConfigHolder.INSTANCE.disableDrift && event.phase == TickEvent.Phase.END &&
                 event.side == LogicalSide.CLIENT && event.player.xxa == 0 && event.player.zza == 0) {
             event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(0.5, 1, 0.5));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityTravelToDimension(EntityTravelToDimensionEvent event) {
+        if (event.getEntity() instanceof FallingBlockEntity fallingBlock) {
+            fallingBlock.kill();
         }
     }
 }

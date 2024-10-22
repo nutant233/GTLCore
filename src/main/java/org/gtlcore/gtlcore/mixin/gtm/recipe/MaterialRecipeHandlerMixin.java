@@ -223,13 +223,6 @@ public abstract class MaterialRecipeHandlerMixin {
                         .duration(mass * 2).EUt(8L * voltageMultiplier)
                         .save(provider);
 
-                if (material.getBlastTemperature() < 3000)
-                    ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_ingot_to_block")
-                            .inputItems(ingot, material, (int) (materialAmount / M))
-                            .notConsumable(GTItems.SHAPE_MOLD_BLOCK)
-                            .outputItems(blockStack)
-                            .duration(mass * 4).EUt(4L * voltageMultiplier)
-                            .save(provider);
             } else if (material.hasProperty(PropertyKey.GEM)) {
                 COMPRESSOR_RECIPES.recipeBuilder("compress_" + material.getName() + "_gem_to_block")
                         .inputItems(gem, material, (int) (block.getMaterialAmount(material) / M))

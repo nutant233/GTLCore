@@ -34,11 +34,38 @@ public class RemoveRecipe {
         consumer.accept(new ResourceLocation("minecraft", "neutron_ingot_from_neutron_block"));
         consumer.accept(new ResourceLocation("minecraft", "neutron_nugget"));
         consumer.accept(new ResourceLocation("minecraft", "neutron"));
+
         consumer.accept(new ResourceLocation("avaritia", "crystal_matrix_ingot"));
         consumer.accept(new ResourceLocation("avaritia", "diamond_lattice"));
         consumer.accept(new ResourceLocation("avaritia", "extreme_crafting_table"));
+
         consumer.accept(new ResourceLocation("expatternprovider", "fishbig"));
 
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "refining/fuel_from_refining_oil"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "oxygen_loading/oxygen_from_oxygen_loading_oxygen"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "oxygen_loading/oxygen_from_oxygen_loading_water"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "cryo_freezing/cryo_fuel_from_cryo_freezing_blue_ice"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "cryo_freezing/cryo_fuel_from_cryo_freezing_ice_shard"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "cryo_freezing/cryo_fuel_from_cryo_freezing_ice"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "cryo_freezing/cryo_fuel_from_cryo_freezing_packed_ice"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/calorite_plate_from_compressing_calorite_blocks"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/calorite_plate_from_compressing_calorite_ingots"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/desh_plate_from_compressing_desh_blocks"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/desh_plate_from_compressing_desh_ingots"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/iron_plate_from_compressing_iron_block"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/iron_plate_from_compressing_iron_ingot"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/ostrum_plate_from_compressing_ostrum_blocks"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/ostrum_plate_from_compressing_ostrum_ingots"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/steel_plate_from_compressing_steel_blocks"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressing/steel_plate_from_compressing_steel_ingots"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "alloying/steel_ingot_from_alloying_iron_ingot_and_coals"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "nasa_workbench/tier_1_rocket_from_nasa_workbench"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "nasa_workbench/tier_2_rocket_from_nasa_workbench"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "nasa_workbench/tier_3_rocket_from_nasa_workbench"));
+        consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "nasa_workbench/tier_4_rocket_from_nasa_workbench"));
+        consumer.accept(new ResourceLocation("ad_astra_rocketed", "nasa_workbench/default/tier_5_rocket_from_nasa_workbench"));
+        consumer.accept(new ResourceLocation("ad_astra_rocketed", "nasa_workbench/default/tier_6_rocket_from_nasa_workbench"));
+        consumer.accept(new ResourceLocation("ad_astra_rocketed", "nasa_workbench/default/tier_7_rocket_from_nasa_workbench"));
         consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "compressor"));
         consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "steel_block"));
         consumer.accept(new ResourceLocation(AdAstra.MOD_ID, "energizer"));

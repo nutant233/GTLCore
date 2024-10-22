@@ -3,13 +3,18 @@ package org.gtlcore.gtlcore.utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import lombok.Setter;
 
 public class GTLExplosion extends Explosion {
 
     private final BlockPos center;
     private final Level level;
     private final int radius;
+    @Setter
+    private boolean isBreakBedrock;
 
     public GTLExplosion(BlockPos center, Level level, int radius) {
         super(level, null, null, null, center.getX(), center.getY(), center.getZ(), radius, false, BlockInteraction.DESTROY);
@@ -27,7 +32,7 @@ public class GTLExplosion extends Explosion {
                     if (x * x + y * y + z * z <= radiusSquared) {
                         BlockPos pos = center.offset(x, y, z);
                         BlockState state = level.getBlockState(pos);
-                        if (state.isAir()) continue;
+                        if (state.isAir() || (!isBreakBedrock && state.getBlock() == Blocks.BEDROCK)) continue;
                         state.onBlockExploded(level, pos, this);
                     }
                 }

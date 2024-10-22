@@ -1,10 +1,11 @@
 package org.gtlcore.gtlcore.mixin.gtm;
 
-import com.google.common.primitives.Ints;
 import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableComputationContainer;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.content.IContentSerializer;
+
+import com.google.common.primitives.Ints;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Collections;

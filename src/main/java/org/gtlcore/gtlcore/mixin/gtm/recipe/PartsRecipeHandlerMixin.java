@@ -157,15 +157,6 @@ public class PartsRecipeHandlerMixin {
                     .EUt(8L * voltageMultiplier)
                     .save(provider);
 
-            if (material.getBlastTemperature() < 3000)
-                ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_ingot_to_gear")
-                        .inputItems(ingot, material, 8)
-                        .notConsumable(GTItems.SHAPE_MOLD_GEAR)
-                        .outputItems(gearPrefix, material)
-                        .duration(mass * 10)
-                        .EUt(2L * voltageMultiplier)
-                        .save(provider);
-
             if (material.hasFlag(NO_SMASHING)) {
                 EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_dust_to_gear")
                         .inputItems(dust, material, 4)
@@ -203,14 +194,6 @@ public class PartsRecipeHandlerMixin {
                         .duration(mass * 2)
                         .EUt(material.getBlastTemperature() >= 2800 ? 256 : 64)
                         .save(provider);
-
-                if (material.getBlastTemperature() < 3000)
-                    ALLOY_SMELTER_RECIPES.recipeBuilder("alloy_smelt_" + material.getName() + "_ingot_to_small_gear")
-                            .duration(mass).EUt(VA[LV])
-                            .inputItems(ingot, material, 2)
-                            .notConsumable(GTItems.SHAPE_MOLD_GEAR_SMALL)
-                            .outputItems(gearSmall, material)
-                            .save(provider);
 
                 if (material.hasFlag(NO_SMASHING)) {
                     EXTRUDER_RECIPES.recipeBuilder("extrude_" + material.getName() + "_dust_to_small_gear")
@@ -431,22 +414,6 @@ public class PartsRecipeHandlerMixin {
                     GTUtil.copyAmount(2, stickStack),
                     "s", "X", 'X', new UnificationEntry(rodLong, material));
 
-        if (material.hasProperty(PropertyKey.GEM) && mass < 240 && material.getBlastTemperature() < 3600) {
-            VanillaRecipeHelper.addShapedRecipe(provider,
-                    String.format("stick_long_gem_flawless_%s", material.getName()),
-                    stickStack,
-                    "sf",
-                    "G ",
-                    'G', new UnificationEntry(gemFlawless, material));
-
-            VanillaRecipeHelper.addShapedRecipe(provider,
-                    String.format("stick_long_gem_exquisite_%s", material.getName()),
-                    GTUtil.copyAmount(2, stickStack),
-                    "sf", "G ",
-                    'G', new UnificationEntry(gemExquisite, material));
-
-        }
-
         if (mass < 240 && material.getBlastTemperature() < 3600)
             VanillaRecipeHelper.addShapedRecipe(provider, String.format("stick_long_stick_%s", material.getName()), stack,
                     "ShS",
@@ -503,13 +470,6 @@ public class PartsRecipeHandlerMixin {
                 .duration(mass * 10)
                 .EUt(120)
                 .save(provider);
-
-        if (mass < 240 && material.getBlastTemperature() < 3600)
-            VanillaRecipeHelper.addShapedRecipe(provider, String.format("turbine_blade_%s", material.getName()),
-                    ChemicalHelper.get(toolPrefix, material),
-                    "PPP", "SPS", "fPd",
-                    'P', new UnificationEntry(plateDouble, material),
-                    'S', new UnificationEntry(screw, material));
     }
 
     @Unique

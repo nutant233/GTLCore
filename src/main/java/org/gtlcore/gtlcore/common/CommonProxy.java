@@ -37,6 +37,7 @@ public class CommonProxy {
     public static void init() {
         GTLCreativeModeTabs.init();
         GTLConfigHolder.init();
+        GTLEntityTypes.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

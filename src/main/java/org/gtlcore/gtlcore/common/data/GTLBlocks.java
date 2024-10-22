@@ -1,10 +1,7 @@
 package org.gtlcore.gtlcore.common.data;
 
 import org.gtlcore.gtlcore.GTLCore;
-import org.gtlcore.gtlcore.common.block.CleanroomFilterType;
-import org.gtlcore.gtlcore.common.block.CoilType;
-import org.gtlcore.gtlcore.common.block.CraftingUnitType;
-import org.gtlcore.gtlcore.common.block.GTLFusionCasingBlock;
+import org.gtlcore.gtlcore.common.block.*;
 
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
@@ -31,6 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 
@@ -327,6 +325,17 @@ public class GTLBlocks {
         GTCEuAPI.HEATING_COILS.put(coilType, coilBlock);
         return coilBlock;
     }
+
+    public static final BlockEntry<NukeBombBlock> NUKE_BOMB = REGISTRATE
+            .block("nuke_bomb", NukeBombBlock::new)
+            .properties(p -> p.mapColor(MapColor.FIRE).instabreak().sound(SoundType.GRASS).ignitedByLava())
+            .tag(BlockTags.MINEABLE_WITH_AXE)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models().cubeBottomTop(ctx.getName(),
+                    GTLCore.id("block/nuke_bomb"),
+                    new ResourceLocation("minecraft", "block/tnt_bottom"),
+                    new ResourceLocation("minecraft", "block/tnt_top"))))
+            .simpleItem()
+            .register();
 
     public static final BlockEntry<Block> HERMETIC_CASING_UEV = createHermeticCasing(GTValues.UEV);
     public static final BlockEntry<Block> HERMETIC_CASING_UIV = createHermeticCasing(GTValues.UIV);

@@ -54,21 +54,28 @@ side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "kubejs"
-mandatory = false
+mandatory = true
 versionRange = "[${kubejs_version},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "jei"
-mandatory = false
+mandatory = true
 versionRange = "[${jei_version},)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
-modId = "extendedae"
-mandatory = false
+modId = "expatternprovider"
+mandatory = true
 versionRange = "[1.1,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "enderio"
+mandatory = true
+versionRange = "[6.2,)"
 ordering = "AFTER"
 side = "BOTH"
