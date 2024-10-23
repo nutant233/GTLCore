@@ -2674,10 +2674,6 @@ public class MaterialBuilder {
                 .plasma(new FluidBuilder().customStill())
                 .buildAndRegister();
 
-        XpJuice = new Material.Builder(GTCEu.id("xpjuice"))
-                .liquid(new FluidBuilder().customStill())
-                .buildAndRegister();
-
         BiomediumRaw = new Material.Builder(GTCEu.id("biomediumraw"))
                 .fluid()
                 .color(0x42641f)

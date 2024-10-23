@@ -45,7 +45,43 @@ public class GTLConfigHolder {
     @Configurable.Range(min = 36, max = 360)
     public int exPatternProvider = 36;
     @Configurable
-    public String[] mobList1 = new String[] { "chicken", "rabbit", "sheep", "cow", "horse", "pig", "donkey", "skeleton_horse", "iron_golem", "wolf", "goat", "parrot", "camel", "cat", "fox", "llama", "panda", "polar_bear" };
+    public String[] mobList1 = new String[] {
+            "minecraft:chicken",
+            "minecraft:rabbit",
+            "minecraft:sheep",
+            "minecraft:cow",
+            "minecraft:horse",
+            "minecraft:pig",
+            "minecraft:donkey",
+            "minecraft:skeleton_horse",
+            "minecraft:iron_golem",
+            "minecraft:wolf",
+            "minecraft:goat",
+            "minecraft:parrot",
+            "minecraft:camel",
+            "minecraft:cat",
+            "minecraft:fox",
+            "minecraft:llama",
+            "minecraft:panda",
+            "minecraft:polar_bear"
+    };
     @Configurable
-    public String[] mobList2 = new String[] { "ghast", "zombie", "pillager", "zombie_villager", "skeleton", "drowned", "witch", "spider", "creeper", "husk", "wither_skeleton", "blaze", "zombified_piglin", "slime", "vindicator", "enderman" };
+    public String[] mobList2 = new String[] {
+            "minecraft:ghast",
+            "minecraft:zombie",
+            "minecraft:pillager",
+            "minecraft:zombie_villager",
+            "minecraft:skeleton",
+            "minecraft:drowned",
+            "minecraft:witch",
+            "minecraft:spider",
+            "minecraft:creeper",
+            "minecraft:husk",
+            "minecraft:wither_skeleton",
+            "minecraft:blaze",
+            "minecraft:zombified_piglin",
+            "minecraft:slime",
+            "minecraft:vindicator",
+            "minecraft:enderman"
+    };
 }

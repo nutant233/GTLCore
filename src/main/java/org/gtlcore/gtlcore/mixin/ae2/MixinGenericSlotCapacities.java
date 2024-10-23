@@ -17,9 +17,12 @@ public class MixinGenericSlotCapacities {
     @Shadow(remap = false)
     private static CowMap<AEKeyType, Long> map;
 
-    @Inject(method = "<clinit>", at = @At(value = "HEAD"), remap = false)
-    private static void clinitInj(CallbackInfo ci) {
-        map.putIfAbsent(AEKeyType.items(), 2147483647L);
-        map.putIfAbsent(AEKeyType.fluids(), 2147483647L);
+    @Inject(method = "register", at = @At(value = "HEAD"), remap = false, cancellable = true)
+    private static void register(AEKeyType type, Long capacity, CallbackInfo ci) {
+        if (!map.getMap().containsKey(AEKeyType.items())) {
+            map.putIfAbsent(AEKeyType.items(), 2147483647L);
+            map.putIfAbsent(AEKeyType.fluids(), 2147483647L);
+        }
+        ci.cancel();
     }
 }

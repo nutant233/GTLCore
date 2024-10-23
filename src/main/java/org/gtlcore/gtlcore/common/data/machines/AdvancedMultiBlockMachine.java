@@ -694,7 +694,7 @@ public class AdvancedMultiBlockMachine {
                             level.setBlockAndUpdate(pos, Blocks.CHAIN_COMMAND_BLOCK.defaultBlockState());
                         }
                         if (MachineUtil.inputItem((WorkableMultiblockMachine) machine, GTLItems.REPEATING_COMMAND_BLOCK_CORE.asStack()) && block == GTLBlocks.CHAIN_COMMAND_BLOCK_BROKEN.get()) {
-                            level.setBlockAndUpdate(pos, Blocks.COMMAND_BLOCK.defaultBlockState());
+                            level.setBlockAndUpdate(pos, Blocks.REPEATING_COMMAND_BLOCK.defaultBlockState());
                         }
                     }
                 }
@@ -907,6 +907,7 @@ public class AdvancedMultiBlockMachine {
                     .build())
             .afterWorking(machine -> {
                 Level level = machine.self().getLevel();
+                if (level == null) return;
                 String dim = level.kjs$getDimension().toString();
                 MinecraftServer server = level.getServer();
                 if (server != null) {

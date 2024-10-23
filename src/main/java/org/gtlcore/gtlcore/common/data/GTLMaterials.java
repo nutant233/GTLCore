@@ -484,7 +484,6 @@ public class GTLMaterials {
     public static Material DilutedXenoxene;
     public static Material Dibromomethylbenzene;
     public static Material RawStarMatter;
-    public static Material XpJuice;
     public static Material BiomediumRaw;
     public static Material BiohmediumSterilized;
     public static Material UnknowWater;
