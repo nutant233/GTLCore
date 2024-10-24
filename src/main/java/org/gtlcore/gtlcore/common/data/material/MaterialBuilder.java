@@ -66,14 +66,15 @@ public class MaterialBuilder {
                 .ingot()
                 .color(0xc79738)
                 .iconSet(SHINY)
+                .flags(DISABLE_DECOMPOSITION)
                 .components(Copper, 1, Silicon, 1)
                 .buildAndRegister();
 
         EnergeticAlloy = new Material.Builder(GTCEu.id("energetic_alloy"))
                 .ingot()
-                .fluid()
                 .color(0xffb545)
                 .iconSet(SHINY)
+                .flags(DISABLE_DECOMPOSITION)
                 .blastTemp(1650, LOW, GTValues.VA[GTValues.MV], 700)
                 .components(Redstone, 1, Gold, 1, Glowstone, 1)
                 .cableProperties(128, 1, 0, true)
@@ -83,22 +84,28 @@ public class MaterialBuilder {
                 .ingot()
                 .fluid()
                 .color(0xa4ff70)
-                .iconSet(SHINY)
+                .iconSet(METALLIC)
+                .flags(DISABLE_DECOMPOSITION)
+                .blastTemp(2450, LOW, GTValues.VA[GTValues.HV], 800)
                 .components(EnergeticAlloy, 1, EnderPearl, 1)
                 .cableProperties(512, 1, 0, true)
                 .buildAndRegister();
 
         RedstoneAlloy = new Material.Builder(GTCEu.id("redstone_alloy"))
                 .ingot()
+                .fluid()
                 .color(0xf66565)
                 .iconSet(SHINY)
+                .flags(DISABLE_DECOMPOSITION)
                 .components(Redstone, 1, Silicon, 1)
                 .buildAndRegister();
 
         ConductiveAlloy = new Material.Builder(GTCEu.id("conductive_alloy"))
                 .ingot()
+                .fluid()
                 .color(0xf7b29b)
                 .iconSet(METALLIC)
+                .flags(DISABLE_DECOMPOSITION)
                 .components(CopperAlloy, 1, Iron, 1, Redstone, 1)
                 .cableProperties(32, 1, 0, true)
                 .buildAndRegister();
@@ -107,6 +114,7 @@ public class MaterialBuilder {
                 .ingot()
                 .color(0x6ae26e)
                 .iconSet(SHINY)
+                .flags(DISABLE_DECOMPOSITION)
                 .components(Iron, 1, EnderPearl, 1)
                 .cableProperties(8, 1, 0, true)
                 .buildAndRegister();
@@ -115,6 +123,8 @@ public class MaterialBuilder {
                 .ingot()
                 .color(0x414751)
                 .iconSet(DULL)
+                .flags(DISABLE_DECOMPOSITION)
+                .blastTemp(1450, LOW, GTValues.VA[GTValues.MV], 600)
                 .components(Iron, 1, Coal, 1, Obsidian, 1)
                 .buildAndRegister();
 
@@ -130,6 +140,9 @@ public class MaterialBuilder {
                 .ingot()
                 .color(0xd6d980)
                 .iconSet(METALLIC)
+                .flags(DISABLE_DECOMPOSITION)
+                .blastTemp(3250, LOW, GTValues.VA[GTValues.EV], 900)
+                .cableProperties(2048, 1, 0, true)
                 .components(Endstone, 1, DarkSteel, 1, Obsidian, 1)
                 .buildAndRegister();
 

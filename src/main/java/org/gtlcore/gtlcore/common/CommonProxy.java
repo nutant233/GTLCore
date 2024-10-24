@@ -18,6 +18,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import appeng.api.storage.StorageCells;
 import appeng.core.AELog;
+import earth.terrarium.adastra.api.events.AdAstraEvents;
 
 import static org.gtlcore.gtlcore.api.registries.GTLRegistration.REGISTRATE;
 
@@ -38,6 +39,10 @@ public class CommonProxy {
         GTLCreativeModeTabs.init();
         GTLConfigHolder.init();
         GTLEntityTypes.init();
+
+        AdAstraEvents.OxygenTickEvent.register((level, entity) -> !entity.getPersistentData().getBoolean("space_state"));
+        AdAstraEvents.AcidRainTickEvent.register((level, entity) -> !entity.getPersistentData().getBoolean("space_state"));
+        AdAstraEvents.TemperatureTickEvent.register((level, entity) -> !entity.getPersistentData().getBoolean("space_state"));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

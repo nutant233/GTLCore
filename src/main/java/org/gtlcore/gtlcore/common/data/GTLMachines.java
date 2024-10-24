@@ -4,7 +4,6 @@ import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLPartAbility;
 import org.gtlcore.gtlcore.api.machine.multiblock.IParallelMachine;
 import org.gtlcore.gtlcore.client.renderer.machine.BallHatchRenderer;
-import org.gtlcore.gtlcore.client.renderer.machine.ItemHatchRenderer;
 import org.gtlcore.gtlcore.client.renderer.machine.WindMillTurbineRenderer;
 import org.gtlcore.gtlcore.common.data.machines.AdvancedMultiBlockMachine;
 import org.gtlcore.gtlcore.common.data.machines.GeneratorMachine;
@@ -168,7 +167,7 @@ public class GTLMachines {
             .rotationState(RotationState.ALL)
             .recipeType(GTLRecipeTypes.VACUUM_PUMP_RECIPES)
             .recipeModifier(SimpleSteamMachine::recipeModifier)
-            .tooltips(Component.translatable("gtlcore.vacuum.tier", pressure ? 2 : 1))
+            .tooltips(Component.translatable("gtceu.vacuum.tier", pressure ? 2 : 1))
             .renderer(() -> new WorkableSteamMachineRenderer(pressure, GTLCore.id("block/machines/vacuum_pump")))
             .register());
 
@@ -218,7 +217,7 @@ public class GTLMachines {
                     .recipeModifier(VacuumPumpMachine::recipeModifier)
                     .recipeType(GTLRecipeTypes.VACUUM_PUMP_RECIPES)
                     .workableTieredHullRenderer(GTLCore.id("block/machines/vacuum_pump"))
-                    .tooltips(Component.translatable("gtlcore.vacuum.tier", tier + 1))
+                    .tooltips(Component.translatable("gtceu.vacuum.tier", tier + 1))
                     .tooltips(GTMachines.workableTiered(tier, GTValues.V[tier], GTValues.V[tier] * 64, GTLRecipeTypes.VACUUM_PUMP_RECIPES, GTMachines.defaultTankSizeFunction.apply(tier), true))
                     .register(),
             GTValues.LV, GTValues.MV, GTValues.HV);
@@ -283,7 +282,7 @@ public class GTLMachines {
                 (tier, builder) -> {
                     builder.langValue(GTValues.VNF[tier] + ' ' + displayname)
                             .rotationState(RotationState.ALL)
-                            .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/" + model)))
+                            .renderer(() -> new OverlayTieredMachineRenderer(tier, GTCEu.id("block/machine/part/" + model)))
                             .abilities(abilities)
                             .tooltips(Component.translatable("gtceu.machine." + tooltip + ".tooltip"));
                     builder.tooltips(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity_mult",
@@ -304,7 +303,7 @@ public class GTLMachines {
                                 Component.translatable("gtceu.machine.laser_hatch.both.tooltip"),
                                 Component.translatable("gtceu.universal.disabled"))
                         .abilities(ability)
-                        .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/laser_hatch." + name)))
+                        .renderer(() -> new OverlayTieredMachineRenderer(tier, GTCEu.id("block/machine/part/laser_hatch." + name)))
                         .register(),
                 GTValues.tiersBetween(GTValues.IV, GTValues.MAX));
     }
@@ -387,7 +386,7 @@ public class GTLMachines {
                         .rotationState(RotationState.ALL)
                         .abilities(ability)
                         .tooltips(Component.translatable("gtmthings.machine.energy_hatch." + name + ".tooltip"), (Component.translatable("gtmthings.machine.wireless_energy_hatch." + name + ".tooltip")))
-                        .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTMThings.MOD_ID, "block/machine/part/wireless_energy_hatch_64a")))
+                        .renderer(() -> new OverlayTieredMachineRenderer(tier, GTMThings.id("block/machine/part/wireless_energy_hatch_64a")))
                         .compassNode("energy_hatch")
                         .register(),
                 tiers);
@@ -402,7 +401,7 @@ public class GTLMachines {
                         .rotationState(RotationState.ALL)
                         .abilities(ability)
                         .tooltips(Component.translatable("gtmthings.machine.energy_hatch." + name + ".tooltip"), (Component.translatable("gtmthings.machine.wireless_energy_hatch." + name + ".tooltip")))
-                        .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTMThings.MOD_ID, "block/machine/part/wireless_laser_hatch.target")))
+                        .renderer(() -> new OverlayTieredMachineRenderer(tier, GTMThings.id("block/machine/part/wireless_laser_hatch.target")))
                         .compassNode("laser_hatch." + name)
                         .register(),
                 tiers);
@@ -504,7 +503,7 @@ public class GTLMachines {
                     .rotationState(RotationState.ALL)
                     .abilities(PartAbility.INPUT_ENERGY)
                     .tooltips(Component.translatable("gtceu.machine.energy_hatch.input_hi_amp.tooltip"))
-                    .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/" + "energy_hatch.input_4a")))
+                    .renderer(() -> new OverlayTieredMachineRenderer(tier, GTCEu.id("block/machine/part/" + "energy_hatch.input_4a")))
                     .register(),
             GTValues.tiersBetween(GTValues.LV, GTValues.HV));
 
@@ -515,7 +514,7 @@ public class GTLMachines {
                     .rotationState(RotationState.ALL)
                     .abilities(PartAbility.OUTPUT_ENERGY)
                     .tooltips(Component.translatable("gtceu.machine.energy_hatch.output_hi_amp.tooltip"))
-                    .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/" + "energy_hatch.output_4a")))
+                    .renderer(() -> new OverlayTieredMachineRenderer(tier, GTCEu.id("block/machine/part/" + "energy_hatch.output_4a")))
                     .register(),
             GTValues.tiersBetween(GTValues.LV, GTValues.HV));
 
@@ -526,7 +525,7 @@ public class GTLMachines {
                     .rotationState(RotationState.ALL)
                     .abilities(PartAbility.INPUT_ENERGY)
                     .tooltips(Component.translatable("gtceu.machine.energy_hatch.input_hi_amp.tooltip"))
-                    .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/" + "energy_hatch.input_16a")))
+                    .renderer(() -> new OverlayTieredMachineRenderer(tier, GTCEu.id("block/machine/part/" + "energy_hatch.input_16a")))
                     .register(),
             GTValues.tiersBetween(GTValues.LV, GTValues.HV));
 
@@ -537,7 +536,7 @@ public class GTLMachines {
                     .rotationState(RotationState.ALL)
                     .abilities(PartAbility.OUTPUT_ENERGY)
                     .tooltips(Component.translatable("gtceu.machine.energy_hatch.output_hi_amp.tooltip"))
-                    .renderer(() -> new OverlayTieredMachineRenderer(tier, new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/" + "energy_hatch.output_16a")))
+                    .renderer(() -> new OverlayTieredMachineRenderer(tier, GTCEu.id("block/machine/part/" + "energy_hatch.output_16a")))
                     .register(),
             GTValues.tiersBetween(GTValues.LV, GTValues.HV));
 
@@ -590,7 +589,7 @@ public class GTLMachines {
             .machine("large_steam_input_hatch", holder -> new LargeSteamHatchPartMachine(holder, IO.IN, 8192, false))
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.STEAM)
-            .renderer(() -> new OverlaySteamMachineRenderer(new ResourceLocation(GTCEu.MOD_ID, "block/machine/part/" + "steam_hatch")))
+            .renderer(() -> new OverlaySteamMachineRenderer(GTCEu.id("block/machine/part/" + "steam_hatch")))
             .tooltips(Component.translatable("gtceu.machine.large_steam_input_hatch.tooltip.0"),
                     Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
                             8192 * FluidHelper.getBucket()),
@@ -710,7 +709,7 @@ public class GTLMachines {
             .machine("vacuum_hatch", VacuumHatchPartMachine::new)
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.MAINTENANCE)
-            .tooltips(Component.translatable("gtlcore.vacuum.tier", 4))
+            .tooltips(Component.translatable("gtceu.vacuum.tier", 4))
             .tooltips(Component.translatable("gtceu.universal.disabled"))
             .renderer(() -> new MaintenanceHatchPartRenderer(4, GTCEu.id("block/machine/part/maintenance.full_auto")))
             .register();
@@ -719,7 +718,7 @@ public class GTLMachines {
             .machine("vacuum_configuration_hatch", CVCHatchPartMachine::new)
             .rotationState(RotationState.ALL)
             .abilities(PartAbility.MAINTENANCE)
-            .tooltips(Component.translatable("gtlcore.vacuum.tier", 4))
+            .tooltips(Component.translatable("gtceu.vacuum.tier", 4))
             .tooltips(Component.translatable("gtceu.universal.disabled"))
             .renderer(() -> new MaintenanceHatchPartRenderer(6,
                     GTCEu.id("block/machine/part/maintenance.full_auto")))
@@ -773,11 +772,10 @@ public class GTLMachines {
             .overlayTieredHullRenderer("rotor_hatch")
             .register();
 
-    public static final MachineDefinition ITEM_HATCH = REGISTRATE
-            .machine("item_hatch", ItemHatchPartMachine::new)
-            .tier(GTValues.LV)
-            .hasTESR(true)
+    public static final MachineDefinition BLOCK_BUS = REGISTRATE
+            .machine("block_bus", BlockBusPartMachine::new)
+            .tier(GTValues.LuV)
             .rotationState(RotationState.ALL)
-            .renderer(ItemHatchRenderer::new)
+            .renderer(() -> new OverlayTieredMachineRenderer(GTValues.LuV, GTCEu.id("block/machine/part/item_bus.import")))
             .register();
 }

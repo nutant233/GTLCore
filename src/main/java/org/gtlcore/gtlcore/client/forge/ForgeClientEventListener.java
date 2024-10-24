@@ -75,8 +75,8 @@ public class ForgeClientEventListener {
     }
 
     private static void updateTooltipMap() {
-        tooltipMap.put(GTLItems.CREATE_ULTIMATE_BATTERY.get(), new String[] { "§7能凭空产生能量", "§2等级-", TextUtil.white_blue("未知") });
-        tooltipMap.put(GTLItems.SUPRACHRONAL_MAINFRAME_COMPLEX.get(), new String[] { "§7能凭空产生算力", "§2等级-", TextUtil.white_blue("未知") });
+        tooltipMap.put(GTLItems.CREATE_ULTIMATE_BATTERY.get(), new String[] { "§7能凭空产生能量", "§2等级-§r" + TextUtil.white_blue("未知") });
+        tooltipMap.put(GTLItems.SUPRACHRONAL_MAINFRAME_COMPLEX.get(), new String[] { "§7能凭空产生算力", "§2等级-§r" + TextUtil.white_blue("未知") });
         tooltipMap.put(GTLItems.SUPRACAUSAL_MAINFRAME.get(), new String[] { "§7未卜先知", TextUtil.full_color("MAX级电路") });
         tooltipMap.put(GTLItems.SUPRACAUSAL_COMPUTER.get(), new String[] { "§7利用虫洞的优势", TextUtil.full_color("OpV级电路") });
         tooltipMap.put(GTLItems.SUPRACAUSAL_ASSEMBLY.get(), new String[] { "§7巨量的奇点", TextUtil.full_color("UXV级电路") });
@@ -115,17 +115,21 @@ public class ForgeClientEventListener {
         }
         if (suprachronalCircuitSet.contains(item)) {
             for (int tier : GTMachines.ALL_TIERS) {
-                event.getToolTip().add(Component.literal("运行在已知时空之外").withStyle(ChatFormatting.GRAY));
-                event.getToolTip().add(Component.literal(TextUtil.white_blue(GTValues.VN[tier] + "级电路")));
-                return;
+                if (GTLItems.SUPRACHRONAL_CIRCUIT[tier].is(item)) {
+                    event.getToolTip().add(Component.literal("运行在已知时空之外").withStyle(ChatFormatting.GRAY));
+                    event.getToolTip().add(Component.literal(TextUtil.white_blue(GTValues.VN[tier] + "级电路")));
+                    return;
+                }
             }
         }
         if (magnetoresonaticcircuitSet.contains(item)) {
             for (int tier : GTMachines.ALL_TIERS) {
                 if (tier > GTValues.UIV) return;
-                event.getToolTip().add(Component.literal("利用磁共振仪器产生的强大磁场来运行").withStyle(ChatFormatting.GRAY));
-                event.getToolTip().add(Component.literal(GTValues.VN[tier] + "级电路").withStyle(ChatFormatting.LIGHT_PURPLE));
-                return;
+                if (GTLItems.MAGNETO_RESONATIC_CIRCUIT[tier].is(item)) {
+                    event.getToolTip().add(Component.literal("利用磁共振仪器产生的强大磁场来运行").withStyle(ChatFormatting.GRAY));
+                    event.getToolTip().add(Component.literal(GTValues.VN[tier] + "级电路").withStyle(ChatFormatting.LIGHT_PURPLE));
+                    return;
+                }
             }
         }
     }

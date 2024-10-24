@@ -2,9 +2,9 @@ package org.gtlcore.gtlcore.integration.kjs;
 
 import org.gtlcore.gtlcore.GTLCore;
 import org.gtlcore.gtlcore.api.machine.multiblock.GTLCleanroomType;
-import org.gtlcore.gtlcore.client.KeyBind;
 import org.gtlcore.gtlcore.common.data.*;
 import org.gtlcore.gtlcore.common.recipe.condition.GravityCondition;
+import org.gtlcore.gtlcore.common.recipe.condition.VacuumCondition;
 import org.gtlcore.gtlcore.utils.Registries;
 
 import dev.latvian.mods.kubejs.KubeJSPlugin;
@@ -31,7 +31,7 @@ public class GTLKubejsPlugin extends KubeJSPlugin {
         event.add("GTLMachines", GTLMachines.class);
         event.add("GTLCleanroomType", GTLCleanroomType.class);
         event.add("Registries", Registries.class);
-        event.add("KeyBind", KeyBind.class);
         event.add("GravityCondition", GravityCondition.class);
+        event.add("VacuumCondition", VacuumCondition.class);
     }
 }

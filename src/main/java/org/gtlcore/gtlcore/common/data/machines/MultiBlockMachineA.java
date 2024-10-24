@@ -3150,11 +3150,7 @@ public class MultiBlockMachineA {
                     .where('#', Predicates.air())
                     .build())
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_heatproof"), GTCEu.id("block/multiblock/multi_furnace"))
-            .additionalDisplay((controller, components) -> {
-                if (controller.isFormed()) {
-                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(FormattingUtil.formatNumbers(Math.min(2147483647, Math.pow(2, (double) ((CoilWorkableElectricMultipleRecipesMultiblockMachine) controller).getCoilType().getCoilTemperature() / 900)))).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
-                }
-            })
+            .additionalDisplay(GTLMachines.COIL_PARALLEL)
             .register();
 
     public final static MultiblockMachineDefinition NANO_CORE = REGISTRATE.multiblock("nano_core", WorkableElectricMultiblockMachine::new)
@@ -3268,7 +3264,7 @@ public class MultiBlockMachineA {
                     .build())
             .additionalDisplay((controller, components) -> {
                 if (controller.isFormed() && controller instanceof StorageMachine machine) {
-                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal(String.valueOf(8192)).withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
+                    components.add(Component.translatable("gtceu.multiblock.parallel", Component.literal("8192").withStyle(ChatFormatting.DARK_PURPLE)).withStyle(ChatFormatting.GRAY));
                 }
             })
             .workableCasingRenderer(GTLCore.id("block/casings/hyper_mechanical_casing"), GTCEu.id("block/multiblock/gcym/large_assembler"))

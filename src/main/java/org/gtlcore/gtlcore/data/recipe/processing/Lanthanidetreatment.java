@@ -18,7 +18,7 @@ import static org.gtlcore.gtlcore.common.data.GTLRecipeTypes.*;
 public class Lanthanidetreatment {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-        EXTRACTOR_RECIPES.recipeBuilder(GTLCore.id("monazite_extraction"))
+        EXTRACTOR_RECIPES.recipeBuilder("monazite_extraction")
                 .inputItems(gemExquisite, Monazite)
                 .outputItems(dustSmall, RareEarth)
                 .outputFluids(Helium.getFluid(1000))

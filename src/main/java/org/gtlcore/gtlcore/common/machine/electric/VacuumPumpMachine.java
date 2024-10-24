@@ -72,6 +72,6 @@ public class VacuumPumpMachine extends SimpleTieredMachine implements IVacuumMac
     @Override
     public void attachTooltips(TooltipsPanel tooltipsPanel) {
         super.attachTooltips(tooltipsPanel);
-        tooltipsPanel.attachTooltips(new IFancyTooltip.Basic(() -> GuiTextures.INFO_ICON, () -> List.of(Component.translatable("gtlcore.vacuum.tier", getVacuumTier())), () -> true, () -> null));
+        tooltipsPanel.attachTooltips(new IFancyTooltip.Basic(() -> GuiTextures.INFO_ICON, () -> List.of(Component.translatable("gtceu.vacuum.tier", getVacuumTier())), () -> true, () -> null));
     }
 }

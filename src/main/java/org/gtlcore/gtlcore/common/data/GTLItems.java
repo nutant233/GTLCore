@@ -732,4 +732,6 @@ public class GTLItems {
     public static ItemEntry<Item> STREPTOCOCCUS_PETRI_DISH = register("streptococcus_petri_dish", "germ");
     public static ItemEntry<Item> CUPRIAVIDUS_PETRI_DISH = register("cupriavidus_petri_dish", "germ");
     public static ItemEntry<Item> SHEWANELLA_PETRI_DISH = register("shewanella_petri_dish", "germ");
+
+    public static ItemEntry<Item> CONVERSION_SIMULATE_CARD = register("conversion_simulate_card");
 }

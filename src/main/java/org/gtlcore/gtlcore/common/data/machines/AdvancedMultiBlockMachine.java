@@ -44,6 +44,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -317,6 +318,7 @@ public class AdvancedMultiBlockMachine {
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("b", Predicates.blocks(GTLBlocks.ALUMINIUM_BRONZE_CASING.get()).setMinGlobalLimited(120)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
+                            .or(Predicates.blocks(GTLMachines.BLOCK_BUS.getBlock()).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("c", Predicates.blocks(GTLBlocks.SHINING_OBSIDIAN.get()))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get())
@@ -352,6 +354,7 @@ public class AdvancedMultiBlockMachine {
                     .where("a", Predicates.controller(Predicates.blocks(definition.get())))
                     .where("b", Predicates.blocks(GTLBlocks.ALUMINIUM_BRONZE_CASING.get()).setMinGlobalLimited(240)
                             .or(Predicates.autoAbilities(definition.getRecipeTypes()))
+                            .or(Predicates.blocks(GTLMachines.BLOCK_BUS.getBlock()).setMaxGlobalLimited(1))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1)))
                     .where("c", Predicates.blocks(GTLBlocks.SHINING_OBSIDIAN.get()))
                     .where("d", Predicates.blocks(GTBlocks.CASING_TEMPERED_GLASS.get())
@@ -568,11 +571,11 @@ public class AdvancedMultiBlockMachine {
                                     }
                                 }
                                 if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magnetohydrodynamicallyconstrainedstarmatter_block")) {
-                                    server.kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"minecraft:command_block\",Count:" + item.getItem().getCount() + "b}}");
+                                    level.addFreshEntity(new ItemEntity(level, item.getX(), item.getY(), item.getZ(), new ItemStack(Blocks.COMMAND_BLOCK.asItem(), item.getItem().getCount())));
                                     item.kill();
                                 }
                                 if (entity instanceof ItemEntity item && Objects.equals(item.getItem().kjs$getId(), "gtceu:magmatter_ingot") && item.getItem().getCount() >= 64) {
-                                    server.kjs$runCommandSilent("summon minecraft:item " + item.getX() + " " + item.getY() + " " + item.getZ() + " {PickupDelay:10,Motion:[0.0,0.2,0.0],Item:{id:\"gtceu:magmatter_block\",Count:" + (item.getItem().getCount() / 64) + "b}}");
+                                    level.addFreshEntity(new ItemEntity(level, item.getX(), item.getY(), item.getZ(), ChemicalHelper.get(TagPrefix.block, GTLMaterials.Magmatter, item.getItem().getCount() / 64)));
                                     item.kill();
                                 }
                             }

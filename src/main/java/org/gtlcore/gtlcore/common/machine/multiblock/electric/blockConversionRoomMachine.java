@@ -1,27 +1,31 @@
 package org.gtlcore.gtlcore.common.machine.multiblock.electric;
 
+import org.gtlcore.gtlcore.api.machine.multiblock.StorageMachine;
 import org.gtlcore.gtlcore.common.data.GTLBlocks;
+import org.gtlcore.gtlcore.common.data.GTLItems;
+import org.gtlcore.gtlcore.common.machine.multiblock.part.BlockBusPartMachine;
 
 import com.gregtechceu.gtceu.api.data.chemical.ChemicalHelper;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
+
+import com.lowdragmc.lowdraglib.misc.ItemStackTransfer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class blockConversionRoomMachine extends WorkableElectricMultiblockMachine {
+public class blockConversionRoomMachine extends StorageMachine {
 
     private static final List<int[]> poses1 = new ArrayList<>();
     private static final List<int[]> poses2 = new ArrayList<>();
@@ -54,31 +58,64 @@ public class blockConversionRoomMachine extends WorkableElectricMultiblockMachin
     private final int am;
     private final List<int[]> poses;
 
-    public blockConversionRoomMachine(IMachineBlockEntity holder, boolean isLarge, Object... args) {
-        super(holder, args);
+    private BlockBusPartMachine blockBusPartMachine = null;
+
+    public blockConversionRoomMachine(IMachineBlockEntity holder, boolean isLarge) {
+        super(holder, 1);
         this.am = isLarge ? 64 : 4;
         this.poses = isLarge ? poses2 : poses1;
+    }
+
+    @Override
+    protected boolean filter(@NotNull ItemStack itemStack) {
+        return itemStack.getItem() == GTLItems.CONVERSION_SIMULATE_CARD.get();
+    }
+
+    @Override
+    public void onStructureFormed() {
+        super.onStructureFormed();
+        for (IMultiPart part : getParts()) {
+            if (part instanceof BlockBusPartMachine busPartMachine) {
+                this.blockBusPartMachine = busPartMachine;
+            }
+        }
+    }
+
+    @Override
+    public void onStructureInvalid() {
+        super.onStructureInvalid();
+        blockBusPartMachine = null;
     }
 
     @Override
     public boolean onWorking() {
         boolean value = super.onWorking();
         if (getOffsetTimer() % 20 == 0) {
-            Level level = getLevel();
-            if (level != null) {
-                int amount = getTier() * am - 7;
-                int[] pos = new int[] {};
-                for (int i = 0; i < amount; i++) {
-                    int[] pos_0 = poses.get((int) (Math.random() * poses.size()));
-                    if (pos_0 != pos) {
-                        pos = pos_0;
-                        BlockPos blockPos = getPos().offset(pos[0], pos[1], pos[2]);
-                        Block block = level.getBlockState(blockPos).getBlock();
-                        if (covRecipe.containsKey(block)) {
-                            level.setBlockAndUpdate(blockPos, covRecipe.get(block).defaultBlockState());
+            int amount = getTier() * am - 7;
+            if (blockBusPartMachine != null && getMachineStorageItem().getItem() == GTLItems.CONVERSION_SIMULATE_CARD.get()) {
+                ItemStackTransfer stackTransfer = blockBusPartMachine.getInventory().storage;
+                for (int i = 0; i < Math.min(Math.sqrt(amount), stackTransfer.getSlots()); i++) {
+                    ItemStack itemStack = stackTransfer.getStackInSlot(i);
+                    if (itemStack.getItem() instanceof BlockItem blockItem && covRecipe.containsKey(blockItem.getBlock())) {
+                        stackTransfer.setStackInSlot(i, new ItemStack(covRecipe.get(blockItem.getBlock()).asItem(), itemStack.getCount()));
+                    }
+                }
+            } else {
+                Level level = getLevel();
+                if (level != null) {
+                    int[] pos = new int[] {};
+                    for (int i = 0; i < amount; i++) {
+                        int[] pos_0 = poses.get((int) (Math.random() * poses.size()));
+                        if (pos_0 != pos) {
+                            pos = pos_0;
+                            BlockPos blockPos = getPos().offset(pos[0], pos[1], pos[2]);
+                            Block block = level.getBlockState(blockPos).getBlock();
+                            if (covRecipe.containsKey(block)) {
+                                level.setBlockAndUpdate(blockPos, covRecipe.get(block).defaultBlockState());
+                            }
+                        } else {
+                            i--;
                         }
-                    } else {
-                        i--;
                     }
                 }
             }
